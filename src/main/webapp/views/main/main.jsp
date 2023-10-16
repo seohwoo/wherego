@@ -34,13 +34,13 @@
 
 	<br/><hr /><br/>
 	<h3 align= "center"> Top 8 여행지</h3><br/>
-		<%@ include file="topArea.jsp" %>
-	<br/><hr /><br/>
+	<%@ include file="topArea.jsp" %>
+ 	<br/><hr /><br/>
 	<h3 align= "center"> Best 매거진</h3><br/>
-		<%@ include file="bestMag.jsp" %>
+	<%@ include file="bestMag.jsp" %>
 	<div >
 	<br/><hr /><br/>
-		<%@ include file="footer.jsp" %>	
+	<%@ include file="footer.jsp" %>	
 	</div>
 
 </body>

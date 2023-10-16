@@ -11,6 +11,7 @@
 </head>
 <body>
 	<%
+		//start form
 		API_used api = API_used.getInstance();
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();	
 	

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import = "team02.login.MemberShipDAO" %>
-<%@ include file="/views/login/color.jsp"%>
+<%@ page import = "team02.member.MemberDAO" %>
+<%@ include file="/views/not/login/color.jsp"%>
 <% request.setCharacterEncoding("UTF-8");%>
 
-<jsp:useBean id="member" class="team02.login.MemberShipDTO">
+<jsp:useBean id="member" class="team02.member.MemberDTO">
 	<jsp:setProperty name="member" property="*" />
 </jsp:useBean>
 
@@ -12,8 +12,8 @@
 	String id=(String)session.getAttribute("memId");
 	member.setId(id);
 	
-	MemberShipDAO manager = MemberShipDAO.getInstance();
-	manager.updateMember(member);  //  아직 안만듬 dao
+	MemberDAO manager = MemberDAO.getInstance();
+	manager.updateMember(member);  
 
 %>
 <link href="style.css" rel="stylesheet" type="text/css">

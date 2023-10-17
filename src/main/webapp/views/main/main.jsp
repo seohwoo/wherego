@@ -28,19 +28,19 @@
 	</div>
 		 	
 			
-	<a href="/team02/views/list/locationHigh.jsp" class="btn btn-secondary">지역별 여행지 보기</a>
+	<a href="areas.jsp" class="btn btn-secondary">지역별 여행지 보기</a>
 	<a href="#" class="btn btn-secondary">나의 여행 계획 짜기</a>
 	</div>
 
 	<br/><hr /><br/>
 	<h3 align= "center"> Top 8 여행지</h3><br/>
-	<%@ include file="topArea.jsp" %>
- 	<br/><hr /><br/>
+		<%@ include file="topArea.jsp" %>
+	<br/><hr /><br/>
 	<h3 align= "center"> Best 매거진</h3><br/>
-	<%@ include file="bestMag.jsp" %>
+		<%@ include file="bestMag.jsp" %>
 	<div >
 	<br/><hr /><br/>
-	<%@ include file="footer.jsp" %>	
+		<%@ include file="footer.jsp" %>	
 	</div>
 
 </body>

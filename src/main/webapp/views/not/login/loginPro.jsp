@@ -15,7 +15,7 @@
 	if(check==1){
 		//로그인 성공
 		session.setAttribute("memId",id);
-		response.sendRedirect("main.jsp");
+		response.sendRedirect("/views/main/main.jsp");
 	}else if(check==0){%>
 	<script> 
 	  alert("아이디와 비밀번호를 확인하세요.");

@@ -14,7 +14,7 @@
 
 <!-- Button trigger modal -->
 
-<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" align="right">
+<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" align="right">
   LOGIN
 </button>
 <!-- Modal -->

@@ -1,6 +1,6 @@
-﻿<%@ page contentType="text/html; charset=utf-8"%>
+﻿<%@ page contentType="text/html; charset=UTF-8"%>
 
 <%
 	session.invalidate();
-	response.sendRedirect("loginForm.jsp");
+	response.sendRedirect("/team02/views/main.jsp");
 %>

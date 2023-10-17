@@ -8,6 +8,7 @@
 	<title>BestMagazine</title>
 </head>
 <body>
+<!-- 틀만작성 , 수정예정 -->
 <div class="container text-center">
 	<div class="card mb-3">
 	  <img src="..." class="card-img-top" alt="...">

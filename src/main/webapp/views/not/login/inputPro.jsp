@@ -16,5 +16,5 @@
 
 	MemberDAO manager = MemberDAO.getInstance();
 	manager.insertMember(member);
-	response.sendRedirect("main.jsp");
+	response.sendRedirect("/team02/views/main/main.jsp");
 %>  

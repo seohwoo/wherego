@@ -8,6 +8,7 @@
 	<title>TopArea</title>
 </head>
 <body>
+<!-- 틀만작성 , 수정예정 -->
 <div class="container text-center">
 		<div class="row row-cols-4">
 		<!-- 서울 -->

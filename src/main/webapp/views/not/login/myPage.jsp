@@ -9,12 +9,10 @@
 <body>
 <h1>일단메인</h1>
 
-<input type="button" value="로그인" OnClick="window.location='loginForm.jsp'">
 <input type="button" value="수정하기" OnClick="window.location='updateForm.jsp'">
 <input type="button" value="삭제하기" OnClick="window.location='deleteForm.jsp'">
-<input type="button" value="로그아웃" OnClick="window.location='logout.jsp'">
-<input type="button" value="회원가입" OnClick="window.location='inputForm.jsp'">
 <input type="button" value="정보보기" OnClick="window.location='view.jsp'">
+<input type="button" value="리뷰확인하기" OnClick="window.location='#'">
 
 
 </body>

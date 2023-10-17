@@ -98,7 +98,7 @@
     <tr> 
       <td   width="200">프로필사진</td>
       <td  width="400"> 
-        <input type="file" name="profile" class="form-control" value="<%=c.getProfile()%>">
+        <input type="file" name="profile" enctype="multipart/form-data" value="<%=c.getProfile()%>">
       </td>
     </tr>
     

@@ -168,6 +168,7 @@ public class API_used extends Using_API_KEY {
 			randInfo.put("cat3", arrItem.get("cat3").toString());
 			randInfo.put("addr1", arrItem.get("addr1").toString());
 			randInfo.put("overview", arrItem.get("overview").toString());
+			randInfo.put("contentid", arrItem.get("contentid").toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -230,5 +231,34 @@ public class API_used extends Using_API_KEY {
 		}
 		return category;
 	}// findCategory()
+
+	public String findArea(String areaCode) {
+		api_key = getEncoding_API_KEY();
+		String area = "";
+		try {
+
+			url = new URL(
+					"https://apis.data.go.kr/B551011/KorService1/areaCode1?numOfRows=50&pageNo=1&MobileOS=ETC&MobileApp=team02&_type=json&serviceKey="
+							+ api_key);
+			bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+			result = bf.readLine();
+			JSONParser jsonParser = new JSONParser();
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(result);
+			JSONObject response = (JSONObject) jsonObject.get("response");
+			JSONObject body = (JSONObject) response.get("body");
+			JSONObject items = (JSONObject) body.get("items");
+			int totalCount = ((Long) body.get("totalCount")).intValue();
+			JSONArray item = (JSONArray) items.get("item");
+			for (int i = 0; i < totalCount; i++) {
+				JSONObject arrItem = (JSONObject) item.get(i);
+				if (arrItem.get("code").toString().equals(areaCode)) {
+					area = arrItem.get("name").toString();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return area;
+	}// findArea()
 
 }

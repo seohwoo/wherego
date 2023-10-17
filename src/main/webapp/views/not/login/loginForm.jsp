@@ -18,7 +18,7 @@
   LOGIN
 </button>
 <!-- Modal -->
-<form name = "myform" action = "loginPro.jsp" method="post" onSubmit="return checkIt()">
+<form name = "myform" action = "/team02/views/not/login/loginPro.jsp" method="post" onSubmit="return checkIt()">
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

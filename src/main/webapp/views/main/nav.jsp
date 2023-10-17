@@ -25,6 +25,15 @@
 	        <li class="nav-item">
 	          <a class="nav-link" aria-current="page" href="/team2/main/listGuide.jsp"> Guide </a>
 	        </li>
+	         <li class="nav-item dropdown">
+	          <a class="nav-link dropdown-toggle" href="/team2/board/board.jsp" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	            Community
+	          </a>
+	          <ul class="dropdown-menu">
+	            <li><a class="dropdown-item" href="#">Notice</a></li>
+	            <li><a class="dropdown-item" href="/team2/board/askList.jsp">Q & A</a></li>
+	          </ul>
+	        </li>
 	      </ul>
 	      <div class = "collapse navbar-collapse justify-content-end">
 		      <ul class="navbar-nav">
@@ -32,7 +41,7 @@
 		      		<%@ include file = "/views/not/login/loginForm.jsp" %>
 	       		 </li>&nbsp;
 	       		 <li class="nav-item">
-	          		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/team02/views/not/login/inputForm.jsp'">Sign Up</button>
+	          		<button type="button" class="btn btn-secondary">Sign-up</button>
 	          	</li>
 	          </ul>
 	      </div>
@@ -55,14 +64,23 @@
 	        <li class="nav-item">
 	          <a class="nav-link" aria-current="page" href="/team2/main/listGuide.jsp"> Guide </a>
 	        </li>
+	        <li class="nav-item dropdown">
+	          <a class="nav-link dropdown-toggle" href="/team2/board/board.jsp" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	            Community
+	          </a>
+	          <ul class="dropdown-menu">
+	            <li><a class="dropdown-item" href="#">Notice</a></li>
+	            <li><a class="dropdown-item" href="/team2/board/askList.jsp">Q & A</a></li>
+	          </ul>
+	        </li>
 	      </ul>
 	      <div class = "collapse navbar-collapse justify-content-end">
 		      <ul class="navbar-nav">
 		      	<li class="nav-item">
-		      		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/team02/views/not/login/logout.jsp'">logout</button>
+		      		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/team02/team2/login/logout.jsp'">logout</button>
 	       		 </li>&nbsp;
-	       		 <li class="nav-item"> <!-- mypage 링크 추가 -->
-	          		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/team02/views/not/login/myPage.jsp'">myPage</button>
+	       		 <li class="nav-item">
+	          		<button type="button" class="btn btn-outline-secondary">mypage</button>
 	          	</li>
 	          </ul>
 	      </div>

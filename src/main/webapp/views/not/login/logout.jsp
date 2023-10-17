@@ -2,5 +2,5 @@
 
 <%
 	session.invalidate();
-	response.sendRedirect("/team02/views/main.jsp");
+	response.sendRedirect("/team02/views/main/main.jsp");
 %>

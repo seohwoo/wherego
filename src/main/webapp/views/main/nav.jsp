@@ -32,7 +32,7 @@
 		      		<%@ include file = "/views/not/login/loginForm.jsp" %>
 	       		 </li>&nbsp;
 	       		 <li class="nav-item">
-	          		<button type="button" class="btn btn-secondary">Sign-up</button>
+	          		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/team02/views/not/login/inputForm.jsp'">Sign Up</button>
 	          	</li>
 	          </ul>
 	      </div>
@@ -59,10 +59,10 @@
 	      <div class = "collapse navbar-collapse justify-content-end">
 		      <ul class="navbar-nav">
 		      	<li class="nav-item">
-		      		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/team02/views/login/logout.jsp'">logout</button>
+		      		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/team02/views/not/login/logout.jsp'">logout</button>
 	       		 </li>&nbsp;
 	       		 <li class="nav-item"> <!-- mypage 링크 추가 -->
-	          		<button type="button" class="btn btn-outline-secondary">mypage</button>
+	          		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/team02/views/not/login/myPage.jsp'">myPage</button>
 	          	</li>
 	          </ul>
 	      </div>

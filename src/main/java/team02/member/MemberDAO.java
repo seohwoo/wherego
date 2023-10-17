@@ -89,7 +89,7 @@ public class MemberDAO extends Connect{
   					
   					pstmt = conn.prepareStatement(
   							"select nic from member2 where nic=?");
-  					pstmt.setString(4,nic);
+  					pstmt.setString(1,nic);
   					rs=pstmt.executeQuery();
   					
   					if(rs.next())
@@ -127,7 +127,8 @@ public class MemberDAO extends Connect{
                 member.setAddress(rs.getString("address"));
    				member.setEmail(rs.getString("email"));
    				member.setPhone(rs.getString("phone"));
-                member.setReg_date(rs.getString("reg_date"));  
+   				member.setProfile(rs.getString("profile"));             
+   				member.setReg_date(rs.getString("reg_date"));  
    			}
           } catch(Exception ex) {
               ex.printStackTrace();

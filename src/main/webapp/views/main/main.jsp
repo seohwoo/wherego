@@ -26,7 +26,7 @@
 			<button class="btn btn-outline-secondary" type="button" id="button-addon2" onClick="#">검색</button>
 		</div>
 	</div>
-		 	
+		 	 
 			
 	<a href="areas.jsp" class="btn btn-secondary">지역별 여행지 보기</a>
 	<a href="#" class="btn btn-secondary">나의 여행 계획 짜기</a>

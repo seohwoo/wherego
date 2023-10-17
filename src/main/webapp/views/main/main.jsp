@@ -20,7 +20,7 @@
 	
 	<div class="d-grid gap-2 col-6 mx-auto">
 	
-	<div class="input-group mb-3">
+	<div class="input-group mb-3">0
 		<input type="text" class="form-control" placeholder="여행지를 검색해보세요">
 		<div class="col-auto">
 			<button class="btn btn-outline-secondary" type="button" id="button-addon2" onClick="#">검색</button>
@@ -32,7 +32,6 @@
 	<a href="#" class="btn btn-secondary">나의 여행 계획 짜기</a>
 	</div>
 
-	<br/><hr /><br/>
 	<h3 align= "center"> Top 8 여행지</h3><br/>
 		<%@ include file="topArea.jsp" %>
 	<br/><hr /><br/>

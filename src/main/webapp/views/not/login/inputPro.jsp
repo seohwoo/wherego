@@ -6,14 +6,11 @@
 	<jsp:setProperty name="member" property="*"/>
 </jsp:useBean>
 
-
-
-
-
-
-
  <% 
-
+	
+ 	
+ 
+ 
 	MemberDAO manager = MemberDAO.getInstance();
 	manager.insertMember(member);
 	response.sendRedirect("/team02/views/main/main.jsp");

@@ -6,7 +6,11 @@
 <%
     String id = request.getParameter("id");
 	String pw = request.getParameter("pw");
+	String askListUrl = String.valueOf(session.getAttribute("askListUrl"));
 	
+	
+	
+
 	
 	MemberDAO manager = MemberDAO.getInstance();
 	
@@ -15,7 +19,13 @@
 	if(check==1){
 		//로그인 성공
 		session.setAttribute("memId",id);
-		response.sendRedirect("/team02/views/main/main.jsp");
+		if(askListUrl.equals("http://localhost:8080/team02/views/main/board/askList.jsp")) {
+			String originalString = askListUrl;
+			String realAskListUrl = originalString.substring(originalString.indexOf("/team02"));
+			response.sendRedirect(realAskListUrl);
+		}else{
+			response.sendRedirect("/team02/views/main/main.jsp");
+		}
 	}else if(check==0){%>
 	<script> 
 	  alert("아이디와 비밀번호를 확인하세요.");

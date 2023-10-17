@@ -25,6 +25,8 @@
         askList = dao.getAsk(start, end);
     }
     number = count - (currentPage - 1) * pageSize;
+    
+    session.setAttribute("askListUrl", request.getRequestURL());
 %>
 <!DOCTYPE html>
 <html>

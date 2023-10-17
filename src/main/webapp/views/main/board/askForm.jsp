@@ -18,7 +18,7 @@ try {
  %>
         <script>
             alert("로그인 후 사용가능!\n 왼쪽 상단 community를 통해 접속하세요.");
-            window.location="/team02/team2/board/askList.jsp";
+            window.location="/team02/views/main/board/askList.jsp";
         </script>
     <body>
 <% } else { %>

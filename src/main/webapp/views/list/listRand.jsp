@@ -39,7 +39,7 @@
       String src = "";   
        for(HashMap<String, String> festival : list) {%>
        
-         <a href="contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=festival.get("contentid") %>" >
+         <a href="contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=festival.get("contentid")%>&pageNum=<%=pageNum%>" >
           <% src = festival.get("firstimage");
           if(!src.equals("")){%>
           <img src="<%=festival.get("firstimage") %>" width="200" height="200"/>

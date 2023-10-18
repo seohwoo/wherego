@@ -38,6 +38,7 @@
 	<tr>
 		<td colspan="2" height="39" align="center" bgcolor="<%=yellow_y%>">
 		<font size= "+2"><b>회원가입 양식</b></font>
+	<input type="hidden" name="profile" value="/views/not/login/DEFAULT/default.png">
 	</tr>
 	
 	<tr>
@@ -105,12 +106,7 @@
 		<input type="text" name="phone" size="20" maxlength="12" required="required"> </td>
 	</tr>
 	
-	
-	<tr>
-		<td width="200" bgcolor="<%=value_c%>"> 프로필 사진 </td>
-		<td width="400" bgcolor="<%=value_c%>">	
-		<input type="file" name="profile" enctype="multipart/form-data""> </td>
-	</tr>
+
 	
 
 		<td colspan="2" align="center" bgcolor="<%=value_c%>"> 

@@ -10,7 +10,7 @@
 
 <body>
 	<%@ include file="nav.jsp" %>
-	
+
 	<br />
 	<div class="text-center">
 		<h1>어디 Go</h1>
@@ -20,7 +20,7 @@
 	
 	<div class="d-grid gap-2 col-6 mx-auto">
 	
-	<div class="input-group mb-3">0
+	<div class="input-group mb-3">
 		<input type="text" class="form-control" placeholder="여행지를 검색해보세요">
 		<div class="col-auto">
 			<button class="btn btn-outline-secondary" type="button" id="button-addon2" onClick="#">검색</button>

@@ -45,11 +45,6 @@
 	<!-- 문의 글 -->
      <h2 align="center">askContent</h2>
     <br />
-    <div align="center">
-    	<button type="button" class="btn btn-light" OnClick="window.location='askForm.jsp'">✏ 문의하기 ✏</button>
-    	<button type="button" class="btn btn-light" OnClick="window.location='myList.jsp'">나의 문의글</button>
-    </div>
-    <br />
 	
 	<table class="table table-bordered" width="700" cellpadding="0" cellspacing="0" align="center">
 	    <tr>
@@ -69,12 +64,22 @@
 		    <td colspan="3" align="center"><%=dto.getContent()%></td>
 		  </tr>
 	</table>
-	
+	<%
+	String memId = (String) session.getAttribute("memId");
+	String admin = "admin"; 
+	if (memId.equals(admin)) { %>
 	<div align="center">
-    	<button type="button" class="btn btn-light" OnClick="window.location='reForm.jsp'">답변달기</button>
-    </div>
-
-<%}
+	    <button type="button" class="btn btn-light" OnClick="window.location='reForm.jsp'">답변달기</button>
+	    <button type="button" class="btn btn-light">삭제하기</button>
+	</div>
+	<%
+	} else { %>
+	<div align="center">
+	    <button type="button" class="btn btn-light" OnClick="window.location='askUpdateForm.jsp?num=<%=num%>'">수정하기</button>
+	    <button type="button" class="btn btn-light" onclick="window.location='askDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
+	</div>
+	<%}
+	}
 }catch(Exception e){} 	%>
 	
 

@@ -1,5 +1,5 @@
-<%@ page import="team02.askboard.AskboardDAO" %>
-<%@ page import="team02.askboard.AskboardDTO" %>
+<%@ page import="team02.notice.NoticeDAO" %>
+<%@ page import="team02.notice.NoticeDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
@@ -17,16 +17,14 @@
     int end = currentPage * pageSize;
     int count = 0;
     int number = 0;
-
-    List<AskboardDTO> askList = null;
-    AskboardDAO dao = AskboardDAO.getInstance();
-    count = dao.getAskCount();
+    String writer = null;
+    List<NoticeDTO> noticeList = null;
+    NoticeDAO dao = NoticeDAO.getInstance();
+    count = dao.getNoticeCount();
     if (count > 0) {
-        askList = dao.getAsk(start, end);
+    	noticeList = dao.getNotice();
     }
     number = count - (currentPage - 1) * pageSize;
-    
-    session.setAttribute("askListUrl", request.getRequestURL());
 %>
 <!DOCTYPE html>
 <html>
@@ -42,19 +40,18 @@
 	<br />
 	<hr />
 	
-	 <!-- 문의 리스트 -->
-    <h2 align="center">askList</h2>
+	 <!-- noticeList -->
+    <h2 align="center">📢 공지게시판 📢</h2>
     <br />
     <div align="center">
-    	<button type="button" class="btn btn-light" OnClick="window.location='askForm.jsp'">✏ 문의하기 ✏</button>
-    	<button type="button" class="btn btn-light" OnClick="window.location='askMyList.jsp'">나의 문의글</button>
+    	<button type="button" class="btn btn-light" OnClick="window.location='noticeForm.jsp'">✏ 공지 작성 ✏</button>
     </div>
     <br />
 
     <% if (count == 0) { %>
     <table>
         <tr>
-            <td>문의 글이 없습니다.</td>
+            <td>공지사항이 없습니다.</td>
         </tr>
     </table>
     <% } else { %>
@@ -68,14 +65,14 @@
                 <td align="center" width="150"><b>조회수</b></td>
             </tr>
         </thread>
-        <% for (int i = 0; i < askList.size(); i++) {
-            AskboardDTO dto = askList.get(i); %>
+        <% for (int i = 0; i < noticeList.size(); i++) {
+            NoticeDTO dto = noticeList.get(i); %>
         <tbody>
             <tr height="30">
                 <td align="center" width="50"><%= number-- %></td>
                 <td align="center" width="250"><%= dto.getWriter() %></td>
                 <td align="center" width="250">
-                    <a href="/team02/views/main/board/content.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">
+                    <a href="/team02/team2/board/content.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">
                         <%= dto.getTitle() %>
                     </a>
                 </td>

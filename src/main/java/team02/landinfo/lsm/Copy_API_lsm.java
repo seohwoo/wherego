@@ -1,4 +1,4 @@
-package team02.list;
+package team02.landinfo.lsm;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -12,7 +12,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-public class API_used extends Using_API_KEY {
+public class Copy_API_lsm extends Using_API_KEY {
 	String api_key;
 	BufferedReader bf;
 	String result;
@@ -20,13 +20,13 @@ public class API_used extends Using_API_KEY {
 	int pageNum;
 	int numOfRows;
 
-	private API_used() {
+	private Copy_API_lsm() {
 
 	}
 
-	private static API_used instance = new API_used();
+	private static Copy_API_lsm instance = new Copy_API_lsm();
 
-	public static API_used getInstance() {
+	public static Copy_API_lsm getInstance() {
 		return instance;
 	}
 

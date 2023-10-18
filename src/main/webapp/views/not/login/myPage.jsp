@@ -18,12 +18,9 @@ MemberDTO c = manager.getMember(id);
 
 try {
 %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
+
     <title>마이페이지</title>
-</head>
+
 <body>
     <center>
         <!-- 프로필 이미지 및 닉네임 표시 -->
@@ -32,14 +29,17 @@ try {
         <%= c.getNic() %> 마이페이지
     </center>
 
-    <h1>일단 메인</h1>
-
+  <p>
+  
+<center>
     <input type="button" value="수정하기" OnClick="window.location='updateForm.jsp'">
     <input type="button" value="삭제하기" OnClick="window.location='deleteForm.jsp'">
     <input type="button" value="정보보기" OnClick="window.location='view.jsp'">
-    <input type="button" value="리뷰확인하기" OnClick="window.location='#'">
-</body>
-</html>
+    <input type="button" value="리뷰확인하기" OnClick="window.location='board.jsp'">
+ </center>
+
+<hr>
+
 <%
 } catch (Exception e) {
     e.printStackTrace();

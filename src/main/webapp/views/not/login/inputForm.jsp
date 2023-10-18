@@ -38,7 +38,7 @@
 	<tr>
 		<td colspan="2" height="39" align="center" bgcolor="<%=yellow_y%>">
 		<font size= "+2"><b>회원가입 양식</b></font>
-	<input type="hidden" name="profile" value="/views/not/login/DEFAULT/default.png">
+		</td>
 	</tr>
 	
 	<tr>

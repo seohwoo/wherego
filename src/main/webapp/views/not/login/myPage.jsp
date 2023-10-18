@@ -27,7 +27,8 @@ try {
 <body>
     <center>
         <!-- 프로필 이미지 및 닉네임 표시 -->
-        <img width="50" src="<%= c.getProfile() %>">
+        <img width="50" src="/team02/views/not/login/DEFAULT/<%= c.getProfile() %>">
+        <button>변경</button>
         <%= c.getNic() %> 마이페이지
     </center>
 

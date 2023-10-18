@@ -25,7 +25,7 @@ public class MemberDAO extends Connect{
          try {
             conn = getConnection();
             pstmt = conn.prepareStatement(
-            		"insert into member2 values (?,?,?,?,?,?,?,?,?,?,sysdate)");
+            		"insert into member2(id, pw, name, nic, birth, gender, address, email, phone, reg_date) values (?,?,?,?,?,?,?,?,?,sysdate)");
             pstmt.setString(1, member.getId());
             pstmt.setString(2, member.getPw());
             pstmt.setString(3, member.getName());
@@ -35,7 +35,6 @@ public class MemberDAO extends Connect{
             pstmt.setString(7, member.getAddress());
             pstmt.setString(8, member.getEmail());
             pstmt.setString(9, member.getPhone());
-            pstmt.setString(10, member.getProfile());
          
             
             pstmt.executeUpdate();

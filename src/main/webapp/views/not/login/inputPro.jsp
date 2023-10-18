@@ -15,3 +15,4 @@
    manager.insertMember(member);
    response.sendRedirect("/team02/views/main/main.jsp");
 %>  
+

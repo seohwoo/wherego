@@ -67,13 +67,14 @@ public String getPhone() {
 public void setPhone(String phone) {
 	this.phone = phone;
 }
+
+
 public String getProfile() {
 	return profile;
 }
 public void setProfile(String profile) {
 	this.profile = profile;
 }
-
 public String getReg_date() {
 	return reg_date;
 }

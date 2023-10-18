@@ -81,5 +81,26 @@
 		<h5>유모차 대여 : <%=DetailrandInfo.get("chkbabycarriage") %></h5>
 		<h5>반려견 입장 : <%=DetailrandInfo.get("chkpet") %></h5>
 		<h5>평점 : <%=avg%>  <input type="button" value="평점주기" OnClick="insertStar(<%=areaCode%>,<%=sigunguCode%>,<%=contentid%>,<%=pageNum%>)"></h5>
+		<form action="putLandPro.jsp" method="post" onsubmit="return changeButtonColor()">
+        	<input type="submit" value="담기" name="putLand" id="putLand">
+   	 	</form>
 </body>
+<script>
+var buttonClicked = false; // 초기에 버튼이 클릭되지 않았음을 나타내는 변수
+
+function changeButtonColor() {
+    const button = document.getElementById("putLand");
+
+    if (!buttonClicked) {
+        // 버튼의 색상을 빨간색으로 변경합니다.
+        button.style.backgroundColor = "#d06058";
+        buttonClicked = true;
+    } else {
+        // 버튼이 이미 클릭되었을 때, 다시 클릭하면 원래 색상으로 변경합니다.
+        button.style.backgroundColor = ""; // 빈 문자열로 설정하여 원래 스타일로 돌아갑니다.
+        buttonClicked = false;
+    }
+    return true; // 폼을 서버로 제출합니다.
+}
+</script>
 </html>

@@ -107,7 +107,7 @@
 	<tr> 
       <td colspan="2" align="center" bgcolor="<%=value_c%>"> 
        <input type="submit" name="sujung" value="수   정" >
-       <input type="button" value="취  소" onclick="javascript:window.location='main.jsp'">      
+       <input type="button" value="취  소" onclick="javascript:window.location='/team02/views/not/login/myPage.jsp'">      
       </td>
     </tr>
 

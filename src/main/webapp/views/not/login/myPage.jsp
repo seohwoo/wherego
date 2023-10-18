@@ -3,6 +3,8 @@
 <%@ page import="team02.member.MemberDAO" %>
 <%@ page import="team02.member.MemberDTO" %>
 
+
+
 <% if (session.getAttribute("memId") == null) { %>
     <script>
         alert("로그인 후 사용 가능합니다.");
@@ -15,6 +17,10 @@ String id = (String) session.getAttribute("memId");
 
 MemberDAO manager = MemberDAO.getInstance();
 MemberDTO c = manager.getMember(id);
+
+
+
+
 
 try {
 %>
@@ -32,16 +38,47 @@ try {
   <p>
   
 <center>
-    <input type="button" value="수정하기" OnClick="window.location='updateForm.jsp'">
+
+
+	<%
+          if(id != null) {
+             if(id.equals(c.getId())) {%>
+              <input type="button" value="수정하기" OnClick="window.location='updateForm.jsp'">
     <input type="button" value="삭제하기" OnClick="window.location='deleteForm.jsp'">
     <input type="button" value="정보보기" OnClick="window.location='view.jsp'">
-    <input type="button" value="리뷰확인하기" OnClick="window.location='board.jsp'">
+    <input type="button" value="리뷰확인하기" OnClick="window.location='board.jsp'">  	
+    <%}else{%>  
+    현재 ' <%= c.getNic() %>' 님 페이지를 구경하고 있습니다.
+     <%} %>    
+     <%} %> 
+     
+     
+     
+     
+      
  </center>
 
 <hr>
 
-<%
-} catch (Exception e) {
+
+<center>
+<table >
+<tr>
+    <td >     
+    <%
+       if(id != null) {
+       if(id.equals(c.getId())) {%>
+            <input type="button" value="magazine" onclick="window.location='#'"> 
+            <input type="button" value="myreviews" onclick="window.location='#'">
+            <input type="button" value="mypick" onclick="window.location='#'">
+            <%} else {%>
+            <input type="button" value="magazine" onclick="window.location='#'"> 
+            <%} %>
+            <%} %> 
+            </td>     
+        </tr>
+    </table>
+    </center>
+<%} catch (Exception e) {
     e.printStackTrace();
-}
-%>
+}%>

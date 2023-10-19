@@ -22,7 +22,6 @@ public class NoticeDAO extends OracleDB{
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int num = dto.getNum();
-
 		int number = 0;
 		String sql = "";
 		try {
@@ -48,7 +47,7 @@ public class NoticeDAO extends OracleDB{
 		}
 	}
 	
-	//write에 관리자명(nic) 
+	//write에 관리자명(nic) 가져오기
 	public String selectNo(String nic) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -81,8 +80,8 @@ public class NoticeDAO extends OracleDB{
 		List noticeList = null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select * from " + " (select b.* , rownum r from "
-					+ " b) " + " where r >= ? and r <= ? ");
+			pstmt = conn.prepareStatement("select * from " + " (select b.*, rownum r from"
+					 +"(select * from notice order by num desc)b)"+" where r >= ? and r <= ? ");
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
 
@@ -90,7 +89,7 @@ public class NoticeDAO extends OracleDB{
 			if (rs.next()) {
 				noticeList = new ArrayList(end);
 				do {
-					AskboardDTO dto = new AskboardDTO();
+					NoticeDTO dto = new NoticeDTO();
 					dto.setNum(rs.getInt("num"));
 					dto.setId(rs.getString("id"));
 					dto.setWriter(rs.getString("writer"));
@@ -129,5 +128,102 @@ public class NoticeDAO extends OracleDB{
 	    }
 	    return x;
 	}
+	
+	//content.jsp (내용 보기)
+		public NoticeDTO getNoContent(int num) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			NoticeDTO dto = null;
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement( // 조회수
+						"update notice set readcount=readcount+1 where num = ?");
+				pstmt.setInt(1, num);
+				pstmt.executeUpdate();
+				pstmt = conn.prepareStatement("select * from notice where num = ?");
+				pstmt.setInt(1, num);
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					dto = new NoticeDTO();
+					dto.setNum(rs.getInt("num"));
+					dto.setId(rs.getString("id"));
+					dto.setWriter(rs.getString("writer"));
+					dto.setTitle(rs.getString("title"));
+					dto.setContent(rs.getString("content"));
+					dto.setReg_date(rs.getTimestamp("reg_date"));
+					dto.setReadcount(rs.getInt("readcount"));
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+			}
 
+			return dto;
+		}
+
+		public String getAdmin(int num) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String result = null;
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement("select * from notice where num=?");
+				pstmt.setInt(1, num);
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					result = rs.getString(1);
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+			}
+			return result;
+
+		}
+		
+		//공지삭제
+		public int deleteNotice(int num) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs= null;
+			int x=-1;
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement("delete from notice where num=?");
+				pstmt.setInt(1, num);
+				x = pstmt.executeUpdate();
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+			}
+			return x;
+		}
+		
+		//공지 수정
+		public int updateNotice(NoticeDTO dto) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs= null;
+			int x=-1;
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement("update notice set writer=?,title=?,content=? where num=?");
+				pstmt.setString(1, dto.getWriter());
+				pstmt.setString(2, dto.getTitle());
+				pstmt.setString(3, dto.getContent());
+				pstmt.setInt(4, dto.getNum());
+				pstmt.executeUpdate();
+				rs = pstmt.executeQuery();
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+			}
+			return x;
+		}
 }

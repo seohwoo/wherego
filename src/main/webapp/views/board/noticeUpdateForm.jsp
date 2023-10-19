@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import = "team02.askboard.AskboardDAO" %>
-<%@ page import = "team02.askboard.AskboardDTO" %>
+<%@ page import = "team02.notice.NoticeDAO" %>
+<%@ page import = "team02.notice.NoticeDTO" %>
 
 <!DOCTYPE html>
 <html>
@@ -12,18 +12,17 @@
 <%
 int num = Integer.parseInt(request.getParameter("num"));
 
-AskboardDAO dao = new AskboardDAO();
-AskboardDTO dto = dao.getAsking(num);
+NoticeDAO dao = new NoticeDAO();
+NoticeDTO dto = dao.getNoContent(num);
 
 try {
     String memId = (String) session.getAttribute("memId");
-    String nic = dao.select(memId);
-    if (!memId.equals(dto.getId())) {
-        // 게시물 작성자와 로그인 사용자가 일치하는 경우
+    String nic = dao.selectNo(memId);
+    if (!memId.equals(dto.getId())) { //등급이 관리자인 사람만 수정 가능 !! 수정하기!!!!
 %>
         <script>
-            alert("작성자만 삭제 가능합니다");
-            window.location="/team02/views/board/askList.jsp";
+            alert("관리자만 수정 가능합니다");
+            window.location="/team02/views/board/noticeList.jsp";
         </script>
     <body>
 <% } else { %>
@@ -36,10 +35,10 @@ try {
     <br />
     <hr />
     
-    <!-- 문의 리스트 -->
-    <h2 align="center">문의 게시판</h2>
+    <!-- 공지(수정) -->
+    <h2 align="center">📢 공지사항(수정) 📢</h2>
     <br />
-    <form action="askDeletePro.jsp" method="post" onsubmit="return writeSave()">
+    <form action="noticeUpdatePro.jsp" method="post" onsubmit="return writeSave()">
         <input type="hidden" name="num" value="<%= num %>">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">작성자</label>
@@ -51,11 +50,11 @@ try {
             <input type="text" name="title" class="form-control" id="exampleFormControlInput2" value="<%= dto.getTitle() %>">
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">문의내용</label>
+            <label for="exampleFormControlTextarea1" class="form-label">공지내용(수정)</label>
             <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"><%= dto.getContent() %></textarea>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto">
-            <button type="submit"  class="btn btn-danger">문의 삭제</button>
+            <button type="submit" class="btn btn-success">수정된 공지 등록</button>
         </div>
     </form>
     

@@ -1,5 +1,5 @@
-<%@ page import="team02.askboard.AskboardDAO" %>
-<%@ page import="team02.askboard.AskboardDTO" %>
+<%@ page import="team02.notice.NoticeDAO" %>
+<%@ page import="team02.notice.NoticeDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
@@ -18,11 +18,11 @@
     int count = 0;
     int number = 0;
 
-    List<AskboardDTO> askList = null;
-    AskboardDAO dao = AskboardDAO.getInstance();
-    count = dao.getAskCount();
+    List<NoticeDTO> noticeList = null;
+    NoticeDAO dao = NoticeDAO.getInstance();
+    count = dao.getNoticeCount();
     if (count > 0) {
-        askList = dao.getAsk(start, end);
+        noticeList = dao.getNotice(start, end);
     }
     number = count - (currentPage - 1) * pageSize;
     
@@ -42,12 +42,11 @@
 	<br />
 	<hr />
 	
-	 <!-- 문의 리스트 -->
-    <h2 align="center">❓ 문의게시판 ❓</h2>
+	 <!-- 공지게시판 / noticeList -->
+    <h2 align="center">📢 공지사항 📢</h2>
     <br />
     <div align="center">
-    	<button type="button" class="btn btn-light" OnClick="window.location='askForm.jsp'">✏ 문의하기 ✏</button>
-    	<button type="button" class="btn btn-light" OnClick="window.location='askMyList.jsp'">나의 문의글</button>
+    	<button type="button" class="btn btn-light" OnClick="window.location='noticeForm.jsp'">✏ 공지작성 ✏</button>
     </div>
     <br />
 
@@ -68,14 +67,14 @@
                 <td align="center" width="150"><b>조회수</b></td>
             </tr>
         </thread>
-        <% for (int i = 0; i < askList.size(); i++) {
-            AskboardDTO dto = askList.get(i); %>
+        <% for (int i = 0; i < noticeList.size(); i++) {
+            NoticeDTO dto = noticeList.get(i); %>
         <tbody>
             <tr height="30">
                 <td align="center" width="50"><%= number-- %></td>
                 <td align="center" width="250"><%= dto.getWriter() %></td>
                 <td align="center" width="250">
-                    <a href="/team02/views/board/content.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">
+                    <a href="/team02/views/board/contentNo.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">
                         <%= dto.getTitle() %>
                     </a>
                 </td>
@@ -99,7 +98,7 @@
 	        
 	        if (startPage > 10) { %>
 	        <li class="page-item">
-	          <a class="page-link" href="askList.jsp?pageNum=<%= startPage - 10 %>" aria-label="Previous">
+	          <a class="page-link" href="noticeList.jsp?pageNum=<%= startPage - 10 %>" aria-label="Previous">
 	            <span aria-hidden="true">&laquo; 이전</span>
 	          </a>
 	        </li>
@@ -107,13 +106,13 @@
 	        
 	        for (int i = startPage; i <= endPage; i++) { %>
 	        <li class="page-item <%= (i == currentPage) ? "active" : "" %>">
-	          <a class="page-link" href="askList.jsp?pageNum=<%= i %>"><%= i %></a>
+	          <a class="page-link" href="noticeList.jsp?pageNum=<%= i %>"><%= i %></a>
 	        </li>
 	        <% }
 	        
 	        if (endPage < pageCount) { %>
 	        <li class="page-item">
-	          <a class="page-link" href="askList.jsp?pageNum=<%= startPage + 10 %>" aria-label="Next">
+	          <a class="page-link" href="noticeList.jsp?pageNum=<%= startPage + 10 %>" aria-label="Next">
 	            <span aria-hidden="true">다음 &raquo;</span>
 	          </a>
 	        </li>

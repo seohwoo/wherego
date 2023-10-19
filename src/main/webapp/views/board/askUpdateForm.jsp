@@ -55,7 +55,7 @@ try {
             <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"><%= dto.getContent() %></textarea>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto">
-            <button type="submit" class="btn btn-secondary">수정된 문의 등록</button>
+            <button type="submit" class="btn btn-success">수정된 문의 등록</button>
         </div>
     </form>
     

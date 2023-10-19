@@ -30,8 +30,8 @@
 	            Community
 	          </a>
 	          <ul class="dropdown-menu">
-	            <li><a class="dropdown-item" href="#">Notice</a></li>
-	            <li><a class="dropdown-item" href="/team2/board/askList.jsp">Q & A</a></li>
+	            <li><a class="dropdown-item" href="/team02/views/board/noticeList.jsp">Notice</a></li>
+	            <li><a class="dropdown-item" href="/team02/views/board/askList.jsp">Q & A</a></li>
 	          </ul>
 	        </li>
 	      </ul>

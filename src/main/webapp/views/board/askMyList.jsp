@@ -56,7 +56,7 @@ try {
 	<hr />
 	
 	 <!-- 문의 리스트 -->
-    <h2 align="center">myList</h2>
+    <h2 align="center">나의 전체 문의글</h2>
     <br />
 		<div align="center">
     	<button type="button" class="btn btn-light" OnClick="window.location='askList.jsp'">문의목록 보기</button>

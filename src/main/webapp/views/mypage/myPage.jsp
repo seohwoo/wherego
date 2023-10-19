@@ -28,33 +28,36 @@
 	
 	  
 	<center>
+
 	<%
 		if(id != null) {
-	   	if(id.equals(c.getId())) {%>
+	   	if(id.equals("admin") || id.equals(c.getId())) {%>
 	   		
 	   		<!-- 기본이미지 -->
        	  <img width="150" src="/team02/views/mypage/DEFAULT/<%= c.getProfile() %>"> <br> 
+	   		<%= c.getNic() %> 마이페이지<p><br>
+	   		
 	   		
 	        <!-- 프로필 이미지 및 닉네임 표시 -->
-	      <img width="150" src="/team02/image/<%= c.getProfile() %>"> <br>         
-	       	 <%= c.getNic() %> 마이페이지<p><br>
+	      <img width="150" src="/team02/image/<%= c.getProfile() %>"> <br>         	      	 
 	      <button id="changeProfile" onclick="openProfileWindow()">프로필 이미지 변경</button>
-	 
-	
-	   		 <!-- 프로필 변경 버튼 클릭 시 새 창 열기 -->
-	    <script>
-	        function openProfileWindow() {
-	            var profileWindow = window.open("profileChange.jsp", "프로필 변경", "width=400,height=300");
-	        }
-	    </script>
+
+  			 <!-- 프로필 변경 버튼 클릭 시 새 창 열기 -->
+		   <script>
+		        function openProfileWindow() {
+		            var profileWindow = window.open("profileChange.jsp", "프로필 변경", "width=400,height=300");
+		        }
+		   </script>
 	   	
-	   	
-	      <input type="button" value="수정하기" OnClick="window.location='updateForm.jsp'">
-		  <input type="button" value="삭제하기" OnClick="window.location='deleteForm.jsp'">		  
+	       <input type="button" value="수정하기" OnClick="window.location='updateForm.jsp'">
+		   <input type="button" value="삭제하기" OnClick="window.location='deleteForm.jsp'">
+		   		  
 	<%}else{%>  
-		  현재 다른 이용자 페이지를 구경하고 있습니다.
+		<img width="150" src="/team02/views/mypage/DEFAULT/<%= c.getProfile() %>">
+		현재 <%= c.getNic() %> 회원 페이지를 구경하고 있습니다.<p><br>		  
 	<%} %>    
   <%} %> 
+
       
 	 </center>
 	
@@ -66,10 +69,10 @@
 	    <td>     
 		 <%
 	       if(id != null) {
-	       if(id.equals(c.getId())) {%>
-	         <input type="button" value="magazine" onclick="window.location='board.jsp'"> 
+	       if(id.equals("admin") ||id.equals(c.getId())) {%>
+	         <input type="button" value="magazine" onclick="window.location='/team02/views/mylist/board.jsp'"> 
 	         <input type="button" value="myreviews" onclick="window.location='#'">
-	         <input type="button" value="mypick" onclick="window.location='/team02/views/not/login/mypick.jsp'">
+	         <input type="button" value="mypick" onclick="window.location='/team02/views/mypage/mypick.jsp'">
 	     <%} else {%>
 	         <input type="button" value="magazine" onclick="window.location='#'"> 
 	     <%} %>

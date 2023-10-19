@@ -1,10 +1,64 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="/views/login/color.jsp"%>
 <% request.setCharacterEncoding("UTF-8");%>
-<html>
-<haed>
+
 <title> 회원가입 사이트</title>
 <link href="style.css" rel="stylesheet" type="text/css">
+ <style>
+        body {
+            background-color: #ccc; /* 회색 배경 */
+            color: #000; /* 블랙 텍스트 색상 */
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            margin: 20px auto;
+            width: 80%;
+            max-width: 600px;
+            background-color: #FFE08C; /* 배경 색상을 #FFE08C으로 변경 */
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border: 1px solid #555;
+            border-collapse: collapse;
+        }
+
+        table td {
+            padding: 10px;
+            border: 1px solid #555;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #fff; /* 백그라운드 색상을 흰색으로 변경 */
+            border: 1px solid #555;
+            color: #000; /* 텍스트 색상을 블랙으로 변경 */
+        }
+
+        input[type="submit"],
+        input[type="reset"],
+        input[type="button"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover,
+        input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
 <script language="JavaScript">
 
    
@@ -112,7 +166,7 @@
 		<td colspan="2" align="center" bgcolor="<%=value_c%>"> 
 	        <input type="submit" name="confirm" value="등   록" >
 	        <input type="reset" name="reset" value="다시입력">
-	        <input type="button" value="가입안함" onclick="#">
+	        <input type="button" value="가입안함" onclick="window.location='/team02/views/main/main.jsp'">
      	</td>
 	
 	</table>

@@ -33,14 +33,15 @@
 		if(id != null) {
 	   	if(id.equals("admin") || id.equals(c.getId())) {%>
 	   		
-	   		<!-- 기본이미지 -->
-       	  <img width="150" src="/team02/views/mypage/DEFAULT/<%= c.getProfile() %>"> <br> 
-	   		<%= c.getNic() %> 마이페이지<p><br>
+	   		
+       	  <img width="150" src="/team02/image/<%= c.getProfile() %>"> <p>   
+       	  <button id="changeProfile" onclick="openProfileWindow()">프로필 이미지 변경</button><br>   
+	   		"<%= c.getNic() %>" 회원님 마이페이지<p><br>
 	   		
 	   		
-	        <!-- 프로필 이미지 및 닉네임 표시 -->
-	      <img width="150" src="/team02/image/<%= c.getProfile() %>"> <br>         	      	 
-	      <button id="changeProfile" onclick="openProfileWindow()">프로필 이미지 변경</button>
+	    
+	            	      	 
+	      
 
   			 <!-- 프로필 변경 버튼 클릭 시 새 창 열기 -->
 		   <script>

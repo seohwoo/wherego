@@ -24,7 +24,7 @@
 	        📢 최신공지
 	      </button>
 	    </h2>
-	    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+	    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
 	      <div class="accordion-body">
 	        <table class="table table-bordered" width="700" cellpadding="0" cellspacing="0" align="center">
 	    <tr>

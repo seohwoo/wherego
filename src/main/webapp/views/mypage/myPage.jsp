@@ -67,7 +67,7 @@
 		 <%
 	       if(id != null) {
 	       if(id.equals(c.getId())) {%>
-	         <input type="button" value="magazine" onclick="window.location='board.jsp'"> 
+	         <input type="button" value="magazine" onclick="window.location='/team02/views/mylist/board.jsp'"> 
 	         <input type="button" value="myreviews" onclick="window.location='#'">
 	         <input type="button" value="mypick" onclick="window.location='/team02/views/not/login/mypick.jsp'">
 	     <%} else {%>

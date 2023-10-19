@@ -33,7 +33,7 @@
 	   	if(id.equals(c.getId())) {%>
 	   		
 	   		<!-- 기본이미지 -->
-       	  <img width="150" src="/team02/views/login/DEFAULT/<%= c.getProfile() %>"> <br> 
+       	  <img width="150" src="/team02/views/mypage/DEFAULT/<%= c.getProfile() %>"> <br> 
 	   		
 	        <!-- 프로필 이미지 및 닉네임 표시 -->
 	      <img width="150" src="/team02/image/<%= c.getProfile() %>"> <br>         

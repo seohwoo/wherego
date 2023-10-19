@@ -15,13 +15,12 @@
 
 	<%
 		API_used api = API_used.getInstance();
-		String[] beforeAreaCode = {"1", "2", "3", "4", "5", "6", "7", "8", "31", "32", "33", "34", "35", "36", "37", "38", "39"};
-		
+		String[] beforeAreaCode1 = {"1", "2", "3", "4", "5", "6", "7", "8", "31"};
+		String[] beforeAreaCode = {"32", "33", "34", "35", "36", "37", "38", "39"};
 		
 		for(String area : beforeAreaCode) {
-			String beforeSigunguCode = api.findSubLocation(area);
-			int maxSigunguCode = Integer.parseInt(beforeSigunguCode);
-			for(int i=1; i<=maxSigunguCode; i++) {
+			int beforeSigunguCode = api.findSubLocation(area);
+			for(int i=1; i<=beforeSigunguCode; i++) {
 				String scode = String.valueOf(i);
 			
 		

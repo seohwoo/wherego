@@ -40,9 +40,29 @@ public class API_used extends Using_API_KEY {
 		return currentTime;
 	}
 
-	public String findSubLocation(String area) {
-		return area;
-	}
+	public int findSubLocation(String areacode) {
+		ArrayList<HashMap<String, String>> location = new ArrayList<HashMap<String, String>>();
+		api_key = getEncoding_API_KEY();
+		int totalCount = 0;
+		try {
+			url = new URL(
+					"https://apis.data.go.kr/B551011/KorService1/areaCode1?numOfRows=50&pageNo=1&MobileOS=ETC&MobileApp=team02&areaCode="
+							+ areacode + "&_type=json&serviceKey=" + api_key);
+
+			bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+			result = bf.readLine();
+			JSONParser jsonParser = new JSONParser();
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(result);
+			JSONObject response = (JSONObject) jsonObject.get("response");
+			JSONObject body = (JSONObject) response.get("body");
+			JSONObject items = (JSONObject) body.get("items");
+			totalCount = ((Long) body.get("totalCount")).intValue();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return totalCount;
+	}// findSubLocation()
 
 	public ArrayList<HashMap<String, String>> findLocation(String areaCode) {
 		ArrayList<HashMap<String, String>> location = new ArrayList<HashMap<String, String>>();
@@ -128,13 +148,15 @@ public class API_used extends Using_API_KEY {
 			for (int i = 0; i < numOfRows; i++) {
 				HashMap<String, String> fesMap = new HashMap<String, String>();
 				JSONObject Array_item = (JSONObject) item.get(i);
+				fesMap.put("contentid", Array_item.get("contentid").toString());
+				fesMap.put("areacode", Array_item.get("areacode").toString());
+				fesMap.put("sigungucode", Array_item.get("sigungucode").toString());
 				fesMap.put("title", Array_item.get("title").toString());
 				fesMap.put("addr1", Array_item.get("addr1").toString());
+				fesMap.put("firstimage", Array_item.get("firstimage").toString());
 				fesMap.put("cat1", Array_item.get("cat1").toString());
 				fesMap.put("cat2", Array_item.get("cat2").toString());
 				fesMap.put("cat3", Array_item.get("cat3").toString());
-				fesMap.put("firstimage", Array_item.get("firstimage").toString());
-				fesMap.put("contentid", Array_item.get("contentid").toString());
 				festival.add(fesMap);
 			}
 

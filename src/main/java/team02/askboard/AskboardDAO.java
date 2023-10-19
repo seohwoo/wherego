@@ -6,9 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import team02.web.Connect;
 
-public class AskboardDAO extends Connect {
+import team02.notice.OracleDB;
+
+public class AskboardDAO extends OracleDB {
 	private static AskboardDAO instance = new AskboardDAO();
 
 	public static AskboardDAO getInstance() {

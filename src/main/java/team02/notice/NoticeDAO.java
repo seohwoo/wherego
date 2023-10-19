@@ -8,9 +8,8 @@ import java.util.List;
 
 import team02.notice.NoticeDTO;
 import team02.askboard.AskboardDTO;
-import team02.web.Connect;
 
-public class NoticeDAO extends Connect{
+public class NoticeDAO extends OracleDB{
 	private static NoticeDAO instance = new NoticeDAO();
 	public static NoticeDAO getInstance() {
 		return instance;

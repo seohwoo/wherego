@@ -6,8 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import team02.member.Connect;
-import team02.member.MemberDTO;
+import team02.web.Connect;
 
 public class AskboardDAO extends Connect {
 	private static AskboardDAO instance = new AskboardDAO();
@@ -154,16 +153,18 @@ public class AskboardDAO extends Connect {
 	}
 	
 	//나의 문의 리스트 askMyList.jsp
-	public List getMyAsk(String id) throws Exception {
+	public List getMyAsk(String id, int start, int end) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List myaskList = null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select * from " + " (select b.* from "
-					+ " (select * from askboard order by ref desc, re_step asc ) b) " + " where id = ? ");
+			pstmt = conn.prepareStatement("select * from " + " (select b.* , rownum r from "
+					+ " (select * from askboard order by ref desc, re_step asc ) b) " + " where id = ? and r >= ? and r <= ?");
 			pstmt.setString(1, id);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
 
 			rs = pstmt.executeQuery();
 			if (rs.next()) {

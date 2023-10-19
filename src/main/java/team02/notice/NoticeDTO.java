@@ -4,7 +4,8 @@ import java.sql.Timestamp;
 
 public class NoticeDTO {
 	private int num; 
-    private String writer;
+	private String id;
+	private String writer;
     private String title;
     private String content;
     private Timestamp reg_date;
@@ -14,6 +15,12 @@ public class NoticeDTO {
 	}
 	public void setNum(int num) {
 		this.num = num;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getWriter() {
 		return writer;

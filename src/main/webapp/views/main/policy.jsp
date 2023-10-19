@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이용약관</title>
 </head>
 <body>
-
+<h3 align="center"> 이용 약관 </h3>
 </body>
 </html>

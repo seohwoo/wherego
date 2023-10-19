@@ -52,7 +52,7 @@
     <br />
 
     <% if (count == 0) { %>
-    <table>
+    <table align="center">
         <tr>
             <td>문의 글이 없습니다.</td>
         </tr>
@@ -87,6 +87,42 @@
     </table>
     <% } %>
 
+	<br />
+	<nav aria-label="Page navigation example">
+	  <ul class="pagination justify-content-center">
+	    <% if (count > 0) {
+	        int pageCount = count / pageSize + ((count % pageSize == 0) ? 0 : 1);
+	        int startPage = (int)(currentPage / 10) * 10 + 1;
+	        int pageBlock = 10;
+	        int endPage = startPage + pageBlock - 1;
+	        if (endPage > pageCount) endPage = pageCount;
+	        
+	        if (startPage > 10) { %>
+	        <li class="page-item">
+	          <a class="page-link" href="askList.jsp?pageNum=<%= startPage - 10 %>" aria-label="Previous">
+	            <span aria-hidden="true">&laquo; 이전</span>
+	          </a>
+	        </li>
+	        <% }
+	        
+	        for (int i = startPage; i <= endPage; i++) { %>
+	        <li class="page-item <%= (i == currentPage) ? "active" : "" %>">
+	          <a class="page-link" href="askList.jsp?pageNum=<%= i %>"><%= i %></a>
+	        </li>
+	        <% }
+	        
+	        if (endPage < pageCount) { %>
+	        <li class="page-item">
+	          <a class="page-link" href="askList.jsp?pageNum=<%= startPage + 10 %>" aria-label="Next">
+	            <span aria-hidden="true">다음 &raquo;</span>
+	          </a>
+	        </li>
+	        <% } 
+	    } %>
+	  </ul>
+	</nav>	
+
+	
     <div >
 	<br/><hr /><br/>
 		<%@ include file="/views/main/footer.jsp" %>	

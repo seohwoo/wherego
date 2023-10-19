@@ -7,13 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import team02.notice.NoticeDTO;
-import team02.member.Connect;
+import team02.askboard.AskboardDTO;
+import team02.web.Connect;
 
 public class NoticeDAO extends Connect{
 	private static NoticeDAO instance = new NoticeDAO();
 	public static NoticeDAO getInstance() {
 		return instance;
 	}
+	
+	//공지 삽입
 	public void insertNotice(NoticeDTO dto) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -30,12 +33,13 @@ public class NoticeDAO extends Connect{
 				number = rs.getInt(1) + 1; // max(최대값)에 +1해줌
 			else
 				number = 1; // 글이 하나도 없을 때에는 1번
-			sql = "insert into notice values(notice_seq.NEXTVAL, ?, ?, ?, sysdate, ?)";
+			sql = "insert into notice values(notice_seq.NEXTVAL, ?, ?, ?, ?, sysdate, ?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dto.getWriter());
-			pstmt.setString(2, dto.getTitle());
-			pstmt.setString(3, dto.getContent());
-			pstmt.setInt(4, dto.getReadcount());
+			pstmt.setString(1, dto.getId());
+			pstmt.setString(2, dto.getWriter());
+			pstmt.setString(3, dto.getTitle());
+			pstmt.setString(4, dto.getContent());
+			pstmt.setInt(5, dto.getReadcount());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -44,15 +48,16 @@ public class NoticeDAO extends Connect{
 		}
 	}
 	
+	//write에 관리자명(nic) 
 	public String selectNo(String nic) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String writer = null; // writer 값을 저장할 변수
-
+		String id = null;
 		try {
 			conn = getConnection();
-			String sql = "select nic FROM notice WHERE id = 'admin'";
+			String sql = "select nic FROM member2 WHERE id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, nic);
 
@@ -69,22 +74,25 @@ public class NoticeDAO extends Connect{
 
 		return writer;
 	}
-	
-	public List getNotice() throws Exception {
+	public List getNotice(int start, int end) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List noticeList = null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select * from notice  order by reg_date desc");
+			pstmt = conn.prepareStatement("select * from " + " (select b.* , rownum r from "
+					+ " b) " + " where r >= ? and r <= ? ");
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
 
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				noticeList = new ArrayList();
+				noticeList = new ArrayList(end);
 				do {
-					NoticeDTO dto = new NoticeDTO();
+					AskboardDTO dto = new AskboardDTO();
 					dto.setNum(rs.getInt("num"));
+					dto.setId(rs.getString("id"));
 					dto.setWriter(rs.getString("writer"));
 					dto.setTitle(rs.getString("title"));
 					dto.setContent(rs.getString("content"));
@@ -101,6 +109,7 @@ public class NoticeDAO extends Connect{
 
 		return noticeList;
 	}
+	
 	public int getNoticeCount() throws Exception {
 	    Connection conn = null;
 	    PreparedStatement pstmt = null;
@@ -108,7 +117,7 @@ public class NoticeDAO extends Connect{
 	    int x = 0;
 	    try {
 	        conn = getConnection();
-	        pstmt = conn.prepareStatement("select count(*) from notice where writer='admin'");
+	        pstmt = conn.prepareStatement("select count(*) from notice");
 	        rs = pstmt.executeQuery();
 	        if (rs.next()) {
 	            x = rs.getInt(1);

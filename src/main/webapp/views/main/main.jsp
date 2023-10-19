@@ -31,6 +31,7 @@
 	<a href="#" class="btn btn-secondary">나의 여행 계획 짜기</a>
 	</div>
 
+	<br/><hr /><br/>
 	<h3 align= "center"> Top 8 여행지</h3><br/>
 		<%@ include file="topArea.jsp" %>
 	<br/>

@@ -29,10 +29,10 @@
 	      <div class = "collapse navbar-collapse justify-content-end">
 		      <ul class="navbar-nav">
 		      	<li class="nav-item">
-		      		<%@ include file = "/views/not/login/loginForm.jsp" %>
+		      		<!-- 로그인 -->
 	       		 </li>&nbsp;
 	       		 <li class="nav-item">
-	          		<button type="button" class="btn btn-secondary" OnClick="window.location='/team02/views/not/login/inputForm.jsp'">Sign Up</button>
+	          		<button type="button" class="btn btn-secondary">Sign Up</button>
 	          	</li>
 	          </ul>
 	      </div>
@@ -60,10 +60,10 @@
 	      <div class = "collapse navbar-collapse justify-content-end">
 		      <ul class="navbar-nav">
 		      	<li class="nav-item">
-		      		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/team02/views/not/login/logout.jsp'">logout</button>
+		      		<button type="button" class="btn btn-outline-secondary">logout</button>
 	       		 </li>&nbsp;
 	       		 <li class="nav-item"> <!-- mypage 링크 추가 -->
-	          		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/team02/views/not/login/myPage.jsp'">myPage</button>
+	          		<button type="button" class="btn btn-outline-secondary">myPage</button>
 	          		<%-- --%>
 	          	</li>
 	          </ul>
@@ -86,11 +86,11 @@
          </ul>
          <div class = "collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav">
-               <li class="nav-item">
-                  <button type="button" class="btn btn-outline-secondary" OnClick="window.location='/team02/views/not/login/logout.jsp'">logout</button>
+               <li class="nav-item"> <!-- logout 링크 추가 -->
+                  <button type="button" class="btn btn-outline-secondary">logout</button>
                  </li>&nbsp;
                  <li class="nav-item"> <!-- mypage 링크 추가 -->
-                   <button type="button" class="btn btn-outline-secondary" OnClick="window.location='/team02/views/not/login/myPage.jsp'">myPage</button>
+                   <button type="button" class="btn btn-outline-secondary">myPage</button>
                    <%-- --%>
                 </li>
              </ul>

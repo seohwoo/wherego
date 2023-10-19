@@ -13,10 +13,15 @@ try {
 	
 	AskboardDAO dao = new AskboardDAO();
     String nic = dao.select(memId);
-    if ("admin".equals(session.getAttribute("memId"))) {
-        // memId가 admin인 경우
+    if (memId == null) {
+        // 로그인이 안되었을 때 (null)
  %>
+        <script>
+            alert("로그인 후 사용가능!");
+            window.location="/team02/views/board/askList.jsp";
+        </script>
     <body>
+<% } else { %>
      <%@ include file="/views/main/nav.jsp" %>
 	
 	<br />
@@ -26,39 +31,34 @@ try {
 	<br />
 	<hr />
 	
-	 
-    <h2 align="center">공지 게시판</h2>
+	 <!-- 문의 리스트 -->
+    <h2 align="center">문의 게시판</h2>
     <br />
 	
     <form action="askPro.jsp" method="post" onsubmit="return writeSave()">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">작성자</label>
-            <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="관리자">
+            <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= nic  %>">
+            <input type="hidden" name = id class="form-control" value="<%=memId %>" >
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput2" class="form-label">제목</label>
             <input type="text" name="title" class="form-control" id="exampleFormControlInput2">
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">공지내용</label>
+            <label for="exampleFormControlTextarea1" class="form-label">문의내용</label>
             <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto">
-            <button type="submit" class="btn btn-secondary">공지 등록</button>
+            <button type="submit" class="btn btn-secondary">문의 등록</button>
         </div>
     </form>
     <div class="fixed-bottom">
         <hr />
         <jsp:include page="/views/main/footer.jsp" />
     </div>
-<% } else { %>
-        <script>
-            alert("관리자만 사용 가능");
-            window.location="/team02/views/main/board/noticeList.jsp";
-        </script>
-        
 <% }
-} catch (NullPointerException e) {
+} catch (Exception e) {
 }
 %>
 </body>

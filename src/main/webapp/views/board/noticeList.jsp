@@ -1,5 +1,5 @@
-<%@ page import="team02.askboard.AskboardDAO" %>
-<%@ page import="team02.askboard.AskboardDTO" %>
+<%@ page import="team02.notice.NoticeDAO" %>
+<%@ page import="team02.notice.NoticeDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
@@ -7,7 +7,7 @@
 <%
     int pageSize = 10;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-	
+
     String pageNum = request.getParameter("pageNum");
     if (pageNum == null) {
         pageNum = "1";
@@ -17,33 +17,21 @@
     int end = currentPage * pageSize;
     int count = 0;
     int number = 0;
-    String memId = (String) session.getAttribute("memId");
-	
-    List<AskboardDTO> myaskList = null;
-    AskboardDAO dao = AskboardDAO.getInstance();
-    count = dao.getMyAskCount(memId);
+    
+    List<NoticeDTO> noticeList = null;
+    NoticeDAO dao = NoticeDAO.getInstance();
+    count = dao.getNoticeCount();
     if (count > 0) {
-    	myaskList = dao.getMyAsk(memId);
+    	noticeList = dao.getNotice(start, end);
     }
     number = count - (currentPage - 1) * pageSize;
     
-    session.setAttribute("askListUrl", request.getRequestURL());
+    session.setAttribute("noticeListUrl", request.getRequestURL());
 %>
 <!DOCTYPE html>
 <html>
 <head>
 </head>
-<%
-try {
-    if (memId == null) {
-        
- %>
-        <script>
-            alert("로그인 후 사용가능!");
-            window.location="/team02/views/main/board/askList.jsp";
-        </script>
-    <body>
-<% } else { %>
 <body>
    <%@ include file="/views/main/nav.jsp" %>
 	
@@ -54,14 +42,18 @@ try {
 	<br />
 	<hr />
 	
-	 <!-- 문의 리스트 -->
-    <h2 align="center">myList</h2>
+	 <!-- noticeList -->
+    <h2 align="center">📢 공지게시판 📢</h2>
+    <br />
+    <div align="center">
+    	<button type="button" class="btn btn-light" OnClick="window.location='noticeForm.jsp'">✏ 공지 작성 ✏</button>
+    </div>
     <br />
 
     <% if (count == 0) { %>
-    <table>
+    <table align="center">
         <tr>
-            <td>문의 글이 없습니다.</td>
+            <td>공지사항이 없습니다.</td>
         </tr>
     </table>
     <% } else { %>
@@ -75,14 +67,14 @@ try {
                 <td align="center" width="150"><b>조회수</b></td>
             </tr>
         </thread>
-        <% for (int i = 0; i < myaskList.size(); i++) {
-            AskboardDTO dto = myaskList.get(i); %>
+        <% for (int i = 0; i < noticeList.size(); i++) {
+            NoticeDTO dto = noticeList.get(i); %>
         <tbody>
             <tr height="30">
                 <td align="center" width="50"><%= number-- %></td>
                 <td align="center" width="250"><%= dto.getWriter() %></td>
                 <td align="center" width="250">
-                    <a href="/team02/views/main/board/content.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">
+                    <a href="/team02/views/board/noticeContent.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">
                         <%= dto.getTitle() %>
                     </a>
                 </td>
@@ -93,13 +85,10 @@ try {
         <% } %>
     </table>
     <% } %>
+
     <div >
 	<br/><hr /><br/>
 		<%@ include file="/views/main/footer.jsp" %>	
 	</div>
-<% }
-} catch (Exception e) {
-}
-%>
 </body>
 </html>

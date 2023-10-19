@@ -43,12 +43,12 @@
 	    <tbody>
 	      <tr>
 	       <td onClick="location.href='/team02/views/main/listRand.jsp'" >여행지 찾기</a></td>
-		   <td onClick="location.href='/team02/views/main/board/noticeList.jsp'">공지사항</td>
+		   <td onClick="location.href='/team02/views/board/noticeList.jsp'">공지사항</td>
 		   <td onClick="location.href='#'">내가 쓴 매거진</td>
 	      </tr>
 	      <tr>
 		  	<td onClick="location.href='#'">Hit! 여행지</td>
-			<td onClick="location.href='/team02/views/main/board/askList.jsp'">문의 게시판</td>
+			<td onClick="location.href='/team02/views/board/askList.jsp'">문의 게시판</td>
 			<td onClick="location.href='#'">매거진 작성</td>
 		   </tr>
 		   <tr>

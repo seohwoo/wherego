@@ -49,6 +49,7 @@
     	<button type="button" class="btn btn-light" OnClick="window.location='askList.jsp'">문의목록 보기</button>
     </div>
     <br />
+    <div class="d-grid gap-2 col-6 mx-auto">
 	<table class="table table-bordered" width="700" cellpadding="0" cellspacing="0" align="center">
 	    <tr>
 	      <td align="center"  width="50" ><b>#</b></td>
@@ -67,6 +68,7 @@
 		    <td colspan="3" align="center"><%=dto.getContent()%></td>
 		  </tr>
 	</table>
+	</div>
 	<%
 	String memId = (String) session.getAttribute("memId");
 	String admin = "admin"; 

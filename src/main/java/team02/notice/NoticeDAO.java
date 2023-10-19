@@ -129,6 +129,35 @@ public class NoticeDAO extends OracleDB{
 	    return x;
 	}
 	
+	//최신 공지 보기!
+	public NoticeDTO getNewNotice() throws Exception {
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    NoticeDTO latestNotice = null;
+	    try {
+	        conn = getConnection();
+	        pstmt = conn.prepareStatement("select * from notice order by num desc");
+	        rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            latestNotice = new NoticeDTO();
+	            latestNotice.setNum(rs.getInt("num"));
+	            latestNotice.setId(rs.getString("id"));
+	            latestNotice.setWriter(rs.getString("writer"));
+	            latestNotice.setTitle(rs.getString("title"));
+	            latestNotice.setContent(rs.getString("content"));
+	            latestNotice.setReg_date(rs.getTimestamp("reg_date"));
+	            latestNotice.setReadcount(rs.getInt("readcount"));
+	        }
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	    } finally {
+	        close(rs, pstmt, conn);
+	    }
+	    return latestNotice;
+	}
+
+	
 	//content.jsp (내용 보기)
 		public NoticeDTO getNoContent(int num) throws Exception {
 			Connection conn = null;

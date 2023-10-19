@@ -9,34 +9,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>어디GO</title>
 </head>
 <body>
 
 	<%
 		API_used api = API_used.getInstance();
 		String[] beforeAreaCode1 = {"1", "2", "3", "4", "5", "6", "7", "8", "31"};
-		String[] beforeAreaCode = {"32", "33", "34", "35", "36", "37", "38", "39"};
+		String[] beforeAreaCode = {"1"};
 		
 		for(String area : beforeAreaCode) {
-			int beforeSigunguCode = api.findSubLocation(area);
+			int beforeSigunguCode = Integer.parseInt(api.findSubLocation(area));
 			for(int i=1; i<=beforeSigunguCode; i++) {
 				String scode = String.valueOf(i);
 			
 		
-				HashMap<String, Integer> totalMap = new HashMap<String, Integer>();		
+				HashMap<String, String> totalMap = new HashMap<String, String>();		
 				totalMap = api.findTotalCount_NumOfRows(area, scode);
-				int totalCount = totalMap.get("totalCount");
+				int totalCount = Integer.parseInt(totalMap.get("totalCount"));
 				
-				
-				String p = request.getParameter("pageNum");
-			      int pageNum = 1;
+			    int pageNum = 1;
 			      
-			      int max = (totalCount / 20) + 1;
-			      ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();  
-			      LandInfoDAO dao = LandInfoDAO.getInstance();
+			     int max = (totalCount / 20) + 1;
+			     ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();  
+			     LandInfoDAO dao = LandInfoDAO.getInstance();
 			      
-			      for(pageNum=1; pageNum<=max; pageNum++) {
+			     for(pageNum=1; pageNum<=max; pageNum++) {
 			    	  list = api.findFestival(area,scode,pageNum);
 			    	  for(HashMap<String, String> festival : list) {
 			    		  String contentId = festival.get("contentid");
@@ -50,10 +48,9 @@
 			    		  String cat3 = festival.get("cat3");
 			    		  dao.insertFestival(contentId, areaCode, sigunguCode, title, addr1, firstImage, cat1, cat2, cat3);
 			    	  }
-			      }
+			     }
 			}
 		}
-	
 	%>
 
 

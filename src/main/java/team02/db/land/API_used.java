@@ -40,10 +40,10 @@ public class API_used extends Using_API_KEY {
 		return currentTime;
 	}
 
-	public int findSubLocation(String areacode) {
+	public String findSubLocation(String areacode) {
 		ArrayList<HashMap<String, String>> location = new ArrayList<HashMap<String, String>>();
 		api_key = getEncoding_API_KEY();
-		int totalCount = 0;
+		String totalCount = "";
 		try {
 			url = new URL(
 					"https://apis.data.go.kr/B551011/KorService1/areaCode1?numOfRows=50&pageNo=1&MobileOS=ETC&MobileApp=team02&areaCode="
@@ -56,7 +56,7 @@ public class API_used extends Using_API_KEY {
 			JSONObject response = (JSONObject) jsonObject.get("response");
 			JSONObject body = (JSONObject) response.get("body");
 			JSONObject items = (JSONObject) body.get("items");
-			totalCount = ((Long) body.get("totalCount")).intValue();
+			totalCount = String.valueOf(body.get("totalCount"));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -100,8 +100,8 @@ public class API_used extends Using_API_KEY {
 		return location;
 	}// findLocation()
 
-	public HashMap<String, Integer> findTotalCount_NumOfRows(String areaCode, String sigunguCode) {
-		HashMap<String, Integer> values = new HashMap<String, Integer>();
+	public HashMap<String, String> findTotalCount_NumOfRows(String areaCode, String sigunguCode) {
+		HashMap<String, String> values = new HashMap<String, String>();
 		api_key = getEncoding_API_KEY();
 
 		try {
@@ -115,8 +115,8 @@ public class API_used extends Using_API_KEY {
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(result);
 			JSONObject trueResponse = (JSONObject) jsonObject.get("response");
 			JSONObject body = (JSONObject) trueResponse.get("body");
-			values.put("totalCount", ((Long) body.get("totalCount")).intValue());
-			values.put("numOfRows", ((Long) body.get("numOfRows")).intValue());
+			values.put("totalCount", (body.get("totalCount").toString()));
+			values.put("numOfRows", (body.get("numOfRows").toString()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -126,9 +126,9 @@ public class API_used extends Using_API_KEY {
 	public ArrayList<HashMap<String, String>> findFestival(String areaCode, String sigunguCode, int pageNum) {
 		ArrayList<HashMap<String, String>> festival = new ArrayList<HashMap<String, String>>();
 		api_key = getEncoding_API_KEY();
-		HashMap<String, Integer> values = new HashMap<String, Integer>();
+		HashMap<String, String> values = new HashMap<String, String>();
 		values = findTotalCount_NumOfRows(areaCode, sigunguCode);
-		numOfRows = values.get("numOfRows");
+		numOfRows = Integer.parseInt(values.get("numOfRows"));
 
 		try {
 			this.pageNum = pageNum;
@@ -144,7 +144,7 @@ public class API_used extends Using_API_KEY {
 			JSONObject body = (JSONObject) trueResponse.get("body");
 			JSONObject items = (JSONObject) body.get("items");
 			JSONArray item = (JSONArray) items.get("item");
-			numOfRows = ((Long) body.get("numOfRows")).intValue();
+			numOfRows = Integer.parseInt(values.get("numOfRows"));
 			for (int i = 0; i < numOfRows; i++) {
 				HashMap<String, String> fesMap = new HashMap<String, String>();
 				JSONObject Array_item = (JSONObject) item.get(i);

@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="/views/login/color.jsp"%>
-<%@ page import = "java.sql.Timestamp" %>
 <% request.setCharacterEncoding("UTF-8");%>
 <html>
 <haed>
@@ -39,6 +38,7 @@
 	<tr>
 		<td colspan="2" height="39" align="center" bgcolor="<%=yellow_y%>">
 		<font size= "+2"><b>회원가입 양식</b></font>
+		</td>
 	</tr>
 	
 	<tr>
@@ -53,7 +53,7 @@
 	<tr>
 		<td width="200" bgcolor="<%=value_c%>"> 비밀번호 </td>
 		<td width="400" bgcolor="<%=value_c%>">
-		<input type="password" name="pw" size="20" maxlength="12">
+		<input type="password" name="pw" size="20" maxlength="12" required="required">
 		</td>	
 	</tr>
 	
@@ -75,14 +75,14 @@
 	<tr>
 		<td width="200" bgcolor="<%=value_c%>"> 생년월일 </td>
 		<td width="400" bgcolor="<%=value_c%>">	
-		<input type="date" name="birth" size="20" maxlength="12"> </td>
+		<input type="date" name="birth" size="20" maxlength="12" required="required"> </td>
 	</tr>
 	
 	<tr>
 		<td width="200" bgcolor="<%=value_c%>"> 성별 </td>
 		<td width="400" bgcolor="<%=value_c%>">	
-		남성<input type="radio" name="gender" value="남자" > 
-		여성<input type="radio" name="gender" value="여자" > 
+		남성<input type="radio" name="gender" value="남자" required="required"> 
+		여성<input type="radio" name="gender" value="여자" required="required"> 
 		
 		</td>
 	</tr>
@@ -90,14 +90,14 @@
 	<tr>
 		<td width="200" bgcolor="<%=value_c%>"> 주소 </td>
 		<td width="400" bgcolor="<%=value_c%>">	
-		<input type="text" name="address" size="30" maxlength="30"> </td>
+		<input type="text" name="address" size="30" maxlength="30" required="required"> </td>
 		
 	</tr>
 		
 	<tr>
 		<td width="200" bgcolor="<%=value_c%>"> 이메일 </td>
 		<td width="400" bgcolor="<%=value_c%>">
-		<input type="email" name="email" size="20" maxlength="20" required> </td>	
+		<input type="email" name="email" size="20" maxlength="20" required="required"> </td>	
 	</tr>
 	
 	<tr>
@@ -105,6 +105,8 @@
 		<td width="400" bgcolor="<%=value_c%>">	
 		<input type="text" name="phone" size="20" maxlength="12" required="required"> </td>
 	</tr>
+	
+
 	
 
 		<td colspan="2" align="center" bgcolor="<%=value_c%>"> 

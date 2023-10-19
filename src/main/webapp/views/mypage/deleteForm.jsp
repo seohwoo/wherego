@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
-<%@ include file="/views/not/login/color.jsp"%>
+<%@ include file="/views/login/color.jsp"%>>
 <html>
 <head><title>회원탈퇴</title>
 <link href="style.css" rel="stylesheet" type="text/css">

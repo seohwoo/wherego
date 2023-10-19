@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "team02.member.MemberDAO" %>
 <%@ page import = "team02.member.MemberDTO" %>
-<%@ include file="/views/not/login/color.jsp"%>
+<%@ include file="/views/login/color.jsp"%>
 <% request.setCharacterEncoding("UTF-8");%>
 
 

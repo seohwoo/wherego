@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import = "team02.member.MemberDAO" %>
-<%@ include file="/views/not/login/color.jsp"%>
+<%@ include file="/views/login/color.jsp"%>
 <html>
 <head>
 <title>회원탈퇴</title>
@@ -12,7 +12,7 @@
 	String pw  = request.getParameter("pw");
 	
 	MemberDAO manager = MemberDAO.getInstance();
-    int check = manager.talMember(id,pw);
+    int check = manager.deleteMember(id,pw);
 	
 	if(check==1){
 		session.invalidate();

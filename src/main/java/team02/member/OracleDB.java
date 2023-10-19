@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class Connect {
+public class OracleDB  {
 
 	protected Connection getConnection() throws Exception {
 	      Connection conn = null;

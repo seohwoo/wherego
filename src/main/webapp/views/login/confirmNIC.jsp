@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import = "team02.login.MemberShipDAO" %>
+<%@ page import = "team02.member.MemberDAO" %>
 <%@ include file="/views/login/color.jsp"%>
 
 <html>
@@ -9,7 +9,7 @@
 
 <%
 	String nic = request.getParameter("nic");
-	MemberShipDAO manager = MemberShipDAO.getInstance();
+	MemberDAO manager = MemberDAO.getInstance();
 	int check = manager.confirmNIC(nic);  // 아직 dao 안만듬
 
 %>

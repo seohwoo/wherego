@@ -71,33 +71,7 @@
 	    </div>
 	  </div>
 	</nav>
-     <div class="container-fluid">
-       <div class="collapse navbar-collapse" id="navbarNavDropdown">
-         <ul class="navbar-nav">
-           <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/team2/main/main.jsp">Home</a>
-              </li>
-           <li class="nav-item">
-	          <a class="nav-link" aria-current="page" href="/team02/views/main/listRand.jsp"> Area </a>
-	        </li>
-	        <li class="nav-item">
-	          <a class="nav-link" aria-current="page" href="/team02/views/main/listMag.jsp"> Magazine </a>
-	        </li>
-         </ul>
-         <div class = "collapse navbar-collapse justify-content-end">
-            <ul class="navbar-nav">
-               <li class="nav-item"> <!-- logout 링크 추가 -->
-                  <button type="button" class="btn btn-outline-secondary">logout</button>
-                 </li>&nbsp;
-                 <li class="nav-item"> <!-- mypage 링크 추가 -->
-                   <button type="button" class="btn btn-outline-secondary">myPage</button>
-                   <%-- --%>
-                </li>
-             </ul>
-         </div>
-       </div>
-     </div>
-   </nav>
+     
  <%}
  }catch(NullPointerException e){}
  %>

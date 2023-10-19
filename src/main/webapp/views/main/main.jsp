@@ -18,17 +18,20 @@
 	<br />
 	<hr />
 	
-	<div class="d-grid gap-2 col-6 mx-auto">
-	
-	<div class="input-group mb-3">
-		<input type="text" class="form-control" placeholder="여행지를 검색해보세요">
-		<div class="col-auto">
-			<button class="btn btn-outline-secondary" type="button" id="button-addon2" onClick="#">검색</button>
+	<br />
+	<%@ include file="/views/board/newNotice.jsp" %>
+		  <!-- main 중반 -->
+	<br />
+	<div class="d-grid gap-2 col-6 mx-auto">	
+		<div class="input-group mb-3">
+			<input type="text" class="form-control" placeholder="여행지를 검색해보세요">
+			<div class="col-auto">
+				<button class="btn btn-outline-secondary" type="button" id="button-addon2" onClick="#">검색</button>
+			</div>
 		</div>
-	</div>
 			
-	<a href="/team02/views/locationLand/locationHigh.jsp" class="btn btn-secondary">지역별 여행지 보기</a>
-	<a href="#" class="btn btn-secondary">나의 여행 계획 짜기</a>
+		<a href="/team02/views/locationLand/locationHigh.jsp" class="btn btn-secondary">지역별 여행지 보기</a>
+		<a href="#" class="btn btn-secondary">나의 여행 계획 짜기</a>
 	</div>
 
 	<br/><hr /><br/>

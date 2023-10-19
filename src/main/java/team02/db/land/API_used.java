@@ -40,6 +40,10 @@ public class API_used extends Using_API_KEY {
 		return currentTime;
 	}
 
+	public String findSubLocation(String area) {
+		return area;
+	}
+
 	public ArrayList<HashMap<String, String>> findLocation(String areaCode) {
 		ArrayList<HashMap<String, String>> location = new ArrayList<HashMap<String, String>>();
 		api_key = getEncoding_API_KEY();

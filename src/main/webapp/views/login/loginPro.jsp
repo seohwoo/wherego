@@ -23,7 +23,7 @@
 			String realAskListUrl = originalString.substring(originalString.indexOf("/team02"));
 			response.sendRedirect(realAskListUrl);
 		}else{
-			response.sendRedirect("/team02/views/main/main.jsp");
+			response.sendRedirect("/wherego/views/main/main.jsp");
 		}
 	}else if(check==0){%>
 	<script> 

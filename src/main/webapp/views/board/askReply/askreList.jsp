@@ -69,11 +69,12 @@
 		                <td align="center" width="250"><%= replydto.getWriter() %></td>
 		                <td align="center" width="250"> <%= replydto.getContent() %> </td>
 		                <td align="center" width="200"><%= sdfreply.format(replydto.getReg_date()) %></td>
-		                <%String memId = (String) session.getAttribute("memId");
+		                <td align="center" width = "200"><%String memId = (String) session.getAttribute("memId");
 						String admin = "admin"; 
 		                if (memId.equals(admin))  %> <!-- id의 등급이 관리자일대로 변경하기 -->
 							<button type="button" class="btn btn-light" OnClick="window.location='askreUpdateForm.jsp'">수정하기</button>
 						    <button type="button" class="btn btn-light" onclick="window.location='askreDeleteForm.jsp'">삭제하기</button>
+						    </td>
 		            </tr>
 		        </tbody>
 		        <% } %>

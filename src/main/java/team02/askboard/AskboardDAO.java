@@ -197,6 +197,7 @@ public class AskboardDAO extends OracleDB {
 		try {
 			conn = getConnection();
 			sql = "select count(*) from askboard where id=?";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, writer);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -217,9 +218,11 @@ public class AskboardDAO extends OracleDB {
 		try {
 			conn = getConnection();
 			sql =  "update askboard set readcount=readcount+1 where num = ?";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
 			sql = "select * from askboard where num = ?";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -250,6 +253,7 @@ public class AskboardDAO extends OracleDB {
 		try {
 			conn = getConnection();
 			sql = "select count(*) from askboard where ref=(select ref from askboard where num=?)and re_step = 0";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -270,6 +274,7 @@ public class AskboardDAO extends OracleDB {
 		try {
 			conn = getConnection();
 			sql = "select * from askboard where num = ?"; 
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -299,6 +304,7 @@ public class AskboardDAO extends OracleDB {
 		try {
 			conn = getConnection();
 			sql = "update askboard set writer=?,title=?,content=? where num=?";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getWriter());
 			pstmt.setString(2, dto.getTitle());
 			pstmt.setString(3, dto.getContent());
@@ -319,6 +325,7 @@ public class AskboardDAO extends OracleDB {
 		try {
 			conn = getConnection();
 			sql = "delete from askboard where num=?";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			x = pstmt.executeUpdate();
 		} catch(Exception ex) {

@@ -3,7 +3,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
+import team02.askboard.AskboardDTO;
 import team02.db.land.OracleDB;
+import team02.notice.NoticeDTO;
 
 public class AskreplyDAO extends OracleDB{
 	private static AskreplyDAO instance = new AskreplyDAO();
@@ -144,18 +147,41 @@ public class AskreplyDAO extends OracleDB{
 	    return x;
 	}
 	
+	//삭제에 사용
+	public AskreplyDTO getReCount(int num){
+		String sql ="";
+		AskreplyDTO dto = null;
+		try {
+			conn = getConnection();
+			sql = "select count(*) from askreply where num = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				dto = new AskreplyDTO();
+				dto.setNum(rs.getInt("num"));
+				dto.setId(rs.getString("id"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setContent(rs.getString("content"));
+				dto.setReg_date(rs.getTimestamp("reg_date"));
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
 
+		return dto;
+	}
 	
-		
-		/*공지삭제
-		public int deleteNotice(int num) throws Exception {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs= null;
+	//댓글삭제
+		public int deleteReply(int num){
+			String sql = "";
 			int x=-1;
 			try {
 				conn = getConnection();
-				pstmt = conn.prepareStatement("delete from notice where num=?");
+				sql = "delete from askreply where num=?";
+				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, num);
 				x = pstmt.executeUpdate();
 			} catch(Exception ex) {
@@ -166,19 +192,17 @@ public class AskreplyDAO extends OracleDB{
 			return x;
 		}
 		
-		//공지 수정
-		public int updateNotice(NoticeDTO dto) throws Exception {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs= null;
+		//댓글 수정
+		public int updateReply(AskreplyDTO dto){
+			String sql ="";
 			int x=-1;
 			try {
 				conn = getConnection();
-				pstmt = conn.prepareStatement("update notice set writer=?,title=?,content=? where num=?");
+				sql = "update askreply set writer=?, content=? where num=?";
+				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, dto.getWriter());
-				pstmt.setString(2, dto.getTitle());
-				pstmt.setString(3, dto.getContent());
-				pstmt.setInt(4, dto.getNum());
+				pstmt.setString(2, dto.getContent());
+				pstmt.setInt(3, dto.getNum());
 				pstmt.executeUpdate();
 				rs = pstmt.executeQuery();
 			} catch(Exception ex) {
@@ -187,5 +211,5 @@ public class AskreplyDAO extends OracleDB{
 				close(rs, pstmt, conn);
 			}
 			return x;
-		}*/
+		}
 }

@@ -186,13 +186,7 @@ public class API_used extends Using_API_KEY {
 			JSONObject items = (JSONObject) body.get("items");
 			JSONArray item = (JSONArray) items.get("item");
 			JSONObject arrItem = (JSONObject) item.get(0);
-			randInfo.put("title", arrItem.get("title").toString());
 			randInfo.put("homepage", arrItem.get("homepage").toString());
-			randInfo.put("firstimage", arrItem.get("firstimage").toString());
-			randInfo.put("cat1", arrItem.get("cat1").toString());
-			randInfo.put("cat2", arrItem.get("cat2").toString());
-			randInfo.put("cat3", arrItem.get("cat3").toString());
-			randInfo.put("addr1", arrItem.get("addr1").toString());
 			randInfo.put("overview", arrItem.get("overview").toString());
 		} catch (Exception e) {
 			e.printStackTrace();

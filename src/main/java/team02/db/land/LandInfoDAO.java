@@ -3,6 +3,7 @@ package team02.db.land;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class LandInfoDAO extends OracleDB {
 
@@ -20,7 +21,7 @@ public class LandInfoDAO extends OracleDB {
 	ResultSet rs = null;
 
 	public void insertFestival(String contentId, String areaCode, String sigunguCode, String title, String addr1,
-			String firstImage, String cat1, String cat2, String cat3) throws Exception {
+			String firstImage, String cat1, String cat2, String cat3) {
 
 		try {
 			conn = getConnection();
@@ -35,6 +36,74 @@ public class LandInfoDAO extends OracleDB {
 			pstmt.setString(7, cat1);
 			pstmt.setString(8, cat2);
 			pstmt.setString(9, cat3);
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+	}
+
+	public ArrayList<String> selectContentId(String areaCode) {
+		ArrayList<String> contentIdList = new ArrayList<String>();
+
+		try {
+			conn = getConnection();
+			String sql = " select contentid from landinfo where areacode=? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, areaCode);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				contentIdList.add(rs.getString("contentid"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return contentIdList;
+	}
+
+	public ArrayList<String> selectCategory(String contentid) {
+		ArrayList<String> categoryList = new ArrayList<String>();
+
+		try {
+			conn = getConnection();
+			String sql = " select cat1, cat2, cat3 from landinfo where contentid=? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, contentid);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				categoryList.add(rs.getString("cat1"));
+				categoryList.add(rs.getString("cat2"));
+				categoryList.add(rs.getString("cat3"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return categoryList;
+	}
+
+	public void updateLand(String homepage, String overview, String infocenter, String restdate, String usetime,
+			String parking, String chkbabycarriage, String chkpet, String category, String contentid) {
+
+		try {
+			conn = getConnection();
+			String sql = " update landinfo set homepage = ? , overview = ?, infocenter = ?, restdate = ?, usetime = ?, parking = ?, chkbabycarriage = ?, chkpet = ?, category = ? where contentid = ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, homepage);
+			pstmt.setString(2, overview);
+			pstmt.setString(3, infocenter);
+			pstmt.setString(4, restdate);
+			pstmt.setString(5, usetime);
+			pstmt.setString(6, parking);
+			pstmt.setString(7, chkbabycarriage);
+			pstmt.setString(8, chkpet);
+			pstmt.setString(9, category);
+			pstmt.setString(10, contentid);
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {

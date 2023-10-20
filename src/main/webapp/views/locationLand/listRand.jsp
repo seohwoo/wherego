@@ -19,9 +19,9 @@
       String sigunguCode = request.getParameter("sigunguCode");
 
       API_used api = API_used.getInstance();
-      HashMap<String, Integer> totalMap = new HashMap<String, Integer>();
+      HashMap<String, String> totalMap = new HashMap<String, String>();
       totalMap = api.findTotalCount_NumOfRows(areaCode,sigunguCode);
-      int totalCount = totalMap.get("totalCount");
+      int totalCount = Integer.parseInt(totalMap.get("totalCount"));
       
       String p = request.getParameter("pageNum");
       int pageNum = 1;

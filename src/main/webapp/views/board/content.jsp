@@ -11,18 +11,16 @@
 
    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
    String id = (String)session.getAttribute("memId");
-   
-   try{
-	   AskboardDAO dao = AskboardDAO.getInstance();
-	   AskboardDTO dto =  dao.getAsking(num);
-  	   String writer = dao.getWriter(num);
-  	   
-	  int ref=dto.getRef();
-	  int re_step=dto.getRe_step();
-	  int re_level=dto.getRe_level();
+   AskboardDAO dao = AskboardDAO.getInstance();
+   AskboardDTO dto =  dao.getAsking(num);
+ 	   String writer = dao.getWriter(num);
+ 	   
+  int ref=dto.getRef();
+  int re_step=dto.getRe_step();
+  int re_level=dto.getRe_level();
 
-	  if(re_step == 0 || id.equals("admin") || id.equals(writer)){
-		  //0이면 새 글, admin은 모두 볼 수 있음
+  if(re_step == 0 || id.equals("admin") || id.equals(writer)){
+	  //0이면 새 글, admin은 모두 볼 수 있음
 		  
 %>
 
@@ -69,12 +67,14 @@
 		  </tr>
 	</table>
 	</div>
+	
+	
 	<%
 	String memId = (String) session.getAttribute("memId");
 	String admin = "admin"; 
 	if (memId.equals(admin)) { %>
 	<div align="center">
-	    <button type="button" class="btn btn-light" ">답변달기</button>
+	    <button type="button" class="btn btn-light" OnClick="window.location='askreForm.jsp'">답변달기</button>
 	    <button type="button" class="btn btn-light" Onclick="window.location='askDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
 	</div>
 	<%
@@ -83,15 +83,18 @@
 	    <button type="button" class="btn btn-light" OnClick="window.location='askUpdateForm.jsp?num=<%=num%>'">수정하기</button>
 	    <button type="button" class="btn btn-light" Onclick="window.location='askDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
 	</div>
-	<%}
-	}
-}catch(Exception e){} 	%>
+	<%}%>
+	<br />
 	
-
 	
-	<div class="fixed-bottom">
+	<%}%>
+	
+		
+	<%@ include file="/views/board/askreList.jsp" %>
+	
+	
 	<hr />
+	<br />
 		<%@ include file="/views/main/footer.jsp" %>	
-	</div>
 </body>
 </html>

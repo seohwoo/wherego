@@ -19,7 +19,7 @@
 	<hr />
 	
 	<br />
-	<%@ include file="/views/board/newNotice.jsp" %>
+	<%@ include file="/views/board/notice/newNotice.jsp" %>
 		  <!-- main 중반 -->
 	<br />
 	<div class="d-grid gap-2 col-6 mx-auto">	
@@ -42,12 +42,10 @@
 	<br/>
 	<h3 align= "center"> Best 매거진</h3><br/>
 		<%@ include file="bestMag.jsp" %>
-	<div >
 	<br/>
 	<hr />
 	<br/>
 		<%@ include file="footer.jsp" %>	
-	</div>
 
 </body>
 </html>

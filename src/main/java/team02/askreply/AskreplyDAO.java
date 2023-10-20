@@ -3,7 +3,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 import team02.db.land.OracleDB;
 
 public class AskreplyDAO extends OracleDB{
@@ -12,17 +11,19 @@ public class AskreplyDAO extends OracleDB{
 		return instance;
 	}
 	
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
 	//댓글 작성
-	public void insertReply(AskreplyDTO dto) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+	public void insertReply(AskreplyDTO dto) {
+		
 		int num = dto.getNum();
 		int number = 0;
 		String sql = "";
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select max(num) from askreply");
+			sql = "select max(num) from askreply";
 			rs = pstmt.executeQuery();
 			if (rs.next())
 				number = rs.getInt(1) + 1; // max(최대값)에 +1해줌
@@ -43,15 +44,13 @@ public class AskreplyDAO extends OracleDB{
 	}
 	
 	//write에 관리자명(nic) 가져오기
-	public String selectRe(String nic) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+	public String selectRe(String nic){
+		String sql = "";
 		String writer = null; // writer 값을 저장할 변수
 		String id = null;
 		try {
 			conn = getConnection();
-			String sql = "select nic FROM member2 WHERE id = ?";
+			sql = "select nic FROM member2 WHERE id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, nic);
 
@@ -70,15 +69,12 @@ public class AskreplyDAO extends OracleDB{
 	}
 	
 	//boardnum에 ask번호 가져오기
-	public String selectNum(String num) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
+	public String selectNum(String num){
+		String sql = "";
 		String boardnum = null; // boardnum 값을 저장할 변수
 		try {
 			conn = getConnection();
-			String sql = "select num from askboard where num = ?";
+			sql = "select num from askboard where num = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, num);
 
@@ -95,16 +91,14 @@ public class AskreplyDAO extends OracleDB{
 
 		return boardnum;
 	}
-	
-	public List getReply(int start, int end) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List replyList = null;
+	public ArrayList<AskreplyDTO> getReply(int start, int end){
+		String sql = "";
+		ArrayList<AskreplyDTO> replyList = null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select * from " + " (select b.*, rownum r from"
-					 +"(select * from askreply order by num desc)b)"+" where r >= ? and r <= ? ");
+			sql = "select * from " + " (select b.*, rownum r from"
+					 +"(select * from askreply order by num desc)b)"+" where r >= ? and r <= ? ";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
 
@@ -131,14 +125,13 @@ public class AskreplyDAO extends OracleDB{
 		return replyList;
 	}
 	
-	public int getReplyCount() throws Exception {
-	    Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
+	public int getReplyCount() {
+		String sql = "";
 	    int x = 0;
 	    try {
 	        conn = getConnection();
-	        pstmt = conn.prepareStatement("select count(*) from askreply");
+	        sql = "select count(*) from askreply";
+	        pstmt = conn.prepareStatement(sql);
 	        rs = pstmt.executeQuery();
 	        if (rs.next()) {
 	            x = rs.getInt(1);

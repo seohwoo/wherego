@@ -72,16 +72,25 @@
 	<%
 	String memId = (String) session.getAttribute("memId");
 	String admin = "admin"; 
-	if (memId.equals(admin)) { %>
+	if(memId ==null){%>
+		<script>
+            alert("작성자 or 관리자만 접근가능!");
+            window.location="/team02/views/board/askList.jsp";
+        </script>
+	<%}else if(memId.equals(admin)) { %>
 	<div align="center">
 	    <button type="button" class="btn btn-light" OnClick="window.location='askreForm.jsp'">답변달기</button>
 	    <button type="button" class="btn btn-light" Onclick="window.location='askDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
+	    <br />
+	    <%@ include file="/views/board/askReply/askreList.jsp" %>
 	</div>
 	<%
-	} else { %>
+	} else{ %>
 	<div align="center">
 	    <button type="button" class="btn btn-light" OnClick="window.location='askUpdateForm.jsp?num=<%=num%>'">수정하기</button>
 	    <button type="button" class="btn btn-light" Onclick="window.location='askDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
+	    <br />
+	    <%@ include file="/views/board/askReply/askreList.jsp" %>
 	</div>
 	<%}%>
 	<br />
@@ -89,8 +98,6 @@
 	
 	<%}%>
 	
-		
-	<%@ include file="/views/board/askreList.jsp" %>
 	
 	
 	<hr />

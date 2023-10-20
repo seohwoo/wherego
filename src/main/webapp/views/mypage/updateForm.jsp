@@ -101,7 +101,7 @@
 	<tr> 
       <td colspan="2" align="center"> 
        <input type="submit" name="sujung" value="수   정" >
-       <input type="button" value="취  소" onclick="javascript:window.location='/team02/views/mypage/myPage.jsp'">      
+       <input type="button" value="취  소" onclick="javascript:window.location='/wherego/views/mypage/myPage.jsp'">      
       </td>
     </tr>
 

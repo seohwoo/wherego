@@ -6,12 +6,11 @@
 <%@ page import = "com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@page import = "java.util.Enumeration" %>
 
-<title>마이페이지</title>
 
 	<% if (session.getAttribute("memId") == null) { %>
 	    <script>
 	        alert("로그인 후 사용 가능합니다.");
-	        window.location = "/team02/views/main/main.jsp";
+	        window.location = "/wherego/views/main/main.jsp";
 	    </script>
 	<% } %>
 	
@@ -28,9 +27,14 @@
 	<%
 		if(id != null) {
 	   	if(id.equals("admin") || id.equals(c.getId())) {%>
-	   		
-	   		
-       	  <img width="150" src="/team02/image/<%= c.getProfile() %>"> <p>   
+	   		 		
+	   		<img width="150" src="/wherego/views/mypage/DEFAULT/<%= c.getProfile() %>"> 
+	   		<img width="150" src="/wherego/upload/<%= c.getProfile() %>"> <p>  
+	   	
+       	  
+       	  
+       	  
+       	  
        	  <button id="changeProfile" onclick="openProfileWindow()">프로필 이미지 변경</button><br>   
 	   		"<%= c.getNic() %>" 회원님 마이페이지<p><br>
 	
@@ -41,11 +45,11 @@
 		        }
 		   </script>
 	   	
-	       <input type="button" value="수정하기" OnClick="window.location='updateForm.jsp'">
-		   <input type="button" value="삭제하기" OnClick="window.location='deleteForm.jsp'">
+	       <input type="button" value="회원정보 수정하기" OnClick="window.location='updateForm.jsp'">
+		   <input type="button" value="회원 탈퇴하기" OnClick="window.location='deleteForm.jsp'">
 		   		  
 	<%}else{%>  
-		<img width="150" src="/team02/views/mypage/DEFAULT/<%= c.getProfile() %>">
+		<img width="150" src="/wherego/views/mypage/DEFAULT/<%= c.getProfile() %>">
 		현재 <%= c.getNic() %> 회원 페이지를 구경하고 있습니다.<p><br>		  
 	<%} %>    
   <%} %> 
@@ -71,7 +75,7 @@
             <input type="button" value="myreviews"  onclick="myreviews_open()">
             <input type="button" value="mypick"  onclick="mypick_open()">
         <%} else {%>
-            <input type="button" value="magazine" onclick="window.location='/team02/views/mylist/board.jsp?id=test'"> 
+            <input type="button" value="magazine" onclick="window.location='/wherego/views/mylist/board.jsp?id=test'"> 
             <input type="button" value="myreviews" onclick="window.location='#'">
         <%} %>
        <%} %> 

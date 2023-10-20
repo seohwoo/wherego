@@ -113,7 +113,7 @@
 		<td colspan="2" align="center" > 
 	        <input type="submit" name="confirm" value="등   록" >
 	        <input type="reset" name="reset" value="다시입력">
-	        <input type="button" value="가입안함" onclick="window.location='/team02/views/main/main.jsp'">
+	        <input type="button" value="가입안함" onclick="window.location='/wherego/views/main/main.jsp'">
      	</td>
 	
 	</table>

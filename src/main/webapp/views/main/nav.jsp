@@ -41,7 +41,7 @@
 		      		<%@ include file = "/views/login/loginForm.jsp" %>
 	       		 </li>&nbsp;
 	       		 <li class="nav-item">
-	          		<button type="button" class="btn btn-secondary" OnClick="window.location='/team02/views/login/inputForm.jsp'">Sign-up</button>
+	          		<button type="button" class="btn btn-secondary" OnClick="window.location='/wherego/views/login/inputForm.jsp'">Sign-up</button>
 	          	</li>
 	          </ul>
 	      </div>
@@ -77,10 +77,10 @@
 	      <div class = "collapse navbar-collapse justify-content-end">
 		      <ul class="navbar-nav">
 		      	<li class="nav-item">
-		      		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/team02/views/login/logout.jsp'">logout</button>
+		      		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/wherego/views/login/logout.jsp'">logout</button>
 	       		 </li>&nbsp;
 	       		 <li class="nav-item">
-	          		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/team02/views/mypage/myPage.jsp'">mypage</button>
+	          		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/wherego/views/mypage/myPage.jsp'">mypage</button>
 	          	</li>
 	          </ul>
 	      </div>

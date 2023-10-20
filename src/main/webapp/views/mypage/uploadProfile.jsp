@@ -15,7 +15,7 @@
 <body>
 <% 
 
-   String path = request.getRealPath("image");
+   String path = request.getRealPath("/upload");
    int max = 1024*1024*10;
    String enc = "UTF-8";
    DefaultFileRenamePolicy dp = new DefaultFileRenamePolicy();

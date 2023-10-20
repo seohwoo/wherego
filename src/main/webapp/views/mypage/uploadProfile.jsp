@@ -36,9 +36,9 @@
 
 %>
 
-
-
-
+ <script>
+ window.close();
+ </script>
 
 </body>
 </html>

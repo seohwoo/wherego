@@ -21,7 +21,7 @@
 %>
 
 <table width="270" border="0" cellspacing="0" cellpadding="5">
-  <tr bgcolor="<%=blue_b%>"> 
+  <tr > 
     <td height="39" ><%=nic%>이미 사용중인 닉네임입니다.</td>
   </tr>
 </table>
@@ -29,7 +29,7 @@
 <form name="checkForm" method="post" action="confirmNIC.jsp">
 <table width="270" border="0" cellspacing="0" cellpadding="5">
   <tr>
-    <td bgcolor="<%=back_c%>" align="center"> 
+    <td align="center"> 
        다른 닉네임을 선택하세요.<p>
        <input type="text" size="10" maxlength="12" name="nic"> 
        <input type="submit" value="닉네임중복확인">

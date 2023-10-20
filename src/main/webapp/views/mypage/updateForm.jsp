@@ -17,13 +17,13 @@
 	MemberDTO c = manager.getMember(id); 
 	try{
 %>
-<body bgcolor="<%=back_c%>">
+<body >
 <form method="post" action="updatePro.jsp" name="userinput" onsubmit="return checkIt()">
 
 	<table width="600" border="1" cellspacing="0" cellpadding="3"  align="center">
 	
     <tr > 
-      <td  colspan="2" height="39" bgcolor="<%=title_c%>" align="center">
+      <td  colspan="2" height="39"  align="center">
 	     <font size="+1" ><b>어디 GO 회원 정보수정</b></font></td>
     </tr>
     
@@ -32,8 +32,8 @@
     </tr>
     
      <tr> 
-      <td width="200" bgcolor="<%=value_c%>"><b>아이디 입력</b></td>
-      <td width="400" bgcolor="<%=value_c%>">&nbsp;</td>
+      <td width="200" ><b>아이디 입력</b></td>
+      <td width="400" >&nbsp;</td>
     <tr>  
 	
 	<tr> 
@@ -49,8 +49,8 @@
     </tr>  
 
 	 <tr> 
-      <td  width="200" bgcolor="<%=value_c%>"><b>개인정보 수정사항</b></td>
-      <td width="400" bgcolor="<%=value_c%>">&nbsp;</td>
+      <td  width="200" ><b>개인정보 수정사항</b></td>
+      <td width="400" >&nbsp;</td>
     </tr>  
 
 	 <tr> 
@@ -95,17 +95,11 @@
       </td>
     </tr>
     
-    <tr> 
-      <td   width="200">프로필사진</td>
-      <td  width="400"> 
-        <input type="file" name="profile" enctype="multipart/form-data" value="<%=c.getProfile()%>">
-      </td>
-    </tr>
     
    
     
 	<tr> 
-      <td colspan="2" align="center" bgcolor="<%=value_c%>"> 
+      <td colspan="2" align="center"> 
        <input type="submit" name="sujung" value="수   정" >
        <input type="button" value="취  소" onclick="javascript:window.location='/team02/views/mypage/myPage.jsp'">      
       </td>

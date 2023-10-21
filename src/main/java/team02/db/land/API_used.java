@@ -148,15 +148,15 @@ public class API_used extends Using_API_KEY {
 			for (int i = 0; i < numOfRows; i++) {
 				HashMap<String, String> fesMap = new HashMap<String, String>();
 				JSONObject Array_item = (JSONObject) item.get(i);
-				fesMap.put("contentid", Array_item.get("contentid").toString());
-				fesMap.put("areacode", Array_item.get("areacode").toString());
-				fesMap.put("sigungucode", Array_item.get("sigungucode").toString());
-				fesMap.put("title", Array_item.get("title").toString());
-				fesMap.put("addr1", Array_item.get("addr1").toString());
-				fesMap.put("firstimage", Array_item.get("firstimage").toString());
-				fesMap.put("cat1", Array_item.get("cat1").toString());
-				fesMap.put("cat2", Array_item.get("cat2").toString());
-				fesMap.put("cat3", Array_item.get("cat3").toString());
+				fesMap.put("contentid", String.valueOf(Array_item.get("contentid")));
+				fesMap.put("areacode", String.valueOf(Array_item.get("areacode")));
+				fesMap.put("sigungucode", String.valueOf(Array_item.get("sigungucode")));
+				fesMap.put("title", String.valueOf(Array_item.get("title")));
+				fesMap.put("addr1", String.valueOf(Array_item.get("addr1")));
+				fesMap.put("firstimage", String.valueOf(Array_item.get("firstimage")));
+				fesMap.put("cat1", String.valueOf(Array_item.get("cat1")));
+				fesMap.put("cat2", String.valueOf(Array_item.get("cat2")));
+				fesMap.put("cat3", String.valueOf(Array_item.get("cat3")));
 				festival.add(fesMap);
 			}
 
@@ -187,7 +187,6 @@ public class API_used extends Using_API_KEY {
 			JSONArray item = (JSONArray) items.get("item");
 			JSONObject arrItem = (JSONObject) item.get(0);
 			randInfo.put("homepage", arrItem.get("homepage").toString());
-			randInfo.put("overview", arrItem.get("overview").toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -214,6 +213,7 @@ public class API_used extends Using_API_KEY {
 			JSONObject arrItem = (JSONObject) item.get(0);
 			DetailrandInfo.put("infocenter", arrItem.get("infocenter").toString());
 			DetailrandInfo.put("restdate", arrItem.get("restdate").toString());
+			DetailrandInfo.put("expguide", arrItem.get("expguide").toString());
 			DetailrandInfo.put("usetime", arrItem.get("usetime").toString());
 			DetailrandInfo.put("parking", arrItem.get("parking").toString());
 			DetailrandInfo.put("chkbabycarriage", arrItem.get("chkbabycarriage").toString());
@@ -243,7 +243,7 @@ public class API_used extends Using_API_KEY {
 			JSONObject items = (JSONObject) body.get("items");
 			JSONArray item = (JSONArray) items.get("item");
 			JSONObject arrItem = (JSONObject) item.get(0);
-			category = arrItem.get("name").toString();
+			category = String.valueOf(arrItem.get("name"));
 
 		} catch (Exception e) {
 			e.printStackTrace();

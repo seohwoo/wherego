@@ -45,12 +45,54 @@ public class LandInfoDAO extends OracleDB {
 		}
 	}
 
-	public ArrayList<String> selectContentId(String areaCode) {
+	/*public ArrayList<String> selectContentId(String areaCode) {
 		ArrayList<String> contentIdList = new ArrayList<String>();
 
 		try {
 			conn = getConnection();
 			String sql = " select contentid from landinfo where areacode=? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, areaCode);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				contentIdList.add(rs.getString("contentid"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return contentIdList;
+	}*/
+	
+	public ArrayList<String> selectContentId(String areaCode, String sigunguCode) {
+		ArrayList<String> contentIdList = new ArrayList<String>();
+
+		try {
+			conn = getConnection();
+			String sql = " select contentid from landinfo where areacode=? and sigunguCode=? and firstimage is not null ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, areaCode);
+			pstmt.setString(2, sigunguCode);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				contentIdList.add(rs.getString("contentid"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return contentIdList;
+	}
+	
+	public ArrayList<String> selectNotContentId(String areaCode) {
+		ArrayList<String> contentIdList = new ArrayList<String>();
+
+		try {
+			conn = getConnection();
+			String sql = " select contentid from landinfo "
+					+ " where homepage is null and overview is null and infocenter is null and restdate is null and usetime is null and parking is null and chkbabycarriage is null and chkpet is null and category is null and areacode = ? and firstimage is not null";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, areaCode);
 			rs = pstmt.executeQuery();

@@ -2,7 +2,7 @@
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "team02.db.land.API_used"%> 
+<%@ page import = "team02.db.land.LastAPI_Used"%> 
 <%@ page import = "team02.content.land.LandDAO" %>
 <!DOCTYPE html>
 <html>
@@ -19,7 +19,7 @@
 		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		String id = (String)session.getAttribute("memId");
 		
-		API_used api = API_used.getInstance();
+		LastAPI_Used api = LastAPI_Used.getInstance();
 		HashMap<String, String> randInfo = api.findRandInfo(contentid);
 		HashMap<String, String> DetailrandInfo = api.findDetailRandInfo(contentid);
 		

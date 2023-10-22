@@ -34,7 +34,7 @@
           <img src="<%=randInfo.get("firstimage") %>" width="200" height="200"/>
           
        <%}else if(src.equals("")){%>
-            <img src = "/team02/image/image.jpg" width="200" height="200"/>        
+            <img src = "/wherego/image/image.jpg" width="200" height="200"/>        
       <% }%>
       	<br />
 		<span>홈페이지 : </span><%=randInfo.get("homepage") %>	</br />

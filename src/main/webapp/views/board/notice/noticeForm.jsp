@@ -17,7 +17,7 @@
  %>
         <script>
             alert("관리자만 접근가능!");
-            window.location="/team02/views/board/noticeList.jsp";
+            window.location="/wherego/views/board/notice/noticeList.jsp";
         </script>
     <body>
 <% } else { %>

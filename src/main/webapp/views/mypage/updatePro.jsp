@@ -35,9 +35,9 @@
    <tr>
     <td bgcolor="<%=value_c%>" align="center"> 
       <form>
-	    <input type="button" value="마이 페이지" onclick="window.location='/team02/views/mypage/myPage.jsp'">
+	    <input type="button" value="마이 페이지" onclick="window.location='/wherego/views/mypage/myPage.jsp'">
       </form>
-      5초후에 메인으로 이동합니다.<meta http-equiv="Refresh" content="5;url=/team02/views/mypage/myPage.jsp" >
+      5초후에 메인으로 이동합니다.<meta http-equiv="Refresh" content="5;url=/wherego/views/mypage/myPage.jsp" >
     </td>
   </tr>
   

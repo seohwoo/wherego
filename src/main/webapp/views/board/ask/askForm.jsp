@@ -18,7 +18,7 @@ try {
  %>
         <script>
             alert("로그인 후 사용가능!");
-            window.location="/team02/views/board/askList.jsp";
+            window.location="/wherego/views/board/ask/askList.jsp";
         </script>
     <body>
 <% } else { %>

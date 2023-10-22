@@ -20,7 +20,7 @@
  %>
         <script>
             alert("관리자만 접근가능!");
-            window.location="/team02/views/board/askList.jsp";
+            window.location="/wherego/views/board/ask/askList.jsp";
         </script>
     <body>
 <% } else { %>

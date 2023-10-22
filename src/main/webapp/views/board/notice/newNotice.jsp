@@ -30,7 +30,7 @@
 	  
 	  <div align="center">
 	   <button type="button"  class="btn btn-outline-dark" 
-			OnClick="window.location='/team02/views/board/noticeList.jsp'">📢 <b><%= dto.getTitle() %></b></button>
+			OnClick="window.location='/wherego/views/board/notice/noticeList.jsp'">📢 <b><%= dto.getTitle() %></b></button>
         	 
              <% if (content.length() <= maxLength) {
                 // 길이가 100글자 이하이면 전체 내용 출력
@@ -41,7 +41,7 @@
              }
              %>
              <% if (content.length() > maxLength) { %>
-                        <a href="/team02/views/board/contentNo.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">더보기</a>
+                        <a href="/wherego/views/board/notice/contentNo.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">더보기</a>
                     <% } %>
              
       </div>

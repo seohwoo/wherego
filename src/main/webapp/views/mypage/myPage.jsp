@@ -11,7 +11,7 @@
 	<% if (session.getAttribute("memId") == null) { %>
 	    <script>
 	        alert("로그인 후 사용 가능합니다.");
-	        window.location = "/team02/views/main/main.jsp";
+	        window.location = "/whrergo/views/main/main.jsp";
 	    </script>
 	<% } %>
 	
@@ -33,10 +33,10 @@
 	   	if(id.equals(c.getId())) {%>
 	   		
 	   		<!-- 기본이미지 -->
-       	  <img width="150" src="/team02/views/mypage/DEFAULT/<%= c.getProfile() %>"> <br> 
+       	  <img width="150" src="/wherego/views/mypage/DEFAULT/<%= c.getProfile() %>"> <br> 
 	   		
 	        <!-- 프로필 이미지 및 닉네임 표시 -->
-	      <img width="150" src="/team02/image/<%= c.getProfile() %>"> <br>         
+	      <img width="150" src="/wherego/image/<%= c.getProfile() %>"> <br>         
 	       	 <%= c.getNic() %> 마이페이지<p><br>
 	      <button id="changeProfile" onclick="openProfileWindow()">프로필 이미지 변경</button>
 	 
@@ -69,7 +69,7 @@
 	       if(id.equals(c.getId())) {%>
 	         <input type="button" value="magazine" onclick="window.location='board.jsp'"> 
 	         <input type="button" value="myreviews" onclick="window.location='#'">
-	         <input type="button" value="mypick" onclick="window.location='/team02/views/not/login/mypick.jsp'">
+	         <input type="button" value="mypick" onclick="window.location='/wherego/views/not/login/mypick.jsp'">
 	     <%} else {%>
 	         <input type="button" value="magazine" onclick="window.location='#'"> 
 	     <%} %>

@@ -43,7 +43,7 @@
 	    <tbody>
 	      <tr>
 	       <td onClick="location.href='/wherego/views/main/listRand.jsp'" >여행지 찾기</a></td>
-		   <td onClick="location.href='/wherego/views/board/noticeList.jsp'">공지사항</td>
+		   <td onClick="location.href='/wherego/views/board/notice/noticeList.jsp'">공지사항</td>
 		   <td onClick="location.href='#'">내가 쓴 매거진</td>
 	      </tr>
 	      <tr>

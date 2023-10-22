@@ -41,7 +41,7 @@ try {
  %>
         <script>
             alert("로그인 후 사용가능!");
-            window.location="/team02/views/board/askList.jsp";
+            window.location="/wherego/views/board/ask/askList.jsp";
         </script>
     <body>
 <% } else { %>
@@ -86,7 +86,7 @@ try {
                 <td align="center" width="50"><%= number-- %></td>
                 <td align="center" width="250"><%= dto.getWriter() %></td>
                 <td align="center" width="250">
-                    <a href="/team02/views/board/content.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">
+                    <a href="/wherego/views/board/content.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">
                         <%= dto.getTitle() %>
                     </a>
                 </td>

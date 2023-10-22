@@ -74,7 +74,7 @@
                 <td align="center" width="50"><%= number-- %></td>
                 <td align="center" width="250"><%= dto.getWriter() %></td>
                 <td align="center" width="250">
-                    <a href="/team02/views/board/contentNo.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">
+                    <a href="/wherego/views/board/notice/contentNo.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">
                         <%= dto.getTitle() %>
                     </a>
                 </td>

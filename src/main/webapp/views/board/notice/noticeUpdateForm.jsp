@@ -22,7 +22,7 @@ try {
 %>
         <script>
             alert("관리자만 수정 가능합니다");
-            window.location="/team02/views/board/noticeList.jsp";
+            window.location="/wherego/views/board/notice/noticeList.jsp";
         </script>
     <body>
 <% } else { %>

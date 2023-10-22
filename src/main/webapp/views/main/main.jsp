@@ -30,7 +30,7 @@
 			</div>
 		</div>
 			
-		<a href="/team02/views/locationLand/locationHigh.jsp" class="btn btn-secondary">지역별 여행지 보기</a>
+		<a href="/wherego/views/locationLand/locationHigh.jsp" class="btn btn-secondary">지역별 여행지 보기</a>
 		<a href="#" class="btn btn-secondary">나의 여행 계획 짜기</a>
 	</div>
 

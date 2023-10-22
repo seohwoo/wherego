@@ -23,7 +23,7 @@ try {
 %>
         <script>
             alert("작성자만 수정 가능합니다");
-            window.location="/team02/views/board/askList.jsp";
+            window.location="/wherego/views/board/ask/askList.jsp";
         </script>
     <body>
 <% } else { %>

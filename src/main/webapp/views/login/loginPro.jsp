@@ -18,9 +18,9 @@
 	if(check==1){
 		//로그인 성공
 		session.setAttribute("memId",id);
-		if(askListUrl.equals("http://localhost:8080/team02/views/main/board/askList.jsp")) {
+		if(askListUrl.equals("http://localhost:8080/wherego/views/main/board/askList.jsp")) {
 			String originalString = askListUrl;
-			String realAskListUrl = originalString.substring(originalString.indexOf("/team02"));
+			String realAskListUrl = originalString.substring(originalString.indexOf("/wherego"));
 			response.sendRedirect(realAskListUrl);
 		}else{
 			response.sendRedirect("/wherego/views/main/main.jsp");

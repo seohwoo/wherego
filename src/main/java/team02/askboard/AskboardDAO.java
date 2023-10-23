@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
 import team02.db.land.OracleDB;
 
 
@@ -17,12 +15,12 @@ public class AskboardDAO extends OracleDB {
 	public static AskboardDAO getInstance() {
 		return instance;
 	}
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
 
 	//문의 삽입
-	public void insertAsk(AskboardDTO dto) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+	public void insertAsk(AskboardDTO dto){
 		int num = dto.getNum();
 		int ref = dto.getRef();
 		int re_step = dto.getRe_step();
@@ -31,7 +29,8 @@ public class AskboardDAO extends OracleDB {
 		String sql = "";
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select max(num) from askboard");
+			sql = "select max(num) from askboard";
+			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if (rs.next())
 				number = rs.getInt(1) + 1; // max(최대값)에 +1해줌
@@ -69,15 +68,13 @@ public class AskboardDAO extends OracleDB {
 	}
 
 	//member2 DB에서 nic받아오기
-	public String select(String nic) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+	public String select(String nic) {
+		String sql = "";
 		String writer = null; // writer 값을 저장할 변수
 		String id = null;
 		try {
 			conn = getConnection();
-			String sql = "select nic FROM member2 WHERE id = ?";
+			sql = "select nic FROM member2 WHERE id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, nic);
 
@@ -96,15 +93,14 @@ public class AskboardDAO extends OracleDB {
 	}
 
 	//문의 리스트 askList
-	public List getAsk(int start, int end) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List askList = null;
+	public ArrayList<AskboardDTO>getAsk(int start, int end){
+		String sql = "";
+		ArrayList<AskboardDTO> askList = null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select * from " + " (select b.* , rownum r from "
-					+ " (select * from askboard order by ref desc, re_step asc ) b) " + " where r >= ? and r <= ? ");
+			sql = "select * from " + " (select b.* , rownum r from "
+					+ " (select * from askboard order by ref desc, re_step asc ) b) " + " where r >= ? and r <= ? ";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
 
@@ -135,14 +131,13 @@ public class AskboardDAO extends OracleDB {
 		return askList;
 	}
 
-	public int getAskCount() throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+	public int getAskCount(){
+		String sql ="";
 		int x = 0;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select count(*) from askboard");
+			sql = "select count(*) from askboard";
+			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				x = rs.getInt(1);
@@ -156,15 +151,14 @@ public class AskboardDAO extends OracleDB {
 	}
 	
 	//나의 문의 리스트 askMyList.jsp
-	public List getMyAsk(String id, int start, int end) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List myaskList = null;
+	public ArrayList<AskboardDTO> getMyAsk(String id, int start, int end) {
+		String sql = "";
+		ArrayList<AskboardDTO> myaskList = null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select * from " + " (select b.* , rownum r from "
-					+ " (select * from askboard order by ref desc, re_step asc ) b) " + " where id = ? and r >= ? and r <= ?");
+			sql = "select * from " + " (select b.* , rownum r from "
+					+ " (select * from askboard order by ref desc, re_step asc ) b) " + " where id = ? and r >= ? and r <= ?";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setInt(2, start);
 			pstmt.setInt(3, end);
@@ -198,13 +192,12 @@ public class AskboardDAO extends OracleDB {
 
 
 	public int getMyAskCount(String writer) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		String sql ="";
 		int x = 0;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select count(*) from askboard where id=?");
+			sql = "select count(*) from askboard where id=?";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, writer);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -219,18 +212,17 @@ public class AskboardDAO extends OracleDB {
 	}
 
 	//content.jsp (내용 보기)
-	public AskboardDTO getAsking(int num) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+	public AskboardDTO getAsking(int num){
+		String sql ="";
 		AskboardDTO dto = null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement( // 조회수
-					"update askboard set readcount=readcount+1 where num = ?");
+			sql =  "update askboard set readcount=readcount+1 where num = ?";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
-			pstmt = conn.prepareStatement("select * from askboard where num = ?");
+			sql = "select * from askboard where num = ?";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -255,15 +247,13 @@ public class AskboardDAO extends OracleDB {
 		return dto;
 	}
 
-	public String getWriter(int num) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+	public String getWriter(int num){
+		String sql = "";
 		String result = null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement(
-					"select count(*) from askboard where ref=(select ref from askboard where num=?)and re_step = 0");
+			sql = "select count(*) from askboard where ref=(select ref from askboard where num=?)and re_step = 0";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -278,15 +268,13 @@ public class AskboardDAO extends OracleDB {
 
 	}
 	
-	public AskboardDTO updateGetAsk(int num) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+	public AskboardDTO updateGetAsk(int num) {
+		String sql = "";
 		AskboardDTO dto=null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement(
-			"select * from askboard where num = ?"); 
+			sql = "select * from askboard where num = ?"; 
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -310,14 +298,13 @@ public class AskboardDAO extends OracleDB {
 		return dto;
 	}
 
-	public int updateAsk(AskboardDTO dto) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs= null;
+	public int updateAsk(AskboardDTO dto) {
+		String sql = "";
 		int x=-1;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("update askboard set writer=?,title=?,content=? where num=?");
+			sql = "update askboard set writer=?,title=?,content=? where num=?";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getWriter());
 			pstmt.setString(2, dto.getTitle());
 			pstmt.setString(3, dto.getContent());
@@ -332,14 +319,13 @@ public class AskboardDAO extends OracleDB {
 		return x;
 	}
 	
-	public int deleteAsk(int num) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs= null;
+	public int deleteAsk(int num){
+		String sql = "";
 		int x=-1;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("delete from askboard where num=?");
+			sql = "delete from askboard where num=?";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			x = pstmt.executeUpdate();
 		} catch(Exception ex) {

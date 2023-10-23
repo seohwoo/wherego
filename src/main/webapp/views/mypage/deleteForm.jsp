@@ -32,7 +32,9 @@
   <TR height="30">
     <TD colspan="2" align="middle" >
       <INPUT type=submit value="회원탈퇴"> 
-      <input type="button" value="취  소" onclick="javascript:window.location='/wherego/views/mypage/myPage.jsp'"></TD></TR>
+
+      <input type="button" value="취  소" onclick="javascript:window.location='/wherego/views/main/main.jsp'"></TD></TR>
+
 </TABLE>
 </form>
 </BODY>

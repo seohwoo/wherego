@@ -17,21 +17,21 @@
 	    <div class="collapse navbar-collapse" id="navbarNavDropdown">
 	      <ul class="navbar-nav">
 	        <li class="nav-item">
-          		<a class="nav-link active" aria-current="page" href="/team02/views/main/main.jsp">Home</a>
+          		<a class="nav-link active" aria-current="page" href="/wherego/views/main/main.jsp">Home</a>
        		 </li>
 	        <li class="nav-item">
-	          <a class="nav-link" aria-current="page" href="/team02/views/main/listRand.jsp"> Area </a>
+	          <a class="nav-link" aria-current="page" href="/wherego/views/main/listRand.jsp"> Area </a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" aria-current="page" href="/team02/views/main/listGuide.jsp"> Guide </a>
+	          <a class="nav-link" aria-current="page" href="/wherego/views/main/listMag.jsp"> Magazine </a>
 	        </li>
 	         <li class="nav-item dropdown">
-	          <a class="nav-link dropdown-toggle" href="team02/views/board/board.jsp" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            Community
 	          </a>
 	          <ul class="dropdown-menu">
-	            <li><a class="dropdown-item" href="#">Notice</a></li>
-	            <li><a class="dropdown-item" href="/team2/board/askList.jsp">Q & A</a></li>
+	            <li><a class="dropdown-item" href="/wherego/views/board/notice/noticeList.jsp">Notice</a></li>
+	            <li><a class="dropdown-item" href="/wherego/views/board/ask/askList.jsp">Q & A</a></li>
 	          </ul>
 	        </li>
 	      </ul>
@@ -56,21 +56,21 @@
 	    <div class="collapse navbar-collapse" id="navbarNavDropdown">
 	      <ul class="navbar-nav">
 	        <li class="nav-item">
-          		<a class="nav-link active" aria-current="page" href="/team2/main/main.jsp">Home</a>
+          		<a class="nav-link active" aria-current="page" href="/wherego/views/main/main.jsp">Home</a>
        		 </li>
 	        <li class="nav-item">
-	          <a class="nav-link" aria-current="page" href="/team2/main/listRand.jsp"> Area </a>
+	          <a class="nav-link" aria-current="page" href="/wherego/views/main/listRand.jsp"> Area </a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" aria-current="page" href="/team2/main/listGuide.jsp"> Guide </a>
+	          <a class="nav-link" aria-current="page" href="/wherego/views/main/listMag.jsp"> Magazine </a>
 	        </li>
 	        <li class="nav-item dropdown">
-	          <a class="nav-link dropdown-toggle" href="/team2/board/board.jsp" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	          <a class="nav-link dropdown-toggle"role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            Community
 	          </a>
 	          <ul class="dropdown-menu">
-	            <li><a class="dropdown-item" href="#">Notice</a></li>
-	            <li><a class="dropdown-item" href="/team2/board/askList.jsp">Q & A</a></li>
+	            <li><a class="dropdown-item" href="/wherego/views/board/notice/noticeList.jsp">Notice</a></li>
+	            <li><a class="dropdown-item" href="/wherego/views/board/ask/askList.jsp">Q & A</a></li>
 	          </ul>
 	        </li>
 	      </ul>

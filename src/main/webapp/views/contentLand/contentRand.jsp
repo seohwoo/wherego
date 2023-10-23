@@ -2,7 +2,7 @@
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "team02.db.land.API_used"%> 
+<%@ page import = "team02.db.land.LastAPI_Used"%> 
 <%@ page import = "team02.content.land.LandDAO" %>
 <!DOCTYPE html>
 <html>
@@ -19,7 +19,7 @@
 		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		String id = (String)session.getAttribute("memId");
 		
-		API_used api = API_used.getInstance();
+		LastAPI_Used api = LastAPI_Used.getInstance();
 		HashMap<String, String> randInfo = api.findRandInfo(contentid);
 		HashMap<String, String> DetailrandInfo = api.findDetailRandInfo(contentid);
 		
@@ -34,7 +34,7 @@
           <img src="<%=randInfo.get("firstimage") %>" width="200" height="200"/>
           
        <%}else if(src.equals("")){%>
-            <img src = "/team02/image/image.jpg" width="200" height="200"/>        
+            <img src = "/wherego/image/image.jpg" width="200" height="200"/>        
       <% }%>
       	<br />
 		<span>홈페이지 : </span><%=randInfo.get("homepage") %>	</br />

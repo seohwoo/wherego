@@ -1,7 +1,7 @@
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "team02.db.land.API_used"%> 
+<%@ page import = "team02.db.land.LastAPI_Used"%> 
 <%@page import="java.util.ArrayList"%>
 <%@page import = "java.util.List" %>
 <!DOCTYPE html>
@@ -18,7 +18,7 @@
 
       String sigunguCode = request.getParameter("sigunguCode");
 
-      API_used api = API_used.getInstance();
+      LastAPI_Used api = LastAPI_Used.getInstance();
       HashMap<String, Integer> totalMap = new HashMap<String, Integer>();
       totalMap = api.findTotalCount_NumOfRows(areaCode,sigunguCode);
       int totalCount = totalMap.get("totalCount");
@@ -39,7 +39,7 @@
       String src = "";   
        for(HashMap<String, String> festival : list) {%>
        
-         <a href="/team02/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=festival.get("contentid")%>&pageNum=<%=pageNum%>" >
+         <a href="/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=festival.get("contentid")%>&pageNum=<%=pageNum%>" >
           <% src = festival.get("firstimage");
           if(!src.equals("")){%>
           <img src="<%=festival.get("firstimage") %>" width="200" height="200"/>

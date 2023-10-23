@@ -22,8 +22,8 @@ try {
         // 게시물 작성자와 로그인 사용자가 일치하는 경우
 %>
         <script>
-            alert("작성자만 삭제 가능합니다");
-            window.location="/team02/views/board/askList.jsp";
+            alert("작성자만 수정 가능합니다");
+            window.location="/wherego/views/board/ask/askList.jsp";
         </script>
     <body>
 <% } else { %>
@@ -36,10 +36,10 @@ try {
     <br />
     <hr />
     
-    <!-- 문의 리스트 -->
-    <h2 align="center">문의 게시판</h2>
+    <!-- 문의 리스트 (수정) -->
+    <h2 align="center">문의 게시판 (수정)</h2>
     <br />
-    <form action="askDeletePro.jsp" method="post" onsubmit="return writeSave()">
+    <form action="askUpdatePro.jsp" method="post" onsubmit="return writeSave()">
         <input type="hidden" name="num" value="<%= num %>">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">작성자</label>
@@ -51,11 +51,11 @@ try {
             <input type="text" name="title" class="form-control" id="exampleFormControlInput2" value="<%= dto.getTitle() %>">
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">문의내용</label>
+            <label for="exampleFormControlTextarea1" class="form-label">문의내용(수정)</label>
             <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"><%= dto.getContent() %></textarea>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto">
-            <button type="submit" class="btn btn-secondary">문의 삭제</button>
+            <button type="submit" class="btn btn-success">수정된 문의 등록</button>
         </div>
     </form>
     

@@ -243,7 +243,11 @@ public class API_used extends Using_API_KEY {
 			JSONObject items = (JSONObject) body.get("items");
 			JSONArray item = (JSONArray) items.get("item");
 			JSONObject arrItem = (JSONObject) item.get(0);
-			category.put("name", String.valueOf(arrItem.get("name")));
+			if (String.valueOf(arrItem.get("name")) == null) {
+				category.put("name", null);
+			} else {
+				category.put("name", String.valueOf(arrItem.get("name")));
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -225,8 +225,8 @@ public class API_used extends Using_API_KEY {
 		return DetailrandInfo;
 	}// findDetailRandInfo()
 
-	public String findCategory(String cat1, String cat2, String cat3) {
-		String category = "";
+	public HashMap<String, String> findCategory(String cat1, String cat2, String cat3) {
+		HashMap<String, String> category = new HashMap<String, String>();
 		api_key = getEncoding_API_KEY();
 
 		try {
@@ -243,7 +243,7 @@ public class API_used extends Using_API_KEY {
 			JSONObject items = (JSONObject) body.get("items");
 			JSONArray item = (JSONArray) items.get("item");
 			JSONObject arrItem = (JSONObject) item.get(0);
-			category = String.valueOf(arrItem.get("name"));
+			category.put("name", String.valueOf(arrItem.get("name")));
 
 		} catch (Exception e) {
 			e.printStackTrace();

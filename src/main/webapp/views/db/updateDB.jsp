@@ -28,6 +28,7 @@
 			
 			HashMap<String, String> landInfoMap = new HashMap<String, String>();
 			HashMap<String, String> landDetailMap = new HashMap<String, String>();
+			HashMap<String, String> category = new HashMap<String, String>();
 			
 			for(String contentid : list) {
 				landInfoMap = api.findRandInfo(contentid);
@@ -46,9 +47,9 @@
 				
 				ArrayList<String> categoryList = new ArrayList<String>();
 				categoryList = dao.selectCategory(contentid);
-				String category = api.findCategory(categoryList.get(0), categoryList.get(1), categoryList.get(2));
+				category = api.findCategory(categoryList.get(0), categoryList.get(1), categoryList.get(2));
 				
-				dao.updateLand(arLandInfo[0], arLandDetail[6], arLandDetail[0], arLandDetail[1], arLandDetail[2], arLandDetail[3], arLandDetail[4], arLandDetail[5], category, contentid);
+				dao.updateLand(arLandInfo[0], arLandDetail[6], arLandDetail[0], arLandDetail[1], arLandDetail[2], arLandDetail[3], arLandDetail[4], arLandDetail[5], category.get("name"), contentid);
 				
 			}
 			

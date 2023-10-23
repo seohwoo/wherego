@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	<%@ include file="nav.jsp" %>
+	<jsp:include page="/views/main/nav.jsp" />	
 
 	<br />
 	<div class="text-center">
@@ -19,7 +19,7 @@
 	<hr />
 	
 	<br />
-	<%@ include file="/views/board/notice/newNotice.jsp" %>
+	<jsp:include page="/views/board/notice/newNotice.jsp" />	
 		  <!-- main 중반 -->
 	<br />
 	<div class="d-grid gap-2 col-6 mx-auto">	
@@ -36,16 +36,16 @@
 
 	<br/><hr /><br/>
 	<h3 align= "center"> Top 8 여행지</h3><br/>
-		<%@ include file="topArea.jsp" %>
+		<jsp:include page="/views/main/topArea.jsp" />
 	<br/>
 	<hr/>
 	<br/>
 	<h3 align= "center"> Best 매거진</h3><br/>
-		<%@ include file="bestMag.jsp" %>
+		<jsp:include page="/views/main/bestMag.jsp" />
 	<br/>
 	<hr />
 	<br/>
-		<%@ include file="footer.jsp" %>	
+		<jsp:include page="/views/main/footer.jsp" />	
 
 </body>
 </html>

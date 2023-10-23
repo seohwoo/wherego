@@ -7,7 +7,7 @@
 <title>이용약관</title>
 </head>
 <body>
-	<%@ include file="nav.jsp" %>
+	<jsp:include page="/views/main/nav.jsp" />	
 	
 	<br />
 	<div class="text-center">
@@ -20,7 +20,7 @@
 	
 		<div class="fixed-bottom">
 	<hr />
-		<%@ include file="footer.jsp" %>	
+		<jsp:include page="/views/main/footer.jsp" />	
 	</div>
 </body>
 </html>

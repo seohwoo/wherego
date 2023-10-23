@@ -101,11 +101,7 @@
 	<tr> 
       <td colspan="2" align="center"> 
        <input type="submit" name="sujung" value="수   정" >
-<<<<<<< HEAD
-       <input type="button" value="취  소" onclick="javascript:window.location='/team02/views/mypage/myPage.jsp'">      
-=======
-       <input type="button" value="취  소" onclick="javascript:window.location='/wherego/views/not/login/myPage.jsp'">      
->>>>>>> branch 'feature/5' of https://git@github.com/seohwoo/wherego.git
+       <input type="button" value="취  소" onclick="javascript:window.location='/wherego/views/mypage/myPage.jsp'">      
       </td>
     </tr>
 

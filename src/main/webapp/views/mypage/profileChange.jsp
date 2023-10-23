@@ -8,15 +8,12 @@
 
     <title>프로필 이미지 변경</title>
     
-    <%
-    String id = (String) session.getAttribute("memId");
+<%
+   String id = (String) session.getAttribute("memId");
 
-    MemberDAO manager = MemberDAO.getInstance();
-    MemberDTO c = manager.getMember(id); 
-   	%>
-
-
-
+   MemberDAO manager = MemberDAO.getInstance();
+   MemberDTO c = manager.getMember(id); 
+%>
 
 <body>
     <h1>프로필 이미지 변경</h1>
@@ -27,15 +24,14 @@
         <input type="submit" value="업로드" >
          <input type="button" value="닫기" onclick="closeWindow()">
     </form>
+    
     <script>
         // 새 창을 닫는 함수
-        function closeWindow() {
-        	
-        	
-            window.close();
-          
+        function closeWindow() {       	
+              window.close();         
         }
     </script>
+    
 </body>
 </html>
 

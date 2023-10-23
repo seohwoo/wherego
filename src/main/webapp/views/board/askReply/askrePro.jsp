@@ -11,5 +11,5 @@
 	AskreplyDAO dao = AskreplyDAO.getInstance();
     dao.insertReply(dto);
 
-    response.sendRedirect("askList.jsp");
+    response.sendRedirect("/wherego/views/board/ask/askList.jsp");
 %>

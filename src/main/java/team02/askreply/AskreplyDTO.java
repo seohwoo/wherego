@@ -45,5 +45,6 @@ public class AskreplyDTO {
 	public void setReg_date(Timestamp reg_date) {
 		this.reg_date = reg_date;
 	}
+	
 
 }

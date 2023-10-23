@@ -6,14 +6,14 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 
 <%
-   int num = Integer.parseInt(request.getParameter("num"));
-   String pageNum = request.getParameter("pageNum");
+ int num = Integer.parseInt(request.getParameter("num"));
+ String pageNum = request.getParameter("pageNum");
 
-   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-   String id = (String)session.getAttribute("memId");
-   AskboardDAO dao = AskboardDAO.getInstance();
-   AskboardDTO dto =  dao.getAsking(num);
- 	   String writer = dao.getWriter(num);
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	String id = (String)session.getAttribute("memId");
+	AskboardDAO dao = AskboardDAO.getInstance();
+	AskboardDTO dto =  dao.getAsking(num);
+	String writer = dao.getWriter(num);
  	   
   int ref=dto.getRef();
   int re_step=dto.getRe_step();
@@ -31,7 +31,7 @@
 <head>
 </head>
 <body>
-	 <%@ include file="/views/main/nav.jsp" %>
+	 <jsp:include page="/views/main/nav.jsp" />
 	
 	<br />
 	<div class="text-center">
@@ -72,21 +72,14 @@
 	<%
 	String memId = (String) session.getAttribute("memId");
 	String admin = "admin"; 
-	if(memId ==null){%>
-		<script>
-            alert("작성자 or 관리자만 접근가능!");
-            window.location="/wherego/views/board/ask/askList.jsp";
-        </script>
-	<%}else if(memId.equals(admin)) { %>
+	if(memId.equals(admin)){%>
 	<div align="center">
-	    <button type="button" class="btn btn-light" OnClick="window.location='askreForm.jsp'">답변달기</button>
+		<button type="button" class="btn btn-light" OnClick="window.location='/wherego/views/board/askReply/askreForm.jsp'">답변달기</button>
 	    <button type="button" class="btn btn-light" Onclick="window.location='askDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
 	    <br />
-	    <%-- <%@ include file="/views/board/askReply/askreList.jsp" %>--%>
 	    <jsp:include page="/views/board/askReply/askreList.jsp" />
 	</div>
-	<%
-	} else{ %>
+	<%}else if(memId.equals(memId)) { %>
 	<div align="center">
 	    <button type="button" class="btn btn-light" OnClick="window.location='askUpdateForm.jsp?num=<%=num%>'">수정하기</button>
 	    <button type="button" class="btn btn-light" Onclick="window.location='askDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
@@ -94,6 +87,12 @@
 	    <%-- <%@ include file="/views/board/askReply/askreList.jsp" %>--%>
 	    <jsp:include page="/views/board/askReply/askreList.jsp" />
 	</div>
+	<%
+	} else{ %>
+	<script>
+            alert("작성자 or 관리자만 접근가능!");
+            window.location="/wherego/views/board/ask/askList.jsp";
+        </script>
 	<%}%>
 	<br />
 	
@@ -104,7 +103,6 @@
 	
 	<hr />
 	<br />
-		<%-- <%@ include file="/views/main/footer.jsp" %>--%>
 		<jsp:include page="/views/main/footer.jsp" />	
 </body>
 </html>

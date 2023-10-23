@@ -90,7 +90,7 @@
     
     평가
     <br/>
-	<textarea name="comments" rows="3" cols="50" placeholder="50자 내로 적어주세요. (입력하지 않으셔도 됩니다.)"></textarea><br/>
+	<textarea name="review" rows="3" cols="50" placeholder="50자 내로 적어주세요. (입력하지 않으셔도 됩니다.)"></textarea><br/>
     <input type="submit" name="confirm" value="등록">
     <input type="button" value="닫기" OnClick="window.close();">
     </form>

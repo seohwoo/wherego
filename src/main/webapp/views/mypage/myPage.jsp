@@ -75,7 +75,7 @@
             <input type="button" value="myreviews"  onclick="myreviews_open()">
             <input type="button" value="mypick"  onclick="mypick_open()">
         <%} else {%>
-            <input type="button" value="magazine" onclick="window.location='/wherego/views/mylist/board.jsp?id=test'"> 
+            <input type="button" value="magazine" onclick="window.location='#'"> 
             <input type="button" value="myreviews" onclick="window.location='#'">
         <%} %>
        <%} %> 

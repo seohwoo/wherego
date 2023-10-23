@@ -11,11 +11,10 @@
 	String nic = request.getParameter("nic");
 	MemberDAO manager = MemberDAO.getInstance();
 	int check = manager.confirmNIC(nic);  // 아직 dao 안만듬
-
 %>
 
 
-<body bgcolor="<%=bar%>">
+<body>
 <%
     if(check == 1) {
 %>
@@ -38,7 +37,7 @@
 </table>
 </form>
 <%
-    } else {
+    }else{
 %>
 <table width="270" border="0" cellspacing="0" cellpadding="5">
   <tr bgcolor="<%=title_c%>"> 

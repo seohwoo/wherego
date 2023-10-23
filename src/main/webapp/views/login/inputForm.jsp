@@ -34,7 +34,7 @@
 
 <body >
 
-<form method="post" action="inputPro.jsp" name="userinput" onSubmit="return checkIt()">
+<form method="post" action="inputPro.jsp" name="userinput" >
 	<table width="600" border="1" cellspacing="3" cellpadding="3" align="center">
 	<tr>
 		<td colspan="2" height="39" align="center" >

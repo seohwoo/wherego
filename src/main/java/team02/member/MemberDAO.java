@@ -46,8 +46,7 @@ public class MemberDAO extends OracleDB{
    
       
       
-      public int confirmId(String id) throws Exception {  // 아이디 중복체크용   			  			
-    		 String dbpasswd="";
+      public int confirmId(String id) throws Exception {  // 아이디 중복체크용   			  			  		 
     		 int x=-1;
     		 try {
     			 conn =getConnection();
@@ -65,8 +64,7 @@ public class MemberDAO extends OracleDB{
     			   return x;
     			 }
     				
-      public int confirmNIC(String nic) throws Exception {	 // 닉네임 중복체크용
-  			 String dbpasswd="";
+      public int confirmNIC(String nic) throws Exception {	 // 닉네임 중복체크용			
   			 int x=-1;
   		     try {
   				  conn =getConnection();
@@ -107,12 +105,12 @@ public class MemberDAO extends OracleDB{
    				member.setPhone(rs.getString("phone"));
    				member.setProfile(rs.getString("profile"));             
    				member.setReg_date(rs.getString("reg_date"));  
-   				 }
-            	}catch(Exception ex) {
+   			 }
+            }catch(Exception ex) {
             		ex.printStackTrace();
-            	}close(rs, pstmt, conn);
+            }close(rs, pstmt, conn);
             	 return member;
-               }
+            }
       
       
       
@@ -135,7 +133,7 @@ public class MemberDAO extends OracleDB{
 		         }finally {
 		        	  close(rs, pstmt, conn);
 		         }
-		      }
+      }
       
       public int userCheck(String id, String pw) throws Exception {   // 유저체크
              String dbpw="";
@@ -146,20 +144,20 @@ public class MemberDAO extends OracleDB{
                   pstmt = conn.prepareStatement(sql);
                   pstmt.setString(1, id);
                   rs= pstmt.executeQuery();
-              if(rs.next()){
-            	  dbpw= rs.getString("pw"); 
-              if(dbpw.equals(pw))
-                   	x= 1; 
-                   else
-                    x= 0; 
-                  }else
+                  
+	              if(rs.next()){
+	            	 dbpw= rs.getString("pw"); 
+	            	 if(dbpw.equals(pw))
+	                   x= 1; 
+	                 else
+	                   x= 0; 
+	              }else
                     x= -1;        
-                  }catch(Exception e) {
-                    e.printStackTrace();
-                  } 
-	               close(rs, pstmt, conn);
-	               return x;
-        		}
+                }catch(Exception e) {
+                  e.printStackTrace();
+                 }close(rs, pstmt, conn);
+	            return x;
+        }
         
         
         

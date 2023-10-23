@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import = "team02.member.MemberDAO" %>
 <%@ include file="/views/login/color.jsp"%>
-
-<html>
 <head><title>ID 중복확인</title>
 <link href="style.css" rel="stylesheet" type="text/css">
 <% request.setCharacterEncoding("UTF-8");%>
@@ -11,11 +9,10 @@
 	String id = request.getParameter("id");
 	MemberDAO manager = MemberDAO.getInstance();
 	int check = manager.confirmId(id); 
-
 %>
 
 
-<body bgcolor="<%=bar%>">
+<body>
 <%
     if(check == 1) {
 %>
@@ -37,9 +34,11 @@
   </tr>
 </table>
 </form>
+
 <%
     } else {
 %>
+
 <table width="270" border="0" cellspacing="0" cellpadding="5">
   <tr bgcolor="<%=title_c%>"> 
     <td align="center"> 
@@ -49,14 +48,14 @@
   </tr>
 </table>
 <%
-    }
+	}
 %>
 </body>
-</html>
+
+
 <script language="javascript">
-  function setid()
-    {		
+  function setid(){		
     	opener.document.userinput.id.value="<%=id%>";
 		self.close();
-		}
+  }
 </script>

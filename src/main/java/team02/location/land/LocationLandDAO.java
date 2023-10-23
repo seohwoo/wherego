@@ -71,7 +71,7 @@ public class LocationLandDAO extends OracleDB {
 
 		conn = getConnection();
 		try {
-			String sql = " select count(*) from landinfo where areacode = ? and SigunguCode=? and firstimage is not null order by title asc; ";
+			String sql = " select count(*) from landinfo where areacode = ? and SigunguCode=? and firstimage is not null order by title asc ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, areacode);
 			pstmt.setString(2, sigunguCode);
@@ -86,16 +86,19 @@ public class LocationLandDAO extends OracleDB {
 		return totalCnt;
 	}
 
-	public ArrayList<HashMap<String, String>> selectLand(String areaCode, String sigunguCode) {
+	public ArrayList<HashMap<String, String>> selectLand(String areaCode, String sigunguCode, int start, int end) {
 		ArrayList<HashMap<String, String>> landList = new ArrayList<HashMap<String, String>>();
 
 		conn = getConnection();
 		try {
-			String sql = " select contentid, title, firstimage, category, areacodename, sigungucodename from landinfo "
-					+ " where areacode = ? and SigunguCode= ? and firstimage is not null order by title asc ";
+			String sql = " select * from (select land.*, rownum as r "
+					+ " from (select contentid, title, firstimage, category, areacodename, sigungucodename from landinfo where areacode =? and SigunguCode=? and firstimage is not null order by title asc) land ) "
+					+ " where r>=? and r<=? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, areaCode);
 			pstmt.setString(2, sigunguCode);
+			pstmt.setInt(3, start);
+			pstmt.setInt(4, end);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				HashMap<String, String> areaMap = new HashMap<String, String>();

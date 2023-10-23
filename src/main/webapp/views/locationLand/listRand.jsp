@@ -27,35 +27,31 @@
       }
       int pageSize = 20;
    
+      int currentPage = pageNum;
+      int start = (currentPage - 1) * pageSize + 1;
+      int end = currentPage * pageSize;
       
       int max = (totalCount / 20) + 1;
       ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();  
  
-      list = dao.selectLand(areaCode, sigunguCode);
+      list = dao.selectLand(areaCode, sigunguCode, start, end);
 
-      String src = "";   
        for(HashMap<String, String> festival : list) {%>
-       
         <a href="/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=festival.get("contentid")%>&pageNum=<%=pageNum%>" >
-          <% src = festival.get("firstimage");%>
-          
           <img src="<%=festival.get("firstimage") %>" width="200" height="200"/>
           <h3><%=festival.get("title") %></h3> 
-        </a>        
-      	
+        </a>      
       	<span><%=festival.get("category") %></span>
       	<br />
         <span><%=festival.get("areacodename") %> > <%=festival.get("sigungucodename") %></span> 
         <hr/>
-<%} %>
-   
-   
+	<%} %>
    <%
     if (pageNum > 0) {
         int pageCount = max ;
        
         int startPage = ((pageNum - 1) / 10) * 10 + 1;
-      int pageBlock = 10;
+      	int pageBlock = 10;
         int endPage = startPage + pageBlock-1;
         if (endPage > pageCount) endPage = pageCount;
         

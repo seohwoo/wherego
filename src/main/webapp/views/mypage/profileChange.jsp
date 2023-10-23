@@ -25,6 +25,7 @@
         <label for="profile">프로필 이미지 선택:</label>
         <input type="file" id="profile" name="profile">
         <input type="submit" value="업로드" >
+         <input type="button" value="닫기" onclick="closeWindow()">
     </form>
     <script>
         // 새 창을 닫는 함수
@@ -32,10 +33,7 @@
         	
         	
             window.close();
-            // 부모 창의 setProfile 함수를 호출하여 이미지를 업데이트
-            if (opener && opener.setProfile) {
-                opener.setProfile();
-            }
+          
         }
     </script>
 </body>

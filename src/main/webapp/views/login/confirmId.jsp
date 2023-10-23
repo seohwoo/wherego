@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import = "team02.member.MemberDAO" %>
 <%@ include file="/views/login/color.jsp"%>
-
-<html>
 <head><title>ID 중복확인</title>
 <link href="style.css" rel="stylesheet" type="text/css">
 <% request.setCharacterEncoding("UTF-8");%>
@@ -11,17 +9,16 @@
 	String id = request.getParameter("id");
 	MemberDAO manager = MemberDAO.getInstance();
 	int check = manager.confirmId(id); 
-
 %>
 
 
-<body bgcolor="<%=bar%>">
+<body>
 <%
     if(check == 1) {
 %>
 
 <table width="270" border="0" cellspacing="0" cellpadding="5">
-  <tr bgcolor="<%=blue_b%>"> 
+  <tr > 
     <td height="39" ><%=id%>이미 사용중인 아이디입니다.</td>
   </tr>
 </table>
@@ -29,7 +26,7 @@
 <form name="checkForm" method="post" action="confirmId.jsp">
 <table width="270" border="0" cellspacing="0" cellpadding="5">
   <tr>
-    <td bgcolor="<%=back_c%>" align="center"> 
+    <td  align="center"> 
        다른 아이디를 선택하세요.<p>
        <input type="text" size="10" maxlength="12" name="id"> 
        <input type="submit" value="ID중복확인">
@@ -37,9 +34,11 @@
   </tr>
 </table>
 </form>
+
 <%
     } else {
 %>
+
 <table width="270" border="0" cellspacing="0" cellpadding="5">
   <tr bgcolor="<%=title_c%>"> 
     <td align="center"> 
@@ -49,14 +48,14 @@
   </tr>
 </table>
 <%
-    }
+	}
 %>
 </body>
-</html>
+
+
 <script language="javascript">
-  function setid()
-    {		
+  function setid(){		
     	opener.document.userinput.id.value="<%=id%>";
 		self.close();
-		}
+  }
 </script>

@@ -7,11 +7,12 @@
 <%@page import = "java.util.Enumeration" %>
 
 
-
 	<% if (session.getAttribute("memId") == null) { %>
 	    <script>
 	        alert("로그인 후 사용 가능합니다.");
+
 	        window.location = "/whrergo/views/main/main.jsp";
+
 	    </script>
 	<% } %>
 	
@@ -22,43 +23,46 @@
 		MemberDTO c = manager.getMember(id);
 	   try {
 	%>
-
-	    <title>마이페이지</title>
-	
-	
-	  
+  
 	<center>
+
 	<%
 		if(id != null) {
-	   	if(id.equals(c.getId())) {%>
-	   		
-	   		<!-- 기본이미지 -->
-       	  <img width="150" src="/wherego/views/mypage/DEFAULT/<%= c.getProfile() %>"> <br> 
-	   		
-	        <!-- 프로필 이미지 및 닉네임 표시 -->
-	      <img width="150" src="/wherego/image/<%= c.getProfile() %>"> <br>         
-	       	 <%= c.getNic() %> 마이페이지<p><br>
-	      <button id="changeProfile" onclick="openProfileWindow()">프로필 이미지 변경</button>
-	 
+
+	   	if(id.equals("admin") || id.equals(c.getId())) {%>
+	   		 		
+	   		<img width="150" src="/wherego/views/mypage/DEFAULT/<%= c.getProfile() %>"> 
+	   		<img width="150" src="/wherego/upload/<%= c.getProfile() %>"> <p>  
+
+	   	
+       	  
+       	  
+       	  
+       	  
+       	  <button id="changeProfile" onclick="openProfileWindow()">프로필 이미지 변경</button><br>   
+	   		"<%= c.getNic() %>" 회원님 마이페이지<p><br>
 	
-	   		 <!-- 프로필 변경 버튼 클릭 시 새 창 열기 -->
-	    <script>
-	        function openProfileWindow() {
-	            var profileWindow = window.open("profileChange.jsp", "프로필 변경", "width=400,height=300");
-	        }
-	    </script>
+  			 <!-- 프로필 변경 버튼 클릭 시 새 창 열기 -->
+		   <script>
+		        function openProfileWindow() {
+		            var profileWindow = window.open("profileChange.jsp", "프로필 변경", "width=400,height=300");
+		        }
+		   </script>
 	   	
-	   	
-	      <input type="button" value="수정하기" OnClick="window.location='updateForm.jsp'">
-		  <input type="button" value="삭제하기" OnClick="window.location='deleteForm.jsp'">		  
+	       <input type="button" value="회원정보 수정하기" OnClick="window.location='updateForm.jsp'">
+		   <input type="button" value="회원 탈퇴하기" OnClick="window.location='deleteForm.jsp'">
+		   		  
 	<%}else{%>  
-		  현재 다른 이용자 페이지를 구경하고 있습니다.
+		<img width="150" src="/wherego/views/mypage/DEFAULT/<%= c.getProfile() %>">
+		현재 <%= c.getNic() %> 회원 페이지를 구경하고 있습니다.<p><br>		  
 	<%} %>    
   <%} %> 
+
       
 	 </center>
 	
 	<hr>
+
 	
 	<center>
 	  <table>
@@ -78,9 +82,36 @@
 	    </tr>
 	  </table>
 	</center>
+
     <%} catch (Exception e) {
-	  e.printStackTrace();
+     e.printStackTrace();
    }%>
+   
+   
+    <script>
+            
+           function magazine_open() {
+               let magazine = document.getElementById('magazine').style.display = "";
+               let myreviews = document.getElementById('myreviews').style.display = "none";
+               let mypick = document.getElementById('mypick').style.display = "none";
+               console.log(magazine);
+           }
+           
+           function myreviews_open() {
+               let myreviews = document.getElementById('myreviews').style.display = "";
+               let magazine = document.getElementById('magazine').style.display = "none";
+               let mypick = document.getElementById('mypick').style.display = "none";
+               console.log(myreviews);
+           }
+           
+           function mypick_open() {
+               let mypick = document.getElementById('mypick').style.display = "";
+               let myreviews = document.getElementById('myreviews').style.display = "none";
+               let magazine = document.getElementById('magazine').style.display = "none";
+               console.log(magazine);
+           }
+              
+     </script>
 	
 	
 	

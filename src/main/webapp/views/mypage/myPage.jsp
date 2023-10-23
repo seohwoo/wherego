@@ -11,7 +11,7 @@
 	<% if (session.getAttribute("memId") == null) { %>
 	    <script>
 	        alert("로그인 후 사용 가능합니다.");
-	        window.location = "/team02/views/main/main.jsp";
+	        window.location = "/whrergo/views/main/main.jsp";
 	    </script>
 	<% } %>
 	
@@ -29,10 +29,23 @@
 		if(id != null) {
 	   	if(id.equals("admin") || id.equals(c.getId())) {%>
 	   		
+<<<<<<< HEAD
+=======
+	   		<!-- 기본이미지 -->
+       	  <img width="150" src="/wherego/views/mypage/DEFAULT/<%= c.getProfile() %>"> <br> 
+>>>>>>> branch 'feature/5' of https://git@github.com/seohwoo/wherego.git
 	   		
+<<<<<<< HEAD
        	  <img width="150" src="/team02/image/<%= c.getProfile() %>"> <p>   
        	  <button id="changeProfile" onclick="openProfileWindow()">프로필 이미지 변경</button><br>   
 	   		"<%= c.getNic() %>" 회원님 마이페이지<p><br>
+=======
+	        <!-- 프로필 이미지 및 닉네임 표시 -->
+	      <img width="150" src="/wherego/image/<%= c.getProfile() %>"> <br>         
+	       	 <%= c.getNic() %> 마이페이지<p><br>
+	      <button id="changeProfile" onclick="openProfileWindow()">프로필 이미지 변경</button>
+	 
+>>>>>>> branch 'feature/5' of https://git@github.com/seohwoo/wherego.git
 	
   			 <!-- 프로필 변경 버튼 클릭 시 새 창 열기 -->
 		   <script>
@@ -54,6 +67,7 @@
 	 </center>
 	
 	<hr>
+<<<<<<< HEAD
 		<center>	
 		   <input type="button" value="전체 메거진 바로가기"  onclick="#"> 
            <input type="button" value="전체 리뷰 보기"  onclick="#">         
@@ -119,6 +133,27 @@
 
 
 
+=======
+	
+	<center>
+	  <table>
+	   <tr>
+	    <td>     
+		 <%
+	       if(id != null) {
+	       if(id.equals(c.getId())) {%>
+	         <input type="button" value="magazine" onclick="window.location='board.jsp'"> 
+	         <input type="button" value="myreviews" onclick="window.location='#'">
+	         <input type="button" value="mypick" onclick="window.location='/wherego/views/not/login/mypick.jsp'">
+	     <%} else {%>
+	         <input type="button" value="magazine" onclick="window.location='#'"> 
+	     <%} %>
+	    <%} %> 
+	      </td>     
+	    </tr>
+	  </table>
+	</center>
+>>>>>>> branch 'feature/5' of https://git@github.com/seohwoo/wherego.git
     <%} catch (Exception e) {
      e.printStackTrace();
    }%>

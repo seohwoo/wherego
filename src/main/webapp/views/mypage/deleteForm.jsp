@@ -32,7 +32,11 @@
   <TR height="30">
     <TD colspan="2" align="middle" >
       <INPUT type=submit value="회원탈퇴"> 
+<<<<<<< HEAD
       <input type="button" value="취  소" onclick="javascript:window.location='/team02/views/mypage/myPage.jsp'"></TD></TR>
+=======
+      <input type="button" value="취  소" onclick="javascript:window.location='/wherego/views/main/main.jsp'"></TD></TR>
+>>>>>>> branch 'feature/5' of https://git@github.com/seohwoo/wherego.git
 </TABLE>
 </form>
 </BODY>

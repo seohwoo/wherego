@@ -9,7 +9,7 @@
 	<% if (session.getAttribute("memId") == null) { %>
 	    <script>
 	        alert("로그인 후 사용 가능합니다.");
-	        window.location = "/team02/views/main/main.jsp";
+	        window.location = "/wherego/views/main/main.jsp";
 	    </script>
 	<% } %>
 

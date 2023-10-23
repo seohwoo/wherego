@@ -46,8 +46,7 @@ public class MemberDAO extends OracleDB{
    
       
       
-      public int confirmId(String id) throws Exception {  // 아이디 중복체크용   			  			
-    		 String dbpasswd="";
+      public int confirmId(String id) throws Exception {  // 아이디 중복체크용   			  			   		 
     		 int x=-1;
     		 try {
     			 conn =getConnection();
@@ -65,8 +64,7 @@ public class MemberDAO extends OracleDB{
     			   return x;
     			 }
     				
-      public int confirmNIC(String nic) throws Exception {	 // 닉네임 중복체크용
-  			 String dbpasswd="";
+      public int confirmNIC(String nic) throws Exception {	 // 닉네임 중복체크 			 
   			 int x=-1;
   		     try {
   				  conn =getConnection();

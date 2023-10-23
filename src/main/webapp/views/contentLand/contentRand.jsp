@@ -22,6 +22,7 @@
 		API_used api = API_used.getInstance();
 		HashMap<String, String> randInfo = api.findRandInfo(contentid);
 		HashMap<String, String> DetailrandInfo = api.findDetailRandInfo(contentid);
+		HashMap<String, String> category = new  HashMap<String, String>();
 		
 		if(randInfo.get("homepage").equals("")) {
 			randInfo.put("homepage", "없음");
@@ -42,7 +43,7 @@
 		<h4>설명 : </h4>
 		<h4><%=randInfo.get("overview") %></h4>
 		<%
-			String category = api.findCategory(randInfo.get("cat1"), randInfo.get("cat2"), randInfo.get("cat3"));
+			category = api.findCategory(randInfo.get("cat1"), randInfo.get("cat2"), randInfo.get("cat3"));
 			
 			Set<String> DetailrandInfoKeys = DetailrandInfo.keySet(); 			
 		
@@ -73,7 +74,7 @@
 		%>
 		
 		
-		<h5>카테고리 : <%=category %></h5>
+		<h5>카테고리 : <%=category.get("name") %></h5>
 		<h5>전화번호 : <%=DetailrandInfo.get("infocenter") %></h5>
 		<h5>영업일 : <%=DetailrandInfo.get("restdate") %></h5>
 		<h5>이용시간 : <%=DetailrandInfo.get("usetime") %></h5>

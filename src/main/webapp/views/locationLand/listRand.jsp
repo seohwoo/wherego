@@ -32,7 +32,8 @@
    
       
       int max = (totalCount / 20) + 1;
-      ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();  
+      ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+      HashMap<String, String> category = new  HashMap<String, String>();
  
       list = api.findFestival(areaCode,sigunguCode,pageNum);
 
@@ -49,8 +50,8 @@
       <% }%>
             <h3><%=festival.get("title") %></h3> 
             </a>        
-      		<% String category = api.findCategory(festival.get("cat1"), festival.get("cat2"), festival.get("cat3"));%>
-      		<span>종류 : <%=category %></span>
+      		<% category = api.findCategory(festival.get("cat1"), festival.get("cat2"), festival.get("cat3"));%>
+      		<span>종류 : <%=category.get("name") %></span>
       		<br />
             <span>주소 : <%=festival.get("addr1") %></span> 
             <hr/>

@@ -19,7 +19,7 @@
 		LandInfoDAO dao  = LandInfoDAO.getInstance();
 	
 		
-		String areaCode = realAreaCode[13];
+		String areaCode = realAreaCode[14];
 		int realSigunguCode = Integer.parseInt(api.findSubLocation(areaCode));
 		for(int i=1; i<=realSigunguCode; i++) {
 			String sigunguCode = String.valueOf(i);
@@ -54,12 +54,6 @@
 			}
 			
 		}
-		
-		
-		
- 		
-		
-		
 		%>	
 </body>
 </html>

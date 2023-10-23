@@ -19,33 +19,46 @@
 
 %>
 
-<body bgcolor="<%=bodyback_c%>">  
+<body >  
 <center><b>글수정</b>
 <br>
-<form method="post" name="writeform" action="boardUpdatePro.jsp?pageNum=<%=pageNum%>" onsubmit="return writeSave()">
-<table width="600" border="1" cellspacing="0" cellpadding="0"  bgcolor="<%=bodyback_c%>" align="center">
+<form method="post" name="boardUpdateform" action="boardUpdatePro.jsp?pageNum=<%=pageNum%>">
+<table width="600" border="1" cellspacing="0" cellpadding="0"  align="center">
   <tr>
-	<td  width="100"  bgcolor="<%=value_c%>" align="center">이 름</td>
+	<td  width="100"  align="center">닉네임</td>
     <td align="left" width="300"><%=article.getId()%>
 	   	<input type="hidden" name="num" value="<%=article.getNum()%>"></td>
-  		<input type="hidden" size="50" maxlength="50" name="id" value="<%=id%>">
+  		<input type="hidden" size="50" maxlength="50" name="id" value="<%=num%>">
   		
   </tr>
 
 	<tr>
-    <td  width="100"  bgcolor="<%=value_c%>" align="center" >제목</td>
+    <td  width="100"   align="center" >제목</td>
     <td align="left" width="300">
-       <input type="text" size="40" maxlength="50" name="subject" value="<%=article.getContent()%>" style="width:100%"></td>
+       <input type="text" size="40" maxlength="50" name="content" value="<%=article.getContent()%>" style="width:100%"></td>
   	</tr>
 
 	<tr>
-    <td  width="100"  bgcolor="<%=value_c%>" align="center">내용</td>
+    <td  width="100"  align="center">지역</td>
     <td align="left" width="300">
-       <input type="text" size="50" maxlength="500" name="content" value="<%=article.getSubject()%>" style="width:100%"></td>
+       <input type="text" size="50" maxlength="500" name="zone" value="<%=article.getZone()%>" style="width:100%"></td>
   	</tr>
 
+	<tr>
+    <td  width="100"  align="center">사진</td>
+    <td align="left" width="300">
+       <input type="text" size="50" maxlength="500" name="image" value="<%=article.getImage()%>" style="width:100%"></td>
+  	</tr>
+
+	<tr>
+    <td  width="100"  align="center">내용</td>
+    <td align="left" width="300">
+       <input type="text" size="50" maxlength="500" name="subject" value="<%=article.getSubject()%>" style="width:100%"></td>
+  	</tr>
+
+
  <tr>      
-   <td colspan=2 bgcolor="<%=value_c%>" align="center"> 
+   <td colspan=2 align="center"> 
      <input type="submit" value="글수정" >  
      <input type="reset" value="다시작성">
      <input type="button" value="목록보기" 

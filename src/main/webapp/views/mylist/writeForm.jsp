@@ -11,7 +11,7 @@ String id = (String)session.getAttribute("memId");
 if(id == null){%>
 	<script>    // 로그인 후 사용가능한것
 		alert("로그인후 사용가능.")
-		window.location="/team02/views/main/main.jsp"
+		window.location="/wherego/views/main/main.jsp"
 	</script>
 <%} %>
 
@@ -29,7 +29,7 @@ if(id == null){%>
 
 	<center><b>글쓰기</b>
 	<br>
-	<form method="post" name="writeform" action="writePro.jsp" onsubmit="return writeSave()">
+	<form method="post"  action="writePro.jsp">
 	<input type="hidden" name="id" value="<%=id%>">
 	<input type="hidden" name="num" value="<%=num%>">
 	
@@ -51,26 +51,28 @@ if(id == null){%>
 	     <textarea name="subject" rows="13" cols="40"></textarea> </td>
 	  </tr>
   
-  	  <tr>
-  	  	<td width="70"  bgcolor="<%=value_c%>" align="center" >사 진</td>
-  	  	<td  width="330" >
-  	  	<td name="subject" rows="13" cols="40"></textarea> </td>
-  	  </tr>
+  
+	  	<tr>
+		    <td  width="70"  bgcolor="<%=value_c%>" align="center" >사 진</td>
+		    <td  width="330" >
+		     <textarea name="image" rows="13" cols="40"></textarea> </td>
+		  </tr>
+
   
 	 <tr>
 	 	<td  width="70"  bgcolor="<%=value_c%>" align="center" required="required">지 역</td>
 	    <td  width="330" >
 
-	     <select name="count">
-	     <option  selected>선택하세요<</option>
-	     <option value="1">서울</option>
-	     <option value="2">인천</option>
-	     <option value="3">경기도</option>
-	     <option value="3">경상도</option>
-	     <option value="3">충청도</option>
-	     <option value="3">전라도</option>
-	     <option value="3">강원도</option>
-	     <option value="3">제주도</option>
+	     <select name="zone">
+	     
+	     <option selected>서울</option>
+	     <option >인천</option>
+	     <option >경기도</option>
+	     <option >경상도</option>
+	     <option >충청도</option>
+	     <option >전라도</option>
+	     <option >강원도</option>
+	     <option >제주도</option>
 	     </select>
 	   </td>
 	 

@@ -3,9 +3,8 @@
 <% request.setCharacterEncoding("UTF-8");%>
 
 
-<jsp:useBean id="article" scope="page" class="team02.mylist.MyListDTO">
+<jsp:useBean id="article" scope="page" class="team02.mylist.MyListDTO" />
    <jsp:setProperty name="article" property="*"/>
-</jsp:useBean>
  
 <%	
 	article.setReg_date(String.valueOf(System.currentTimeMillis()));
@@ -14,5 +13,5 @@
     dbPro.insertArticle(article);
 
     response.sendRedirect("board.jsp");
-%>
 
+%>

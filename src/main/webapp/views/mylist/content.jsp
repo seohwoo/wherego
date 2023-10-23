@@ -21,8 +21,6 @@
    String ids = dbPro.getId(num);
 %>
 
-
- <h3>글내용 보기</h3>
  
    <%//if( id.equals("admin1") || id.equals(ids)) { %>
    
@@ -57,7 +55,17 @@
            <%=article.getContent()%></td>
      </tr>
      
+     <tr height="30">
+       <td align="center" width="125" bgcolor="<%=value_c%>">지역</td>
+       <td align="center" width="375" align="center" colspan="3">
+           <%=article.getZone()%></td>
+     </tr>
      
+     <tr height="30">
+       <td align="center" width="125" bgcolor="<%=value_c%>">사진</td>
+       <td align="center" width="375" align="center" colspan="3">
+           <%=article.getImage()%></td>
+     </tr>
      
      <tr>
        <td align="center" width="125" bgcolor="<%=value_c%>">글내용</td>

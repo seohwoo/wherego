@@ -258,14 +258,13 @@ public class MyListDAO extends OracleDB {
 				pstmt.setInt(1, article.getNum());
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
-					sql = " update mylist set id=?, subject=?, content=?, image=?, zone=? where num =?";
-					pstmt = conn.prepareStatement(sql);
-					pstmt.setString(1, article.getId());		
-					pstmt.setString(2, article.getSubject());
-					pstmt.setString(3, article.getContent());
-					pstmt.setString(4, article.getImage());
-					pstmt.setString(5, article.getZone());
-					pstmt.setInt(6, article.getNum());
+					sql = "update mylist set content=?, zone=?, image=?, subject=? where num=?";
+					pstmt = conn.prepareStatement(sql);		
+					pstmt.setString(1, article.getContent());
+					pstmt.setString(2, article.getZone());
+					pstmt.setString(3, article.getImage());
+					pstmt.setString(4, article.getSubject());
+					pstmt.setString(5, article.getId());
 					pstmt.executeUpdate();
 					x = 1;
 				}else {
@@ -277,5 +276,5 @@ public class MyListDAO extends OracleDB {
 				close(rs, pstmt, conn);
 			}
 			return x;
-		}
+		}	
 }

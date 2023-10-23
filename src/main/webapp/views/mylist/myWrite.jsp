@@ -4,10 +4,12 @@
 <%@ page import = "java.text.SimpleDateFormat" %>
 <%@ page import = "java.util.List" %>
 <%@ include file="/views/login/color.jsp"%>
+
 <% request.setCharacterEncoding("UTF-8");%>
 <%!
     int pageSize = 10;  // 게시판 첫페이지에 보여줄 글 개수  
     SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd");
+    
 %>
 
 
@@ -22,32 +24,47 @@
     int endRow = currentPage * pageSize;
     int count = 0;
     int number=0;
-
+    String myid = "";
+    
+    String ck = request.getParameter("id");
+    
+    if(ck != (String)session.getAttribute("memId")){
+    	 myid = request.getParameter("id");
+    }else{
+    	 myid = (String)session.getAttribute("memId");
+    };
+    
+    
     List articleList = null;
     MyListDAO dbPro = MyListDAO.getInstance();
-    count = dbPro.getArticleCount();
+    count = dbPro.getmyArticleCount(myid);
     if (count > 0) {
-        articleList = dbPro.getArticles(startRow, endRow);
+        articleList = dbPro.getmyArticles(startRow, endRow, myid);
     }
 
 	number=count-(currentPage-1)*pageSize;
+	
+	
+	
 %>
 
 
 <title>게시판</title>
+
+<center><p><%=myid %> 의 페이지 입니다.</p>
 <body bgcolor="<%=bodyback_c%>">
 <center><b>글목록(전체 글:<%=count%>)</b>
 <table width="700">
 <tr>
+
     <td align="right" bgcolor="<%=value_c%>">
-    <%if(session.getAttribute("memId") == null){%>
+    <%if(myid == null){%>
     	<a href="/wherego/views/main/main.jsp">로그인</a>
-    <%}else{%>
+    <%}else if( myid.equals(session.getAttribute("memId")) ){%>
     	<a href="writeForm.jsp">글쓰기</a>
-    	<a href="/wherego/views/mypage/myPage.jsp">mypage</a>
     	
-    	
-    <%}%>
+   
+    <% } %>
     </td>
 </table>
 
@@ -71,7 +88,7 @@
       <td align="center"  width="150" >조회수</td> 
       <td align="center"  width="150" >사진</td> 
       <td align="center"  width="150" >지역</td> 
-      <td align="center"  width="100" >작성일</td>     
+      <td align="center"  width="100" >작성일</td>      
     </tr>
  <%  
         for (int i = 0 ; i < articleList.size() ; i++) {
@@ -81,14 +98,10 @@
 	    
 	    <td align="center"  width="100" > <%=number--%></td>
 	    <td align="center"  width="100" >
-	    <a href="myWrite.jsp?id=<%=article.getId()%>">
-	     <%=article.getId()%></a>
+	    
+	     <%=article.getId()%>
 
 	     </td>
-	     
-	     
-	     
-	     
 	     <td align="center"  width="150"><%=article.getContent()%></td>
    		<td align="center"  width="100"> 
    		
@@ -132,5 +145,8 @@
 
 
 </center>
+
+
+
 
 

@@ -25,8 +25,8 @@ public class LandInfoDAO extends OracleDB {
 
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement(
-					"insert into landinfo(CONTENTID, AREACODE, SIGUNGUCODE, TITLE, ADDR1, FIRSTIMAGE, CAT1, CAT2, CAT3) values (?,?,?,?,?,?,?,?,?)");
+			String sql = "insert into landinfo(CONTENTID, AREACODE, SIGUNGUCODE, TITLE, ADDR1, FIRSTIMAGE, CAT1, CAT2, CAT3) values (?,?,?,?,?,?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, contentId);
 			pstmt.setString(2, areaCode);
 			pstmt.setString(3, sigunguCode);
@@ -45,26 +45,19 @@ public class LandInfoDAO extends OracleDB {
 		}
 	}
 
-	/*public ArrayList<String> selectContentId(String areaCode) {
-		ArrayList<String> contentIdList = new ArrayList<String>();
+	/*
+	 * public ArrayList<String> selectContentId(String areaCode) { ArrayList<String>
+	 * contentIdList = new ArrayList<String>();
+	 * 
+	 * try { conn = getConnection(); String sql =
+	 * " select contentid from landinfo where areacode=? "; pstmt =
+	 * conn.prepareStatement(sql); pstmt.setString(1, areaCode); rs =
+	 * pstmt.executeQuery(); while (rs.next()) {
+	 * contentIdList.add(rs.getString("contentid")); } } catch (Exception e) {
+	 * e.printStackTrace(); } finally { close(rs, pstmt, conn); } return
+	 * contentIdList; }
+	 */
 
-		try {
-			conn = getConnection();
-			String sql = " select contentid from landinfo where areacode=? ";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, areaCode);
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				contentIdList.add(rs.getString("contentid"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(rs, pstmt, conn);
-		}
-		return contentIdList;
-	}*/
-	
 	public ArrayList<String> selectContentId(String areaCode, String sigunguCode) {
 		ArrayList<String> contentIdList = new ArrayList<String>();
 
@@ -85,7 +78,7 @@ public class LandInfoDAO extends OracleDB {
 		}
 		return contentIdList;
 	}
-	
+
 	public ArrayList<String> selectNotContentId(String areaCode) {
 		ArrayList<String> contentIdList = new ArrayList<String>();
 

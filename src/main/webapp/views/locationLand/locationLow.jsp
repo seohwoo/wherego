@@ -2,7 +2,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "team02.db.land.API_used"%>    
+<%@ page import = "team02.location.land.LocationLandDAO"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,9 +16,9 @@
 	%>
 	<h1><%=location %></h1>
 	<%
-		API_used api = API_used.getInstance();
+		LocationLandDAO dao = LocationLandDAO.getInstance();
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();	
-		list = api.findLocation(areaCode);
+		list = dao.selectSigunguCode(areaCode);
 		for(HashMap<String, String> area : list) {%>
 		<a href="listRand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=area.get("code")%>"><%=area.get("name") %></a>
 	<%}

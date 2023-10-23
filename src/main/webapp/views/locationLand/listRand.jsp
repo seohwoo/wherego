@@ -1,7 +1,7 @@
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "team02.db.land.LastAPI_Used"%> 
+<%@ page import = "team02.location.land.LocationLandDAO"%> 
 <%@page import="java.util.ArrayList"%>
 <%@page import = "java.util.List" %>
 <!DOCTYPE html>
@@ -15,13 +15,10 @@
 
 <%
       String areaCode = request.getParameter("areaCode");
-
       String sigunguCode = request.getParameter("sigunguCode");
 
-      LastAPI_Used api = LastAPI_Used.getInstance();
-      HashMap<String, Integer> totalMap = new HashMap<String, Integer>();
-      totalMap = api.findTotalCount_NumOfRows(areaCode,sigunguCode);
-      int totalCount = totalMap.get("totalCount");
+      LocationLandDAO dao = LocationLandDAO.getInstance();
+      int totalCount = dao.totalLand(areaCode, sigunguCode);
       
       String p = request.getParameter("pageNum");
       int pageNum = 1;
@@ -34,26 +31,22 @@
       int max = (totalCount / 20) + 1;
       ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();  
  
-      list = api.findFestival(areaCode,sigunguCode,pageNum);
+      list = dao.selectLand(areaCode, sigunguCode);
 
       String src = "";   
        for(HashMap<String, String> festival : list) {%>
        
-         <a href="/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=festival.get("contentid")%>&pageNum=<%=pageNum%>" >
-          <% src = festival.get("firstimage");
-          if(!src.equals("")){%>
-          <img src="<%=festival.get("firstimage") %>" width="200" height="200"/>
+        <a href="/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=festival.get("contentid")%>&pageNum=<%=pageNum%>" >
+          <% src = festival.get("firstimage");%>
           
-       <%}else if(src.equals("")){%>
-            <img src = "/team02/image/image.jpg" width="200" height="200"/>        
-      <% }%>
-            <h3><%=festival.get("title") %></h3> 
-            </a>        
-      		<% String category = api.findCategory(festival.get("cat1"), festival.get("cat2"), festival.get("cat3"));%>
-      		<span>종류 : <%=category %></span>
-      		<br />
-            <span>주소 : <%=festival.get("addr1") %></span> 
-            <hr/>
+          <img src="<%=festival.get("firstimage") %>" width="200" height="200"/>
+          <h3><%=festival.get("title") %></h3> 
+        </a>        
+      	
+      	<span><%=festival.get("category") %></span>
+      	<br />
+        <span><%=festival.get("areacodename") %> > <%=festival.get("sigungucodename") %></span> 
+        <hr/>
 <%} %>
    
    

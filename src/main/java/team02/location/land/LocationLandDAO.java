@@ -39,6 +39,8 @@ public class LocationLandDAO extends OracleDB {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 
 		return areaCodeList;
@@ -61,6 +63,8 @@ public class LocationLandDAO extends OracleDB {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 
 		return sigunguCodeList;
@@ -81,6 +85,8 @@ public class LocationLandDAO extends OracleDB {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 
 		return totalCnt;
@@ -112,6 +118,8 @@ public class LocationLandDAO extends OracleDB {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 
 		return landList;

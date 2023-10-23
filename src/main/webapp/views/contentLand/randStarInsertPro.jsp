@@ -16,19 +16,12 @@
 
 <%
 	String contentid = request.getParameter("contentid");
-	String areaCode = request.getParameter("areaCode");
-	String sigunguCode = request.getParameter("sigunguCode");
-	int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 	String id = (String)session.getAttribute("memId");
-	
 	
 	LandDAO landO = LandDAO.getInstance();
 	landO.insertStar(land);
-	
-	
-	
-%>
 
+%>
 
    <script>
 	function closeAndRefresh() {

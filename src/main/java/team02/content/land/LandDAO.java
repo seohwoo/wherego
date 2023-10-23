@@ -3,6 +3,8 @@ package team02.content.land;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import team02.db.land.OracleDB;
 
@@ -60,5 +62,34 @@ public class LandDAO extends OracleDB {
 		}
 		return avg;
 	}
+	public HashMap<String, String> selectContentRandInfo(String contentId) {
+		HashMap<String, String> contentRandInfoMap = new HashMap<String, String>();
 
+		conn = getConnection();
+		try {
+			pstmt = conn.prepareStatement("select * from landinfo where contentid = ?");
+			pstmt.setString(1, contentId);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				
+				contentRandInfoMap.put("title", rs.getString("title"));
+				contentRandInfoMap.put("firstimage", rs.getString("firstimage"));
+				contentRandInfoMap.put("homepage", rs.getString("homepage"));
+				contentRandInfoMap.put("addr1", rs.getString("addr1"));
+				contentRandInfoMap.put("overview", rs.getString("overview"));
+				contentRandInfoMap.put("category", rs.getString("category"));
+				contentRandInfoMap.put("infocenter", rs.getString("infocenter"));
+				contentRandInfoMap.put("restdate", rs.getString("restdate"));
+				contentRandInfoMap.put("usetime", rs.getString("usetime"));
+				contentRandInfoMap.put("parking", rs.getString("parking"));
+				contentRandInfoMap.put("chkbabycarriage", rs.getString("chkbabycarriage"));
+				contentRandInfoMap.put("chkpet", rs.getString("chkpet"));
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return contentRandInfoMap;
+	}
 }

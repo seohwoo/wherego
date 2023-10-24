@@ -14,6 +14,14 @@
 </head>
 <body>
 	<jsp:include page="/views/main/nav.jsp" />
+	<br />
+	<div class="text-center">
+		<h1>어디 Go</h1>
+	</div>
+	<br />
+	<hr />
+	
+	<br />
 <%
       String areaCode = request.getParameter("areaCode");
       String sigunguCode = request.getParameter("sigunguCode");
@@ -38,15 +46,28 @@
       ArrayList<LocationLandDTO> list = new ArrayList<LocationLandDTO>();  
  
       list = dao.selectLand(areaCode, sigunguCode, start, end);
-		
-       for(LocationLandDTO dto : list) {%>
-	         <img src="<%=dto.getFirstimage() %>" width="200" height="200"/>
-	      <a href="/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=dto.getContentid()%>&pageNum=<%=pageNum%>" >
-	         <h3><%=dto.getTitle() %></h3> 
-	      </a>      
-	      <span><%=dto.getCategory() %></span>
-	      <br />
-	      <span><%=dto.getAreacodename() %> > <%=dto.getSigungucodename() %></span>
+	
+      %>
+      <div align="center">
+      <% for(LocationLandDTO dto : list) {%>
+	      <div class="card mb-3" style="max-width: 800px;">
+			  <div class="row g-0">
+			    <div class="col-md-4">
+			      <img src="<%=dto.getFirstimage() %>" style="width: 270px; height: 210px;" class="img-fluid rounded-start">
+			    </div>
+			    <div class="col-md-8">
+			      <div class="card-body">
+			        <h5 align="left" class="card-title"><%=dto.getTitle() %></h5>
+			        <p align="left" class="card-text"><%=dto.getCategory() %></p>
+			        <p align="left" class="card-text"><%=dto.getAreacodename() %> > <%=dto.getSigungucodename() %></p>
+			        <p align="left" class="card-text"><small >⭐⭐⭐⭐⭐  (5)</small></p>
+			        <p align="left" class="card-text"><small >❤  (0)</small></p>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+	      
+	      
 	      <form action="/wherego/views/locationLand/listLandSavePro.jsp" method="post">
 	      	<input type="hidden" name="contentid" value=<%=dto.getContentid() %> />
 	      	<input type="hidden" name="areaCode" value=<%=areaCode %> />
@@ -54,11 +75,10 @@
 	      	<input type="hidden" name="pageNum" value=<%=pageNum %> />
 	      	<input type="submit" value="저장" />
 	      </form> 
-	      <hr/>
 	      
 	<%} %>
 	
-	
+	<br />
    <%
     if (pageNum > 0) {
         int pageCount = max ;
@@ -69,19 +89,25 @@
         if (endPage > pageCount) endPage = pageCount;
         
         if (startPage > 10) {    %>
-        <a href="listRand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%= startPage - 1 %>">[이전]</a>
+        <a class="btn btn-outline-primary" href="listLand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%= startPage - 1 %>">이전</a>
 <%      }
         
         for (int i = startPage ; i <= endPage && i <= max; i++) {  %>
-        <a href="listRand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%=i%>">[<%=i%>]</a>
-<%
-        }
+        <%} 
+        for(int i = startPage ; i <= endPage && i <= max; i++){
+        %>
+        <a class="btn btn-outline-primary" href="listLand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%=i%>"><%=i%></a>
+        <%}
         if (endPage < pageCount) {  %>
-        <a href="listRand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%= startPage + 10 %>">[다음]</a>
-<%
-        }
+        <a class="btn btn-outline-primary" href="listLand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%= startPage + 10 %>">다음</a>
+
+       <% }
     }
 %>
+	</div>
+	<br/>
+	<hr />
+	<br/>
 	<jsp:include page="/views/main/footer.jsp" />
 </body>
 </html>

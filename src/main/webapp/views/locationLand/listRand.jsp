@@ -1,7 +1,8 @@
-<%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "team02.db.land.LastAPI_Used"%> 
+<%@ page import = "team02.location.land.LocationLandDAO"%> 
+<%@ page import = "team02.location.land.LocationLandDTO"%> 
+<%@ page import = "team02.user.save.SaveDAO"%> 
 <%@page import="java.util.ArrayList"%>
 <%@page import = "java.util.List" %>
 <!DOCTYPE html>
@@ -12,16 +13,15 @@
 <title>어디Go</title>
 </head>
 <body>
-
+	<jsp:include page="/views/main/nav.jsp" />
 <%
       String areaCode = request.getParameter("areaCode");
-
       String sigunguCode = request.getParameter("sigunguCode");
-
-      LastAPI_Used api = LastAPI_Used.getInstance();
-      HashMap<String, Integer> totalMap = new HashMap<String, Integer>();
-      totalMap = api.findTotalCount_NumOfRows(areaCode,sigunguCode);
-      int totalCount = totalMap.get("totalCount");
+ 	  String id = (String) session.getAttribute("memId");	
+	
+      LocationLandDAO dao = LocationLandDAO.getInstance();
+      SaveDAO saveDao = SaveDAO.getInstance();
+      int totalCount = dao.totalLand(areaCode, sigunguCode);
       
       String p = request.getParameter("pageNum");
       int pageNum = 1;
@@ -30,39 +30,41 @@
       }
       int pageSize = 20;
    
+      int currentPage = pageNum;
+      int start = (currentPage - 1) * pageSize + 1;
+      int end = currentPage * pageSize;
       
       int max = (totalCount / 20) + 1;
-      ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();  
+      ArrayList<LocationLandDTO> list = new ArrayList<LocationLandDTO>();  
  
-      list = api.findFestival(areaCode,sigunguCode,pageNum);
-
-      String src = "";   
-       for(HashMap<String, String> festival : list) {%>
-       
-         <a href="/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=festival.get("contentid")%>&pageNum=<%=pageNum%>" >
-          <% src = festival.get("firstimage");
-          if(!src.equals("")){%>
-          <img src="<%=festival.get("firstimage") %>" width="200" height="200"/>
-          
-       <%}else if(src.equals("")){%>
-            <img src = "/team02/image/image.jpg" width="200" height="200"/>        
-      <% }%>
-            <h3><%=festival.get("title") %></h3> 
-            </a>        
-      		<% String category = api.findCategory(festival.get("cat1"), festival.get("cat2"), festival.get("cat3"));%>
-      		<span>종류 : <%=category %></span>
-      		<br />
-            <span>주소 : <%=festival.get("addr1") %></span> 
-            <hr/>
-<%} %>
-   
-   
+      list = dao.selectLand(areaCode, sigunguCode, start, end);
+		
+       for(LocationLandDTO dto : list) {%>
+	      <a href="/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=dto.getContentid()%>&pageNum=<%=pageNum%>" >
+	         <img src="<%=dto.getFirstimage() %>" width="200" height="200"/>
+	         <h3><%=dto.getTitle() %></h3> 
+	      </a>      
+	      <span><%=dto.getCategory() %></span>
+	      <br />
+	      <span><%=dto.getAreacodename() %> > <%=dto.getSigungucodename() %></span>
+	      <form action="/wherego/views/locationLand/listLandSavePro.jsp" method="post">
+	      	<input type="hidden" name="contentid" value=<%=dto.getContentid() %> />
+	      	<input type="hidden" name="areaCode" value=<%=areaCode %> />
+	      	<input type="hidden" name="sigunguCode" value=<%=sigunguCode %> />
+	      	<input type="hidden" name="pageNum" value=<%=pageNum %> />
+	      	<input type="submit" value="저장" />
+	      </form> 
+	      <hr/>
+	      
+	<%} %>
+	
+	
    <%
     if (pageNum > 0) {
         int pageCount = max ;
        
         int startPage = ((pageNum - 1) / 10) * 10 + 1;
-      int pageBlock = 10;
+      	int pageBlock = 10;
         int endPage = startPage + pageBlock-1;
         if (endPage > pageCount) endPage = pageCount;
         
@@ -80,9 +82,6 @@
         }
     }
 %>
-   
-   
-   
-   
+	<jsp:include page="/views/main/footer.jsp" />
 </body>
 </html>

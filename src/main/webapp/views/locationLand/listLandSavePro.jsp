@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "team02.db.land.SaveDAO"%>     
+<%@ page import = "team02.user.save.SaveDAO"%>     
 <!DOCTYPE html>
 <html>
 <head>

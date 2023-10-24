@@ -1,8 +1,10 @@
-package team02.db.land;
+package team02.user.save;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import team02.db.land.OracleDB;
 
 public class SaveDAO extends OracleDB {
 

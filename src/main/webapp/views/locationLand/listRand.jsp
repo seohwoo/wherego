@@ -2,7 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "team02.location.land.LocationLandDAO"%> 
-<%@ page import = "team02.db.land.SaveDAO"%> 
+<%@ page import = "team02.location.land.LocationLandDTO"%> 
+<%@ page import = "team02.user.save.SaveDAO"%> 
 <%@page import="java.util.ArrayList"%>
 <%@page import = "java.util.List" %>
 <!DOCTYPE html>
@@ -13,7 +14,7 @@
 <title>어디Go</title>
 </head>
 <body>
-
+	<jsp:include page="/views/main/nav.jsp" />
 <%
       String areaCode = request.getParameter("areaCode");
       String sigunguCode = request.getParameter("sigunguCode");
@@ -35,26 +36,26 @@
       int end = currentPage * pageSize;
       
       int max = (totalCount / 20) + 1;
-      ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();  
+      ArrayList<LocationLandDTO> list = new ArrayList<LocationLandDTO>();  
  
       list = dao.selectLand(areaCode, sigunguCode, start, end);
 		
-       for(HashMap<String, String> festival : list) {%>
-	      <a href="/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=festival.get("contentid")%>&pageNum=<%=pageNum%>" >
-	         <img src="<%=festival.get("firstimage") %>" width="200" height="200"/>
-	         <h3><%=festival.get("title") %></h3> 
+       for(LocationLandDTO dto : list) {%>
+	      <a href="/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=dto.getContentid()%>&pageNum=<%=pageNum%>" >
+	         <img src="<%=dto.getFirstimage() %>" width="200" height="200"/>
+	         <h3><%=dto.getTitle() %></h3> 
 	      </a>      
-	      <span><%=festival.get("category") %></span>
+	      <span><%=dto.getCategory() %></span>
 	      <br />
-	      <span><%=festival.get("areacodename") %> > <%=festival.get("sigungucodename") %></span>
+	      <span><%=dto.getAreacodename() %> > <%=dto.getSigungucodename() %></span>
 	      <form action="/wherego/views/locationLand/listLandSavePro.jsp" method="post">
 	      	<%
-	      		if(saveDao.selectSave(festival.get("contentid"), id)==0) {%>
+	      		if(saveDao.selectSave(dto.getContentid(), id)==0) {%>
 	      			<input type="hidden" name="save" value="1"/>
 	      		<% }else{%>
 	      			<input type="hidden" name="save" value="0"/>
 	      		<% }%>	
-	      	<input type="hidden" name="contentid" value=<%=festival.get("contentid") %> />
+	      	<input type="hidden" name="contentid" value=<%=dto.getContentid() %> />
 	      	<input type="hidden" name="areaCode" value=<%=areaCode %> />
 	      	<input type="hidden" name="sigunguCode" value=<%=sigunguCode %> />
 	      	<input type="hidden" name="pageNum" value=<%=pageNum %> />
@@ -88,5 +89,6 @@
         }
     }
 %>
+	<jsp:include page="/views/main/footer.jsp" />
 </body>
 </html>

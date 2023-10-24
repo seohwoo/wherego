@@ -1,8 +1,8 @@
-<%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "team02.db.land.API_used"%>  
+<%@ page import = "team02.location.land.LocationLandDAO"%>  
+<%@ page import = "team02.location.land.LocationLandDTO"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,16 +10,18 @@
 <title>어디Go</title>
 </head>
 <body>
+	<jsp:include page="/views/main/nav.jsp" />
 	<%
 		//start form
-		API_used api = API_used.getInstance();
-		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();	
+		LocationLandDAO dao = LocationLandDAO.getInstance();
+		ArrayList<LocationLandDTO> list = new ArrayList<LocationLandDTO>();	
 	
-		list = api.findLocation("");
+		list = dao.selectAreaCode();
 		
-		for(HashMap<String, String> area : list) {%>
-			<a href="locationLow.jsp?location=<%=area.get("name")%>&areaCode=<%=area.get("code")%>"><%=area.get("name") %></a>
+		for(LocationLandDTO dto : list) {%>
+			<a href="locationLow.jsp?location=<%=dto.getAreacodename()%>&areaCode=<%=dto.getAreacode()%>"><%=dto.getAreacodename() %></a>
 		<%}
 	%>
+	<jsp:include page="/views/main/footer.jsp" />
 </body>
 </html>

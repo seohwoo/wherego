@@ -10,7 +10,7 @@
 <%
 	String nic = request.getParameter("nic");
 	MemberDAO manager = MemberDAO.getInstance();
-	int check = manager.confirmNIC(nic);  // 아직 dao 안만듬
+	int check = manager.confirmNIC(nic);
 
 %>
 

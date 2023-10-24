@@ -21,7 +21,7 @@
 		ArrayList<LocationLandDTO> list = new ArrayList<LocationLandDTO>();	
 		list = dao.selectSigunguCode(areaCode);
 		for(LocationLandDTO dto : list) {%>
-		<a href="listRand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=dto.getSigunguCode()%>&pageNum=1"><%=dto.getSigungucodename() %></a>
+		<a href="listLand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=dto.getSigunguCode()%>&pageNum=1"><%=dto.getSigungucodename() %></a>
 	<%}
 	%>
 	<jsp:include page="/views/main/footer.jsp" />

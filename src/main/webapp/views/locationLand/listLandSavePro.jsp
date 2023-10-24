@@ -20,7 +20,7 @@
 	    if (id == null) {%>
 	          <script>
 	              alert("로그인 후 사용 가능!");
-	              window.location = "/wherego/views/locationLand/listRand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%=pageNum%>"; 
+	              window.location = "/wherego/views/locationLand/listLand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%=pageNum%>"; 
 	          </script>
 	    <%}else{
 		SaveDAO dao = SaveDAO.getInstance();
@@ -30,14 +30,14 @@
 		%>
 		<script>
 		    alert("저장 완료..!!");
-		    window.location = "/wherego/views/locationLand/listRand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%=pageNum%>";
+		    window.location = "/wherego/views/locationLand/listLand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%=pageNum%>";
 		</script>	
 		<% }else{
 			dao.deleteSave(contentid, id);
 		%>
 			<script>
 		    alert("취소되었습니다");
-		    window.location = "/wherego/views/locationLand/listRand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%=pageNum%>";
+		    window.location = "/wherego/views/locationLand/listLand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%=pageNum%>";
 			</script>
 		<%	
 			}

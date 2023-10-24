@@ -40,8 +40,8 @@
       list = dao.selectLand(areaCode, sigunguCode, start, end);
 		
        for(LocationLandDTO dto : list) {%>
-	      <a href="/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=dto.getContentid()%>&pageNum=<%=pageNum%>" >
 	         <img src="<%=dto.getFirstimage() %>" width="200" height="200"/>
+	      <a href="/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=dto.getContentid()%>&pageNum=<%=pageNum%>" >
 	         <h3><%=dto.getTitle() %></h3> 
 	      </a>      
 	      <span><%=dto.getCategory() %></span>

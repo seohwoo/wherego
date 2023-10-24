@@ -8,8 +8,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </head>
 <%
+	int num = Integer.parseInt(request.getParameter("num"));
     String memId = (String) session.getAttribute("memId");
     ReplyDAO dao = new ReplyDAO();
+    ReplyDTO dto =  dao.getReContent(num);
     String nic = dao.selectRe(memId);
     if (!"admin".equals(memId)) { // 아이디의 등급이 관리자일 때
 %>
@@ -39,25 +41,28 @@
     <!-- 문의 리스트 -->
     <h2 align="center">💭 답변 💭</h2>
     <br />
+    
     <div class="d-grid gap-2 col-6 mx-auto">
-	    <form action="rePro.jsp" method="post" onsubmit="return writeSave()">
+	    <form action="reDeletePro.jsp" method="post" onsubmit="return writeSave()">
 	        <div class="mb-3">
 	            <label for="exampleFormControlInput1" class="form-label">작성자</label>
 	            <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= nic  %>">
 	            <input type="hidden" name="id" class="form-control" value="<%= memId %>">
+	            <input type="hidden" name="num" value="<%= num %>">
 	            <!-- boardnum 값을 askboard의 num의 값으로 설정 -->
 	            <input type="hidden" name="boardnum" value="<%= boardnum %>">
 	            <input type="hidden" name="ref" value="<%= ref %>">
 	        </div>
 	        <div class="mb-3">
 	            <label for "exampleFormControlTextarea1" class="form-label">내용</label>
-	            <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3">[답변]</textarea>
+	            <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3">[답변]<%=dto.getContent() %></textarea>
 	        </div>
 	        <div class="d-grid gap-2 col-6 mx-auto">
-	            <button type="submit" class="btn btn-secondary">등록</button>
+	            <button type="submit" class="btn btn-danger">삭제</button>
 	        </div>
 	    </form>
-    </div>
+   	</div>
+   	
     <div class "fixed-bottom">
         <hr />
         <jsp:include page="/views/main/footer.jsp" />

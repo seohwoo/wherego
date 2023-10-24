@@ -68,32 +68,32 @@
 	</table>
 	</div>
 	
-	
-	<%
-	String memId = (String) session.getAttribute("memId");
-	String admin = "admin"; 
-	if(memId.equals(admin)){%>
-	<div align="center">
-		<button type="button" class="btn btn-light" OnClick="window.location='/wherego/views/board/reply/reForm.jsp?boardnum=<%=dto.getNum()%>&ref=<%=ref%>'">답변달기</button>
-		<button type="button" class="btn btn-light" OnClick="window.location='/wherego/views/board/reply/reList.jsp?boardnum=<%=dto.getNum()%>&ref=<%=ref%>'">답변보기</button>
-	    <button type="button" class="btn btn-light" Onclick="window.location='askDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
-	    <br />
-	</div>
-	<%}else if(memId.equals(memId)) { %>
-	<div align="center">
-		<button type="button" class="btn btn-light" OnClick="window.location='/wherego/views/board/reply/reList.jsp?boardnum=<%=dto.getNum()%>&ref=<%=ref%>'">답변보기</button>
-	    <button type="button" class="btn btn-light" OnClick="window.location='askUpdateForm.jsp?num=<%=num%>'">수정하기</button>
-	    <button type="button" class="btn btn-light" Onclick="window.location='askDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
-	    <br />
-	    <%-- <%@ include file="/views/board/askReply/askreList.jsp" %>--%>
-	    <jsp:include page="/views/board/reply/reList.jsp?boardnum=<%=dto.getNum()%>&ref=<%=ref%>" /> 
-	<%
-	} else{ %>
-		<script>
+	<% if(session.getAttribute("memId") == null){%>
+	<script>
             alert("작성자 or 관리자만 접근가능!");
             window.location="/wherego/views/board/ask/askList.jsp";
         </script>
-	<%}%>
+	
+	<%}else{
+		String memId = (String) session.getAttribute("memId");
+		String admin = "admin"; 
+		if(memId.equals(admin)){%>
+		<div align="center">
+			<button type="button" class="btn btn-outline-info" OnClick="window.location='/wherego/views/board/reply/reForm.jsp?boardnum=<%=dto.getNum()%>&ref=<%=ref%>'">답변달기</button>
+			<button type="button" class="btn btn-outline-success" OnClick="window.location='/wherego/views/board/reply/reList.jsp?boardnum=<%=dto.getNum()%>&ref=<%=ref%>'">답변보기</button>
+		    <button type="button" class="btn btn-outline-danger" Onclick="window.location='askDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
+		    <br />
+		</div>
+		<%}else if(memId.equals(memId)) { %>
+		<div align="center">
+			<button type="button" class="btn btn-success" OnClick="window.location='/wherego/views/board/reply/reList.jsp?boardnum=<%=dto.getNum()%>&ref=<%=ref%>'">답변보기</button>
+		    <button type="button" class="btn btn-outline-warning" OnClick="window.location='askUpdateForm.jsp?num=<%=num%>'">수정하기</button>
+		    <button type="button" class="btn btn-outline-danger" Onclick="window.location='askDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
+		    <br />
+		    <%-- <%@ include file="/views/board/askReply/askreList.jsp" %>--%>
+		    <jsp:include page="/views/board/reply/reList.jsp?boardnum=<%=dto.getNum()%>&ref=<%=ref%>" /> 
+		<%
+		}}%>
 	<br />
 	
 	

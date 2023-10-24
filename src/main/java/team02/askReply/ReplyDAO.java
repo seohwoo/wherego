@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import team02.db.land.OracleDB;
+import team02.notice.NoticeDTO;
 
 public class ReplyDAO extends OracleDB{
 	private static ReplyDAO instance = new ReplyDAO();
@@ -112,5 +113,66 @@ public class ReplyDAO extends OracleDB{
 	    }
 	    return x;
 	}
+	
+	public ReplyDTO getReContent(int num){
+		String sql = "";
+		ReplyDTO dto = null;
+		try {
+			conn = getConnection();
+			sql = "select * from askreply where num = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				dto = new ReplyDTO();
+				dto.setNum(rs.getInt("num"));
+				dto.setBoardnum(rs.getInt("boardnum"));
+				dto.setId(rs.getString("id"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setContent(rs.getString("content"));
+				dto.setReg_date(rs.getTimestamp("reg_date"));
+				dto.setRef(rs.getInt("ref"));
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
 
+		return dto;
+	}
+	//답변 삭제
+		public int deleteReply(int num){
+			String sql = "";
+			int x=-1;
+			try {
+				conn = getConnection();
+				sql = "delete from askreply where num=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				x = pstmt.executeUpdate();
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+			}
+			return x;
+		}
+	//답변 삭제
+			public int UpdateReply(int num){
+				String sql = "";
+				int x=-1;
+				try {
+					conn = getConnection();
+					sql = "update from askreply where num=?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, num);
+					x = pstmt.executeUpdate();
+				} catch(Exception ex) {
+					ex.printStackTrace();
+				} finally {
+					close(rs, pstmt, conn);
+				}
+				return x;
+			}
 }

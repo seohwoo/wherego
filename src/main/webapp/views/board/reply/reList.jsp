@@ -39,15 +39,19 @@
     	<div class="d-grid gap-2 col-6 mx-auto">
                 <table class="table table-bordered border-primary" width="700" cellpadding="0" cellspacing="0" align="center">
                 	<tr>
-                		<td align="center">작성자</td>
-                		<td align="center"><%=dto.getWriter()%></td>
-                		<td align="center">날짜</td>
-                		<td align="center"><%=dto.getReg_date()%></td>
+                		<td align="center" width="250"><b>작성자</b></td>
+                		<td align="center" width="250"><%=dto.getWriter()%></td>
+                		<td align="center" width="250"><b>날짜</b></td>
+                		<td align="center" width="250"><%=dto.getReg_date()%></td>
                 	</tr>
-                	<tr><td align="center"><b>내용</b>
-                	<td colspan="3" align="center"><b><%=dto.getContent() %></b></tr>
+                	<tr><td align="center" width="250"><b>내용</b>
+                	<td colspan="3" align="center"><%=dto.getContent() %></tr>
                 </table>
 		</div>
+		<div align="center">
+			<button type="button" class="btn btn-outline-danger" OnClick="window.location='reUpdateForm.jsp?num=<%=dto.getNum()%>'">답변수정</button>
+		    <button type="button" class="btn btn-outline-warning" Onclick="window.location='reDeleteForm.jsp?num=<%=dto.getNum()%>'">답변삭제</button>
+	    </div>
     <%
             }
         } else {

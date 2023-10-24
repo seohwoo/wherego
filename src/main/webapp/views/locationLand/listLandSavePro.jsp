@@ -24,15 +24,26 @@
 	          </script>
 	    <%}else{
 		SaveDAO dao = SaveDAO.getInstance();
-		if(dao.isSave(contentid, id)==0) {
+		int isSave = dao.isSave(contentid, id);
+		if(isSave==0) {
 			dao.insertSave(contentid, id);
-		}else{
+		%>
+		<script>
+		    alert("저장 완료..!!");
+		    window.location = "/wherego/views/locationLand/listRand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%=pageNum%>";
+		</script>	
+		<% }else{
 			dao.deleteSave(contentid, id);
-		}
-		
-		response.sendRedirect("/wherego/views/locationLand/listRand.jsp?areaCode=" + areaCode + "&sigunguCode="+ sigunguCode +"&pageNum="+ pageNum);
+		%>
+			<script>
+		    alert("취소되었습니다");
+		    window.location = "/wherego/views/locationLand/listRand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%=pageNum%>";
+			</script>
+		<%	
+			}
 	    }
-	%>
+		%>
+	
 	
 </body>
 </html>

@@ -15,11 +15,10 @@ int num = Integer.parseInt(request.getParameter("num"));
 NoticeDAO dao = new NoticeDAO();
 NoticeDTO dto = dao.getNoContent(num);
 
-try {
-    String memId = (String) session.getAttribute("memId");
-    String nic = dao.selectNo(memId);
-    if (!memId.equals(dto.getId())) {
-        // 등급이 관리자인 사람만 삭제 가능 !!수정하기!!!
+ String memId = (String) session.getAttribute("memId");
+ String nic = dao.selectNo(memId);
+ if (!memId.equals(dto.getId())) {
+     // 등급이 관리자인 사람만 삭제 가능 !!수정하기!!!
 %>
         <script>
             alert("관리자만 삭제 가능합니다");
@@ -27,7 +26,7 @@ try {
         </script>
     <body>
 <% } else { %>
-     <%@ include file="/views/main/nav.jsp" %>
+     <jsp:include page="/views/main/nav.jsp" />
     
     <br />
     <div class="text-center">
@@ -62,9 +61,6 @@ try {
         <hr />
         <jsp:include page="/views/main/footer.jsp" />
     </div>
-<% }
-} catch(Exception e) {
-}
-%>
+<% }%>
 </body>
 </html>

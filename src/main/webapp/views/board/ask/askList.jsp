@@ -1,6 +1,6 @@
 <%@ page import="team02.askboard.AskboardDAO" %>
 <%@ page import="team02.askboard.AskboardDTO" %>
-<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
@@ -18,7 +18,7 @@
     int count = 0;
     int number = 0;
 
-    List<AskboardDTO> askList = null;
+    ArrayList<AskboardDTO> askList = null;
     AskboardDAO dao = AskboardDAO.getInstance();
     count = dao.getAskCount();
     if (count > 0) {

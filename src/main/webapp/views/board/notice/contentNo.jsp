@@ -11,8 +11,7 @@
 
    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
    String id = (String)session.getAttribute("memId");
-   
-   try{
+
 	   NoticeDAO dao = NoticeDAO.getInstance();
 	   NoticeDTO dto =  dao.getNoContent(num);
   	   String writer = dao.getAdmin(num);	  
@@ -67,11 +66,6 @@
 		<button type="button" class="btn btn-light" OnClick="window.location='noticeUpdateForm.jsp?num=<%=num%>'">수정하기</button>
 	    <button type="button" class="btn btn-light" onclick="window.location='noticeDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
 	</div>
-
-	<%
-}catch(Exception e){} 	%>
-	
-
 	
 	<div class="fixed-bottom">
 	<hr />

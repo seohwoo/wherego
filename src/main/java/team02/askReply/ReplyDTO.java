@@ -1,24 +1,25 @@
-package team02.askreply;
+package team02.askReply;
 
 import java.sql.Timestamp;
 
-public class AskreplyDTO {
+public class ReplyDTO {
 	private int num;
-	private String boardnum;
+	private int boardnum;
 	private String id;
 	private String writer;
 	private String content;
 	private Timestamp reg_date;
+	private int ref;
 	public int getNum() {
 		return num;
 	}
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public String getBoardnum() {
+	public int getBoardnum() {
 		return boardnum;
 	}
-	public void setBoardnum(String boardnum) {
+	public void setBoardnum(int boardnum) {
 		this.boardnum = boardnum;
 	}
 	public String getId() {
@@ -45,6 +46,11 @@ public class AskreplyDTO {
 	public void setReg_date(Timestamp reg_date) {
 		this.reg_date = reg_date;
 	}
-	
+	public int getRef() {
+		return ref;
+	}
+	public void setRef(int ref) {
+		this.ref = ref;
+	}
 
 }

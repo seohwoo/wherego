@@ -33,7 +33,7 @@
 <head>
 </head>
 <body>
-   <%@ include file="/views/main/nav.jsp" %>
+   <jsp:include page="/views/main/nav.jsp" />
 	
 	<br />
 	<div class="text-center">
@@ -124,7 +124,7 @@
 	
     <div >
 	<br/><hr /><br/>
-		<%@ include file="/views/main/footer.jsp" %>	
+		<jsp:include page="/views/main/footer.jsp" />	
 	</div>
 </body>
 </html>

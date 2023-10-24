@@ -49,12 +49,6 @@
 	      <br />
 	      <span><%=dto.getAreacodename() %> > <%=dto.getSigungucodename() %></span>
 	      <form action="/wherego/views/locationLand/listLandSavePro.jsp" method="post">
-	      	<%
-	      		if(saveDao.selectSave(dto.getContentid(), id)==0) {%>
-	      			<input type="hidden" name="save" value="1"/>
-	      		<% }else{%>
-	      			<input type="hidden" name="save" value="0"/>
-	      		<% }%>	
 	      	<input type="hidden" name="contentid" value=<%=dto.getContentid() %> />
 	      	<input type="hidden" name="areaCode" value=<%=areaCode %> />
 	      	<input type="hidden" name="sigunguCode" value=<%=sigunguCode %> />

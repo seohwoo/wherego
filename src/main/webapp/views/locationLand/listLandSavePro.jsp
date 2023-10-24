@@ -15,7 +15,6 @@
 		String sigunguCode = request.getParameter("sigunguCode");
 		String pageNum = request.getParameter("pageNum");
 		String id = (String)session.getAttribute("memId");
-		int save = Integer.parseInt(request.getParameter("save"));
 	
 	
 	    if (id == null) {%>
@@ -26,9 +25,9 @@
 	    <%}else{
 		SaveDAO dao = SaveDAO.getInstance();
 		if(dao.isSave(contentid, id)==0) {
-			dao.insertSave(contentid, id, save);
+			dao.insertSave(contentid, id);
 		}else{
-			dao.updateSave(contentid, id, save);
+			dao.deleteSave(contentid, id);
 		}
 		
 		response.sendRedirect("/wherego/views/locationLand/listRand.jsp?areaCode=" + areaCode + "&sigunguCode="+ sigunguCode +"&pageNum="+ pageNum);

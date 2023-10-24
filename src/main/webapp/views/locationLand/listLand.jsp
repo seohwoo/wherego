@@ -69,15 +69,15 @@
         if (endPage > pageCount) endPage = pageCount;
         
         if (startPage > 10) {    %>
-        <a href="listRand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%= startPage - 1 %>">[이전]</a>
+        <a href="listLand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%= startPage - 1 %>">[이전]</a>
 <%      }
         
         for (int i = startPage ; i <= endPage && i <= max; i++) {  %>
-        <a href="listRand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%=i%>">[<%=i%>]</a>
+        <a href="listLand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%=i%>">[<%=i%>]</a>
 <%
         }
         if (endPage < pageCount) {  %>
-        <a href="listRand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%= startPage + 10 %>">[다음]</a>
+        <a href="listLand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%= startPage + 10 %>">[다음]</a>
 <%
         }
     }

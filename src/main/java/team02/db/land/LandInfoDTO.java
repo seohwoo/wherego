@@ -1,6 +1,6 @@
 package team02.db.land;
 
-public class LandInfoDTO_shw {
+public class LandInfoDTO {
 	private String contentId;
 	private String areaCode;
 	private String areaCodeName;
@@ -21,6 +21,8 @@ public class LandInfoDTO_shw {
 	private String cat1;
 	private String cat2;
 	private String cat3;
+	private String mapx;
+	private String mapy;
 
 	public String getContentId() {
 		return contentId;
@@ -180,6 +182,22 @@ public class LandInfoDTO_shw {
 
 	public void setCat3(String cat3) {
 		this.cat3 = cat3;
+	}
+
+	public String getMapx() {
+		return mapx;
+	}
+
+	public void setMapx(String mapx) {
+		this.mapx = mapx;
+	}
+
+	public String getMapy() {
+		return mapy;
+	}
+
+	public void setMapy(String mapy) {
+		this.mapy = mapy;
 	}
 
 }

@@ -5,6 +5,7 @@
 <%@ page import = "team02.user.save.SaveDAO"%> 
 <%@page import="java.util.ArrayList"%>
 <%@page import = "java.util.List" %>
+<%@ page import = "team02.content.land.LandDAO"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,11 +48,12 @@
       ArrayList<LocationLandDTO> list = new ArrayList<LocationLandDTO>();  
  
       list = dao.selectLand(areaCode, sigunguCode, start, end);
-	  
+	  LandDAO landO = LandDAO.getInstance();
       %>
       <div align="center">
       <% for(LocationLandDTO dto : list) {
       int issave = saveDao.isSave(dto.getContentid(), id);
+      int readCount = landO.getReadCount(dto.getContentid());
       %>
 	      <div class="card mb-3" style="max-width: 800px;">
 			  <div class="row g-0">
@@ -80,6 +82,7 @@
 			        <p align="left" class="card-text"><%=dto.getAreacodename() %> > <%=dto.getSigungucodename() %></p>
 			        <p align="left" class="card-text"><small >⭐⭐⭐⭐⭐  (5)</small></p>
 			        <p align="left" class="card-text"><small >❤  (0)</small></p>
+			        <p align="left" class="card-text"><small >조회수 : <%=readCount %></small></p>
 			      </div>
 				</button>
 			   

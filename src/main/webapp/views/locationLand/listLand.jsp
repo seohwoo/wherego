@@ -9,6 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 <title>어디Go</title>
 </head>
@@ -46,16 +47,32 @@
       ArrayList<LocationLandDTO> list = new ArrayList<LocationLandDTO>();  
  
       list = dao.selectLand(areaCode, sigunguCode, start, end);
-	
+	  
       %>
       <div align="center">
-      <% for(LocationLandDTO dto : list) {%>
+      <% for(LocationLandDTO dto : list) {
+      int issave = saveDao.isSave(dto.getContentid(), id);
+      %>
 	      <div class="card mb-3" style="max-width: 800px;">
 			  <div class="row g-0">
 			    <div class="col-md-4">
-			      <img src="<%=dto.getFirstimage() %>" style="width: 270px; height: 222px;" class="img-fluid rounded-start">
-			    </div>
-			   
+					<div style="position: relative; display: inline-block;">
+					    <form action="/wherego/views/locationLand/listLandSavePro.jsp" method="post" style="position:absolute;">
+						    <input type="hidden" name="contentid" value="<%=dto.getContentid() %>" />
+						    <input type="hidden" name="areaCode" value="<%=areaCode %>" />
+						    <input type="hidden" name="sigunguCode" value="<%=sigunguCode %>" />
+						    <input type="hidden" name="pageNum" value="<%=pageNum %>" />
+						    <button type="submit" style="border: none; background: none; cursor: pointer;">
+						        <% if(issave == 0){ %><i class="far fa-heart" style="color: #ff0000; font-size: 30px; margin: 10px;"></i>
+						        <%}else{%>
+						        	<i class="fas fa-heart" style="color: #ff0000; font-size: 30px; margin: 10px;"></i>
+						        <%} %>
+						    </button>
+						</form>
+
+					    <img src="<%=dto.getFirstimage() %>" style="width: 270px; height: 222px;" class="img-fluid rounded-start">
+					</div>
+			    </div>  
 				<button type="button" class="btn btn-outline-dark col-md-8"  onclick="window.location.href='/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=dto.getContentid()%>&pageNum=<%=pageNum%>'" >
 			      <div class="card-body">
 			        <h5 align="left" class="card-title"><%=dto.getTitle() %></h5>
@@ -67,17 +84,7 @@
 				</button>
 			   
 			  </div>
-			</div>
-	      
-	      
-	      <form action="/wherego/views/locationLand/listLandSavePro.jsp" method="post">
-	      	<input type="hidden" name="contentid" value=<%=dto.getContentid() %> />
-	      	<input type="hidden" name="areaCode" value=<%=areaCode %> />
-	      	<input type="hidden" name="sigunguCode" value=<%=sigunguCode %> />
-	      	<input type="hidden" name="pageNum" value=<%=pageNum %> />
-	      	<input type="submit" value="저장" />
-	      </form> 
-	      
+			</div> 
 	<%} %>
 	
 	<br />
@@ -112,4 +119,5 @@
 	<br/>
 	<jsp:include page="/views/main/footer.jsp" />
 </body>
+
 </html>

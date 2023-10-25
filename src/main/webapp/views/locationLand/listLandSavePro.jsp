@@ -10,6 +10,8 @@
 <body>
 	
 	<%	
+		
+		
 		String contentid = request.getParameter("contentid");
 		String areaCode = request.getParameter("areaCode");
 		String sigunguCode = request.getParameter("sigunguCode");

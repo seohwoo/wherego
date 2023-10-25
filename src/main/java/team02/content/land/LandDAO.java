@@ -92,4 +92,74 @@ public class LandDAO extends OracleDB {
 
 		return contentRandInfoMap;
 	}
+	
+	public void insertReadCountNewContentId(String contentId){
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("insert into landReadCount values (?,0)");
+			pstmt.setString(1, contentId);
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+	}
+	
+	public void updateReadCount(String contentId){
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("update landreadcount set readcount=readcount+1 where contentid = ?");
+			pstmt.setString(1, contentId);
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+	}
+	
+	public int getReadCount(String contentid) {
+		int readCount = 0;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select readcount from landreadcount where contentid = ?");
+			pstmt.setString(1, contentid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				readCount = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return readCount;
+	}
+	
+	public int contentIdChk(String contentid) {
+		int result = 0;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from landReadCount where contentid = ?");
+			pstmt.setString(1, contentid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = 1;
+			}
+			else {
+				result = -1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
 }

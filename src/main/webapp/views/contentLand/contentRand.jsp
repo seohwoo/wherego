@@ -22,8 +22,13 @@
 		
 		LandDAO landO = LandDAO.getInstance();
 		HashMap<String,String> DetailrandInfoMap = landO.selectContentRandInfo(contentid);
+		int chkResult = landO.contentIdChk(contentid);
+		if(chkResult == -1){
+			landO.insertReadCountNewContentId(contentid);
+		}
+		landO.updateReadCount(contentid);
 		
-		
+		int readCount = landO.getReadCount(contentid);
 		if(DetailrandInfoMap.get("homepage") == null) {
 			DetailrandInfoMap.put("homepage", "없음");
 		}
@@ -83,6 +88,7 @@
 		<h5>유모차 대여 : <%=DetailrandInfoMap.get("chkbabycarriage") %></h5>
 		<h5>반려견 입장 : <%=DetailrandInfoMap.get("chkpet") %></h5>
 		<h5>평점 : <%=avg%>  <input type="button" value="평점주기" OnClick="insertStar(<%=contentid%>)"></h5>
+		<h5>조회수 : <%=readCount %></h5>
 		<form action="putLandPro.jsp" method="post" onsubmit="return changeButtonColor()">
         	<input type="submit" value="담기" name="putLand" id="putLand">
    	 	</form>

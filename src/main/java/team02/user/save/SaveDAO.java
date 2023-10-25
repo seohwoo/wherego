@@ -3,6 +3,7 @@ package team02.user.save;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import team02.db.land.OracleDB;
 
@@ -69,4 +70,29 @@ public class SaveDAO extends OracleDB {
 		}
 	}
 
+	
+	public void sss (String vid) {
+		SaveDTO dto = new SaveDTO();
+		String sql = "";
+		conn = getConnection();
+		ArrayList<String> contentIdList = new ArrayList<String>();
+		try {sql = " select contentid from landsave where id =? ";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vid);
+		rs = pstmt.executeQuery();
+		while (rs.next()) {
+			contentIdList.add(rs.getString("contentid"));
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+	}
+
+	
+	
+	public void myPick(String contentid) {
+		
+	}
 }

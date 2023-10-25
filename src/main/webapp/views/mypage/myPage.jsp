@@ -8,19 +8,26 @@
 <%@page import = "java.util.Enumeration" %>
 
 <!-- 선민 리뷰 -->
-
+ 
 
 
 <!-- 형우 찜하기 -->
 <%@ page import = "team02.location.land.LocationLandDAO"%>  
 <%@ page import = "team02.location.land.LocationLandDTO"%>  
 <%@ page import = "team02.user.save.SaveDAO"%> 
+<%@ page import = "team02.user.save.SaveDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import = "java.util.List" %>
 
 <% request.setCharacterEncoding("UTF-8");%>
 <%!
     int pageSize = 10;  // 게시판 첫페이지에 보여줄 글 개수    
+%>
+
+<%
+	String vid = (String)session.getAttribute("memId");
+	SaveDAO pick =SaveDAO.getInstance();
+	SaveDTO p = pick.sss(vid);
 %>
 
 <%

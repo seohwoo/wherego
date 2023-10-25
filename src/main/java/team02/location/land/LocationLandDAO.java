@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import team02.db.land.OracleDB;
-import team02.mylist.MyListDTO;
+
 
 public class LocationLandDAO extends OracleDB {
 

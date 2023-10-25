@@ -28,7 +28,7 @@
 	String contentid = request.getParameter("contentid");
 	String id = (String)session.getAttribute("memId");
 %>
-<form method="post" action = "randStarInsertPro.jsp?contentid=<%=contentid%>" OnSubmit = "return validateAndSubmit()">
+<form method="post" action = "randStarInsertPro.jsp?contentid=<%=contentid%>" enctype="multipart/form-data" OnSubmit = "return validateAndSubmit()">
 
     <div class="stars1">
         <span class="star">&#9733;</span>
@@ -88,7 +88,13 @@
     </script>
     
  
-    이미지 첨부 : <input type = "file" name = "img1" /> <br />
+    이미지 첨부 : <br/>
+	<input type = "file" name = "img1" accept="image/jpeg, image/jpg, image/png, image/gif"/> <br /> 
+	<input type = "file" name = "img2" accept="image/jpeg, image/jpg, image/png, image/gif"/> <br />
+	<input type = "file" name = "img3" accept="image/jpeg, image/jpg, image/png, image/gif"/> <br />
+	<input type = "file" name = "img4" accept="image/jpeg, image/jpg, image/png, image/gif"/> <br />
+	<input type = "file" name = "img5" accept="image/jpeg, image/jpg, image/png, image/gif"/> <br />
+    		   
     평가
     <br/>
 	<textarea name="review" rows="3" cols="50" placeholder="평가를 입력해주세요.(필수)"></textarea><br/>

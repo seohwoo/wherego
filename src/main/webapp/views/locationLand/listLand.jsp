@@ -53,9 +53,10 @@
 	      <div class="card mb-3" style="max-width: 800px;">
 			  <div class="row g-0">
 			    <div class="col-md-4">
-			      <img src="<%=dto.getFirstimage() %>" style="width: 270px; height: 210px;" class="img-fluid rounded-start">
+			      <img src="<%=dto.getFirstimage() %>" style="width: 270px; height: 222px;" class="img-fluid rounded-start">
 			    </div>
-			    <div class="col-md-8">
+			   
+				<button type="button" class="btn btn-outline-dark col-md-8"  onclick="window.location.href='/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=dto.getContentid()%>&pageNum=<%=pageNum%>'" >
 			      <div class="card-body">
 			        <h5 align="left" class="card-title"><%=dto.getTitle() %></h5>
 			        <p align="left" class="card-text"><%=dto.getCategory() %></p>
@@ -63,7 +64,8 @@
 			        <p align="left" class="card-text"><small >⭐⭐⭐⭐⭐  (5)</small></p>
 			        <p align="left" class="card-text"><small >❤  (0)</small></p>
 			      </div>
-			    </div>
+				</button>
+			   
 			  </div>
 			</div>
 	      

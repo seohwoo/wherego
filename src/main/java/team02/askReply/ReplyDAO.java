@@ -1,43 +1,34 @@
-package team02.askreply;
+package team02.askReply;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import team02.askboard.AskboardDTO;
 import team02.db.land.OracleDB;
 import team02.notice.NoticeDTO;
 
-public class AskreplyDAO extends OracleDB{
-	private static AskreplyDAO instance = new AskreplyDAO();
-	public static AskreplyDAO getInstance() {
+public class ReplyDAO extends OracleDB{
+	private static ReplyDAO instance = new ReplyDAO();
+	public static ReplyDAO getInstance() {
 		return instance;
 	}
-	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	
 	//댓글 작성
-	public void insertReply(AskreplyDTO dto) {
-		
-		int num = dto.getNum();
-		int number = 0;
+	public void insertReply(ReplyDTO dto){
 		String sql = "";
 		try {
-			conn = getConnection();
-			sql = "select max(num) from askreply";
-			rs = pstmt.executeQuery();
-			if (rs.next())
-				number = rs.getInt(1) + 1; // max(최대값)에 +1해줌
-			else
-				number = 1; // 댓글이 하나도 없을 때에는 1번
-			sql = "insert into askreply values(askreply_seq.NEXTVAL, ?, ?, ?, ?, sysdate)";
+			conn = getConnection();			//num boardnum id	writer	content	reg_date ref
+			sql = "insert into askreply values(askreply_seq.NEXTVAL, ?, ?, ?, ?, sysdate, ?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dto.getBoardnum());
+			pstmt.setInt(1, dto.getBoardnum());
 			pstmt.setString(2, dto.getId());
 			pstmt.setString(3, dto.getWriter());
 			pstmt.setString(4, dto.getContent());
+			pstmt.setInt(5, dto.getRef());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -46,7 +37,7 @@ public class AskreplyDAO extends OracleDB{
 		}
 	}
 	
-	//write에 관리자명(nic) 가져오기
+	//writer에 nic가져오기
 	public String selectRe(String nic){
 		String sql = "";
 		String writer = null; // writer 값을 저장할 변수
@@ -71,51 +62,27 @@ public class AskreplyDAO extends OracleDB{
 		return writer;
 	}
 	
-	//boardnum에 ask번호 가져오기
-	public String selectNum(String num){
+	//댓글리스트
+	public ArrayList<ReplyDTO> getReply(int boardnum){
 		String sql = "";
-		String boardnum = null; // boardnum 값을 저장할 변수
+		ArrayList<ReplyDTO> replyList = null;
 		try {
 			conn = getConnection();
-			sql = "select num from askboard where num = ?";
+			sql = "select * from askreply where boardnum = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, num);
-
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				boardnum = String.valueOf(rs.getInt("num"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(rs, pstmt, conn);
-		}
-
-		return boardnum;
-	}
-	public ArrayList<AskreplyDTO> getReply(int start, int end){
-		String sql = "";
-		ArrayList<AskreplyDTO> replyList = null;
-		try {
-			conn = getConnection();
-			sql = "select * from " + " (select b.*, rownum r from"
-					 +"(select * from askreply order by num desc)b)"+" where r >= ? and r <= ? ";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
-
+			pstmt.setInt(1, boardnum);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				replyList = new ArrayList(end);
+				replyList = new ArrayList();
 				do {
-					AskreplyDTO dto = new AskreplyDTO();
+					ReplyDTO dto = new ReplyDTO();
 					dto.setNum(rs.getInt("num"));
-					dto.setBoardnum("boardnum");
+					dto.setBoardnum(rs.getInt("boardnum"));
 					dto.setId(rs.getString("id"));
 					dto.setWriter(rs.getString("writer"));
 					dto.setContent(rs.getString("content"));
 					dto.setReg_date(rs.getTimestamp("reg_date"));
+					dto.setRef(rs.getInt("ref"));
 					replyList.add(dto);
 				} while (rs.next());
 			}
@@ -128,7 +95,7 @@ public class AskreplyDAO extends OracleDB{
 		return replyList;
 	}
 	
-	public int getReplyCount() {
+	public int getReplyCount(){
 		String sql = "";
 	    int x = 0;
 	    try {
@@ -147,23 +114,24 @@ public class AskreplyDAO extends OracleDB{
 	    return x;
 	}
 	
-	//삭제에 사용
-	public AskreplyDTO getReCount(int num){
-		String sql ="";
-		AskreplyDTO dto = null;
+	public ReplyDTO getReContent(int num){
+		String sql = "";
+		ReplyDTO dto = null;
 		try {
 			conn = getConnection();
-			sql = "select count(*) from askreply where num = ?";
+			sql = "select * from askreply where num = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				dto = new AskreplyDTO();
+				dto = new ReplyDTO();
 				dto.setNum(rs.getInt("num"));
+				dto.setBoardnum(rs.getInt("boardnum"));
 				dto.setId(rs.getString("id"));
 				dto.setWriter(rs.getString("writer"));
 				dto.setContent(rs.getString("content"));
 				dto.setReg_date(rs.getTimestamp("reg_date"));
+				dto.setRef(rs.getInt("ref"));
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -173,8 +141,7 @@ public class AskreplyDAO extends OracleDB{
 
 		return dto;
 	}
-	
-	//댓글삭제
+	//답변 삭제
 		public int deleteReply(int num){
 			String sql = "";
 			int x=-1;
@@ -191,25 +158,21 @@ public class AskreplyDAO extends OracleDB{
 			}
 			return x;
 		}
-		
-		//댓글 수정
-		public int updateReply(AskreplyDTO dto){
-			String sql ="";
-			int x=-1;
-			try {
-				conn = getConnection();
-				sql = "update askreply set writer=?, content=? where num=?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, dto.getWriter());
-				pstmt.setString(2, dto.getContent());
-				pstmt.setInt(3, dto.getNum());
-				pstmt.executeUpdate();
-				rs = pstmt.executeQuery();
-			} catch(Exception ex) {
-				ex.printStackTrace();
-			} finally {
-				close(rs, pstmt, conn);
+	//답변 삭제
+			public int UpdateReply(int num){
+				String sql = "";
+				int x=-1;
+				try {
+					conn = getConnection();
+					sql = "update from askreply where num=?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, num);
+					x = pstmt.executeUpdate();
+				} catch(Exception ex) {
+					ex.printStackTrace();
+				} finally {
+					close(rs, pstmt, conn);
+				}
+				return x;
 			}
-			return x;
-		}
 }

@@ -22,16 +22,8 @@ public class NoticeDAO extends OracleDB{
 	//공지 삽입
 	public void insertNotice(NoticeDTO dto){
 		String sql = "";
-		int num = dto.getNum();
-		int number = 0;
 		try {
 			conn = getConnection();
-			sql = "select max(num) from notice";
-			rs = pstmt.executeQuery();
-			if (rs.next())
-				number = rs.getInt(1) + 1; // max(최대값)에 +1해줌
-			else
-				number = 1; // 글이 하나도 없을 때에는 1번
 			sql = "insert into notice values(notice_seq.NEXTVAL, ?, ?, ?, ?, sysdate, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getId());

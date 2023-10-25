@@ -1,8 +1,8 @@
-<%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "team02.location.land.LocationLandDAO"%>    
+<%@ page import = "team02.location.land.LocationLandDTO"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,18 +10,33 @@
 <title>어디Go</title>
 </head>
 <body>
+	<jsp:include page="/views/main/nav.jsp" />
+	<br />
+	<div class="text-center">
+		<h1>어디 Go</h1>
+	</div>
+	<br />
+	<hr />
+	
+	<br />
 	<%
 		String location = request.getParameter("location");
 		String areaCode = request.getParameter("areaCode");	
 	%>
-	<h1><%=location %></h1>
+	<h3 align="center"><mark><%=location %></mark></h3> <br />
 	<%
 		LocationLandDAO dao = LocationLandDAO.getInstance();
-		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();	
-		list = dao.selectSigunguCode(areaCode);
-		for(HashMap<String, String> area : list) {%>
-		<a href="listRand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=area.get("code")%>"><%=area.get("name") %></a>
-	<%}
-	%>
+		ArrayList<LocationLandDTO> list = new ArrayList<LocationLandDTO>();	
+		list = dao.selectSigunguCode(areaCode);%>
+		<div class="d-grid gap-2 col-6 mx-auto">
+		<%for(LocationLandDTO dto : list) {%>
+		<a class="btn btn-outline-primary" href="listLand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=dto.getSigunguCode()%>&pageNum=1"><%=dto.getSigungucodename() %></a>
+	<%}%>
+	</div>
+	
+	<br/>
+	<hr />
+	<br/>
+	<jsp:include page="/views/main/footer.jsp" />
 </body>
 </html>

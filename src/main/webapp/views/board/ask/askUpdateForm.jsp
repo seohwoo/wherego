@@ -15,7 +15,6 @@ int num = Integer.parseInt(request.getParameter("num"));
 AskboardDAO dao = new AskboardDAO();
 AskboardDTO dto = dao.getAsking(num);
 
-try {
     String memId = (String) session.getAttribute("memId");
     String nic = dao.select(memId);
     if (!memId.equals(dto.getId())) {
@@ -27,7 +26,7 @@ try {
         </script>
     <body>
 <% } else { %>
-     <%@ include file="/views/main/nav.jsp" %>
+     <jsp:include page="/views/main/nav.jsp" />
     
     <br />
     <div class="text-center">
@@ -63,9 +62,6 @@ try {
         <hr />
         <jsp:include page="/views/main/footer.jsp" />
     </div>
-<% }
-} catch(Exception e) {
-}
-%>
+<% }%>
 </body>
 </html>

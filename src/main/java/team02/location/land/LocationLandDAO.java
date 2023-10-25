@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import team02.db.land.OracleDB;
 
@@ -23,8 +22,8 @@ public class LocationLandDAO extends OracleDB {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 
-	public ArrayList<HashMap<String, String>> selectAreaCode() {
-		ArrayList<HashMap<String, String>> areaCodeList = new ArrayList<HashMap<String, String>>();
+	public ArrayList<LocationLandDTO> selectAreaCode() {
+		ArrayList<LocationLandDTO> areaCodeList = new ArrayList<LocationLandDTO>();
 
 		conn = getConnection();
 		try {
@@ -32,20 +31,22 @@ public class LocationLandDAO extends OracleDB {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				HashMap<String, String> areaMap = new HashMap<String, String>();
-				areaMap.put("code", rs.getString("areacode"));
-				areaMap.put("name", rs.getString("areacodename"));
-				areaCodeList.add(areaMap);
+				LocationLandDTO areaDTO = new LocationLandDTO();
+				areaDTO.setAreacode(rs.getString("areacode"));
+				areaDTO.setAreacodename(rs.getString("areacodename"));
+				areaCodeList.add(areaDTO);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 
 		return areaCodeList;
 	}
 
-	public ArrayList<HashMap<String, String>> selectSigunguCode(String areacode) {
-		ArrayList<HashMap<String, String>> sigunguCodeList = new ArrayList<HashMap<String, String>>();
+	public ArrayList<LocationLandDTO> selectSigunguCode(String areacode) {
+		ArrayList<LocationLandDTO> sigunguCodeList = new ArrayList<LocationLandDTO>();
 
 		conn = getConnection();
 		try {
@@ -54,13 +55,16 @@ public class LocationLandDAO extends OracleDB {
 			pstmt.setString(1, areacode);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				HashMap<String, String> areaMap = new HashMap<String, String>();
-				areaMap.put("code", rs.getString("sigungucode"));
-				areaMap.put("name", rs.getString("sigungucodename"));
-				sigunguCodeList.add(areaMap);
+				LocationLandDTO dto = new LocationLandDTO();
+				dto.setSigunguCode(rs.getString("sigungucode"));
+				dto.setSigungucodename(rs.getString("sigungucodename"));
+				sigunguCodeList.add(dto);
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 
 		return sigunguCodeList;
@@ -81,13 +85,15 @@ public class LocationLandDAO extends OracleDB {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 
 		return totalCnt;
 	}
 
-	public ArrayList<HashMap<String, String>> selectLand(String areaCode, String sigunguCode, int start, int end) {
-		ArrayList<HashMap<String, String>> landList = new ArrayList<HashMap<String, String>>();
+	public ArrayList<LocationLandDTO> selectLand(String areaCode, String sigunguCode, int start, int end) {
+		ArrayList<LocationLandDTO> landList = new ArrayList<LocationLandDTO>();
 
 		conn = getConnection();
 		try {
@@ -101,17 +107,20 @@ public class LocationLandDAO extends OracleDB {
 			pstmt.setInt(4, end);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				HashMap<String, String> areaMap = new HashMap<String, String>();
-				areaMap.put("contentid", rs.getString("contentid"));
-				areaMap.put("title", rs.getString("title"));
-				areaMap.put("firstimage", rs.getString("firstimage"));
-				areaMap.put("category", rs.getString("category"));
-				areaMap.put("areacodename", rs.getString("areacodename"));
-				areaMap.put("sigungucodename", rs.getString("sigungucodename"));
-				landList.add(areaMap);
+				LocationLandDTO dto = new LocationLandDTO();
+				dto.setContentid(rs.getString("contentid"));
+				dto.setTitle(rs.getString("title"));
+				dto.setFirstimage(rs.getString("firstimage"));
+				dto.setCategory(rs.getString("category"));
+				dto.setAreacodename(rs.getString("areacodename"));
+				dto.setSigungucodename(rs.getString("sigungucodename"));
+				landList.add(dto);
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 
 		return landList;

@@ -26,12 +26,9 @@
 
 <%
 	String contentid = request.getParameter("contentid");
-	String areaCode = request.getParameter("areaCode");
-	String sigunguCode = request.getParameter("sigunguCode");
-	int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 	String id = (String)session.getAttribute("memId");
 %>
-<form method="post" action = "randStarInsertPro.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&contentid=<%=contentid%>&pageNum=<%=pageNum%>"  OnSubmit = "return validateAndSubmit()">
+<form method="post" action = "randStarInsertPro.jsp?contentid=<%=contentid%>" enctype="multipart/form-data" OnSubmit = "return validateAndSubmit()">
 
     <div class="stars1">
         <span class="star">&#9733;</span>
@@ -73,9 +70,13 @@
         
         function validateAndSubmit() {
             const selectedStars = document.querySelector('input[name="stars"]:checked');
-            if (!selectedStars) {
-            	const popupWindow = window.open('', 'popupWindow', 'width=180, height=30,resizable=no,scrollbars=no,status=no,toolbar=no');
-                popupWindow.document.write('<p>평점을 선택해주세요.</p>');
+            const reviewTextarea = document.querySelector('textarea[name="review"]');
+            if (!selectedStars || reviewTextarea.value.trim() === '') {
+            	
+            	alert("평점과 리뷰를 모두입력했는지 확인해주세요.")
+            	//const popupWindow = window.open('', 'popupWindow', 'width=180, height=30,resizable=no,scrollbars=no,status=no,toolbar=no');
+               // popupWindow.document.write('<p>평점과 리뷰를 모두입력했는지 확인해주세요.</p>');
+                //popupWindow.document.write('<button onclick="window.close()">닫기</button>');
                 return false;
             } else {
                 return true;
@@ -87,10 +88,16 @@
     </script>
     
  
-    
+    이미지 첨부 : <br/>
+	<input type = "file" name = "img1" accept="image/jpeg, image/jpg, image/png, image/gif"/> <br /> 
+	<input type = "file" name = "img2" accept="image/jpeg, image/jpg, image/png, image/gif"/> <br />
+	<input type = "file" name = "img3" accept="image/jpeg, image/jpg, image/png, image/gif"/> <br />
+	<input type = "file" name = "img4" accept="image/jpeg, image/jpg, image/png, image/gif"/> <br />
+	<input type = "file" name = "img5" accept="image/jpeg, image/jpg, image/png, image/gif"/> <br />
+    		   
     평가
     <br/>
-	<textarea name="comments" rows="3" cols="50" placeholder="50자 내로 적어주세요. (입력하지 않으셔도 됩니다.)"></textarea><br/>
+	<textarea name="review" rows="3" cols="50" placeholder="평가를 입력해주세요.(필수)"></textarea><br/>
     <input type="submit" name="confirm" value="등록">
     <input type="button" value="닫기" OnClick="window.close();">
     </form>

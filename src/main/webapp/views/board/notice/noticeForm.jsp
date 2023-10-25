@@ -21,7 +21,7 @@
         </script>
     <body>
 <% } else { %>
-     <%@ include file="/views/main/nav.jsp" %>
+    <jsp:include page="/views/main/nav.jsp" />
 	
 	<br />
 	<div class="text-center">

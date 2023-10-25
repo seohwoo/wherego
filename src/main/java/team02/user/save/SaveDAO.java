@@ -23,10 +23,9 @@ public class SaveDAO extends OracleDB {
 
 	public int isSave(String contentid, String id) {
 		int count = 0;
-		String sql = "";
 		conn = getConnection();
 		try {
-			sql = " select count(*) from landsave where contentid=? and id=? ";
+			String sql = " select count(*) from landsave where contentid=? and id=? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, contentid);
 			pstmt.setString(2, id);
@@ -43,47 +42,12 @@ public class SaveDAO extends OracleDB {
 	}
 
 	public void insertSave(String contentid, String id) {
-		SaveDTO dto = new SaveDTO();
-		String sql = "";
 		conn = getConnection();
 		try {
-			sql = " select title, firstimage, areacodename, sigungucodename, category "
-					+ " from landinfo where contentid=? ";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, contentid);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				dto.setTitle(rs.getString("title"));
-				dto.setFirstimage(rs.getString("firstimage"));
-				dto.setAreacodename(rs.getString("areacodename"));
-				dto.setSigungucodename(rs.getString("sigungucodename"));
-				dto.setCategory(rs.getString("category"));
-			}
-			sql = " select round(avg(stars), 1) from star where contentid=? ";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, contentid);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				dto.setStars(rs.getInt(1));
-			}
-			sql = " select totalstars from landtotal where contentid=? ";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, contentid);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				dto.setTotalstars(rs.getInt("totalstars"));
-			}
-			sql = " insert into landsave values(?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+			String sql = " insert into landsave values(?, ?, sysdate) ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, contentid);
 			pstmt.setString(2, id);
-			pstmt.setString(3, dto.getTitle());
-			pstmt.setString(4, dto.getFirstimage());
-			pstmt.setString(5, dto.getAreacodename());
-			pstmt.setString(6, dto.getSigungucodename());
-			pstmt.setString(7, dto.getCategory());
-			pstmt.setDouble(8, dto.getStars());
-			pstmt.setInt(9, dto.getTotalstars());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -40,8 +40,12 @@
 	<br/>
 	<hr/>
 	<br/>
-	<h3 align= "center"> Best 매거진</h3><br/>
+	<h3 align= "center"> 금주 여행 가이드</h3><br/>
 		<jsp:include page="/views/main/bestMag.jsp" />
+	<br/>
+	<hr />
+	<h3 align= "center"> Best Plan!</h3><br/>
+		
 	<br/>
 	<hr />
 	<br/>

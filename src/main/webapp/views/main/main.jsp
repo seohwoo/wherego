@@ -23,13 +23,16 @@
 		  <!-- main 중반 -->
 	<br />
 	<div class="d-grid gap-2 col-6 mx-auto">	
-		<div class="input-group mb-3">
-			<input type="text" class="form-control" placeholder="여행지를 검색해보세요">
-			<div class="col-auto">
-				<button class="btn btn-outline-secondary" type="button" id="button-addon2" onClick="#">검색</button>
-			</div>
-		</div>
-			
+		<form action="/wherego/views/map/searchMap.jsp" method="get">
+		  <div class="input-group mb-3">
+		    <input type="text" id="searchInput" name="keyword" class="form-control" placeholder="여행지를 검색해보세요">
+		    <div class="col-auto">
+		      <button class="btn btn-outline-secondary" type="submit" id="button-addon2">검색</button>
+		    </div>
+		  </div>
+		</form>
+
+
 		<a href="/wherego/views/locationLand/locationHigh.jsp" class="btn btn-secondary">지역별 여행지 보기</a>
 		<a href="#" class="btn btn-secondary">나의 여행 계획 짜기</a>
 	</div>
@@ -52,4 +55,13 @@
 		<jsp:include page="/views/main/footer.jsp" />	
 
 </body>
+<script>
+        function search() {
+            var keyword = document.getElementById('keyword').value;
+            // URL 파라미터 생성
+            var url = "검색결과페이지URL?keyword=" + encodeURIComponent(keyword);
+            // 검색 결과 페이지로 이동
+            window.location.href = url;
+        }
+    </script>
 </html>

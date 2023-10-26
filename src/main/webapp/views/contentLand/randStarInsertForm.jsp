@@ -27,6 +27,14 @@
 <%
 	String contentid = request.getParameter("contentid");
 	String id = (String)session.getAttribute("memId");
+	if(id == null){
+		%>
+		<script>
+		alert("로그인후 사용가능합니다.");
+		window.close();
+		</script>
+	<%}
+	else{
 %>
 <form method="post" action = "randStarInsertPro.jsp?contentid=<%=contentid%>" enctype="multipart/form-data" OnSubmit = "return validateAndSubmit()">
 
@@ -101,7 +109,7 @@
     <input type="submit" name="confirm" value="등록">
     <input type="button" value="닫기" OnClick="window.close();">
     </form>
-    
+  <%} %>  
 
 </body>
 </html>

@@ -21,13 +21,13 @@ public class AdminMemberDAO extends OracleDB {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 
-	public ArrayList<AdminMemberDTO> selectMember(int start, int end) {
+	public ArrayList<AdminMemberDTO> selectCleanMember(int start, int end) {
 		ArrayList<AdminMemberDTO> memberList = new ArrayList<AdminMemberDTO>();
 
 		conn = getConnection();
 		try {
 			String sql = " select * from (select mem.*, rownum as r from "
-					+ " (select * from member2 order by reg_date desc) mem ) where r>=? and r<=? ";
+					+ " (select * from member where grade>=2 and grade<=99 order by grade desc, reg_date desc) mem ) where r>=? and r<=? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
@@ -44,6 +44,8 @@ public class AdminMemberDAO extends OracleDB {
 				dto.setPhone(rs.getString("phone"));
 				dto.setProfile(rs.getString("profile"));
 				dto.setReg_date(rs.getString("reg_date"));
+				dto.setTotal(rs.getInt("total"));
+				dto.setGrade(rs.getInt("grade"));
 				memberList.add(dto);
 			}
 		} catch (Exception e) {
@@ -54,4 +56,39 @@ public class AdminMemberDAO extends OracleDB {
 		return memberList;
 	}
 
+	public int cleanMemberCnt() {
+		int cnt = 0;
+		conn = getConnection();
+		try {
+			String sql = " select count(*) from member ";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				cnt = rs.getInt(1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return cnt;
+	}
+
+	public String findGradeName(int grade) {
+		String gradeName = "";
+		conn = getConnection();
+		try {
+			String sql = " select gradename from membergrade where gradeNum = ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, grade);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				gradeName = rs.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return gradeName;
+	}
 }

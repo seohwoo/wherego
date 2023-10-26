@@ -31,6 +31,9 @@
 
 
 
+
+
+
 <body bgcolor="<%=green_g%>">
 
 <form method="post" action="inputPro.jsp" name="userinput" onSubmit="return checkIt()">
@@ -97,8 +100,16 @@
 	<tr>
 		<td width="200" bgcolor="<%=value_c%>"> 이메일 </td>
 		<td width="400" bgcolor="<%=value_c%>">
-		<input type="email" name="email" size="20" maxlength="20" required="required"> </td>	
+		<input type="text" name="email" size="20" maxlength="20" required="required">	
+		<select name = "emailOption">
+	        <option  value="">@ 메일 종류 선택</option>
+	        <option  value="gmail.com">gmail.com</option>
+	        <option  value="naver.com">naver.com</option>
+	        <option value="nate.com">nate.com</option>
+	        <option value="daum.net">daum.net</option></td>
+        </select>
 	</tr>
+	
 	
 	<tr>
 		<td width="200" bgcolor="<%=value_c%>"> 전화번호 </td>
@@ -107,7 +118,6 @@
 	</tr>
 	
 
-	
 
 		<td colspan="2" align="center" bgcolor="<%=value_c%>"> 
 	        <input type="submit" name="confirm" value="등   록" >

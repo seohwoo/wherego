@@ -43,7 +43,7 @@
 				if(count>0) {
 					memberList = dao.selectCleanMember(start, end);
 				}%>
-				<button type="button" OnClick="window.location='showDirtyMember.jsp'">탈퇴, 금지 유저 보기 >>></button>
+				<button type="button" OnClick="window.location='showDirtyMember.jsp?pageNum=1'">탈퇴, 금지 유저 보기 >>></button>
 				
 				<table border="1" width="700" align="center"> 
 			    <tr height="30"> 
@@ -82,14 +82,14 @@
 				        if (endPage > pageCount) endPage = pageCount;
 				        
 				        if (startPage > 10) {    %>
-				        <a href="showMember.jsp?pageNum=<%= startPage - 10 %>">[이전]</a>
+				        <a href="showCleanMember.jsp?pageNum=<%= startPage - 10 %>">[이전]</a>
 				<%      }
 				        for (int i = startPage ; i <= endPage ; i++) {  %>
-				        <a href="showMember.jsp?pageNum=<%= i %>">[<%= i %>]</a>
+				        <a href="showCleanMember.jsp?pageNum=<%= i %>">[<%= i %>]</a>
 				<%
 				        }
 				        if (endPage < pageCount) {  %>
-				        <a href="showMember.jsp?pageNum=<%= startPage + 10 %>">[다음]</a>
+				        <a href="showCleanMember.jsp?pageNum=<%= startPage + 10 %>">[다음]</a>
 				<%
 				        }
 				    }

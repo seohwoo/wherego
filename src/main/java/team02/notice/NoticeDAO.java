@@ -46,7 +46,7 @@ public class NoticeDAO extends OracleDB{
 		String id = null;
 		try {
 			conn = getConnection();
-			sql = "select nic FROM member2 WHERE id = ?";
+			sql = "select nic FROM member WHERE id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, nic);
 

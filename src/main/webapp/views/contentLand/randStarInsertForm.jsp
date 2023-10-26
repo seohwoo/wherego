@@ -103,9 +103,9 @@
 	<input type = "file" name = "img4" accept="image/jpeg, image/jpg, image/png, image/gif"/> <br />
 	<input type = "file" name = "img5" accept="image/jpeg, image/jpg, image/png, image/gif"/> <br />
     		   
-    평가
+    리뷰
     <br/>
-	<textarea name="review" rows="3" cols="50" placeholder="평가를 입력해주세요.(필수)"></textarea><br/>
+	<textarea name="review" rows="3" cols="50" placeholder="리뷰를 입력해주세요.(필수)"></textarea><br/>
     <input type="submit" name="confirm" value="등록">
     <input type="button" value="닫기" OnClick="window.close();">
     </form>

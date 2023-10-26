@@ -34,6 +34,7 @@
 
 <body >
 
+
 <form method="post" action="inputPro.jsp" name="userinput" onSubmit="return checkIt()">
 	<table width="600" border="1" cellspacing="3" cellpadding="3" align="center">
 	<tr>
@@ -96,10 +97,19 @@
 	</tr>
 		
 	<tr>
-		<td width="200" > 이메일 </td>
-		<td width="400" >
-		<input type="email" name="email" size="20" maxlength="20" required="required"> </td>	
+
+		<td width="200" bgcolor="<%=value_c%>"> 이메일 </td>
+		<td width="400" bgcolor="<%=value_c%>">
+		<input type="text" name="email" size="20" maxlength="20" required="required">	
+		<select name = "emailOption">
+	        <option  value="">@ 메일 종류 선택</option>
+	        <option  value="gmail.com">gmail.com</option>
+	        <option  value="naver.com">naver.com</option>
+	        <option value="nate.com">nate.com</option>
+	        <option value="daum.net">daum.net</option></td>
+        </select>
 	</tr>
+	
 	
 	<tr>
 		<td width="200" > 전화번호 </td>
@@ -108,12 +118,11 @@
 	</tr>
 	
 
-	
 
 		<td colspan="2" align="center" > 
 	        <input type="submit" name="confirm" value="등   록" >
 	        <input type="reset" name="reset" value="다시입력">
-	        <input type="button" value="가입안함" onclick="window.location='/team02/views/main/main.jsp'">
+	        <input type="button" value="가입안함" onclick="window.location='/wherego/views/main/main.jsp'">
      	</td>
 	
 	</table>

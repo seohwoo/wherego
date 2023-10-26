@@ -130,9 +130,8 @@ public class SaveDAO extends OracleDB {
 			rs = pstmt.executeQuery();
 						
 			if (rs.next()) {
-			    String readcountStr = rs.getString("readcount"); // readcount 값을 문자열로 가져옴
-			    int readcount = Integer.parseInt(readcountStr); // 문자열을 int로 변환
-			    myPickMap.put("readcount", String.valueOf(readcount)); // 다시 문자열로 변환하여 myPickMap에 추가
+			    int readcount = rs.getInt("readcount"); // int 형식으로 가져옴
+			    myPickMap.put("readcount", String.valueOf(readcount)); // 문자열로 변환하지 않고 그대로 저장
 			}
 			
 		} catch (Exception e) {

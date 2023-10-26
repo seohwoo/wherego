@@ -2,6 +2,7 @@ package team02.member;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Types;
 
 import team02.db.land.OracleDB;
 import team02.member.MemberDTO;
@@ -30,8 +31,18 @@ public class MemberDAO extends OracleDB {
             pstmt.setString(4, member.getNic());
             pstmt.setString(5, member.getBirth());
             pstmt.setString(6, member.getGender());
-            pstmt.setString(7, member.getAddress());
-            pstmt.setString(8, member.getEmail() + "@" + member.getEmailOption());
+            //주소와 상세주소가 모두 존재하는 경우 합쳐서 저장
+            if (member.getAddress() != null && member.getAddressDetail() != null) {
+                pstmt.setString(7, member.getAddress() + " " + member.getAddressDetail());
+            } else if (member.getAddress() != null) {
+                pstmt.setString(7, member.getAddress());
+            } else {
+                pstmt.setNull(7, Types.VARCHAR); // 주소가 없는 경우 DB에 null 저장
+            }
+            
+            // 이메일과 이메일 옵션을 합쳐서 저장
+            String fullEmail = member.getEmail() + "@" + member.getEmailOption();
+            pstmt.setString(8, fullEmail);
             pstmt.setString(9, member.getPhone());           
             pstmt.executeUpdate();    
     	}catch(Exception e) {      

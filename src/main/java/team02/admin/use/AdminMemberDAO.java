@@ -21,13 +21,16 @@ public class AdminMemberDAO extends OracleDB {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 
-	public ArrayList<AdminMemberDTO> selectMember() {
+	public ArrayList<AdminMemberDTO> selectMember(int start, int end) {
 		ArrayList<AdminMemberDTO> memberList = new ArrayList<AdminMemberDTO>();
 
 		conn = getConnection();
 		try {
-			String sql = " select * from member2 ";
+			String sql = " select * from (select mem.*, rownum as r from "
+					+ " (select * from member2 order by reg_date desc) mem ) where r>=? and r<=? ";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				AdminMemberDTO dto = new AdminMemberDTO();

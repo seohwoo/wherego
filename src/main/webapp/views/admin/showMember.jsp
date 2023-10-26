@@ -38,8 +38,8 @@
 			    }
 
 			    int currentPage = Integer.parseInt(pageNum);
-			    int startRow = (currentPage - 1) * pageSize + 1;
-			    int endRow = currentPage * pageSize;
+			    int start = (currentPage - 1) * pageSize + 1;
+			    int end = currentPage * pageSize;
 			    int count = 0;
 			    int number=0;
 
@@ -48,38 +48,28 @@
 
 				AdminMemberDAO dao = AdminMemberDAO.getInstance();
 				ArrayList<AdminMemberDTO> memberList  = new ArrayList<AdminMemberDTO>();
-				memberList = dao.selectMember();%>
+				memberList = dao.selectMember(start, end);%>
 				<table border="1" width="700" cellpadding="0" cellspacing="0" align="center"> 
 			    <tr height="30"> 
 			       <td align="center"  width="50"  >id</td> 
-			       <td align="center"  width="50"  >이름</td> 
 			       <td align="center"  width="50"  >닉네임</td> 
-			       <td align="center"  width="50"  >생일</td> 
 			       <td align="center"  width="50"  >성별</td> 
-			       <td align="center"  width="50"  >주소</td> 
 			       <td align="center"  width="50"  >이메일</td> 
 			       <td align="center"  width="50"  >휴대폰 번호</td> 
-			       <td align="center"  width="50"  >프로필</td> 
 			       <td align="center"  width="50"  >가입일</td> 
 			    </tr>
 			    
 				<% for(AdminMemberDTO dto : memberList) {
-					Date birthD = inputFormat.parse(dto.getBirth());
 					Date reg_dateD = inputFormat.parse(dto.getReg_date());
-					String birth = outputFormat.format(birthD);
 					String reg_date = outputFormat.format(reg_dateD);
 					
 				%>
 					<tr>
 						<td align="center"  width="50"  ><a href="contentMember.jsp?id=<%=dto.getId() %>"><%=dto.getId() %></a></td>
-						<td align="center"  width="50"  ><%=dto.getName() %></td>
 						<td align="center"  width="50"  ><%=dto.getNic() %></td>
-						<td align="center"  width="50"  ><%=birth%></td>
 						<td align="center"  width="50"  ><%=dto.getGender() %></td>
-						<td align="center"  width="50"  ><%=dto.getAddress() %></td>
 						<td align="center"  width="50"  ><%=dto.getEmail() %></td>
 						<td align="center"  width="50"  ><%=dto.getPhone() %></td>
-						<td align="center"  width="50"  ><%=dto.getProfile() %></td>
 						<td align="center"  width="50"  ><%=reg_date%></td>
 					</tr>
 				<%}%>

@@ -100,7 +100,8 @@ public class SaveDAO extends OracleDB {
 		conn = getConnection();
 		String sql = "";
 		try {
-			pstmt = conn.prepareStatement("select * from landinfo where contentid = ?");			
+			sql= "select * from landinfo where contentid = ?";
+			pstmt = conn.prepareStatement(sql);			
 			pstmt.setString(1, contentid);			
 			rs = pstmt.executeQuery();
 			
@@ -111,7 +112,29 @@ public class SaveDAO extends OracleDB {
 				myPickMap.put("addr1", rs.getString("addr1"));
 				myPickMap.put("firstimage", rs.getString("firstimage"));
 				myPickMap.put("category", rs.getString("category"));
-			}			
+				}
+			
+			sql = "select round(avg(stars), 1) from star where contentid=?";
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, contentid);			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				myPickMap.put("stars",rs.getString("stars"));						
+			}
+			
+			
+			sql = "select * from landreadcount where contentid=?";
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, contentid);			
+			rs = pstmt.executeQuery();
+						
+			if (rs.next()) {
+			    String readcountStr = rs.getString("readcount"); // readcount 값을 문자열로 가져옴
+			    int readcount = Integer.parseInt(readcountStr); // 문자열을 int로 변환
+			    myPickMap.put("readcount", String.valueOf(readcount)); // 다시 문자열로 변환하여 myPickMap에 추가
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -170,9 +193,10 @@ public class SaveDAO extends OracleDB {
 	public HashMap<String, String> myReviewList(String reviewContentid){
 		HashMap<String, String> myReviewMap = new HashMap<String, String>();
 		conn = getConnection();
-		String sql = "select * from landreview where contentid = ?";
+		String sql = "";
 		
 		try {
+			sql = "select * from landreview where contentid = ?";
 			pstmt = conn.prepareStatement(sql);			
 			pstmt.setString(1, reviewContentid);			
 			rs = pstmt.executeQuery();
@@ -185,8 +209,21 @@ public class SaveDAO extends OracleDB {
 				myReviewMap.put("img3", rs.getString("img3"));
 				myReviewMap.put("img4", rs.getString("img4"));
 				myReviewMap.put("img5", rs.getString("img5"));
-				myReviewMap.put("reg_date", rs.getString("reg_date"));							
-			}					
+				myReviewMap.put("reg_date", rs.getString("reg_date"));
+			}
+			
+			sql = "select * from landinfo where contentid = ?";
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, reviewContentid);			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				myReviewMap.put("sigungucodename", rs.getString("sigungucodename"));
+				myReviewMap.put("title", rs.getString("title"));
+				myReviewMap.put("firstimage", rs.getString("firstimage"));
+			}
+			
+			
 		}catch (Exception e) {
 		  e.printStackTrace();
 		}finally {
@@ -195,6 +232,7 @@ public class SaveDAO extends OracleDB {
 		return myReviewMap;
 	}
 	
+		//리뷰갯수
 	public int getReviewCount(String rid) throws Exception {
 	      int x= 0;
 	      

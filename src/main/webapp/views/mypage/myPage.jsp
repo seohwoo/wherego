@@ -128,13 +128,14 @@
 
 <!-- 아래는 리뷰리스트 -->
        
-	<div id="myreviews" style="width:100%;  background-color: #b9ffec; display:none;">
+	<div id="myreviews" style="width:100%;   display:none;">
      <p><%=c.getNic()%>님이 작성한 리뷰 리스트 입니다.</p> 
         <b>글목록(전체 글:<%=count%>)</b>
 
     <%
      if (point == 0) {
     %>
+     <center>
       <table width="700" border="1" cellpadding="0" cellspacing="0">
          <tr>
            <td align="center">
@@ -142,12 +143,13 @@
             </td>
           </tr>
       </table>
+     </center>
     <%}else{%>
      <table border="1" width="1500" cellpadding="10" cellspacing="10" align="center">
      
-      <tr  height="30" >                      
-         <td align="center"  width="150"  >여행지</td> 
-         <td align="center"  width="120"  >장소사진</td> 
+      <tr  height="30">                      
+         <td align="center"  width="200"  >여행지</td> 
+         <td align="center"  width="150"  >장소사진</td> 
          <td align="center"  width="350"  >리뷰내용</td> 
          <td align="center"  width="200" >별점</td>          
          <td align="center"  width="150" >사진1</td> 
@@ -164,8 +166,8 @@
 		   myReviewMap = review.myReviewList(reviewContentid);
  %>    
 	   <tr height="30" >   		    
-			<td>여행지</td>
-			<td>장소사진</td>
+			<td><%=myReviewMap.get("title")%></td>
+			<td> <img width="100" height="100"  src="<%=myReviewMap.get("firstimage")%>"></td>
 			<td><%=myReviewMap.get("review")%></td>
 			<td><%=myReviewMap.get("stars")%></td>
 			<td><%String img1 = myReviewMap.get("img1");
@@ -203,14 +205,15 @@
 
 <!-- 여기아래는 찜한 목록 뽑는곳 -->
 
-<div id="mypick" style="width:100%; background-color: #DAD9FF; display:none; ">
+<div id="mypick" style="width:100%;  display:none; ">
   
    <p><%=c.getNic()%>님의 찜한 여행지 리스트입니다.</p>
    <b>내가 찜한목록(전체 글:<%=point%>)</b>
    
    <%
-      if (point == 0) {
+      if (point == 0 ) {
    %>
+     <center>
       <table width="700" border="1" cellpadding="0" cellspacing="0">
          <tr>
            <td align="center">
@@ -218,6 +221,7 @@
             </td>
           </tr>
       </table>
+     </center>
    <%}else{%>  
     <table border="1" width="1100" cellpadding="10" cellspacing="10" align="center"> 
       <tr  height="30" > 
@@ -227,6 +231,8 @@
          <td align="center"  width="300"  >주소</td> 
          <td align="center"  width="150" >사진</td>             
          <td align="center"  width="200" >카테고리</td>                   
+         <td align="center"  width="200" >평균별점</td>                   
+         <td align="center"  width="200" >조회수</td>                   
       </tr>
       
 <%
@@ -243,6 +249,8 @@
 	   <td> <%=myPickMap.get("addr1")%></td>
 	   <td> <img width="150" height="150"  src="<%=myPickMap.get("firstimage")%>"></td>
 	   <td><%=myPickMap.get("category") %></td>
+	   <td><%=myPickMap.get("stars") %></td>
+	   <td><%=myPickMap.get("readcount") %></td>	   
 	 </tr> 
 	   
 	<%}%>

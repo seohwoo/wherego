@@ -92,6 +92,8 @@
       <td   width="200">전화번호</td>
       <td  width="400"> 
         <input type="text" name="phone" size="20" maxlength="12" value="<%=c.getPhone()%>">
+        
+        
       </td>
     </tr>
     

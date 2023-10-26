@@ -26,7 +26,7 @@
 			
 		
 				HashMap<String, Integer> totalMap = new HashMap<String, Integer>();		
-				totalMap = api.findTotalCount_NumOfRows(area, scode);
+				//totalMap = api.findTotalCount_NumOfRows(area, scode);
 				int totalCount = totalMap.get("totalCount");
 				
 				

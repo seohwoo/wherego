@@ -26,7 +26,7 @@ public class AdminMemberDAO extends OracleDB {
 
 		conn = getConnection();
 		try {
-			String sql = " select * from member2 ";
+			String sql = " select * from member ";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {

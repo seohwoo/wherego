@@ -28,7 +28,6 @@
       String areaCode = request.getParameter("areaCode");
       String sigunguCode = request.getParameter("sigunguCode");
  	  String id = (String) session.getAttribute("memId");	
-	
       LocationLandDAO dao = LocationLandDAO.getInstance();
       SaveDAO saveDao = SaveDAO.getInstance();
       int totalCount = dao.totalLand(areaCode, sigunguCode);
@@ -49,11 +48,13 @@
  
       list = dao.selectLand(areaCode, sigunguCode, start, end);
 	  LandDAO landO = LandDAO.getInstance();
+	  
       %>
       <div align="center">
       <% for(LocationLandDTO dto : list) {
       int issave = saveDao.isSave(dto.getContentid(), id);
       int readCount = landO.getReadCount(dto.getContentid());
+      double avg = landO.avgStar(dto.getContentid());
       %>
 	      <div class="card mb-3" style="max-width: 800px;">
 			  <div class="row g-0">
@@ -80,7 +81,20 @@
 			        <h5 align="left" class="card-title"><%=dto.getTitle() %></h5>
 			        <p align="left" class="card-text"><%=dto.getCategory() %></p>
 			        <p align="left" class="card-text"><%=dto.getAreacodename() %> > <%=dto.getSigungucodename() %></p>
-			        <p align="left" class="card-text"><small >⭐⭐⭐⭐⭐  (5)</small></p>
+			        <% int reviewCount = landO.getReviewCount(dto.getContentid());%>
+			        <% if(reviewCount == 0){%>
+			        <p align="left" class="card-text">아직 등록된 리뷰가 없습니다.</p>
+			        <%}else{ %>
+			        <p align="left" class="card-text"><%=reviewCount%>개의 리뷰가 있습니다.</p>
+			        <%}%>
+			        <p align="left" class="card-text"><small >
+			        <%
+			        for(int i = 1; i <= (int)avg; i++){%>
+			        	&#11088;
+			        <% }
+			        if(avg % 1 != 0){%>
+			        &#x2606;
+			        <%}%>(<%=avg %>)</small></p>
 			        <p align="left" class="card-text"><small >❤  (0)</small></p>
 			        <p align="left" class="card-text"><small >조회수 : <%=readCount %></small></p>
 			      </div>

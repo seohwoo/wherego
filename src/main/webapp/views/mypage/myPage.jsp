@@ -8,57 +8,48 @@
 <%@page import = "java.util.Enumeration" %>
 
 <!-- 선민 리뷰 -->
- 
-
 
 <!-- 형우 찜하기 -->
-<%@ page import = "team02.location.land.LocationLandDAO"%>  
-<%@ page import = "team02.location.land.LocationLandDTO"%>  
 <%@ page import = "team02.user.save.SaveDAO"%> 
 <%@ page import = "team02.user.save.SaveDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import = "java.util.List" %>
+<%@page import = "java.util.HashMap" %>
+
 
 <% request.setCharacterEncoding("UTF-8");%>
-<%!
-    int pageSize = 10;  // 게시판 첫페이지에 보여줄 글 개수    
-%>
 
+<%  int pageSize = 10;%>
 <%
-	String vid = (String)session.getAttribute("memId");
-	SaveDAO pick =SaveDAO.getInstance();
-	SaveDTO p = pick.sss(vid);
-%>
-
-<%
-   String sid = (String)session.getAttribute("memId");
-
-   String pagepoint = request.getParameter("pagepoint");
-   if (pagepoint == null) {
-      pagepoint = "1";
-   }
-   
-   int cPage = Integer.parseInt(pagepoint);
-    int stRow = (cPage - 1) * pageSize + 1;
-    int edRow = cPage * pageSize;
-   int point = 0; 
-   int pnumber=0;
+	//찜목록 리스트화 시키기
+    String vid = (String)session.getAttribute("memId");
+    SaveDAO pick = SaveDAO.getInstance();
+    ArrayList<String> p = pick.getMyPickContentIdList(vid);
+    String contentid ="";
     
-
-   List mypicklist = null;     
-   LocationLandDAO dbpick = LocationLandDAO.getInstance();
-   point = dbpick.getmypickpoint(sid);
-    if (point > 0) {
-       mypicklist = dbpick.getmypick(stRow, edRow, sid);
-       }
-      pnumber=point-(cPage-1)*pageSize;     
-     
-
-     /* 요건 글이 나오는지 찍어본거 */
-     LocationLandDAO  save = LocationLandDAO .getInstance();
-     LocationLandDTO s = save.mySaveList(sid);    
+    //찜목록 카운트
+    int point = 0;     
+    List getmypickpoint = null;     
+    SaveDAO dbmypick = SaveDAO.getInstance();   
+    point = dbmypick.getmypickpoint(vid);  
 %>
-<!-- 찜하기 여기까지 -->
+
+
+<%
+	//리뷰 리스트화 시키기
+	String rid = (String)session.getAttribute("memId");
+	SaveDAO review = SaveDAO.getInstance();
+	ArrayList<String> r = review.getMyreviewContentIdList(rid);
+	String reviewContentid = "";
+	
+	//리뷰 갯수
+	int count = 0; 
+	List getReviewCount = null;
+	SaveDAO reviewC = SaveDAO.getInstance();
+	count = reviewC.getReviewCount(rid);
+%>
+
+  
 
 
 <jsp:include page="/views/main/nav.jsp" />
@@ -139,7 +130,7 @@
        
 	<div id="myreviews" style="width:100%;  background-color: #b9ffec; display:none;">
      <p><%=c.getNic()%>님이 작성한 리뷰 리스트 입니다.</p> 
-        <b>글목록(전체 글:<%=point%>)</b>
+        <b>글목록(전체 글:<%=count%>)</b>
 
     <%
      if (point == 0) {
@@ -151,7 +142,62 @@
             </td>
           </tr>
       </table>
+    <%}else{%>
+     <table border="1" width="1500" cellpadding="10" cellspacing="10" align="center">
+     
+      <tr  height="30" >                      
+         <td align="center"  width="150"  >여행지</td> 
+         <td align="center"  width="120"  >장소사진</td> 
+         <td align="center"  width="350"  >리뷰내용</td> 
+         <td align="center"  width="200" >별점</td>          
+         <td align="center"  width="150" >사진1</td> 
+         <td align="center"  width="150"  >사진2</td> 
+         <td align="center"  width="150" >사진3</td>             
+         <td align="center"  width="150" >사진4</td>             
+         <td align="center"  width="150" >사진5</td>                                                                         
+         <td align="center"  width="200" >리뷰날짜</td>                                        
+      </tr>
+ <%
+	 HashMap<String,String> myReviewMap = new HashMap<String,String>();
+	 for(int i = 0 ; i < r.size(); i++){
+		   reviewContentid = r.get(i);
+		   myReviewMap = review.myReviewList(reviewContentid);
+ %>    
+	   <tr height="30" >   		    
+			<td>여행지</td>
+			<td>장소사진</td>
+			<td><%=myReviewMap.get("review")%></td>
+			<td><%=myReviewMap.get("stars")%></td>
+			<td><%String img1 = myReviewMap.get("img1");
+			if (img1 != null && !img1.isEmpty() && !img1.equals("NoImage")){
+        	%><img width="100" height="100" src="<%= img1 %>">
+        	<%}else{%>이미지가 없습니다.<%}%>
+   			</td>			    
+			<td><%String img2 = myReviewMap.get("img2");
+			if (img2 != null && !img2.isEmpty() && !img2.equals("NoImage")){
+        	%><img width="100" height="100" src="<%= img1 %>">
+        	<%}else{%>이미지가 없습니다.<%}%>
+   			</td>			    
+			<td><%String img3 = myReviewMap.get("img3");
+			if (img3 != null && !img3.isEmpty() && !img3.equals("NoImage")){
+        	%><img width="100" height="100" src="<%= img3 %>">
+        	<%}else{%>이미지가 없습니다.<%}%>
+   			</td>			    
+			<td><%String img4 = myReviewMap.get("img4");
+			if (img4 != null && !img4.isEmpty() && !img4.equals("NoImage")){
+        	%><img width="100" height="100" src="<%= img4 %>">
+        	<%}else{%>이미지가 없습니다.<%}%>
+   			</td>			    
+			<td><%String img5 = myReviewMap.get("img5");
+			if (img5 != null && !img5.isEmpty() && !img5.equals("NoImage")){
+        	%><img width="100" height="100" src="<%= img5 %>">
+        	<%}else{%>이미지가 없습니다.<%}%>
+   			</td>			    											
+			<td><%=myReviewMap.get("reg_date")%></td>
+	   </tr>    
      <%}%>
+  </table>
+    <%}%>	    
    </div>
    
 
@@ -161,58 +207,50 @@
   
    <p><%=c.getNic()%>님의 찜한 여행지 리스트입니다.</p>
    <b>내가 찜한목록(전체 글:<%=point%>)</b>
-     
-    <table border="1" width="700" cellpadding="10" cellspacing="10" align="center"> 
+   
+   <%
+      if (point == 0) {
+   %>
+      <table width="700" border="1" cellpadding="0" cellspacing="0">
+         <tr>
+           <td align="center">
+             게시판에 저장된 글이 없습니다.
+            </td>
+          </tr>
+      </table>
+   <%}else{%>  
+    <table border="1" width="1100" cellpadding="10" cellspacing="10" align="center"> 
       <tr  height="30" > 
-         <td align="center"  width="100"  >순서</td>              
-         <td align="center"  width="200"  >이미지</td> 
-         <td align="center"  width="200" >카테고리</td> 
-         <td align="center"  width="200"  >지역</td> 
-         <td align="center"  width="200" >타이틀</td>             
-         <td align="center"  width="200" >찜한 사람 수</td>                   
+         <td align="center"  width="100"  >지역명</td>              
+         <td align="center"  width="150"  >시/구/군</td> 
+         <td align="center"  width="200" >명소 이름</td> 
+         <td align="center"  width="300"  >주소</td> 
+         <td align="center"  width="150" >사진</td>             
+         <td align="center"  width="200" >카테고리</td>                   
       </tr>
-      <%  
-       for(int i = 0 ; i < point ; i++){
-         LocationLandDTO mypicks = (LocationLandDTO)mypicklist.get(i);
-      %>      
-      <tr height="30">    
-         <td align="center"  width="100" ><%=i+1%></td>      <!-- 순서 -->             
-         <td img align="center" width="200"><img src="<%= mypicks.getFirstimage() %>" width="100" height="100"/></td>
-         <td align="center"  width="200" ><%=mypicks.getCategory()%></td> <!-- 카테고리 -->
-         <td align="center"  width="200" ><%=mypicks.getAreacodename()%> > <%=mypicks.getSigungucodename()%></td> <!-- 지역>지역 -->
-         <td align="center"  width="200" ><%=mypicks.getTitle()%></td> <!-- 지역>지역 -->
-         <td align="center"  width="200" >찜한사람수</td> <!-- 지역>지역 -->
-      </tr>
-      <%}%>
-    </table>
-    
-  	<%
-      if(point > 0){
-       int pageCount = point / pageSize + ( point % pageSize == 0 ? 0 : 1);
-             
-       int stPage = (int)(cPage/10)*10+1;
-       int pageBlock=10;
-       int edPage = stPage + pageBlock-1;
-       if (edPage > pageCount) edPage = pageCount;             
       
-       if (stPage > 10){%>
-         <a <%= stPage - 10 %>">[이전]</a>
-       <%}
-       
-       for (int i = stPage ; i <= edPage ; i++) {  %>
-         <a>[<%= i %>]</a>
-       <%}
-          
-       if(edPage < pageCount){%>
-         <a <%= stPage + 10 %>">[다음]</a>
-       <%}
-     }%>    
+<%
+       HashMap<String,String> myPickMap = new HashMap<String,String>();
+   for(int i = 0 ; i < p.size(); i++){
+	   contentid = p.get(i);
+	   myPickMap = pick.myPick(contentid);	   
+%>
+
+	 <tr  height="30" > 
+	   <td> <%=myPickMap.get("areacodename")%></td> 
+	   <td><%=myPickMap.get("sigungucodename")%></td>
+	   <td> <%=myPickMap.get("title")%></td>
+	   <td> <%=myPickMap.get("addr1")%></td>
+	   <td> <img width="150" height="150"  src="<%=myPickMap.get("firstimage")%>"></td>
+	   <td><%=myPickMap.get("category") %></td>
+	 </tr> 
+	   
+	<%}%>
+    </table> 
+  <%}%>	   
    </div>
   </div>       
-  
-
-
-<%} catch (Exception e){
+<%}catch (Exception e){
    e.printStackTrace();
 }%>
    

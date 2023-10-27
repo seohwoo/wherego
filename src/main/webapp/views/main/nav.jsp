@@ -3,11 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </head>
 
 <body>
+	<%
+		String id = (String) session.getAttribute("memId");
+	%>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
 	  <div class="container-fluid">
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -22,10 +26,15 @@
 	          <a class="nav-link" href="/wherego/views/magazine/listMagazine.jsp">Magazine</a>
 	        </li>
 	        <li class="nav-item">
+
 	          <a class="nav-link" href="#">Plans</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="/wherego/views/board/ask/askList.jsp"">Q & A</a>
+	          <a class="nav-link" href="/wherego/views/board/ask/askList.jsp">Q & A</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="/wherego/views/admin/showCleanMember.jsp?pageNum=1">admin</a>
+
 	        </li>
 	      </ul>
 	    </div>
@@ -52,7 +61,7 @@
 		      		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/wherego/views/login/logout.jsp'">logout</button>
 	       		 </li>&nbsp;
 	       		 <li class="nav-item">
-	          		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/wherego/views/mypage/myPage.jsp'">mypage</button>
+	          		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/wherego/views/mypage/myPage.jsp?id=<%=id%>'">mypage</button>
 	          	</li>
 	          </ul> 
 	    </div>

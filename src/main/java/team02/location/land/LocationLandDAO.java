@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import team02.db.land.OracleDB;
+
 
 public class LocationLandDAO extends OracleDB {
 
@@ -125,5 +127,90 @@ public class LocationLandDAO extends OracleDB {
 
 		return landList;
 	}
+	
+	/*내가한거  세션으로  찜한 값 불러오기 sql*/
+	   public LocationLandDTO mySaveList (String sid) throws Exception {
+	      LocationLandDTO save= null; 
+	      try{
+	      conn = getConnection();
+	      String sql = "select * from landsave where id=?";
+	      pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, sid);
+	        rs = pstmt.executeQuery();   
+	      
+	        if (rs.next()){
+	        save = new LocationLandDTO();
+	        save.setContentid(rs.getString("contentid"));
+	        save.setTitle(rs.getString("title"));
+	        save.setFirstimage(rs.getString("firstimage"));
+	        save.setAreacodename(rs.getString("areacodename"));
+	        save.setSigungucodename(rs.getString("sigungucodename"));
+	        save.setCategory(rs.getString("category"));
+	        }         
+	      }catch (Exception e){
+	         e.printStackTrace();
+	      }finally{
+	         close(rs, pstmt, conn);
+	         return save;
+	      }
+	   }
+	   
+	      /* 찜목록 카운트 만들기 */
+	   public int getmypickpoint(String sid) throws Exception {
+	      int x= 0;
+	      
+	      try {
+	         conn = getConnection();
+	         String sql = "select count(*) from landsave WHERE id = ?";
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, sid); 
+	         rs = pstmt.executeQuery();
+	         if (rs.next()) {
+	            x = rs.getInt(1);
+	         }
+	      }catch (Exception e){
+	         e.printStackTrace();
+	      }finally {
+	         close(rs, pstmt, conn);
+	      }
+	      return x;       
+	   }
+	   
+	         /* 찜목록 내용 가져오기  이거 필요 없는듯*/
+	   public List getmypick(int stRow, int edRow, String sid) {
+	      List mypicklist = new ArrayList();
+	      
+	      try {
+	         conn = getConnection();
+	         String sql = "select * from "
+	               + " (select b.* , rownum r from "
+	               + " (select * from landsave order by contentid asc) b) "
+	               + " where r >= ? and r <= ? and id = ?";               
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setInt(1, stRow); 
+	         pstmt.setInt(2, edRow); 
+	         pstmt.setString(3, sid);
+	         rs = pstmt.executeQuery();
+	         if (rs.next()) {
+	            mypicklist = new ArrayList(edRow); 
+	            do{ 
+	               LocationLandDTO mypk= new LocationLandDTO();
+	               mypk.setContentid(rs.getString("contentid"));
+	               mypk.setTitle(rs.getString("title"));
+	               mypk.setFirstimage(rs.getString("firstimage"));
+	               mypk.setAreacodename(rs.getString("areacodename"));
+	               mypk.setSigungucodename(rs.getString("sigungucodename"));
+	               mypk.setCategory(rs.getString("category"));
+	               mypicklist.add(mypk); 
+	            }while(rs.next());
+	         }
+	      }catch (Exception e) {
+	         e.printStackTrace();
+	      }finally {
+	         close(rs, pstmt, conn);
+	      }
+	      return mypicklist;
+	   }
+		
 
 }

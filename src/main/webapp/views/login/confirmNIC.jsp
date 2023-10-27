@@ -26,8 +26,10 @@
 %>
 
 <table width="270" border="0" cellspacing="0" cellpadding="5">
+
   <tr bgcolor="CCCCFF"> 
     <td height="39" ><%=nic%> (은)는 이미 사용중인 닉네임입니다.</td>
+
   </tr>
 </table>
 
@@ -35,11 +37,13 @@
 <table width="270" border="0" cellspacing="0" cellpadding="5">
   <tr>
     <td align="center"> 
+
        <p><em>다른 닉네임을 선택하세요.</em></p>
        <div class="input-group mb-3">
        <input class="form-control" type="text"  name="nic" required="required"> 
        <input  class="btn btn-outline-dark" type="submit" value="중복확인">
        </div>
+
     </td>
   </tr>
 </table>

@@ -8,4 +8,5 @@
 	String blue_b="#6799FF";   		//파스텔 파랑색
 	String green_g="#D5FF72";   	//파스텔 연두색
 	String yellow_y="#FFFF5A";   	//개나리 노란색
+	String yellow_o="#FFE08C";   	//개나리 노란색
 %>

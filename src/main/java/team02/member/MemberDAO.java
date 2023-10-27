@@ -2,7 +2,9 @@ package team02.member;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import java.sql.Types;
+
 
 import team02.db.land.OracleDB;
 import team02.member.MemberDTO;
@@ -31,6 +33,7 @@ public class MemberDAO extends OracleDB {
             pstmt.setString(4, member.getNic());
             pstmt.setString(5, member.getBirth());
             pstmt.setString(6, member.getGender());
+
             //주소와 상세주소가 모두 존재하는 경우 합쳐서 저장
             if (member.getAddress() != null && member.getAddressDetail() != null) {
                 pstmt.setString(7, member.getAddress() + " " + member.getAddressDetail());
@@ -43,6 +46,7 @@ public class MemberDAO extends OracleDB {
             // 이메일과 이메일 옵션을 합쳐서 저장
             String fullEmail = member.getEmail() + "@" + member.getEmailOption();
             pstmt.setString(8, fullEmail);
+
             pstmt.setString(9, member.getPhone());           
             pstmt.executeUpdate();    
     	}catch(Exception e) {      
@@ -195,8 +199,33 @@ public class MemberDAO extends OracleDB {
              }
             }catch(Exception e) {
             e.printStackTrace();
-             } 
-            	close(rs, pstmt, conn);
-            	return x;
-           }
-}
+
+
+         	}finally {
+        	 close(rs, pstmt, conn);
+         	}
+        	return x;
+      	}
+   
+    
+    public void updateProfileImage(String id, String fileName) throws Exception { //사진업로드하는  dao     
+        try {
+            conn = getConnection();
+            sql = "UPDATE member SET profile = ? WHERE id = ? ";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, fileName);
+            pstmt.setString(2, id);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+        	 close(rs, pstmt, conn);
+        }
+    }
+      
+   
+ }   
+     
+  
+
+

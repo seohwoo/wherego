@@ -155,7 +155,7 @@
          <td align="center"  width="200"  >여행지</td> 
          <td align="center"  width="150"  >장소사진</td> 
          <td align="center"  width="350"  >리뷰내용</td> 
-         <td align="center"  width="200" >별점</td>          
+         <td align="center"  width="250" >별점</td>          
          <td align="center"  width="150" >사진1</td> 
          <td align="center"  width="150"  >사진2</td> 
          <td align="center"  width="150" >사진3</td>             
@@ -178,31 +178,35 @@
 			<td><%=myReviewTitleMap.get("title")%></td>
 			<td> <img width="100" height="100"  src="<%=myReviewTitleMap.get("firstimage")%>"></td>
 			<td><%=myReviewMap.get("review")%></td>
-			<td><%=myReviewMap.get("stars")%></td>
+			<td>
+			<% for(int stars = 1; stars <= Integer.parseInt(myReviewMap.get("stars")); stars++){%>
+			&#11088;
+			<%}%>
+			</td>
 			<td><%String img1 = myReviewMap.get("img1");
 			if (img1 != null && !img1.isEmpty() && !img1.equals("NoImage")){
         	%><img width="100" height="100" src="/wherego/image/<%= img1 %>">
-        	<%}else{%>이미지가 없습니다.<%}%>
+        	<%}else{%>X<%}%>
    			</td>			    
 			<td><%String img2 = myReviewMap.get("img2");
 			if (img2 != null && !img2.isEmpty() && !img2.equals("NoImage")){
         	%><img width="100" height="100" src="/wherego/image/<%= img2 %>">
-        	<%}else{%>이미지가 없습니다.<%}%>
+        	<%}else{%>X<%}%>
    			</td>			    
 			<td><%String img3 = myReviewMap.get("img3");
 			if (img3 != null && !img3.isEmpty() && !img3.equals("NoImage")){
         	%><img width="100" height="100" src="/wherego/image/<%= img3 %>">
-        	<%}else{%>이미지가 없습니다.<%}%>
+        	<%}else{%>X<%}%>
    			</td>			    
 			<td><%String img4 = myReviewMap.get("img4");
 			if (img4 != null && !img4.isEmpty() && !img4.equals("NoImage")){
         	%><img width="100" height="100" src="/wherego/image/<%= img4 %>">
-        	<%}else{%>이미지가 없습니다.<%}%>
+        	<%}else{%>X<%}%>
    			</td>			    
 			<td><%String img5 = myReviewMap.get("img5");
 			if (img5 != null && !img5.isEmpty() && !img5.equals("NoImage")){
         	%><img width="100" height="100" src="/wherego/image/<%= img5 %>">
-        	<%}else{%>이미지가 없습니다.<%}%>
+        	<%}else{%>X<%}%>
    			</td>			    											
 			<td><%=myReviewMap.get("reg_date")%></td>
 	   </tr>    

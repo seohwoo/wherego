@@ -53,7 +53,7 @@
 		   </tr>
 		   <tr>
 		   	<td onClick="location.href='#'"> Hit! 매거진</td>
-		   	<td onClick="location.href='/wherego/views/admin/ask/askList.jsp?pageNum=1'"> 정지 게시판</td>
+		   	<td onClick="location.href='/wherego/views/admin/ban/banList.jsp?pageNum=1'"> 정지 게시판</td>
 		   	<td onClick="location.href='#'">나의 여행 계획</td>
 		   </tr>
 		   <tr>

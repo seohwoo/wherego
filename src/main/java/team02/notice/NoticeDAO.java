@@ -63,6 +63,28 @@ public class NoticeDAO extends OracleDB{
 
 		return writer;
 	}
+	//id grade 받아오기
+	public int getGradeById(String memId) {
+        int grade = 0;
+        try {
+        	conn = getConnection();
+            String sql = "select grade from member where id = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, memId);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                grade = rs.getInt("grade");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+        	close(rs, pstmt, conn);
+        }
+
+        return grade;
+    }
+
 	public ArrayList<NoticeDTO> getNotice(int start, int end){
 		String sql = "";
 		ArrayList<NoticeDTO> noticeList = null;

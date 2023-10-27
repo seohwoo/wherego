@@ -12,8 +12,8 @@
 	
 	NoticeDAO dao = new NoticeDAO();
     String nic = dao.selectNo(memId);
-    if (!"admin".equals(memId)) { //아이디의 등급이 관리자일때
-        // 로그인 id가 admin이 아닐 때
+    int grade = dao.getGradeById(memId);
+    if (grade!=99) { 
  %>
         <script>
             alert("관리자만 접근가능!");

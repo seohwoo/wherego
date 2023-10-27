@@ -65,14 +65,12 @@ public class LandDAO extends OracleDB {
 	}
 	public HashMap<String, String> selectContentRandInfo(String contentId) {
 		HashMap<String, String> contentRandInfoMap = new HashMap<String, String>();
-
-		conn = getConnection();
 		try {
+			conn = getConnection();
 			pstmt = conn.prepareStatement("select * from landinfo where contentid = ?");
 			pstmt.setString(1, contentId);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				
 				contentRandInfoMap.put("title", rs.getString("title"));
 				contentRandInfoMap.put("firstimage", rs.getString("firstimage"));
 				contentRandInfoMap.put("homepage", rs.getString("homepage"));

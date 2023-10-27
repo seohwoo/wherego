@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="/views/login/color.jsp"%>
 <% request.setCharacterEncoding("UTF-8");%>
+
 <html>
 <head>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -8,17 +9,21 @@
 <title> 어디 Go 회원가입</title>
 </head>
 
+
 <body>
 	<jsp:include page="/views/main/nav.jsp" />	
 	<jsp:include page="/views/main/title.jsp" />
 
+
 <br />
 <h3 align="center">✔회원가입✔</h3> <br />
+
 
 <form method="post" action="inputPro.jsp" name="userinput" onSubmit="return checkIt()" style="margin: auto; width: 400px;">
 	<table>
 	
 	<tr>
+
 		<td>
 		<div class="input-group mb-3">
 		 <span class="input-group-text">이름</span>
@@ -46,20 +51,24 @@
 				<input class="btn btn-outline-secondary" type="button" name="confirm_id" value="아이디 중복확인" 
 		        	OnClick="DuplicateID(this.form)">
         	</div>
+
        	</td>
 	</tr>
 		
 	<tr>
+
 		<td >
 			<div class="input-group mb-3">
 				<span class="input-group-text">비밀번호</span>
 				<input type="password" class="form-control" name="pw" required="required">
 			</div>
+
 		</td>	
 	</tr>
 
 	
 	<tr>
+
 		<td>
 			<div class="input-group mb-3">	
 				<span class="input-group-text">생년월일</span>
@@ -76,10 +85,12 @@
 				<input class="form-check-input" type="radio" name="gender" value="여자" required="required"> &nbsp;
 				<label class="form-check-label" > 여성</label>
 			</div>
+
 		</td>
 	</tr>
 	
 	<tr>
+
 		<td>
 			<div class="input-group mb-3">	
 				<input type="text" class="form-control" id="sample5_address" name="address" required="required" > 
@@ -117,6 +128,7 @@
 		<input type="text"  class="form-control" name="phone"required="required"> </td>
 	</tr>
 	
+
 	
 	</table>
 	<br />

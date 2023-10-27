@@ -27,8 +27,10 @@ public class AdminMemberDAO extends OracleDB {
 
 		conn = getConnection();
 		try {
+
 			String sql = " select * from (select mem.*, rownum as r from "
 					+ " (select * from member where grade>=2 and grade<=99 order by grade desc, reg_date desc) mem ) where r>=? and r<=? ";
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);

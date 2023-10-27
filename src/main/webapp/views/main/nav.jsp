@@ -9,6 +9,9 @@
 </head>
 
 <body>
+	<%
+		String id = (String) session.getAttribute("memId");
+	%>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
 	  <div class="container-fluid">
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -58,7 +61,7 @@
 		      		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/wherego/views/login/logout.jsp'">logout</button>
 	       		 </li>&nbsp;
 	       		 <li class="nav-item">
-	          		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/wherego/views/mypage/myPage.jsp'">mypage</button>
+	          		<button type="button" class="btn btn-outline-secondary" OnClick="window.location='/wherego/views/mypage/myPage.jsp?id=<%=id%>'">mypage</button>
 	          	</li>
 	          </ul> 
 	    </div>

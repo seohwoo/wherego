@@ -50,7 +50,7 @@ public class AdminBanDAO extends OracleDB {
 			pstmt.setInt(1, Start);
 			pstmt.setInt(2, end);
 			rs = pstmt.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				AdminBanDTO dto = new AdminBanDTO();
 				dto.setNum(rs.getInt("num"));
 				dto.setId(rs.getString("id"));
@@ -64,9 +64,29 @@ public class AdminBanDAO extends OracleDB {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 
 		return banList;
+	}
+
+	public void insertBanBoard(AdminBanDTO dto) {
+		conn = getConnection();
+		try {
+			String sql = "insert into banboard(num, id, writer, title, content, reg_date, ref) values(banboard_seq.NEXTVAL, ?, ?, ?, ?, sysdate, ?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getId());
+			pstmt.setString(2, dto.getWriter());
+			pstmt.setString(3, dto.getTitle());
+			pstmt.setString(4, dto.getContent());
+			pstmt.setInt(5, dto.getRef());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
 	}
 
 }

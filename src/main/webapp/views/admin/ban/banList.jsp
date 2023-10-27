@@ -71,7 +71,8 @@
             </tr>
         </thead>
         <% for (AdminBanDTO dto : banList) {
-			String reg_date = outputFormat.format(dto.getReg_date());
+        	Date reg_dateD = inputFormat.parse(dto.getReg_date());
+			String reg_date = outputFormat.format(reg_dateD);
             %>
         <tbody>
             <tr height="30">

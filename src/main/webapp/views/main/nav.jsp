@@ -26,15 +26,10 @@
 	          <a class="nav-link" href="/wherego/views/magazine/listMagazine.jsp">Magazine</a>
 	        </li>
 	        <li class="nav-item">
-
-	          <a class="nav-link" href="#">Plans</a>
-	        </li>
-	        <li class="nav-item">
 	          <a class="nav-link" href="/wherego/views/board/ask/askList.jsp">Q & A</a>
 	        </li>
 	        <li class="nav-item">
 	          <a class="nav-link" href="/wherego/views/admin/showCleanMember.jsp?pageNum=1">admin</a>
-
 	        </li>
 	      </ul>
 	    </div>

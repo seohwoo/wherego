@@ -10,12 +10,20 @@
 </head>
 <body>
 <%
+	if(session.getAttribute("memId") == null){%>
+		<script>
+		history.go(-1)
+		alert("로그인후 사용가능합니다.")
+		</script>
+	<%}
+	else{
+	String id = (String) session.getAttribute("memId");
 	String contentid = request.getParameter("contentid");
 	String areaCode = request.getParameter("areaCode");
 	String sigunguCode = request.getParameter("sigunguCode");
 	int pageNum = Integer.parseInt(request.getParameter("pageNum"));
-	String id = (String) session.getAttribute("memId");
 	int reviewNum = Integer.parseInt(request.getParameter("reviewnum"));
+
 	ArrayList<String> ReviewUpIdList = new ArrayList<String>();
 	LandDAO landO = LandDAO.getInstance();
 	ReviewUpIdList = landO.selectReviewUpId(reviewNum);
@@ -44,6 +52,7 @@
 		alert("이미UP을 하셧습니다.")
 		</script>
 	<%}
+	}
 %>
 </body>
 </html>

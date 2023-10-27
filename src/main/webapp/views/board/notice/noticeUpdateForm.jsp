@@ -17,7 +17,8 @@ NoticeDTO dto = dao.getNoContent(num);
 
     String memId = (String) session.getAttribute("memId");
     String nic = dao.selectNo(memId);
-    if (!memId.equals(dto.getId())) { //등급이 관리자인 사람만 수정 가능 !! 수정하기!!!!
+    int grade = dao.getGradeById(memId);
+    if (grade!=99) { 
 %>
         <script>
             alert("관리자만 수정 가능합니다");

@@ -61,7 +61,8 @@
 	<%
 	String memId = (String) session.getAttribute("memId");
 	String admin = "admin"; 
-	if (memId.equals(admin))  %> <!-- id의 등급이 관리자일대로 변경하기 -->
+    int grade = dao.getGradeById(memId);
+    if (grade!=99)   %> 
 	<div align="center">
 		<button type="button" class="btn btn-light" OnClick="window.location='noticeUpdateForm.jsp?num=<%=num%>'">수정하기</button>
 	    <button type="button" class="btn btn-light" onclick="window.location='noticeDeleteForm.jsp?num=<%=num%>'">삭제하기</button>

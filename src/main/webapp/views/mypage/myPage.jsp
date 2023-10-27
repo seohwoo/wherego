@@ -227,8 +227,8 @@
       <tr  height="30" > 
          <td align="center"  width="100"  >지역명</td>              
          <td align="center"  width="150"  >시/구/군</td> 
-         <td align="center"  width="200" >명소 이름</td> 
          <td align="center"  width="300"  >주소</td> 
+         <td align="center"  width="200" >명소 이름</td> 
          <td align="center"  width="150" >사진</td>             
          <td align="center"  width="200" >카테고리</td>                   
          <td align="center"  width="200" >평균별점</td>                   
@@ -245,8 +245,8 @@
 	 <tr  height="30" > 
 	   <td> <%=myPickMap.get("areacodename")%></td> 
 	   <td><%=myPickMap.get("sigungucodename")%></td>
-	   <td> <%=myPickMap.get("title")%></td>
 	   <td> <%=myPickMap.get("addr1")%></td>
+	   <td> <%=myPickMap.get("title")%></td>	   
 	   <td> <img width="150" height="150"  src="<%=myPickMap.get("firstimage")%>"></td>
 	   <td><%=myPickMap.get("category") %></td>
 	   <td><%=myPickMap.get("stars") %></td>

@@ -112,26 +112,23 @@ public class SaveDAO extends OracleDB {
 				myPickMap.put("addr1", rs.getString("addr1"));
 				myPickMap.put("firstimage", rs.getString("firstimage"));
 				myPickMap.put("category", rs.getString("category"));
-				}
+			}
 			
-			sql = "select round(avg(stars), 1) from star where contentid=?";
+			sql = "select round(avg(stars), 1) from landreview where contentid=?";
 			pstmt = conn.prepareStatement(sql);			
 			pstmt.setString(1, contentid);			
-			rs = pstmt.executeQuery();
-			
+			rs = pstmt.executeQuery();			
 			if(rs.next()) {
-				myPickMap.put("stars",rs.getString("stars"));						
+				myPickMap.put("stars", rs.getString("round(avg(stars),1)"));						
 			}
 			
 			
 			sql = "select * from landreadcount where contentid=?";
 			pstmt = conn.prepareStatement(sql);			
 			pstmt.setString(1, contentid);			
-			rs = pstmt.executeQuery();
-						
+			rs = pstmt.executeQuery();	
 			if (rs.next()) {
-			    int readcount = rs.getInt("readcount"); // int 형식으로 가져옴
-			    myPickMap.put("readcount", String.valueOf(readcount)); // 문자열로 변환하지 않고 그대로 저장
+				myPickMap.put("readcount", rs.getString("readcount"));
 			}
 			
 		} catch (Exception e) {

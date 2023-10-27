@@ -8,6 +8,7 @@ package team02.member;
 	   private String birth;
 	   private String gender;
 	   private String address;
+	   private String addressDetail;
 	   private String email;
 	   private String emailOption;
 	   private String phone;
@@ -57,6 +58,13 @@ package team02.member;
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getAddressDetail() {
+		return addressDetail;
+	}
+	public void setAddressDetail(String addressDetail) {
+		this.addressDetail = addressDetail;
 	}
 	public String getEmail() {
 		return email;

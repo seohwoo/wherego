@@ -3,8 +3,12 @@
 <%@ include file="/views/login/color.jsp"%>
 
 <html>
-<head><title>ID 중복확인</title>
-<link href="style.css" rel="stylesheet" type="text/css">
+<head>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+<title>아이디 중복확인</title>
+</head>
 <% request.setCharacterEncoding("UTF-8");%>
 
 <%
@@ -15,14 +19,16 @@
 %>
 
 
-<body bgcolor="<%=bar%>">
+<body bgcolor="666699">
 <%
     if(check == 1) {
 %>
 
 <table width="270" border="0" cellspacing="0" cellpadding="5">
-  <tr > 
-    <td height="39" ><%=id%>이미 사용중인 아이디입니다.</td>
+
+  <tr bgcolor="CCCCFF"> 
+    <td height="39" ><%=id%> (은)는 이미 사용중인 아이디입니다.</td>
+
   </tr>
 </table>
 
@@ -30,9 +36,13 @@
 <table width="270" border="0" cellspacing="0" cellpadding="5">
   <tr>
     <td  align="center"> 
-       다른 아이디를 선택하세요.<p>
-       <input type="text" size="10" maxlength="12" name="id"> 
-       <input type="submit" value="ID중복확인">
+
+       <p><em>다른 아이디를 선택하세요.</em></p>
+       <div class="input-group mb-3">
+       <input class="form-control" type="text"  name="id" required="required"> 
+       <input class="btn btn-outline-dark" type="submit" value="중복확인" >
+       </div>
+
     </td>
   </tr>
 </table>
@@ -41,10 +51,10 @@
     } else {
 %>
 <table width="270" border="0" cellspacing="0" cellpadding="5">
-  <tr bgcolor="<%=title_c%>"> 
+  <tr bgcolor="CCCCFF"> 
     <td align="center"> 
       <p>입력하신 <%=id%> (은)는 사용하실 수 있는 ID입니다. </p>
-      <input type="button" value="닫기" onclick="setid()">
+      <input class="btn btn-outline-dark" type="button" value="닫기" onclick="setid()">
     </td>
   </tr>
 </table>

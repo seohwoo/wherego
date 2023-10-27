@@ -17,6 +17,7 @@
 <%@page import = "java.util.HashMap" %>
 
 
+
 <% request.setCharacterEncoding("UTF-8");%>
 
 <%  int pageSize = 10;
@@ -41,6 +42,7 @@
 	SaveDAO review = SaveDAO.getInstance();
 	ArrayList<String> r = review.getMyreviewContentIdList(user);
 	String reviewContentid = "";
+
 	
 	//리뷰 갯수
 	int count = 0; 

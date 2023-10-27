@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </head>
@@ -13,7 +14,8 @@
     ReplyDAO dao = new ReplyDAO();
     ReplyDTO dto =  dao.getReContent(num);
     String nic = dao.selectRe(memId);
-    if (!"admin".equals(memId)) { // 아이디의 등급이 관리자일 때
+    int grade = dao.getGradeById(memId);
+    if (grade!=99) { 
 %>
     <script>
         alert("관리자만 접근가능!");
@@ -30,14 +32,7 @@
     }
 %>
     <jsp:include page="/views/main/nav.jsp" />
-    
-    <br />
-    <div class="text-center">
-        <h1>어디 Go</h1>
-    </div>
-    <br />
-    <hr />
-    
+    <jsp:include page="/views/main/title.jsp" /> <br />
     <!-- 문의 리스트 -->
     <h2 align="center">💭 답변 💭</h2>
     <br />
@@ -63,10 +58,10 @@
 	    </form>
     </div>
     
-    <div class "fixed-bottom">
+    	<br />
         <hr />
+        <br />
         <jsp:include page="/views/main/footer.jsp" />
-    </div>
 <% }%>
 </body>
 </html>

@@ -1,4 +1,3 @@
-<%@page import="java.util.Date"%>
 <%@ page import="team02.askboard.AskboardDAO" %>
 <%@ page import="team02.askboard.AskboardDTO" %>
 <%@ page import="java.util.ArrayList" %>
@@ -7,8 +6,7 @@
 
 <%
     int pageSize = 10;
-	SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	
-	SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     String pageNum = request.getParameter("pageNum");
     if (pageNum == null) {
@@ -33,19 +31,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
    <jsp:include page="/views/main/nav.jsp" />
-	
-	<br />
-	<div class="text-center">
-		<h1>어디 Go</h1>
-	</div>
-	<br />
-	<hr />
-	
+   <jsp:include page="/views/main/title.jsp" /><br />
 	 <!-- 문의 리스트 -->
-    <h2 align="center">🚫 정지게시판 🚫</h2>
+    <h2 align="center">❓ 문의게시판 ❓</h2>
     <br />
     <div align="center">
     	<button type="button" class="btn btn-light" OnClick="window.location='askForm.jsp'">✏ 문의하기 ✏</button>
@@ -71,9 +63,7 @@
             </tr>
         </thread>
         <% for (int i = 0; i < askList.size(); i++) {
-            AskboardDTO dto = askList.get(i); 
-			String reg_date = outputFormat.format(dto.getReg_date());
-            %>
+            AskboardDTO dto = askList.get(i); %>
         <tbody>
             <tr height="30">
                 <td align="center" width="50"><%= number-- %></td>
@@ -83,7 +73,7 @@
                         <%= dto.getTitle() %>
                     </a>
                 </td>
-                <td align="center" width="200"><%= reg_date %></td>
+                <td align="center" width="200"><%= sdf.format(dto.getReg_date()) %></td>
                 <td align="center" width="150"><%= dto.getReadcount() %></td>
             </tr>
         </tbody>

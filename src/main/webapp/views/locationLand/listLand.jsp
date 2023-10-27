@@ -32,7 +32,7 @@
       if(p != null){
          pageNum = Integer.parseInt(p);
       }
-      int pageSize = 20;
+      int pageSize = 10;
    
       int currentPage = pageNum;
       int start = (currentPage - 1) * pageSize + 1;
@@ -68,12 +68,12 @@
 						    </button>
 						</form>
 
-					    <img src="<%=dto.getFirstimage() %>" style="width: 270px; height: 222px;" class="img-fluid rounded-start">
+					    <img src="<%=dto.getFirstimage() %>" style="width: 270px; height: 270px;" class="img-fluid rounded-start">
 					</div>
 			    </div>  
 				<button type="button" class="btn btn-outline-dark col-md-8"  onclick="window.location.href='/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=dto.getContentid()%>&pageNum=<%=pageNum%>'" >
 			      <div class="card-body">
-			        <h5 align="left" class="card-title"><%=dto.getTitle() %></h5>
+			        <h5 align="left" class="card-title"><%=dto.getTitle() %> </h5>
 			        <p align="left" class="card-text"><%=dto.getCategory() %></p>
 			        <p align="left" class="card-text"><%=dto.getAreacodename() %> > <%=dto.getSigungucodename() %></p>
 			        <% int reviewCount = landO.getReviewCount(dto.getContentid());%>
@@ -89,9 +89,8 @@
 			        <% }
 			        if(avg % 1 != 0){%>
 			        &#x2606;
-			        <%}%>(<%=avg %>)</small></p>
-			        <p align="left" class="card-text"><small >❤  (0)</small></p>
-			        <p align="left" class="card-text"><small >조회수 : <%=readCount %></small></p>
+			        <%}%>(<%=avg %>) &nbsp; ❤ (0) &nbsp; 🔎 : <%=readCount %></small></p>
+			        
 			      </div>
 				</button>
 			   

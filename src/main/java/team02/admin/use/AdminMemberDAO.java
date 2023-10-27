@@ -76,7 +76,8 @@ public class AdminMemberDAO extends OracleDB {
 		conn = getConnection();
 		try {
 			String sql = " select * from (select mem.*, rownum as r from "
-					+ " (select * from member where grade>=0 and grade<=1 order by grade asc, reg_date desc) mem ) where r>=? and r<=? ";
+					+ " (select * from member where grade>=0 and grade<=1 order by grade de"
+					+ "sc, reg_date desc) mem ) where r>=? and r<=? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
@@ -253,8 +254,33 @@ public class AdminMemberDAO extends OracleDB {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return userInfoMap;
+	}
+
+	public void insertUserBan(String id, int grade, String content) {
+		conn = getConnection();
+		try {
+			String sql = "insert into userbaninfo values(?, ?, ?, sysdate)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, grade);
+			pstmt.setString(3, content);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteUserBan(String id) {
+		conn = getConnection();
+		try {
+			String sql = "delete from userbaninfo where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

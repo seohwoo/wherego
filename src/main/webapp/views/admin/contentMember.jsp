@@ -49,15 +49,9 @@
 	 <h3><%=dto.getPhone() %></h3>
 	 <h3><%=reg_date %></h3>
 	 <h3><%=gradeName%></h3>
-	 <form action="userGradeChangePro.jsp" method="post">
-	 	<span>등급변경 : </span>
-	 	<select name="grade">
-	 		<option value="99">관리자</option>
-	 		<option value="2">일반</option>
-	 		<option value="1">정지</option>
-	 	</select>
+	 <form action="userGradeChangeForm.jsp" method="post">
 	 	<input type="hidden" name="id" value="<%=id%>"/>
-	 	<input type="submit" name="submit" value="변경"/>
+	 	<input type="submit" name="submit" value="등급변경 >>>"/>
 	 </form>
 	 <hr />
 	 <h3>글수 : <%=dto.getTotal() %></h3>

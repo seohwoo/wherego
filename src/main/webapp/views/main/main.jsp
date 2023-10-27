@@ -13,7 +13,7 @@
 
 	<br />
 	<div class="text-center">
-		<h1>어디 Go</h1>
+		<h1>어디 Go   </h1>
 	</div>
 	<br />
 	<hr />

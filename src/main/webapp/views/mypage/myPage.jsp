@@ -163,47 +163,53 @@
          <td align="center"  width="150" >사진5</td>                                                                         
          <td align="center"  width="200" >리뷰날짜</td>                                        
       </tr>
- <%
+ <%	
+ 	 ArrayList<HashMap<String, String>> myReviewList = new ArrayList<HashMap<String, String>>();
 	 HashMap<String,String> myReviewMap = new HashMap<String,String>();
-	 for(int i = 0 ; i < r.size(); i++){
-		   reviewContentid = r.get(i);
-		   myReviewMap = review.myReviewList(reviewContentid, user);
+	 HashMap<String,String> myReviewTitleMap = new HashMap<String,String>();
+	 myReviewList = review.myReviewList(user);
+	 for(int i = 0 ; i < myReviewList.size(); i++){
+		 myReviewMap = myReviewList.get(i);
+		 myReviewTitleMap = review.selectReviewTitle(myReviewMap.get("contentid"));
+		   
+		   
  %>    
 	   <tr height="30" >   		    
-			<td><%=myReviewMap.get("title")%></td>
-			<td> <img width="100" height="100"  src="<%=myReviewMap.get("firstimage")%>"></td>
+			<td><%=myReviewTitleMap.get("title")%></td>
+			<td> <img width="100" height="100"  src="<%=myReviewTitleMap.get("firstimage")%>"></td>
 			<td><%=myReviewMap.get("review")%></td>
 			<td><%=myReviewMap.get("stars")%></td>
 			<td><%String img1 = myReviewMap.get("img1");
 			if (img1 != null && !img1.isEmpty() && !img1.equals("NoImage")){
-        	%><img width="100" height="100" src="<%= img1 %>">
+        	%><img width="100" height="100" src="/wherego/image/<%= img1 %>">
         	<%}else{%>이미지가 없습니다.<%}%>
    			</td>			    
 			<td><%String img2 = myReviewMap.get("img2");
 			if (img2 != null && !img2.isEmpty() && !img2.equals("NoImage")){
-        	%><img width="100" height="100" src="<%= img1 %>">
+        	%><img width="100" height="100" src="/wherego/image/<%= img2 %>">
         	<%}else{%>이미지가 없습니다.<%}%>
    			</td>			    
 			<td><%String img3 = myReviewMap.get("img3");
 			if (img3 != null && !img3.isEmpty() && !img3.equals("NoImage")){
-        	%><img width="100" height="100" src="<%= img3 %>">
+        	%><img width="100" height="100" src="/wherego/image/<%= img3 %>">
         	<%}else{%>이미지가 없습니다.<%}%>
    			</td>			    
 			<td><%String img4 = myReviewMap.get("img4");
 			if (img4 != null && !img4.isEmpty() && !img4.equals("NoImage")){
-        	%><img width="100" height="100" src="<%= img4 %>">
+        	%><img width="100" height="100" src="/wherego/image/<%= img4 %>">
         	<%}else{%>이미지가 없습니다.<%}%>
    			</td>			    
 			<td><%String img5 = myReviewMap.get("img5");
 			if (img5 != null && !img5.isEmpty() && !img5.equals("NoImage")){
-        	%><img width="100" height="100" src="<%= img5 %>">
+        	%><img width="100" height="100" src="/wherego/image/<%= img5 %>">
         	<%}else{%>이미지가 없습니다.<%}%>
    			</td>			    											
 			<td><%=myReviewMap.get("reg_date")%></td>
 	   </tr>    
      <%}%>
   </table>
-    <%}%>	    
+    <%
+    }%>	    
    </div>
    
 

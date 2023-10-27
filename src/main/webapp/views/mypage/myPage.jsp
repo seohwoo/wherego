@@ -25,8 +25,7 @@
 
 	    <title>마이페이지</title>
 	
-	
-	  
+	 
 	<center>
 	<%
 		if(id != null) {

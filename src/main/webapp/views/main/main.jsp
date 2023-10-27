@@ -68,7 +68,8 @@
 	</div>
 
 	<br/><hr /><br/>
-	<h3 align= "center"> Top 8 여행지</h3><br/>
+	<h3 align= "center"> Top 8 여행지</h3>
+	<br/>
 		<jsp:include page="/views/main/topArea.jsp" />
 	<br/>
 	<hr/>

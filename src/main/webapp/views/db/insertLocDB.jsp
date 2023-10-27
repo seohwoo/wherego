@@ -20,18 +20,16 @@
       
       String areaCode = realAreaCode[0];
       int realSigunguCode = Integer.parseInt(api.findSubLocation(areaCode));
-      for(int i=1; i<=realSigunguCode; i++) {
-         String sigunguCode = String.valueOf(i);
-         ArrayList<String> ConentidList = new ArrayList<String>();
-         ConentidList = dao.selectContentId(areaCode, sigunguCode);
-         
-         
-         for(String contentid : ConentidList) {
-        	HashMap<String, String> xyMap = new HashMap<String, String>();
-        	xyMap = api.findXY(contentid);
-            dao.insertXY(contentid, xyMap.get("mapx"), xyMap.get("mapy"), areaCode, sigunguCode);
-         }
+      ArrayList<String> ConentidList = new ArrayList<String>();
+      ConentidList = dao.selectContentid(areaCode);
+      
+      
+      for(String contentid : ConentidList) {
+      HashMap<String, String> xyMap = new HashMap<String, String>();
+      xyMap = api.findXY(contentid);
+         dao.insertXY(contentid, xyMap.get("mapx"), xyMap.get("mapy"), xyMap.get("areacode"), xyMap.get("sigungucode"));
       }
+      
       %>
 </body>
 </html>

@@ -148,15 +148,14 @@ public class LandInfoDAO extends OracleDB {
 		}
 	}
 
-	public ArrayList<String> selectContentid(String areaCode, String sigunguCode) {
+	public ArrayList<String> selectContentid(String areaCode) {
 		ArrayList<String> contentidList = new ArrayList<String>();
 
 		conn = getConnection();
 		try {
-			String sql = " select contentid from landinfo where firstimage is not null and areacode=? and sigunguCode=? ";
+			String sql = " select contentid from landinfo where firstimage is not null and areacode=? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, areaCode);
-			pstmt.setString(2, sigunguCode);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				contentidList.add(rs.getString("contentid"));

@@ -65,6 +65,7 @@
 	land.setId(id);
 	LandDAO landO = LandDAO.getInstance();
 	landO.insertStar(land);
+	landO.updateReviewCount(id);
 	}
 catch(Exception e){
 	e.printStackTrace();

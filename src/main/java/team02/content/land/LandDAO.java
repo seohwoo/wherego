@@ -268,4 +268,19 @@ public class LandDAO extends OracleDB {
 		return count;
 	}
 	
+	public void updateReviewCount(String id){
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("update member set total=total+1 where id = ?");
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+	}
+	
 }

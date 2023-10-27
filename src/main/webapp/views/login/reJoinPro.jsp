@@ -14,6 +14,7 @@
 	
 	MemberDAO manager = MemberDAO.getInstance();
 	manager.updateMember(member);
+	manager.rejoinMember(id);
 
 %>
 
@@ -23,22 +24,22 @@
 
   <tr> 
     <td height="39"  align="center">
-	  <font size="+1" ><b>회원정보가 수정되었습니다.</b></font></td>
+	  <font size="+1" ><b>회원 재등록이 되었습니다.</b></font></td>
   </tr>
   
   
   <tr>
     <td align="center"> 
-      <p>입력하신 내용대로 수정이 완료되었습니다.</p>
+      <p>입력하신 내용대로 재등록이 완료되었습니다.</p>
     </td>
   </tr>
   
    <tr>
     <td align="center"> 
       <form>
-	    <input type="button" value="마이 페이지" onclick="window.location='/wherego/views/mypage/myPage.jsp'">
+	    <input type="button" value="마이 페이지" onclick="window.location='/wherego/views/main/main.jsp'">
       </form>
-      5초후에 메인으로 이동합니다.<meta http-equiv="Refresh" content="5;url=/wherego/views/mypage/myPage.jsp" >
+      5초후에 메인 화면으로 이동합니다.<meta http-equiv="Refresh" content="5;url=/wherego/views/main/main.jsp" >
     </td>
   </tr>
   

@@ -22,7 +22,7 @@
 
 <table width="270" border="0" cellspacing="0" cellpadding="5">
   <tr > 
-    <td height="39" ><%=nic%>이미 사용중인 닉네임입니다.</td>
+    <td height="39" ><%=nic%> 는(은) 이미 사용중인 닉네임입니다.</td>
   </tr>
 </table>
 
@@ -43,7 +43,7 @@
 <table width="270" border="0" cellspacing="0" cellpadding="5">
   <tr bgcolor="<%=title_c%>"> 
     <td align="center"> 
-      <p>입력하신 <%=nic%> (은)는 사용하실 수 있는 닉네임입니다. </p>
+      <p>입력하신 <%=nic%> 는(은) 사용하실 수 있는 닉네임입니다. </p>
       <input type="button" value="닫기" onclick="setnic()">
     </td>
   </tr>

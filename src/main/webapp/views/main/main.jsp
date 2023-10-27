@@ -14,7 +14,7 @@
 	<br />
 	<div class="text-center">
 		<h1>어디 Go</h1>
-	</div>
+	</div> 
 	<br />
 	<hr />
 	

@@ -6,7 +6,20 @@
 
 
 
-<title>어디 GO 회원정보 수정</title>
+<title>어디 GO 회원 재등록</title>
+
+<script language="JavaScript">
+
+function DuplicateNic (userinput){ // 닉네임 중복체크
+	if (userinput.nic.value == "") {
+           alert("닉네임을 입력하세요");
+           return;
+}
+	 url = "confirmNIC.jsp?nic="+userinput.nic.value ;
+	   open(url, "confirm",  "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=300, height=200");
+   }
+
+</script>
 
 
 
@@ -18,17 +31,17 @@
 	try{
 %>
 <body >
-<form method="post" action="updatePro.jsp" name="userinput" onsubmit="return checkIt()">
+<form method="post" action="/wherego/views/login/reJoinPro.jsp" name="userinput" onsubmit="return checkIt()">
 
 	<table width="600" border="1" cellspacing="0" cellpadding="3"  align="center">
 	
     <tr > 
       <td  colspan="2" height="39"  align="center">
-	     <font size="+1" ><b>어디 GO 회원 정보수정</b></font></td>
+	     <font size="+1" ><b>어디 GO 회원 재등록</b></font></td>
     </tr>
     
     <tr>
-      <td colspan="2" class="normal" align="center">회원의 정보를 수정합니다.</td>
+      <td colspan="2" class="normal" align="center">어디 GO 기존 회원정보</td>
     </tr>
     
      <tr> 
@@ -59,14 +72,16 @@
         <input type="text" name="name" size="20" maxlength="12" value="<%=c.getName()%>">
       </td>
     </tr>
-    
-    <tr> 
-      <td   width="200">사용자 닉네임</td>
-      <td  width="400"> 
-        <input type="text" name="nic" size="20" maxlength="10" value="<%=c.getNic()%>">
-      </td>
-    </tr>
-    
+ 
+    <tr>
+		<td width="200" > 닉네임 </td>
+		<td width="400" >	
+		<input type="text" name="nic" size="20" maxlength="10"> 
+		<input type="button" name="confirm_nic" value="닉네임 중복확인" 
+        	OnClick="DuplicateNic(this.form)" required="required">
+         </td>
+	</tr>
+
     <tr> 
       <td   width="200">주 소</td>
       <td  width="400"> 
@@ -85,7 +100,7 @@
 		<%}else{%>
           <input type="text" name="email" size="40" maxlength="30" value="<%=c.getEmail()%>">	
 		<%}%>
-      </td>
+      </td> 
     </tr>
     
     <tr> 
@@ -102,8 +117,8 @@
     
 	<tr> 
       <td colspan="2" align="center"> 
-       <input type="submit" name="sujung" value="수   정" >
-       <input type="button" value="취  소" onclick="javascript:window.location='/wherego/views/mypage/myPage.jsp'">      
+       <input type="submit" name="sujung" value="회원 재등록" >
+       <input type="button" value="취소" onclick="javascript:window.location='/wherego/views/login/logout.jsp'">      
       </td>
     </tr>
 

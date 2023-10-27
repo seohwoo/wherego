@@ -10,13 +10,7 @@
 
 <body>
 	<jsp:include page="/views/main/nav.jsp" />	
-
-	<br />
-	<div class="text-center">
-		<h1>어디 Go</h1>
-	</div>
-	<br />
-	<hr />
+	<jsp:include page="/views/main/title.jsp" />
 
 <br />
 <h3 align="center">✔회원가입✔</h3> <br />

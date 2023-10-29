@@ -9,6 +9,7 @@ public class AdminBanDTO {
 	private String reg_date;
 	private int readcount;
 	private int ref;
+	private int boardnum;
 
 	public int getNum() {
 		return num;
@@ -74,4 +75,12 @@ public class AdminBanDTO {
 		this.ref = ref;
 	}
 
+	public int getBoardnum() {
+		return boardnum;
+	}
+
+	public void setBoardnum(int boardnum) {
+		this.boardnum = boardnum;
+	}
+	
 }

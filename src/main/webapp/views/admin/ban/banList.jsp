@@ -33,6 +33,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>어디 Go</title>
 </head>
 <body>
    <jsp:include page="/views/main/nav.jsp" />

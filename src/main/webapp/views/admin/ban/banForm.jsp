@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="team02.admin.use.AdminMemberDAO" %>
 <%@ page import="team02.admin.use.AdminMemberDTO" %>
+<%@ page import="team02.admin.use.AdminBanDAO" %>
 
 <!DOCTYPE html>
 <html>
@@ -17,22 +18,31 @@
 <%}else{ 
 	String id = (String) session.getAttribute("memId");
 	AdminMemberDAO daoM = AdminMemberDAO.getInstance();
+	AdminBanDAO daoB = AdminBanDAO.getInstance();		
 	AdminMemberDTO dtoM = daoM.userInfo(id);
+	String banId = daoB.isBanId(id);
 	
-	if (dtoM.getGrade()!=1) {%>
+	if (dtoM.getGrade()!=1 && dtoM.getGrade()!=99) {%>
     <script>
         alert("정지된 사용자만 작성 가능..!!!😥");
         window.location="/wherego/views/admin/ban/banList.jsp?pageNum=1";
     </script>	
 
-
-<%}else{%>	
+	<%--
+		else if(id.equals(banId)) {%>
+			<script>
+				alert("변경 요청은 한번만 가능합니다..!!!😥");
+				window.location="/wherego/views/admin/ban/banList.jsp?pageNum=1";
+			</script>	 
+		<%}
+	 --%>
+	<%}else{%>	
     <body>
  	<%
-	int num = 0, ref = 1;
-	if(request.getParameter("num")!= null){
-		num=Integer.parseInt(request.getParameter("num"));
-		ref=Integer.parseInt(request.getParameter("ref"));
+	int boardnum = 0, ref = 1;
+	if(request.getParameter("boardnum")!= null){
+		boardnum=Integer.parseInt(request.getParameter("boardnum"));
+		ref=Integer.parseInt(request.getParameter("ref"))+1;
 	}
 %>
      <jsp:include page="/views/main/nav.jsp" />
@@ -54,6 +64,7 @@
             <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= dtoM.getNic()  %>">
             <input type="hidden" name = id class="form-control" value="<%=id %>" >
             <input type="hidden" name = ref class="form-control" value="<%=ref %>" >
+            <input type="hidden" name = boardnum class="form-control" value="<%=boardnum %>" >
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput2" class="form-label">제목</label>

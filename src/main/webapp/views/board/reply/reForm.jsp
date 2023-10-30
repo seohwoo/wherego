@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </head>
@@ -11,11 +12,12 @@
     String memId = (String) session.getAttribute("memId");
     ReplyDAO dao = new ReplyDAO();
     String nic = dao.selectRe(memId);
-    if (!"admin".equals(memId)) { // 아이디의 등급이 관리자일 때
+    int grade = dao.getGradeById(memId);
+    if (grade!=99) { 
 %>
     <script>
         alert("관리자만 접근가능!");
-        window.location="/wherego/views/board/notice/noticeList.jsp";
+        window.location="/wherego/views/board/ask/askList.jsp";
     </script>
 <% } else { 
     int ref = 1, boardnum = 0; // boardnum 변수 추가
@@ -58,10 +60,8 @@
 	        </div>
 	    </form>
     </div>
-    <div class "fixed-bottom">
-        <hr />
+        <br /><hr /><br />
         <jsp:include page="/views/main/footer.jsp" />
-    </div>
 <% }%>
 </body>
 </html>

@@ -37,10 +37,9 @@ public class AskboardDAO extends OracleDB {
 			else
 				number = 1; // 글이 하나도 없을 때에는 1번
 			if (num != 0) {
-				sql = "update askboard set re_step=re_step+1 where ref= ? and re_step > ?";
+				sql = "update askboard set where ref= ? ";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, ref);
-				pstmt.setInt(2, re_step);
 				pstmt.executeUpdate();
 				re_step = re_step + 1;
 				re_level = re_level + 1;
@@ -49,7 +48,7 @@ public class AskboardDAO extends OracleDB {
 				re_step = 0;
 				re_level = 0;
 			}
-			sql = "insert into askboard values(askboard_seq.NEXTVAL,?, ?, ?, ?, sysdate, ?, ?, ?, ?)";
+			sql = "insert into askboard values(askboard_seq.NEXTVAL,?, ?, ?, ?, sysdate, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getId());
 			pstmt.setString(2, dto.getWriter());
@@ -57,8 +56,6 @@ public class AskboardDAO extends OracleDB {
 			pstmt.setString(4, dto.getContent());
 			pstmt.setInt(5, dto.getReadcount());
 			pstmt.setInt(6, ref);
-			pstmt.setInt(7, re_step);
-			pstmt.setInt(8, re_level);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -92,6 +89,27 @@ public class AskboardDAO extends OracleDB {
 		return writer;
 	}
 
+	//id grade 받아오기
+			public int getGradeById(String memId) {
+		        int grade = 0;
+		        try {
+		        	conn = getConnection();
+		            String sql = "select grade from member where id = ?";
+		            pstmt = conn.prepareStatement(sql);
+		            pstmt.setString(1, memId);
+		            rs = pstmt.executeQuery();
+		            if (rs.next()) {
+		                grade = rs.getInt("grade");
+		            }
+
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        } finally {
+		        	close(rs, pstmt, conn);
+		        }
+
+		        return grade;
+		    }
 	//문의 리스트 askList
 	public ArrayList<AskboardDTO>getAsk(int start, int end){
 		String sql = "";
@@ -99,7 +117,7 @@ public class AskboardDAO extends OracleDB {
 		try {
 			conn = getConnection();
 			sql = "select * from " + " (select b.* , rownum r from "
-					+ " (select * from askboard order by ref desc, re_step asc ) b) " + " where r >= ? and r <= ? ";
+					+ " (select * from askboard order by ref desc) b) " + " where r >= ? and r <= ? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
@@ -117,8 +135,6 @@ public class AskboardDAO extends OracleDB {
 					dto.setReg_date(rs.getTimestamp("reg_date"));
 					dto.setReadcount(rs.getInt("readcount"));
 					dto.setRef(rs.getInt("ref"));
-					dto.setRe_step(rs.getInt("re_step"));
-					dto.setRe_level(rs.getInt("re_level"));
 					askList.add(dto);
 				} while (rs.next());
 			}
@@ -157,7 +173,7 @@ public class AskboardDAO extends OracleDB {
 		try {
 			conn = getConnection();
 			sql = "select * from " + " (select b.* , rownum r from "
-					+ " (select * from askboard order by ref desc, re_step asc ) b) " + " where id = ? and r >= ? and r <= ?";
+					+ " (select * from askboard order by ref desc) b) " + " where id = ? and r >= ? and r <= ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setInt(2, start);
@@ -176,8 +192,6 @@ public class AskboardDAO extends OracleDB {
 					dto.setReg_date(rs.getTimestamp("reg_date"));
 					dto.setReadcount(rs.getInt("readcount"));
 					dto.setRef(rs.getInt("ref"));
-					dto.setRe_step(rs.getInt("re_step"));
-					dto.setRe_level(rs.getInt("re_level"));
 					myaskList.add(dto);
 				} while (rs.next());
 			}
@@ -235,8 +249,6 @@ public class AskboardDAO extends OracleDB {
 				dto.setReg_date(rs.getTimestamp("reg_date"));
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setRef(rs.getInt("ref"));
-				dto.setRe_step(rs.getInt("re_step"));
-				dto.setRe_level(rs.getInt("re_level"));
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -252,7 +264,7 @@ public class AskboardDAO extends OracleDB {
 		String result = null;
 		try {
 			conn = getConnection();
-			sql = "select count(*) from askboard where ref=(select ref from askboard where num=?)and re_step = 0";
+			sql = "select count(*) from askboard where ref=(select ref from askboard where num=?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -287,8 +299,6 @@ public class AskboardDAO extends OracleDB {
 				dto.setReg_date(rs.getTimestamp("reg_date"));
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setRef(rs.getInt("ref"));
-				dto.setRe_step(rs.getInt("re_step"));
-				dto.setRe_level(rs.getInt("re_level"));
 			}
 		} catch(Exception ex) {
 			ex.printStackTrace();

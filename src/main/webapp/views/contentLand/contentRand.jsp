@@ -8,11 +8,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+	
 <meta charset="UTF-8">
 <title>어디Go</title>
 </head>
 <body>
 
+	<jsp:include page="/views/main/nav.jsp" />
+	<jsp:include page="/views/main/title.jsp" />
+	
+	<br />
 	<%	
 		String contentid = request.getParameter("contentid");
 		String areaCode = request.getParameter("areaCode");
@@ -38,18 +46,26 @@
 		
 		String src = "";
 	%>
-		<h1><%=DetailrandInfoMap.get("title")%></h1>
+	<div class="container text-center col-6 col-md-4">
+	<div class="card mb-3">
+
 		<% src = DetailrandInfoMap.get("firstimage");
           if(!src.equals("")){%>
-          <img src="<%=DetailrandInfoMap.get("firstimage") %>" width="200" height="200"/>
+          <img src="<%=DetailrandInfoMap.get("firstimage") %>" class="card-img-top" width="200" height="200"/>
           
        <%}else if(src.equals("")){%>
-            <img src = "/wherego/image/image.jpg" width="200" height="200"/>        
+            <img src = "/wherego/image/image.jpg" class="card-img-top" width="200" height="200"/>        
       <% }%>
+       <div class="card-body">
+      	 <h2><%=DetailrandInfoMap.get("title")%></h2>
+      	 <h5><strong><%=DetailrandInfoMap.get("addr1") %></strong></h5>
       	<br />
-		<span>홈페이지 : </span><%=DetailrandInfoMap.get("homepage") %>	<br />
-		<h4>주소 : <%=DetailrandInfoMap.get("addr1") %></h4>
-		<h4>설명 : <%=DetailrandInfoMap.get("overview") %></h4>
+      		<div class="card-body">
+				<%=DetailrandInfoMap.get("homepage") %>	
+			</div><br />
+		<div class="card-body">
+		<h5>설명 : <%=DetailrandInfoMap.get("overview") %></h5> 
+		</div><br />
 		<%
 				if(DetailrandInfoMap.get("restdate") == null) {
 					
@@ -79,19 +95,25 @@
 		double avg = landO.avgStar(contentid);
 		%>
 		
-		
-		<h5>카테고리 : <%=DetailrandInfoMap.get("category") %></h5>
-		<h5>전화번호 : <%=DetailrandInfoMap.get("infocenter") %></h5>
-		<h5>영업일 : <%=DetailrandInfoMap.get("restdate") %></h5>
-		<h5>이용시간 : <%=DetailrandInfoMap.get("usetime") %></h5>
-		<h5>주차 : <%=DetailrandInfoMap.get("parking") %></h5>
-		<h5>유모차 대여 : <%=DetailrandInfoMap.get("chkbabycarriage") %></h5>
-		<h5>반려견 입장 : <%=DetailrandInfoMap.get("chkpet") %></h5>
-		<h5>평점 : <%=avg%>  <input type="button" value="평점주기" OnClick="insertStar(<%=contentid%>)"></h5>
-		<h5>조회수 : <%=readCount %></h5>
+		<ul class="list-group list-group-flush">
+		    <li class="list-group-item">카테고리 : <%=DetailrandInfoMap.get("category") %></li>
+		    <li class="list-group-item">전화번호 : <%=DetailrandInfoMap.get("infocenter") %></li>
+		    <li class="list-group-item">영업일 : <%=DetailrandInfoMap.get("restdate") %></li>
+		    <li class="list-group-item">이용시간 : <%=DetailrandInfoMap.get("usetime") %></li>
+		    <li class="list-group-item">주차 : <%=DetailrandInfoMap.get("parking") %></li>
+		    <li class="list-group-item">유모차 대여 : <%=DetailrandInfoMap.get("chkbabycarriage") %></li>
+		    <li class="list-group-item">반려견 입장 : <%=DetailrandInfoMap.get("chkpet") %></li>
+		    <li class="list-group-item">주차 : <%=DetailrandInfoMap.get("parking") %></li>
+		  </ul>
+	  	<div class="card-body">
+		<h5>평점 : <%=avg%>  <input class="btn btn-outline-secondary" type="button" value="평점주기" OnClick="insertStar(<%=contentid%>)"></h5>
 		<form action="putLandPro.jsp" method="post" onsubmit="return changeButtonColor()">
-        	<input type="submit" value="담기" name="putLand" id="putLand">
+        	<input class="btn btn-outline-secondary" type="submit" value="담기" name="putLand" id="putLand">
    	 	</form>
+   	 	</div>
+   	 	</div>
+   	 	</div>
+   	 	</div>
    	 	<jsp:include page="/views/contentLand/contentRandReview.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&contentid=<%=contentid%>&pageNum=<%=pageNum%>" />
 </body>
 <script>
@@ -112,4 +134,12 @@ function changeButtonColor() {
     return true; // 폼을 서버로 제출합니다.
 }
 </script>
+<style>
+	.content {
+  max-width:600px;
+  margin:0 auto;
+  padding:0 10px 80px;
+  
+}
+</style>
 </html>

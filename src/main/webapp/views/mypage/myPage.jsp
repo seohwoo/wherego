@@ -21,10 +21,10 @@
 <% request.setCharacterEncoding("UTF-8");%>
 
 <%  int pageSize = 10;
-	String user = request.getParameter("id");
+   String user = request.getParameter("id");
 %>
 <%
-	//찜목록 리스트화 시키기
+   //찜목록 리스트화 시키기
     SaveDAO pick = SaveDAO.getInstance();
     ArrayList<String> p = pick.getMyPickContentIdList(user);
     String contentid ="";
@@ -38,20 +38,20 @@
 
 
 <%
-	//리뷰 리스트화 시키기
-	SaveDAO review = SaveDAO.getInstance();
-	ArrayList<String> r = review.getMyreviewContentIdList(user);
-	String reviewContentid = "";
+   //리뷰 리스트화 시키기
+   SaveDAO review = SaveDAO.getInstance();
+   ArrayList<String> r = review.getMyreviewContentIdList(user);
+   String reviewContentid = "";
 
-	
-	//리뷰 갯수
-	int count = 0; 
-	List getReviewCount = null;
-	SaveDAO reviewC = SaveDAO.getInstance();
-	count = reviewC.getReviewCount(user);
+   
+   //리뷰 갯수
+   int count = 0; 
+   List getReviewCount = null;
+   SaveDAO reviewC = SaveDAO.getInstance();
+   count = reviewC.getReviewCount(user);
 %>
 
-  
+
 
 
 <jsp:include page="/views/main/nav.jsp" />
@@ -79,7 +79,7 @@
  <!-- 여기는 프로필 --> 
 <center> 
 <%
-	if(id.equals(user) || id.equals("admin")){%>
+   if(id.equals(user) || id.equals("admin")){%>
       <!-- 프로필 이미지 및 닉네임 표시 -->
        <img width="150" src="/wherego/image/<%= c.getProfile() %>"><br>         
        <%= c.getNic() %> 마이페이지<br>
@@ -113,14 +113,14 @@
     <table>
       <tr>
        <td>     
-	       <%
-	         if(id.equals(user) || id.equals("admin")){%>		                                            
-		         <input type="button" value="myreviews" onclick="myreviews_open()">
-		         <input type="button" value="mypick" onclick="mypick_open()">
-		       <%} else {%>          
-		         <input type="button" value="myreviews" onclick="myreviews_open()">
-		       <%} %>
-	       
+          <%
+            if(id.equals(user) || id.equals("admin")){%>                                                  
+               <input type="button" value="myreviews" onclick="myreviews_open()">
+               <input type="button" value="mypick" onclick="mypick_open()">
+             <%} else {%>          
+               <input type="button" value="myreviews" onclick="myreviews_open()">
+             <%} %>
+          
        </td>     
       </tr>
      </table>   
@@ -132,7 +132,7 @@
 
 <!-- 아래는 리뷰리스트 -->
        
-	<div id="myreviews" style="width:100%;   display:none;">
+   <div id="myreviews" style="width:100%;   display:none;">
      <p><%=userDtO.getNic()%>님이 작성한 리뷰 리스트 입니다.</p> 
         <b>글목록(전체 글:<%=count%>)</b>
 
@@ -163,57 +163,57 @@
          <td align="center"  width="150" >사진5</td>                                                                         
          <td align="center"  width="200" >리뷰날짜</td>                                        
       </tr>
- <%	
- 	 ArrayList<HashMap<String, String>> myReviewList = new ArrayList<HashMap<String, String>>();
-	 HashMap<String,String> myReviewMap = new HashMap<String,String>();
-	 HashMap<String,String> myReviewTitleMap = new HashMap<String,String>();
-	 myReviewList = review.myReviewList(user);
-	 for(int i = 0 ; i < myReviewList.size(); i++){
-		 myReviewMap = myReviewList.get(i);
-		 myReviewTitleMap = review.selectReviewTitle(myReviewMap.get("contentid"));
-		   
-		   
+ <%   
+     ArrayList<HashMap<String, String>> myReviewList = new ArrayList<HashMap<String, String>>();
+    HashMap<String,String> myReviewMap = new HashMap<String,String>();
+    HashMap<String,String> myReviewTitleMap = new HashMap<String,String>();
+    myReviewList = review.myReviewList(user);
+    for(int i = 0 ; i < myReviewList.size(); i++){
+       myReviewMap = myReviewList.get(i);
+       myReviewTitleMap = review.selectReviewTitle(myReviewMap.get("contentid"));
+         
+         
  %>    
-	   <tr height="30" >   		    
-			<td><%=myReviewTitleMap.get("title")%></td>
-			<td> <img width="100" height="100"  src="<%=myReviewTitleMap.get("firstimage")%>"></td>
-			<td><%=myReviewMap.get("review")%></td>
-			<td>
-			<% for(int stars = 1; stars <= Integer.parseInt(myReviewMap.get("stars")); stars++){%>
-			&#11088;
-			<%}%>
-			</td>
-			<td><%String img1 = myReviewMap.get("img1");
-			if (img1 != null && !img1.isEmpty() && !img1.equals("NoImage")){
-        	%><img width="100" height="100" src="/wherego/image/<%= img1 %>">
-        	<%}else{%>X<%}%>
-   			</td>			    
-			<td><%String img2 = myReviewMap.get("img2");
-			if (img2 != null && !img2.isEmpty() && !img2.equals("NoImage")){
-        	%><img width="100" height="100" src="/wherego/image/<%= img2 %>">
-        	<%}else{%>X<%}%>
-   			</td>			    
-			<td><%String img3 = myReviewMap.get("img3");
-			if (img3 != null && !img3.isEmpty() && !img3.equals("NoImage")){
-        	%><img width="100" height="100" src="/wherego/image/<%= img3 %>">
-        	<%}else{%>X<%}%>
-   			</td>			    
-			<td><%String img4 = myReviewMap.get("img4");
-			if (img4 != null && !img4.isEmpty() && !img4.equals("NoImage")){
-        	%><img width="100" height="100" src="/wherego/image/<%= img4 %>">
-        	<%}else{%>X<%}%>
-   			</td>			    
-			<td><%String img5 = myReviewMap.get("img5");
-			if (img5 != null && !img5.isEmpty() && !img5.equals("NoImage")){
-        	%><img width="100" height="100" src="/wherego/image/<%= img5 %>">
-        	<%}else{%>X<%}%>
-   			</td>			    											
-			<td><%=myReviewMap.get("reg_date")%></td>
-	   </tr>    
+      <tr height="30" >             
+         <td><%=myReviewTitleMap.get("title")%></td>
+         <td> <img width="100" height="100"  src="<%=myReviewTitleMap.get("firstimage")%>"></td>
+         <td><%=myReviewMap.get("review")%></td>
+         <td>
+         <% for(int stars = 1; stars <= Integer.parseInt(myReviewMap.get("stars")); stars++){%>
+         &#11088;
+         <%}%>
+         </td>
+         <td><%String img1 = myReviewMap.get("img1");
+         if (img1 != null && !img1.isEmpty() && !img1.equals("NoImage")){
+           %><img width="100" height="100" src="/wherego/image/<%= img1 %>">
+           <%}else{%>X<%}%>
+            </td>             
+         <td><%String img2 = myReviewMap.get("img2");
+         if (img2 != null && !img2.isEmpty() && !img2.equals("NoImage")){
+           %><img width="100" height="100" src="/wherego/image/<%= img2 %>">
+           <%}else{%>X<%}%>
+            </td>             
+         <td><%String img3 = myReviewMap.get("img3");
+         if (img3 != null && !img3.isEmpty() && !img3.equals("NoImage")){
+           %><img width="100" height="100" src="/wherego/image/<%= img3 %>">
+           <%}else{%>X<%}%>
+            </td>             
+         <td><%String img4 = myReviewMap.get("img4");
+         if (img4 != null && !img4.isEmpty() && !img4.equals("NoImage")){
+           %><img width="100" height="100" src="/wherego/image/<%= img4 %>">
+           <%}else{%>X<%}%>
+            </td>             
+         <td><%String img5 = myReviewMap.get("img5");
+         if (img5 != null && !img5.isEmpty() && !img5.equals("NoImage")){
+           %><img width="100" height="100" src="/wherego/image/<%= img5 %>">
+           <%}else{%>X<%}%>
+            </td>                                              
+         <td><%=myReviewMap.get("reg_date")%></td>
+      </tr>    
      <%}%>
   </table>
     <%
-    }%>	    
+    }%>       
    </div>
    
 
@@ -252,24 +252,24 @@
 <%
        HashMap<String,String> myPickMap = new HashMap<String,String>();
    for(int i = 0 ; i < p.size(); i++){
-	   contentid = p.get(i);
-	   myPickMap = pick.myPick(contentid);	   
+      contentid = p.get(i);
+      myPickMap = pick.myPick(contentid);      
 %>
 
-	 <tr  height="30" > 
-	   <td> <%=myPickMap.get("areacodename")%></td> 
-	   <td><%=myPickMap.get("sigungucodename")%></td>
-	   <td> <%=myPickMap.get("addr1")%></td>
-	   <td> <%=myPickMap.get("title")%></td>	   
-	   <td> <img width="150" height="150"  src="<%=myPickMap.get("firstimage")%>"></td>
-	   <td><%=myPickMap.get("category") %></td>
-	   <td><%=myPickMap.get("stars") %></td>
-	   <td><%=myPickMap.get("readcount") %></td>	   
-	 </tr> 
-	   
-	<%}%>
+    <tr  height="30" > 
+      <td> <%=myPickMap.get("areacodename")%></td> 
+      <td><%=myPickMap.get("sigungucodename")%></td>
+      <td> <%=myPickMap.get("addr1")%></td>
+      <td> <%=myPickMap.get("title")%></td>      
+      <td> <img width="150" height="150"  src="<%=myPickMap.get("firstimage")%>"></td>
+      <td><%=myPickMap.get("category") %></td>
+      <td><%=myPickMap.get("stars") %></td>
+      <td><%=myPickMap.get("readcount") %></td>      
+    </tr> 
+      
+   <%}%>
     </table> 
-  <%}%>	   
+  <%}%>      
    </div>
   </div>       
 <%}catch (Exception e){

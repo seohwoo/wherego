@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,12 +58,18 @@
 		  <!-- main 중반 -->
 	<br />
 	<div class="d-grid gap-2 col-6 mx-auto">	
+			<form action="/wherego/views/search/result.jsp" method="post">
 		<div class="input-group mb-3">
-			<input type="text" class="form-control" placeholder="여행지를 검색해보세요">
+			<select name="searchType">
+				<option value="land">명소</option>
+				<option value="loc">지역</option>
+			</select>
+			<input name="searchValue" type="text" class="form-control" placeholder="여행지를 검색해보세요">
 			<div class="col-auto">
-				<button class="btn btn-outline-secondary" type="button" id="button-addon2" onClick="#">검색</button>
+				<button class="btn btn-outline-secondary" type="submit" id="button-addon2">검색</button>
 			</div>
 		</div>
+			</form>
 			
 		<a href="/wherego/views/locationLand/locationHigh.jsp" class="btn btn-secondary">지역별 여행지 보기</a>
 	</div>

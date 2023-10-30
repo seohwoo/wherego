@@ -1,5 +1,11 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "team02.main.use.FavoriteLandDAO"%>
+<%@ page import = "team02.user.save.SaveDAO"%> 
+<%@ page import = "team02.content.land.LandDAO"%> 
+<%@ page import = "team02.location.land.LocationLandDTO"%>     
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,45 +17,48 @@
 <!-- 틀만작성 , 수정예정 -->
 <div class="container text-center">
 		<div class="row row-cols-4">
-		<!-- 서울 -->
-			<div class="card" style="width: 20rem;">
-			  <img src="..." class="card-img-top" alt="...">
-			  <div class="card-body">
-			    <h5 class="card-title">서울</h5>
-			    <p class="card-text">서울의 관광지를 알아보세요 :)</p>
-			    <a href="listRand.jsp" class="btn btn-secondary">Go Seoul</a>
-			  </div>
-			</div>
+		<%
+			FavoriteLandDAO dao = FavoriteLandDAO.getInstance();
+			SaveDAO saveDao = SaveDAO.getInstance();
+			LandDAO landO = LandDAO.getInstance();
 			
-			<!-- 인천 -->
-			<div class="card" style="width: 20rem;">
-			  <img src="..." class="card-img-top" alt="...">
-			  <div class="card-body">
-			    <h5 class="card-title">인천</h5>
-			    <p class="card-text">인천의 관광지를 알아보세요 :)</p>
-			    <a href="listRand.jsp" class="btn btn-secondary">Go Incheon </a>
-			  </div>
-			</div>
 			
-			<!-- 경기 -->
-			<div class="card" style="width: 20rem;">
-			  <img src="..." class="card-img-top" alt="...">
-			  <div class="card-body">
-			    <h5 class="card-title">경기도</h5>
-			    <p class="card-text">경기도의 관광지를 알아보세요 :)</p>
-			    <a href="listRand.jsp" class="btn btn-secondary">Go Gyeonggi</a>
-			  </div>
-			</div>
+			ArrayList<HashMap<String, String>> favoriteLandList = dao.findFavoriteLandList();
 			
-			<!-- 강원 -->
-			<div class="card" style="width: 20rem;">
-			  <img src="..." class="card-img-top" alt="...">
-			  <div class="card-body">
-			    <h5 class="card-title">강원도</h5>
-			    <p class="card-text">강원도의 관광지를 알아보세요 :)</p>
-			    <a href="listRand.jsp" class="btn btn-secondary">Go Gangwon</a>
-			  </div>
+			for(HashMap<String, String> favoriteLandMap : favoriteLandList) {
+			    double avg = landO.avgStar(favoriteLandMap.get("contentid"));
+			    int totalSave = saveDao.getSaveCount(favoriteLandMap.get("contentid"));
+			    int totalReview = landO.getReviewCount(favoriteLandMap.get("contentid"));
+			    LocationLandDTO dto = dao.selectLandToCid(favoriteLandMap.get("contentid"));
+			    %>
+			    <div class="card" style="width: 20rem;">
+			  		<img src="<%=dto.getFirstimage() %>" class="card-img-top" />
+			  		<div class="card-body">
+			    		<h5 class="card-title"><%=dto.getTitle() %></h5>
+			    		<p class="card-text"><%=dto.getAreacodename() %> > <%=dto.getSigungucodename() %></p>
+			    		<p class="card-text"><%=dto.getCategory() %></p>
+			    		<p class="card-text">별점 : <%=avg %></p>
+			    		<p class="card-text">별점개수 : <%=totalReview %></p>
+			    		<p class="card-text">저장수 : <%=totalSave %></p>
+			    		<p class="card-text">조회수 : <%=favoriteLandMap.get("readcount") %></p>
+			    		<a href="listRand.jsp" class="btn btn-secondary">Go <%=dto.getTitle() %></a>
+			  		</div>
 			</div>
+			    
+			<% }%>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			
+		
 		</div>
 	</div>
 </body>

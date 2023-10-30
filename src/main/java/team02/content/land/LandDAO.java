@@ -317,3 +317,4 @@ public class LandDAO extends OracleDB {
 		return count;
 	}
 }
+

@@ -53,7 +53,7 @@ public class FavoriteLandDAO extends OracleDB {
 
 		conn = getConnection();
 		try {
-			String sql = " select contentid, title, firstimage, category, areacodename, sigungucodename from landinfo where contentid=? ";
+			String sql = " select contentid, title, firstimage, category, areacode, areacodename, sigungucode, sigungucodename from landinfo where contentid=? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, contentid);
 			rs = pstmt.executeQuery();
@@ -62,7 +62,9 @@ public class FavoriteLandDAO extends OracleDB {
 				dto.setTitle(rs.getString("title"));
 				dto.setFirstimage(rs.getString("firstimage"));
 				dto.setCategory(rs.getString("category"));
+				dto.setAreacodename(rs.getString("areacode"));
 				dto.setAreacodename(rs.getString("areacodename"));
+				dto.setSigungucodename(rs.getString("sigungucode"));
 				dto.setSigungucodename(rs.getString("sigungucodename"));
 			}
 		} catch (Exception e) {

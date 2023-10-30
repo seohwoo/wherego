@@ -41,7 +41,7 @@
 			    		<p class="card-text">별점개수 : <%=totalReview %></p>
 			    		<p class="card-text">저장수 : <%=totalSave %></p>
 			    		<p class="card-text">조회수 : <%=favoriteLandMap.get("readcount") %></p>
-			    		<a href="listRand.jsp" class="btn btn-secondary">Go <%=dto.getTitle() %></a>
+			    		<a href="/wherego/views/contentLand/contentRand.jsp?areaCode=<%=dto.getAreacode() %>&sigunguCode=<%=dto.getSigunguCode() %>&contentid=<%=favoriteLandMap.get("contentid")%>&pageNum=1" class="btn btn-secondary">Go <%=dto.getTitle() %></a>
 			  		</div>
 			</div>
 			    

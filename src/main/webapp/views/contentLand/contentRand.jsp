@@ -46,7 +46,7 @@
 		
 		String src = "";
 	%>
-	<div class="d-grid gap-2 col-3 mx-auto">
+	<div class="container text-center col-6 col-md-4">
 	<div class="card mb-3">
 
 		<% src = DetailrandInfoMap.get("firstimage");
@@ -107,7 +107,6 @@
 		  </ul>
 	  	<div class="card-body">
 		<h5>평점 : <%=avg%>  <input class="btn btn-outline-secondary" type="button" value="평점주기" OnClick="insertStar(<%=contentid%>)"></h5>
-		<h5>조회수 : <%=readCount %></h5>
 		<form action="putLandPro.jsp" method="post" onsubmit="return changeButtonColor()">
         	<input class="btn btn-outline-secondary" type="submit" value="담기" name="putLand" id="putLand">
    	 	</form>
@@ -135,4 +134,12 @@ function changeButtonColor() {
     return true; // 폼을 서버로 제출합니다.
 }
 </script>
+<style>
+	.content {
+  max-width:600px;
+  margin:0 auto;
+  padding:0 10px 80px;
+  
+}
+</style>
 </html>

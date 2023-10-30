@@ -157,6 +157,7 @@ public class SaveDAO extends OracleDB {
 		} finally {
 			close(rs, pstmt, conn);
 		}
+
 		return x;
 	}
 
@@ -189,13 +190,16 @@ public class SaveDAO extends OracleDB {
 		String sql = "";
 
 		try {
+
 			sql = "select * from landreview where contentid = ? and id=? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, reviewContentid);
 			pstmt.setString(2, user);
+
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+
 				myReviewMap.put("stars", rs.getString("stars"));
 				myReviewMap.put("review", rs.getString("review"));
 				myReviewMap.put("img1", rs.getString("img1"));
@@ -204,6 +208,7 @@ public class SaveDAO extends OracleDB {
 				myReviewMap.put("img4", rs.getString("img4"));
 				myReviewMap.put("img5", rs.getString("img5"));
 				myReviewMap.put("reg_date", rs.getString("reg_date"));
+
 			}
 
 			sql = "select * from landinfo where contentid = ?";
@@ -221,6 +226,7 @@ public class SaveDAO extends OracleDB {
 			e.printStackTrace();
 		} finally {
 			close(rs, pstmt, conn);
+
 		}
 		return myReviewMap;
 	}

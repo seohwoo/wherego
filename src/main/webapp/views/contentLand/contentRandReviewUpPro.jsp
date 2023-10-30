@@ -40,6 +40,7 @@
 	}
 	if(chkIdValue == 0){
 	landO.insertReviewUp(contentid,id,reviewNum);
+	landO.updateReviewLikes(reviewNum);
 	%>
 	<script>
 	alert("UP 완료!")

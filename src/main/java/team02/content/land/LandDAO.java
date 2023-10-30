@@ -36,7 +36,7 @@ public class LandDAO extends OracleDB {
 			pstmt.setString(7, land.getImg3());
 			pstmt.setString(8, land.getImg4());
 			pstmt.setString(9, land.getImg5());
-			pstmt.setString(10, land.getLikes());
+			pstmt.setString(10,"0");
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -251,7 +251,7 @@ public class LandDAO extends OracleDB {
 		int count = 0;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select count(id) from reviewup where reviewnum = ?");
+			pstmt = conn.prepareStatement("select likes from landreview where reviewnum = ?");
 			pstmt.setInt(1, reviewnum);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -283,4 +283,37 @@ public class LandDAO extends OracleDB {
 		}
 	}
 	
+	public void updateReviewLikes(int reviewnum){
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("update landreview set likes = likes+1 where reviewnum = ?");
+			pstmt.setInt(1, reviewnum);
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+	}
+	
+	public int getLandSaveCount(int contentid) {
+		int count = 0;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select count(id) from landsave where contentid = ?");
+			pstmt.setInt(1, contentid);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}
+			catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+			}
+		return count;
+	}
 }

@@ -50,6 +50,7 @@
       int issave = saveDao.isSave(dto.getContentid(), id);
       int readCount = landO.getReadCount(dto.getContentid());
       double avg = landO.avgStar(dto.getContentid());
+      int landSaveCount = landO.getLandSaveCount(Integer.parseInt(dto.getContentid()));
       %>
 	      <div class="card mb-3" style="max-width: 800px;">
 			  <div class="row g-0">
@@ -90,7 +91,7 @@
 			        if(avg % 1 != 0){%>
 			        &#x2606;
 			        <%}%>(<%=avg %>)</small></p>
-			        <p align="left" class="card-text"><small >❤  (0)</small></p>
+			        <p align="left" class="card-text"><small >❤ : <%=landSaveCount %></small></p>
 			        <p align="left" class="card-text"><small >조회수 : <%=readCount %></small></p>
 			      </div>
 				</button>

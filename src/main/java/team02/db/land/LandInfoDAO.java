@@ -148,21 +148,60 @@ public class LandInfoDAO extends OracleDB {
 		}
 	}
 
-	public ArrayList<String> selectContentid(String areaCode, String sigunguCode) {
+	public ArrayList<String> selectContentid(String areaCode) {
 		ArrayList<String> contentidList = new ArrayList<String>();
 
 		conn = getConnection();
 		try {
-			String sql = " select contentid from landinfo where firstimage is not null and areacode=? and sigunguCode=? ";
+			String sql = " select contentid from landinfo where firstimage is not null and areacode=? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, areaCode);
-			pstmt.setString(2, sigunguCode);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				contentidList.add(rs.getString("contentid"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return contentidList;
+	}
+
+	public ArrayList<String> selectNullContentid() {
+		ArrayList<String> contentidList = new ArrayList<String>();
+
+		conn = getConnection();
+		try {
+			String sql = " select contentid from landloc where mapy is null ";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				contentidList.add(rs.getString("contentid"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return contentidList;
+	}
+
+	public ArrayList<String> selectZeroContentid() {
+		ArrayList<String> contentidList = new ArrayList<String>();
+
+		conn = getConnection();
+		try {
+			String sql = " select contentid from landloc where mapx='0' and mapy='0' ";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				contentidList.add(rs.getString("contentid"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 		return contentidList;
 	}
@@ -182,6 +221,28 @@ public class LandInfoDAO extends OracleDB {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+	}
+
+	public void updateXY(String contentid, String mapx, String mapy, String areaCode, String sigunguCode) {
+
+		conn = getConnection();
+		try {
+			String sql = " update landloc set mapx=?, mapy=?, areacode=?, sigunguCode=? where contentid=? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mapx);
+			pstmt.setString(2, mapy);
+			pstmt.setString(3, areaCode);
+			pstmt.setString(4, sigunguCode);
+			pstmt.setString(5, contentid);
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 	}
 

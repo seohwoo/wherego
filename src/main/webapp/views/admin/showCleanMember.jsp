@@ -8,14 +8,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
 <meta charset="UTF-8">
 <title>어디GO</title>
 </head>
 <body>
 	<jsp:include page="/views/main/nav.jsp" />	
-	<jsp:include page="/views/main/title.jsp" /><br />
-	
 	<%!
    		int pageSize = 10;
 		SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	
@@ -46,19 +43,17 @@
 				if(count>0) {
 					memberList = dao.selectCleanMember(start, end);
 				}%>
-				<div align="center">
-				<h3 align="center">일반사용자 </h3> <br />
-				<button type="button" class="btn btn-light" OnClick="window.location='showDirtyMember.jsp?pageNum=1'">탈퇴, 정지 사용자 보기 ⏩</button>
-				</div> <br />
+				<button type="button" OnClick="window.location='showDirtyMember.jsp?pageNum=1'">탈퇴, 금지 유저 보기 >>></button>
 				
-				<div class="d-grid gap-2 col-6 mx-auto">
-				<table class="table table-striped-columns"> 
+				<table border="1" width="700" align="center"> 
 			    <tr height="30"> 
-			       <td align="center"><b>아이디</b></td> 
-			       <td align="center"><b>닉네임</b></td> 
-			       <td align="center"><b>이메일</b></td> 
-			       <td align="center"><b>등급</b></td> 
-			       <td align="center"><b>가입일</b></td>  
+			       <td align="center"  width="50"  >id</td> 
+			       <td align="center"  width="50"  >닉네임</td> 
+			       <td align="center"  width="50"  >성별</td> 
+			       <td align="center"  width="50"  >이메일</td> 
+			       <td align="center"  width="50"  >휴대폰 번호</td> 
+			       <td align="center"  width="50"  >등급</td> 
+			       <td align="center"  width="50"  >가입일</td> 
 			    </tr>
 			    
 				<% for(AdminMemberDTO dto : memberList) {
@@ -67,19 +62,16 @@
 					String gradeName = dao.findGradeName(dto.getGrade());
 				%>
 					<tr>
-						<td align="center"><a href="contentMember.jsp?id=<%=dto.getId() %>"><%=dto.getId() %></a></td>
-						<td align="center"><%=dto.getNic() %></td>
-						<td align="center"><%=dto.getEmail() %></td>
-						<td align="center"><%=gradeName%></td>
-						<td align="center" ><%=reg_date%></td>
+						<td align="center"  width="50"  ><a href="contentMember.jsp?id=<%=dto.getId() %>"><%=dto.getId() %></a></td>
+						<td align="center"  width="50"  ><%=dto.getNic() %></td>
+						<td align="center"  width="50"  ><%=dto.getGender() %></td>
+						<td align="center"  width="50"  ><%=dto.getEmail() %></td>
+						<td align="center"  width="50"  ><%=dto.getPhone() %></td>
+						<td align="center"  width="50"  ><%=gradeName%></td>
+						<td align="center"  width="50"  ><%=reg_date%></td>
 					</tr>
 				<%}%>
 				</table>
-				</div>
-				<br />
-				
-	<nav aria-label="Page navigation example">
-	  <ul class="pagination justify-content-center">
 				<%
 				    if (count > 0) {
 				        int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
@@ -90,31 +82,21 @@
 				        if (endPage > pageCount) endPage = pageCount;
 				        
 				        if (startPage > 10) {    %>
-				        <li class="page-item">
-				          <a class="page-link" href="showCleanMember.jsp?pageNum=<%= startPage - 10 %>" aria-label="Previous">
-				            <span aria-hidden="true">&laquo; 이전</span>
-				          </a>
-				        </li>
+				        <a href="showCleanMember.jsp?pageNum=<%= startPage - 10 %>">[이전]</a>
 				<%      }
 				        for (int i = startPage ; i <= endPage ; i++) {  %>
-				        <li class="page-item <%= (i == currentPage) ? "active" : "" %>">
-				          <a class="page-link" href="showCleanMember.jsp?pageNum=<%= i %>"><%= i %></a>
-				        </li>
+				        <a href="showCleanMember.jsp?pageNum=<%= i %>">[<%= i %>]</a>
 				<%
 				        }
 				        if (endPage < pageCount) {  %>
-				        <li class="page-item">
-				          <a class="page-link" href="showCleanMember.jsp?pageNum=<%= startPage + 10 %>" aria-label="Next">
-				            <span aria-hidden="true">다음 &raquo;</span>
-				          </a>
-				        </li>
-				<% }  } %>
-				 </ul>
-			</nav>	
+				        <a href="showCleanMember.jsp?pageNum=<%= startPage + 10 %>">[다음]</a>
+				<%
+				        }
+				    }
+				%>
 			<%}
 			
 		}%>
-		<br /><hr /><br />
 		<jsp:include page="/views/main/footer.jsp" />		
 </body>	
 </html>

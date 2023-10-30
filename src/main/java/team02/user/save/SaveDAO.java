@@ -186,19 +186,17 @@ public class SaveDAO extends OracleDB {
 	
 		//리스트로된 컨텐트 아이디 만들어 리뷰 불러오기
 	
-	public HashMap<String, String> myReviewList(String reviewContentid, String user){
-		HashMap<String, String> myReviewMap = new HashMap<String, String>();
-		conn = getConnection();
-		String sql = "";
+	public ArrayList<HashMap<String, String>> myReviewList(String user){
+		ArrayList<HashMap<String, String>> myReviewList = new ArrayList<HashMap<String, String>>();
+		
 		
 		try {
-			sql = "select * from landreview where contentid = ? and id=? ";
-			pstmt = conn.prepareStatement(sql);			
-			pstmt.setString(1, reviewContentid);			
-			pstmt.setString(2, user);			
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from landreview where id=? order by  reg_date desc");
+			pstmt.setString(1, user);
 			rs = pstmt.executeQuery();
-			
 			while (rs.next()){
+				HashMap<String, String> myReviewMap = new HashMap<String, String>();
 				myReviewMap.put("stars", rs.getString("stars"));
 				myReviewMap.put("review", rs.getString("review"));
 				myReviewMap.put("img1", rs.getString("img1"));
@@ -207,26 +205,15 @@ public class SaveDAO extends OracleDB {
 				myReviewMap.put("img4", rs.getString("img4"));
 				myReviewMap.put("img5", rs.getString("img5"));
 				myReviewMap.put("reg_date", rs.getString("reg_date"));
-			}
-			
-			sql = "select * from landinfo where contentid = ?";
-			pstmt = conn.prepareStatement(sql);			
-			pstmt.setString(1, reviewContentid);			
-			rs = pstmt.executeQuery();
-			
-			if (rs.next()) {
-				myReviewMap.put("sigungucodename", rs.getString("sigungucodename"));
-				myReviewMap.put("title", rs.getString("title"));
-				myReviewMap.put("firstimage", rs.getString("firstimage"));
-			}
-			
-			
+				myReviewMap.put("contentid", rs.getString("contentid"));
+				myReviewList.add(myReviewMap);
+			}	
 		}catch (Exception e) {
 		  e.printStackTrace();
 		}finally {
 		  close(rs, pstmt, conn);
 		}
-		return myReviewMap;
+		return myReviewList;
 	}
 	
 		//리뷰갯수
@@ -250,5 +237,25 @@ public class SaveDAO extends OracleDB {
 	      return x;       
 	   }
 	
+	public HashMap<String, String> selectReviewTitle(String contentid){
+		HashMap<String, String> myReviewTitleMap = new HashMap<String, String>();
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select title,firstimage from landinfo where contentid = ? ");
+			pstmt.setString(1, contentid);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				myReviewTitleMap.put("title", rs.getString("title"));
+				myReviewTitleMap.put("firstimage", rs.getString("firstimage"));
+				
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return myReviewTitleMap;
+	}
 }
 

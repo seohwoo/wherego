@@ -9,6 +9,7 @@
 </head>
 
 <body>
+	<% request.setCharacterEncoding("UTF-8");%>
 	<%
 		String id = (String) session.getAttribute("memId");
 	%>

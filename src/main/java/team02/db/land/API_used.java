@@ -275,8 +275,10 @@ public class API_used extends Using_API_KEY {
 			JSONObject items = (JSONObject) body.get("items");
 			JSONArray item = (JSONArray) items.get("item");
 			JSONObject arrItem = (JSONObject) item.get(0);
-			xyMap.put("mapx", String.valueOf(arrItem.get("mapx")));
-			xyMap.put("mapy", String.valueOf(arrItem.get("mapy")));
+			xyMap.put("mapx", (arrItem.get("mapx").toString()));
+			xyMap.put("mapy", (arrItem.get("mapy").toString()));
+			xyMap.put("areacode", (arrItem.get("areacode").toString()));
+			xyMap.put("sigungucode", (arrItem.get("sigungucode").toString()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

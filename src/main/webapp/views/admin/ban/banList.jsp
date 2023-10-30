@@ -1,6 +1,6 @@
 <%@page import="java.util.Date"%>
-<%@ page import="team02.askboard.AskboardDAO" %>
-<%@ page import="team02.askboard.AskboardDTO" %>
+<%@ page import="team02.admin.use.AdminBanDAO" %>
+<%@ page import="team02.admin.use.AdminBanDTO" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
@@ -20,19 +20,20 @@
     int count = 0;
     int number = 0;
 
-    ArrayList<AskboardDTO> askList = null;
-    AskboardDAO dao = AskboardDAO.getInstance();
-    count = dao.getAskCount();
+    ArrayList<AdminBanDTO> banList = null;
+    AdminBanDAO dao = AdminBanDAO.getInstance();
+    count = dao.getBanCount();
     if (count > 0) {
-        askList = dao.getAsk(start, end);
+    	banList = dao.findBanList(start, end);
     }
     number = count - (currentPage - 1) * pageSize;
     
-    session.setAttribute("askListUrl", request.getRequestURL());
+    session.setAttribute("banListUrl", request.getRequestURL());
 %>
 <!DOCTYPE html>
 <html>
 <head>
+	<title>어디 Go</title>
 </head>
 <body>
    <jsp:include page="/views/main/nav.jsp" />
@@ -48,8 +49,8 @@
     <h2 align="center">🚫 정지게시판 🚫</h2>
     <br />
     <div align="center">
-    	<button type="button" class="btn btn-light" OnClick="window.location='askForm.jsp'">✏ 문의하기 ✏</button>
-    	<button type="button" class="btn btn-light" OnClick="window.location='askMyList.jsp'">나의 문의글</button>
+    	<button type="button" class="btn btn-light" OnClick="window.location='banForm.jsp'">✏ 문의하기 ✏</button>
+    	<button type="button" class="btn btn-light" OnClick="window.location='banMyList.jsp?pageNum=1'">나의 문의글</button>
     </div>
     <br />
 
@@ -61,7 +62,7 @@
     </table>
     <% } else { %>
     <table width="700" cellpadding="0" cellspacing="0" align="center">
-        <thread>
+        <thead>
             <tr>
                 <td align="center" width="50"><b>#</b></td>
                 <td align="center" width="250"><b>작성자</b></td>
@@ -69,17 +70,17 @@
                 <td align="center" width="200"><b>날짜</b></td>
                 <td align="center" width="150"><b>조회수</b></td>
             </tr>
-        </thread>
-        <% for (int i = 0; i < askList.size(); i++) {
-            AskboardDTO dto = askList.get(i); 
-			String reg_date = outputFormat.format(dto.getReg_date());
+        </thead>
+        <% for (AdminBanDTO dto : banList) {
+        	Date reg_dateD = inputFormat.parse(dto.getReg_date());
+			String reg_date = outputFormat.format(reg_dateD);
             %>
         <tbody>
             <tr height="30">
                 <td align="center" width="50"><%= number-- %></td>
                 <td align="center" width="250"><%= dto.getWriter() %></td>
                 <td align="center" width="250">
-                    <a href="/wherego/views/board/ask/content.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">
+                    <a href="/wherego/views/admin/ban/banContent.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">
                         <%= dto.getTitle() %>
                     </a>
                 </td>
@@ -103,7 +104,7 @@
 	        
 	        if (startPage > 10) { %>
 	        <li class="page-item">
-	          <a class="page-link" href="askList.jsp?pageNum=<%= startPage - 10 %>" aria-label="Previous">
+	          <a class="page-link" href="banList.jsp?pageNum=<%= startPage - 10 %>" aria-label="Previous">
 	            <span aria-hidden="true">&laquo; 이전</span>
 	          </a>
 	        </li>
@@ -111,13 +112,13 @@
 	        
 	        for (int i = startPage; i <= endPage; i++) { %>
 	        <li class="page-item <%= (i == currentPage) ? "active" : "" %>">
-	          <a class="page-link" href="askList.jsp?pageNum=<%= i %>"><%= i %></a>
+	          <a class="page-link" href="banList.jsp?pageNum=<%= i %>"><%= i %></a>
 	        </li>
 	        <% }
 	        
 	        if (endPage < pageCount) { %>
 	        <li class="page-item">
-	          <a class="page-link" href="askList.jsp?pageNum=<%= startPage + 10 %>" aria-label="Next">
+	          <a class="page-link" href="banList.jsp?pageNum=<%= startPage + 10 %>" aria-label="Next">
 	            <span aria-hidden="true">다음 &raquo;</span>
 	          </a>
 	        </li>

@@ -15,7 +15,7 @@
 <body>
 	<% if (session.getAttribute("memId") == null) { %>
 	    <script>
-	        alert("관리자만 접근 가능합니다🤬🤬🤬");
+	        alert("로그인하세요🤬🤬🤬");
 	        window.location = "/wherego/views/main/main.jsp";
 	    </script>
 	<% } %>
@@ -27,8 +27,10 @@
 	%>	
 	<%
 		String id = request.getParameter("id");
+		String admin = (String) session.getAttribute("memId");
 		AdminMemberDAO dao = AdminMemberDAO.getInstance();
 		AdminMemberDTO dto = dao.userInfo(id);
+		AdminMemberDTO adminInfo = dao.userInfo(admin);
 		
 		String gradeName = dao.findGradeName(dto.getGrade());
 		Date birthD = inputFormat.parse(dto.getBirth());
@@ -36,7 +38,12 @@
 		Date reg_dateD = inputFormat.parse(dto.getReg_date());
 		String reg_date = outputFormat.format(reg_dateD);
 		
-		
+		if (adminInfo.getGrade() != 99) { %>
+	    <script>
+	        alert("관리자만 접속이 가능합니다🤬🤬🤬");
+	        window.location = "/wherego/views/main/main.jsp";
+	    </script>
+	<% }
 	%>
 	 <img width="150" src="/wherego/image/<%= dto.getProfile() %>"> <br> 
 	 <h3><%=dto.getId() %></h3>

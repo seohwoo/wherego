@@ -6,40 +6,29 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 
 <%
- int num = Integer.parseInt(request.getParameter("num"));
- String pageNum = request.getParameter("pageNum");
+int num = Integer.parseInt(request.getParameter("num"));
+String pageNum = request.getParameter("pageNum");
 
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-	String id = (String)session.getAttribute("memId");
-	AskboardDAO dao = AskboardDAO.getInstance();
-	AskboardDTO dto =  dao.getAsking(num);
-	String writer = dao.getWriter(num);
- 	   
-  int ref=dto.getRef();
-  int re_step=dto.getRe_step();
-  int re_level=dto.getRe_level();
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+String memId = (String)session.getAttribute("memId");
 
-  if(re_step == 0 || id.equals("admin") || id.equals(writer)){
-	  //0이면 새 글, admin은 모두 볼 수 있음
+AskboardDAO dao = AskboardDAO.getInstance();
+AskboardDTO dto =  dao.getAsking(num);
+
+int ref=dto.getRef();
+int grade = dao.getGradeById(memId);
+if(grade!=99 || memId.equals(memId)){
 		  
 %>
-
-
 
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	 <jsp:include page="/views/main/nav.jsp" />
-	
-	<br />
-	<div class="text-center">
-		<h1>어디 Go</h1>
-	</div>
-	<br />
-	<hr />
-	
+	 <jsp:include page="/views/main/title.jsp" /><br />
 	<!-- 문의 글 -->
      <h2 align="center">상세문의</h2>
     <br />
@@ -67,42 +56,39 @@
 		  </tr>
 	</table>
 	</div>
-	
-	<% if(session.getAttribute("memId") == null){%>
+		<%if(grade==99){%>
+		<div align="center">
+			<button type="button" class="btn btn-outline-info"  onclick="openReplyWindow('<%=dto.getNum()%>', '<%=ref%>')">답변달기</button>
+			<button type="button" class="btn btn-outline-success" OnClick="window.location='/wherego/views/board/reply/reList.jsp?boardnum=<%=dto.getNum()%>&ref=<%=ref%>'">답변보기</button>
+		    <button type="button" class="btn btn-outline-danger" Onclick="window.location='askDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
+		    <br />
+		</div>
+		<%}else{%>
+		<div align="center">
+			<button type="button" class="btn btn-outline-success" OnClick="window.location='/wherego/views/board/reply/reList.jsp?boardnum=<%=dto.getNum()%>&ref=<%=ref%>'">답변보기</button>
+		    <button type="button" class="btn btn-outline-warning" OnClick="window.location='askUpdateForm.jsp?num=<%=num%>'">수정하기</button>
+		    <button type="button" class="btn btn-outline-danger" Onclick="window.location='askDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
+		    <br />
+	    </div>
+		    
+		<%}%>
+	<% }else{%>
 	<script>
             alert("작성자 or 관리자만 접근가능!");
             window.location="/wherego/views/board/ask/askList.jsp";
         </script>
 	
-	<%}else{
-		String memId = (String) session.getAttribute("memId");
-		String admin = "admin"; 
-		if(memId.equals(admin)){%>
-		<div align="center">
-			<button type="button" class="btn btn-outline-info" OnClick="window.location='/wherego/views/board/reply/reForm.jsp?boardnum=<%=dto.getNum()%>&ref=<%=ref%>'">답변달기</button>
-			<button type="button" class="btn btn-outline-success" OnClick="window.location='/wherego/views/board/reply/reList.jsp?boardnum=<%=dto.getNum()%>&ref=<%=ref%>'">답변보기</button>
-		    <button type="button" class="btn btn-outline-danger" Onclick="window.location='askDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
-		    <br />
-		</div>
-		<%}else if(memId.equals(memId)) { %>
-		<div align="center">
-			<button type="button" class="btn btn-success" OnClick="window.location='/wherego/views/board/reply/reList.jsp?boardnum=<%=dto.getNum()%>&ref=<%=ref%>'">답변보기</button>
-		    <button type="button" class="btn btn-outline-warning" OnClick="window.location='askUpdateForm.jsp?num=<%=num%>'">수정하기</button>
-		    <button type="button" class="btn btn-outline-danger" Onclick="window.location='askDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
-		    <br />
-		    <%-- <%@ include file="/views/board/askReply/askreList.jsp" %>--%>
-		    <jsp:include page="/views/board/reply/reList.jsp?boardnum=<%=dto.getNum()%>&ref=<%=ref%>" /> 
-		<%
-		}}%>
-	<br />
-	
-	
 	<%}%>
 	
-	
-	
+	<br/>
 	<hr />
-	<br />
-		<jsp:include page="/views/main/footer.jsp" />	
+	<br/>
+		<jsp:include page="/views/main/footer.jsp" />
 </body>
+<script>
+function openReplyWindow(boardnum, ref) {
+	  var url = '/wherego/views/board/reply/reForm.jsp?boardnum=' + boardnum + '&ref=' + ref;
+	  window.open(url, 'ReplyWindow', 'width=450, height=450, resizable=yes');
+	}
+</script>
 </html>

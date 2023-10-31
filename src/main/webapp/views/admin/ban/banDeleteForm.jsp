@@ -44,15 +44,16 @@
     <h2 align="center">문의 게시판</h2>
     <br />
     <h1>정말 삭제하시겠습니까?</h1>
+    <div class="d-grid gap-2 col-6 mx-auto">
     <form action="banDeletePro.jsp" method="post" onsubmit="return writeSave()">
         <input type="hidden" name="num" value="<%= num %>">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">작성자</label>
-            <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= dto.getWriter() %>">
+            <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= dto.getWriter() %>"  readonly>
             <input type="hidden" name="id" class="form-control" value="<%= id %>">
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlInput2" class "form-label">제목</label>
+            <label for="exampleFormControlInput2" class="form-label">제목</label>
             <input type="text" name="title" class="form-control" id="exampleFormControlInput2" value="<%= dto.getTitle() %>">
         </div>
         <div class="mb-3">
@@ -63,7 +64,7 @@
             <button type="submit" class="btn btn-danger">삭제</button>
         </div>
     </form>
-    
+    </div>
     <div class="fixed-bottom">
         <hr />
         <jsp:include page="/views/main/footer.jsp" />

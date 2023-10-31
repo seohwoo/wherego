@@ -29,26 +29,19 @@
 	<% } else { %>
 <body>
      <jsp:include page="/views/main/nav.jsp" />
-    
-    <br />
-    <div class="text-center">
-        <h1>어디 Go</h1>
-    </div>
-    <br />
-    <hr />
-    
     <!-- 문의 리스트 (수정) -->
     <h2 align="center">문의 게시판 (수정)</h2>
     <br />
+    <div class="d-grid gap-2 col-6 mx-auto">
     <form action="banUpdatePro.jsp" method="post" onsubmit="return writeSave()">
         <input type="hidden" name="num" value="<%= dto.getNum() %>">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">작성자</label>
-            <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= dto.getWriter() %>">
+            <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= dto.getWriter() %>"  readonly>
             <input type="hidden" name="id" class="form-control" value="<%= id %>">
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlInput2" class "form-label">제목</label>
+            <label for="exampleFormControlInput2" class="form-label">제목</label>
             <input type="text" name="title" class="form-control" id="exampleFormControlInput2" value="<%= dto.getTitle() %>">
         </div>
         <div class="mb-3">
@@ -59,7 +52,7 @@
             <button type="submit" class="btn btn-success">수정된 문의 등록</button>
         </div>
     </form>
-    
+    </div>
     <div class="fixed-bottom">
         <hr />
         <jsp:include page="/views/main/footer.jsp" />

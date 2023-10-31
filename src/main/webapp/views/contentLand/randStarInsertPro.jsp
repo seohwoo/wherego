@@ -14,8 +14,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </head>
 <body>
 <% 
@@ -79,9 +80,8 @@ catch(Exception e){
     window.opener.location.reload(); // 원래 창을 새로고침
 	}
 	</script>
-
-평점이 등록되었습니다.
-<input type = "button" value = "닫기" OnClick = "closeAndRefresh();">
-
+	
+	<h5>평점이 등록되었습니다.</h5>
+	<input type = "button" class="btn btn-light" value="닫기" OnClick = "closeAndRefresh();">
 </body>
 </html>

@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="team02.admin.use.AdminMemberDAO" %>
-<%@ page import="team02.admin.use.AdminMemberDTO" %>
-<%@ page import="team02.admin.use.AdminBanDAO" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="team02.inquire.board.InquireDAO" %>
+<%@ page import="team02.admin.use.AdminMemberDAO" %>  
+<%@ page import="team02.admin.use.AdminMemberDTO" %> 
 
 <!DOCTYPE html>
 <html>
@@ -13,29 +14,21 @@
 <% if (session.getAttribute("memId") == null) {%>
     <script>
         alert("로그인 후 사용가능..!!!😥");
-        window.location="/wherego/views/admin/ban/banList.jsp?pageNum=1";
+        window.location="/wherego/views/board/inquire/inquireList.jsp?pageNum=1";
     </script>
 <%}else{ 
 	String id = (String) session.getAttribute("memId");
 	AdminMemberDAO daoM = AdminMemberDAO.getInstance();
-	AdminBanDAO daoB = AdminBanDAO.getInstance();		
+	InquireDAO daoB = InquireDAO.getInstance();		
 	AdminMemberDTO dtoM = daoM.userInfo(id);
-	String banId = daoB.isBanId(id);
 	
-	if (dtoM.getGrade()!=1 && dtoM.getGrade()!=99) {%>
+	if (dtoM.getGrade()!=2 && dtoM.getGrade()!=99) {%>
     <script>
-        alert("정지된 사용자만 작성 가능..!!!😥");
-        window.location="/wherego/views/admin/ban/banList.jsp?pageNum=1";
+        alert("정지된 사용자는 이용 불가능..!!!😥");
+        window.location="/wherego/views/board/inquire/inquireList.jsp?pageNum=1";
     </script>	
 
-	<%--
-		else if(id.equals(banId)) {%>
-			<script>
-				alert("변경 요청은 한번만 가능합니다..!!!😥");
-				window.location="/wherego/views/admin/ban/banList.jsp?pageNum=1";
-			</script>	 
-		<%}
-	 --%>
+	
 	<%}else{%>	
     <body>
  	<%
@@ -58,7 +51,7 @@
     <h2 align="center">Q & A</h2>
     <br />
 	
-    <form action="banPro.jsp" method="post" onsubmit="return writeSave()">
+    <form action="inquirePro.jsp" method="post" onsubmit="return writeSave()">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">작성자</label>
             <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= dtoM.getNic()  %>">

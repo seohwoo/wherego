@@ -18,16 +18,16 @@
      	LandInfoDAO dao  = LandInfoDAO.getInstance();
    
       
-      String areaCode = realAreaCode[6];
+      String areaCode = realAreaCode[0];
       int realSigunguCode = Integer.parseInt(api.findSubLocation(areaCode));
       ArrayList<String> ConentidList = new ArrayList<String>();
-      ConentidList = dao.selectContentid(areaCode);
+      ConentidList = dao.selectZeroContentid();
       
       
       for(String contentid : ConentidList) {
       HashMap<String, String> xyMap = new HashMap<String, String>();
       xyMap = api.findXY(contentid);
-         dao.insertXY(contentid, xyMap.get("mapx"), xyMap.get("mapy"), areaCode, xyMap.get("sigungucode"));
+         dao.updateXY(contentid, xyMap.get("mapx"), xyMap.get("mapy"), areaCode, xyMap.get("sigungucode"));
       }
       
       %>

@@ -48,12 +48,12 @@
 	      </tr>
 	      <tr>
 		  	<td onClick="location.href='#'">Hit! 여행지</td>
-			<td onClick="location.href='/wherego/views/board/ask/askList.jsp?pageNum=1'">문의 게시판</td>
+			<td onClick="location.href='/wherego/views/board/inquire/inquireList.jsp?pageNum=1'">문의 게시판</td>
 			<td onClick="location.href='#'">매거진 작성</td>
 		   </tr>
 		   <tr>
 		   	<td onClick="location.href='#'"> Hit! 매거진</td>
-		   	<td onClick="location.href='/wherego/views/admin/ask/askList.jsp?pageNum=1'"> 정지 게시판</td>
+		   	<td onClick="location.href='/wherego/views/admin/ban/banList.jsp?pageNum=1'"> 정지 게시판</td>
 		   	<td onClick="location.href='#'">나의 여행 계획</td>
 		   </tr>
 		   <tr>

@@ -1,12 +1,27 @@
-<%@ page import="team02.askboard.AskboardDAO" %>
-<%@ page import="team02.askboard.AskboardDTO" %>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Date"%>
+<%@ page import="team02.admin.use.AdminBanDAO" %>
+<%@ page import="team02.admin.use.AdminBanDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
+<!DOCTYPE html>
+<html>
+<head>
+	<title>어디 Go</title>
+</head>
+<% if ((String) session.getAttribute("memId") == null) {%>
+        <script>
+            alert("로그인 후 사용가능!");
+            window.location="/wherego/views/admin/ban/banList.jsp";
+        </script>
+    
+<% } else { %>
 <%
     int pageSize = 10;
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	
+	SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
     String pageNum = request.getParameter("pageNum");
     if (pageNum == null) {
@@ -18,32 +33,18 @@
     int count = 0;
     int number = 0;
     
-    String memId = (String) session.getAttribute("memId");
+    String id = (String) session.getAttribute("memId");
 	
-    List<AskboardDTO> myaskList = null;
-    AskboardDAO dao = AskboardDAO.getInstance();
-    count = dao.getMyAskCount(memId);
+    ArrayList<AdminBanDTO> myBanList = null;
+    AdminBanDAO dao = AdminBanDAO.getInstance();
+    count = dao.getMyBanCount(id);
     if (count > 0) {
-    	myaskList = dao.getMyAsk(memId, start, end);
+    	myBanList = dao.findMyBanList(id, start, end);
     }
     number = count - (currentPage - 1) * pageSize;
     
-    session.setAttribute("askListUrl", request.getRequestURL());
+    session.setAttribute("banMyListUrl", request.getRequestURL());
 %>
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<%
-    if (memId == null) {
-        
- %>
-        <script>
-            alert("로그인 후 사용가능!");
-            window.location="/wherego/views/board/ask/askList.jsp";
-        </script>
-    <body>
-<% } else { %>
 <body>
    <jsp:include page="/views/main/nav.jsp" />
 	
@@ -55,10 +56,10 @@
 	<hr />
 	
 	 <!-- 문의 리스트 -->
-    <h2 align="center">나의 전체 문의글</h2>
+    <h2 align="center">정지게시판 나의 문의글</h2>
     <br />
 		<div align="center">
-    	<button type="button" class="btn btn-light" OnClick="window.location='askList.jsp'">문의목록 보기</button>
+    	<button type="button" class="btn btn-light" OnClick="window.location='banList.jsp'">문의목록 보기</button>
     </div>
     <br />
     <% if (count == 0) { %>
@@ -78,18 +79,20 @@
                 <td align="center" width="150"><b>조회수</b></td>
             </tr>
         </thread>
-        <% for (int i = 0; i < myaskList.size(); i++) {
-            AskboardDTO dto = myaskList.get(i); %>
+        <% for (AdminBanDTO dto : myBanList) {
+        	Date reg_dateD = inputFormat.parse(dto.getReg_date());
+			String reg_date = outputFormat.format(reg_dateD);
+        %>
         <tbody>
             <tr height="30">
                 <td align="center" width="50"><%= number-- %></td>
                 <td align="center" width="250"><%= dto.getWriter() %></td>
                 <td align="center" width="250">
-                    <a href="/wherego/views/board/content.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">
+                    <a href="/wherego/views/admin/ban/banContent.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">
                         <%= dto.getTitle() %>
                     </a>
                 </td>
-                <td align="center" width="200"><%= sdf.format(dto.getReg_date()) %></td>
+                <td align="center" width="200"><%= reg_date %></td>
                 <td align="center" width="150"><%= dto.getReadcount() %></td>
             </tr>
         </tbody>
@@ -108,7 +111,7 @@
 	        
 	        if (startPage > 10) { %>
 	        <li class="page-item">
-	          <a class="page-link" href="askMyList.jsp?pageNum=<%= startPage - 10 %>" aria-label="Previous">
+	          <a class="page-link" href="banMyList.jsp?pageNum=<%= startPage - 10 %>" aria-label="Previous">
 	            <span aria-hidden="true">&laquo; 이전</span>
 	          </a>
 	        </li>
@@ -116,13 +119,13 @@
 	        
 	        for (int i = startPage; i <= endPage; i++) { %>
 	        <li class="page-item <%= (i == currentPage) ? "active" : "" %>">
-	          <a class="page-link" href="askMyList.jsp?pageNum=<%= i %>"><%= i %></a>
+	          <a class="page-link" href="banMyList.jsp?pageNum=<%= i %>"><%= i %></a>
 	        </li>
 	        <% }
 	        
 	        if (endPage < pageCount) { %>
 	        <li class="page-item">
-	          <a class="page-link" href="askMyList.jsp?pageNum=<%= startPage + 10 %>" aria-label="Next">
+	          <a class="page-link" href="banMyList.jsp?pageNum=<%= startPage + 10 %>" aria-label="Next">
 	            <span aria-hidden="true">다음 &raquo;</span>
 	          </a>
 	        </li>
@@ -135,6 +138,6 @@
 	<br/><hr /><br/>
 		<jsp:include page="/views/main/footer.jsp" />	
 	</div>
-<% }%>
 </body>
+<% }%>
 </html>

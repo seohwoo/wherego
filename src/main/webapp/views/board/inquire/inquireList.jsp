@@ -1,10 +1,11 @@
 <%@page import="java.util.Date"%>
-<%@ page import="team02.admin.use.AdminBanDAO" %>
-<%@ page import="team02.admin.use.AdminBanDTO" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
-
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="team02.inquire.board.InquireDAO" %>
+<%@ page import="team02.inquire.board.InquireDTO" %>
+    
 <%
     int pageSize = 10;
 	SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	
@@ -20,11 +21,11 @@
     int count = 0;
     int number = 0;
 
-    ArrayList<AdminBanDTO> banList = null;
-    AdminBanDAO dao = AdminBanDAO.getInstance();
-    count = dao.getBanCount();
+    ArrayList<InquireDTO> inquireList = null;
+    InquireDAO dao = InquireDAO.getInstance();
+    count = dao.getInquireCount();
     if (count > 0) {
-    	banList = dao.findBanList(start, end);
+    	inquireList = dao.findInquireList(start, end);
     }
     number = count - (currentPage - 1) * pageSize;
     
@@ -46,11 +47,11 @@
 	<hr />
 	
 	 <!-- 문의 리스트 -->
-    <h2 align="center">🚫 정지게시판 🚫</h2>
+    <h2 align="center">❓ 문의게시판 ❓</h2>
     <br />
     <div align="center">
-    	<button type="button" class="btn btn-light" OnClick="window.location='banForm.jsp'">✏ 문의하기 ✏</button>
-    	<button type="button" class="btn btn-light" OnClick="window.location='banMyList.jsp?pageNum=1'">나의 문의글</button>
+    	<button type="button" class="btn btn-light" OnClick="window.location='inquireForm.jsp'">✏ 문의하기 ✏</button>
+    	<button type="button" class="btn btn-light" OnClick="window.location='inquireMyList.jsp?pageNum=1'">나의 문의글</button>
     </div>
     <br />
 
@@ -71,7 +72,7 @@
                 <td align="center" width="150"><b>조회수</b></td>
             </tr>
         </thead>
-        <% for (AdminBanDTO dto : banList) {
+        <% for (InquireDTO dto : inquireList) {
         	Date reg_dateD = inputFormat.parse(dto.getReg_date());
 			String reg_date = outputFormat.format(reg_dateD);
             %>
@@ -80,7 +81,7 @@
                 <td align="center" width="50"><%= number-- %></td>
                 <td align="center" width="250"><%= dto.getWriter() %></td>
                 <td align="center" width="250">
-                    <a href="/wherego/views/admin/ban/banContent.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">
+                    <a href="/wherego/views/board/inquire/inquireContent.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">
                         <%= dto.getTitle() %>
                     </a>
                 </td>

@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="team02.admin.use.AdminBanDAO" %>
-<%@ page import="team02.admin.use.AdminBanDTO" %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="team02.inquire.board.InquireDAO" %>
+<%@ page import="team02.inquire.board.InquireDTO" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,15 +12,15 @@
 <% if(session.getAttribute("memId") == null){%>
 		<script>
             alert("로그인하세요 🤬🤬🤬🤬");
-            window.location="/wherego/views/admin/ban/banList.jsp";
+            window.location="/wherego/views/board/inquire/inquireList.jsp";
         </script>
 <%
 	}else{
 
 	int num = Integer.parseInt(request.getParameter("num"));
 	
-	AdminBanDAO dao = AdminBanDAO.getInstance();
-	AdminBanDTO dto = dao.findPostToNum(num);
+	InquireDAO dao = InquireDAO.getInstance();
+	InquireDTO dto = dao.findPostToNum(num);
 
     String id = (String) session.getAttribute("memId");
 	int grade = dao.isAdmin(id);
@@ -27,7 +28,7 @@
 %>
         <script>
             alert("작성자만 삭제 가능합니다");
-            window.location="/wherego/views/admin/ban/banList.jsp";
+            window.location="/wherego/views/board/inquire/inquireList.jsp";
         </script>
 <% } else { %>
     <body>
@@ -44,7 +45,7 @@
     <h2 align="center">문의 게시판</h2>
     <br />
     <h1>정말 삭제하시겠습니까?</h1>
-    <form action="banDeletePro.jsp" method="post" onsubmit="return writeSave()">
+    <form action="inquireDeletePro.jsp" method="post" onsubmit="return writeSave()">
         <input type="hidden" name="num" value="<%= num %>">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">작성자</label>
@@ -72,3 +73,4 @@
 <% }
 }%>
 </html>
+    

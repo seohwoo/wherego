@@ -14,7 +14,7 @@
 	      <!-- 텍스트 추가 -->
 	      <div class="text-overlay">
 	        <div class="text-center">
-	          <h1>어디 Go</h1>
+	          <a href="/wherego/views/main/main.jsp"  class="h1">어디 Go</a>
 	        </div>
 	      </div>
 	    </div>
@@ -23,7 +23,7 @@
 	      <!-- 텍스트 추가 -->
 	      <div class="text-overlay">
 	        <div class="text-center">
-	          <h1>어디 Go</h1>
+	          <a href="/wherego/views/main/main.jsp"  class="h1">어디 Go</a>
 	        </div>
 	      </div>
 	    </div>
@@ -32,7 +32,7 @@
 	      <!-- 텍스트 추가 -->
 	      <div class="text-overlay">
 	        <div class="text-center">
-	          <h1>어디 Go</h1>
+	          <a href="/wherego/views/main/main.jsp"  class="h1">어디 Go</a>
 	        </div>
 	      </div>
 	    </div>
@@ -54,7 +54,7 @@
     font-weight: normal;
     font-style: normal;
 	}
-	h1 {
+	.h1 {
     font-family: 'Giants-Inline', sans-serif;
 }
  .image-text {
@@ -85,8 +85,12 @@
     background: rgba(0, 0, 0, 0.5); /* 텍스트 위에 배경을 추가하려면 필요한 스타일입니다. */
   }
 
-  .text-center h1 {
+  .text-center  {
     color: white;
+  }
+  
+  .h1{
+  	 text-decoration: none;
   }
 </style>
 </html>

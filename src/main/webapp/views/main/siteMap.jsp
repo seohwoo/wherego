@@ -47,8 +47,10 @@
 		   <td onClick="location.href='#'" style="cursor: pointer;">내가 쓴 매거진</td>
 	      </tr>
 	      <tr>
-		  	<td onClick="location.href='#'" style="cursor: pointer;">Hit! 여행지</td>
-			<td onClick="location.href='/wherego/views/board/ask/askList.jsp?pageNum=1'" style="cursor: pointer;">문의 게시판</td>
+
+		  	<td onClick="location.href='#'">Hit! 여행지</td>
+			<td onClick="location.href='/wherego/views/board/inquire/inquireList.jsp?pageNum=1'">문의 게시판</td>
+
 			<td onClick="location.href='#'">매거진 작성</td>
 		   </tr>
 		   <tr>

@@ -1,4 +1,4 @@
-package team02.admin.use;
+package team02.inquire.board;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,25 +7,26 @@ import java.util.ArrayList;
 
 import team02.db.land.OracleDB;
 
-public class AdminBanDAO extends OracleDB {
-	private static AdminBanDAO instance = new AdminBanDAO();
+public class InquireDAO extends OracleDB {
 
-	public static AdminBanDAO getInstance() {
+	private static InquireDAO instance = new InquireDAO();
+
+	public static InquireDAO getInstance() {
 		return instance;
 	}
 
-	private AdminBanDAO() {
+	private InquireDAO() {
 	}
 
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 
-	public int getBanCount() {
+	public int getInquireCount() {
 		int cnt = 0;
 		conn = getConnection();
 		try {
-			String sql = "select count(*) from banboard where boardnum=0 ";
+			String sql = "select count(*) from askboard where boardnum=0 ";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -39,19 +40,19 @@ public class AdminBanDAO extends OracleDB {
 		return cnt;
 	}
 
-	public ArrayList<AdminBanDTO> findBanList(int Start, int end) {
-		ArrayList<AdminBanDTO> banList = new ArrayList<AdminBanDTO>();
+	public ArrayList<InquireDTO> findInquireList(int start, int end) {
+		ArrayList<InquireDTO> inquireList = new ArrayList<InquireDTO>();
 
 		conn = getConnection();
 		try {
-			String sql = " select * from (select ban.* , rownum r from "
-					+ " (select * from banboard order by reg_date desc ) ban) where r >=? and r <=? and boardnum=0 ";
+			String sql = " select * from (select inquire.* , rownum r from "
+					+ " (select * from askboard order by reg_date desc ) inquire) where r >=? and r <=? and boardnum=0 ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, Start);
+			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				AdminBanDTO dto = new AdminBanDTO();
+				InquireDTO dto = new InquireDTO();
 				dto.setNum(rs.getInt("num"));
 				dto.setId(rs.getString("id"));
 				dto.setWriter(rs.getString("writer"));
@@ -61,21 +62,20 @@ public class AdminBanDAO extends OracleDB {
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setRef(rs.getInt("ref"));
 				dto.setBoardnum(rs.getInt("boardnum"));
-				banList.add(dto);
+				inquireList.add(dto);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			close(rs, pstmt, conn);
 		}
-
-		return banList;
+		return inquireList;
 	}
 
-	public void insertBanBoard(AdminBanDTO dto) {
+	public void insertInquireBoard(InquireDTO dto) {
 		conn = getConnection();
 		try {
-			String sql = "insert into banboard(num, id, writer, title, content, reg_date, ref, boardnum) values(banboard_seq.NEXTVAL, ?, ?, ?, ?, sysdate, ?, ?)";
+			String sql = "insert into askboard(num, id, writer, title, content, reg_date, ref, boardnum) values(askboard_seq.NEXTVAL, ?, ?, ?, ?, sysdate, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getId());
 			pstmt.setString(2, dto.getWriter());
@@ -91,35 +91,16 @@ public class AdminBanDAO extends OracleDB {
 		}
 	}
 
-	public String isBanId(String id) {
-		String banId = "";
+	public InquireDTO findInquireContent(int num) {
+		String sql = "";
+		InquireDTO dto = new InquireDTO();
 		conn = getConnection();
 		try {
-			String sql = " select id from banboard where id=? ";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				banId = rs.getString(1);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(rs, pstmt, conn);
-		}
-		return banId;
-	}
-
-	public AdminBanDTO findBanContent(int num) {
-		String sql = "";
-		AdminBanDTO dto = new AdminBanDTO();
-		try {
-			conn = getConnection();
-			sql = "update banboard set readcount=readcount+1 where num = ?";
+			sql = " update askboard set readcount=readcount+1 where num = ? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
-			sql = "select * from banboard where num = ?";
+			sql = " select * from askboard where num = ? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -132,6 +113,7 @@ public class AdminBanDAO extends OracleDB {
 				dto.setReg_date(rs.getString("reg_date"));
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setRef(rs.getInt("ref"));
+				dto.setBoardnum(rs.getInt("boardnum"));
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -160,11 +142,11 @@ public class AdminBanDAO extends OracleDB {
 		return grade;
 	}
 
-	public int banReCnt(int boardnum) {
+	public int inquireReCnt(int boardnum) {
 		int reCnt = 0;
 		conn = getConnection();
 		try {
-			String sql = " select count(*) from banboard where boardnum=? ";
+			String sql = " select count(*) from askboard where boardnum=? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, boardnum);
 			rs = pstmt.executeQuery();
@@ -176,22 +158,21 @@ public class AdminBanDAO extends OracleDB {
 		} finally {
 			close(rs, pstmt, conn);
 		}
-
 		return reCnt;
 	}
 
-	public ArrayList<AdminBanDTO> findBanReList(int num) {
-		ArrayList<AdminBanDTO> banList = new ArrayList<AdminBanDTO>();
+	public ArrayList<InquireDTO> findInquireReList(int num) {
+		ArrayList<InquireDTO> inquireList = new ArrayList<InquireDTO>();
 
 		conn = getConnection();
 		try {
-			String sql = " select * from (select ban.* , rownum r from "
-					+ " (select * from banboard order by reg_date desc ) ban) where boardnum = ? ";
+			String sql = " select * from (select inquire.* , rownum r from "
+					+ " (select * from askboard order by reg_date desc ) inquire) where boardnum = ? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				AdminBanDTO dto = new AdminBanDTO();
+				InquireDTO dto = new InquireDTO();
 				dto.setNum(rs.getInt("num"));
 				dto.setId(rs.getString("id"));
 				dto.setWriter(rs.getString("writer"));
@@ -201,22 +182,21 @@ public class AdminBanDAO extends OracleDB {
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setRef(rs.getInt("ref"));
 				dto.setRef(rs.getInt("boardnum"));
-				banList.add(dto);
+				inquireList.add(dto);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			close(rs, pstmt, conn);
 		}
-
-		return banList;
+		return inquireList;
 	}
 
-	public int getMyBanCount(String id) {
+	public int getMyInquireCount(String id) {
 		int cnt = 0;
 		conn = getConnection();
 		try {
-			String sql = "select count(*) from banboard where boardnum=0 and id = ? ";
+			String sql = "select count(*) from askboard where boardnum=0 and id = ? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -231,20 +211,20 @@ public class AdminBanDAO extends OracleDB {
 		return cnt;
 	}
 
-	public ArrayList<AdminBanDTO> findMyBanList(String id, int Start, int end) {
-		ArrayList<AdminBanDTO> banList = new ArrayList<AdminBanDTO>();
+	public ArrayList<InquireDTO> findMyInquireList(String id, int start, int end) {
+		ArrayList<InquireDTO> inquireList = new ArrayList<InquireDTO>();
 
 		conn = getConnection();
 		try {
-			String sql = " select * from (select ban.* , rownum r from "
-					+ " (select * from banboard order by reg_date desc ) ban) where r >=? and r <=? and boardnum=0 and id = ? ";
+			String sql = " select * from (select inquire.* , rownum r from "
+					+ " (select * from askboard order by reg_date desc ) inquire) where r >=? and r <=? and boardnum=0 and id = ? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, Start);
+			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
 			pstmt.setString(3, id);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				AdminBanDTO dto = new AdminBanDTO();
+				InquireDTO dto = new InquireDTO();
 				dto.setNum(rs.getInt("num"));
 				dto.setId(rs.getString("id"));
 				dto.setWriter(rs.getString("writer"));
@@ -254,7 +234,7 @@ public class AdminBanDAO extends OracleDB {
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setRef(rs.getInt("ref"));
 				dto.setRef(rs.getInt("boardnum"));
-				banList.add(dto);
+				inquireList.add(dto);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -262,14 +242,14 @@ public class AdminBanDAO extends OracleDB {
 			close(rs, pstmt, conn);
 		}
 
-		return banList;
+		return inquireList;
 	}
 
-	public AdminBanDTO findPostToNum(int num) {
-		AdminBanDTO dto = new AdminBanDTO();
+	public InquireDTO findPostToNum(int num) {
+		InquireDTO dto = new InquireDTO();
 		conn = getConnection();
 		try {
-			String sql = " select * from banboard where num=? ";
+			String sql = " select * from askboard where num=? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -292,10 +272,10 @@ public class AdminBanDAO extends OracleDB {
 		return dto;
 	}
 
-	public void updateBanPost(AdminBanDTO dto) {
+	public void updateInquirePost(InquireDTO dto) {
 		conn = getConnection();
 		try {
-			String sql = "update banboard set writer=?,title=?,content=? where num=?";
+			String sql = "update askboard set writer=?,title=?,content=? where num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getWriter());
 			pstmt.setString(2, dto.getTitle());
@@ -310,15 +290,15 @@ public class AdminBanDAO extends OracleDB {
 		}
 	}
 
-	public void deleteBanPost(int num) {
+	public void deleteInquirePost(int num) {
 		conn = getConnection();
 		String sql = "";
 		try {
-			sql = " select num from banboard where boardnum = ? ";
+			sql = " select num from askboard where boardnum = ? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
-			sql = " delete from banboard where num = ? ";
+			sql = " delete from askboard where num = ? ";
 			while (rs.next()) {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, rs.getInt("num"));
@@ -333,4 +313,5 @@ public class AdminBanDAO extends OracleDB {
 			close(rs, pstmt, conn);
 		}
 	}
+
 }

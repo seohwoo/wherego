@@ -13,4 +13,4 @@
 	AdminBanDAO dao = AdminBanDAO.getInstance();
 	dao.updateBanPost(dto);
 %>
-<meta http-equiv="Refresh" content="0;url=banContent.jsp?num=<%=dto.getNum()%>" >
+<meta http-equiv="Refresh" content="0;url=banList.jsp" >

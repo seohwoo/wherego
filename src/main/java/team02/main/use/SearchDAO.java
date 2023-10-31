@@ -55,9 +55,13 @@ public class SearchDAO extends OracleDB {
 		try {
 			String value = "%" + searchValue + "%";
 			if (searchType.equals("land")) {
-				sql = " select * from (select search.*, rownum as r from (SELECT * FROM landinfo WHERE title LIKE ? and firstimage is not null) search ) where r>=? and r<=? ";
+				sql = " SELECT * FROM (SELECT li.*, COALESCE(lr.READCOUNT, 0) as READCOUNT, ROWNUM as r FROM landinfo "
+						+ " li LEFT JOIN landreadcount lr ON li.CONTENTID = lr.CONTENTID "
+						+ " WHERE li.TITLE LIKE ? AND li.FIRSTIMAGE IS NOT NULL ORDER BY READCOUNT DESC) WHERE r >= ? AND r <= ? ";
 			} else {
-				sql = " select * from (select search.*, rownum as r from (SELECT * FROM landinfo WHERE addr1 LIKE ? and firstimage is not null) search ) where r>=? and r<=? ";
+				sql = " SELECT * FROM (SELECT li.*, COALESCE(lr.READCOUNT, 0) as READCOUNT, ROWNUM as r FROM landinfo "
+						+ " li LEFT JOIN landreadcount lr ON li.CONTENTID = lr.CONTENTID "
+						+ " WHERE li.addr1 LIKE ? AND li.FIRSTIMAGE IS NOT NULL ORDER BY READCOUNT DESC) WHERE r >= ? AND r <= ? ";
 			}
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, value);

@@ -75,10 +75,16 @@
 					DetailrandInfoMap.put("usetime", "09:00~22:00");
 					}
 				if(DetailrandInfoMap.get("parking") == null){
-					DetailrandInfoMap.put("parking", "없음");
+					DetailrandInfoMap.put("parking", "불가");
 					}
 				if(DetailrandInfoMap.get("category") == null){
 					DetailrandInfoMap.put("category", "없음");
+					}
+				if(DetailrandInfoMap.get("chkbabycarriage") == null){
+					DetailrandInfoMap.put("chkbabycarriage", "불가");
+					}
+				if(DetailrandInfoMap.get("chkpet") == null){
+					DetailrandInfoMap.put("chkpet", "불가");
 					}
 		%>
 		

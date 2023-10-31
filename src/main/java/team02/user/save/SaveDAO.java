@@ -72,7 +72,7 @@ public class SaveDAO extends OracleDB {
 	}
 
 	//컨텐트아이디를 리스트화한것
-	public ArrayList<String> getMyPickContentIdList(String vid) {
+	public ArrayList<String> getMyPickContentIdList(String user) {
 		
 		conn = getConnection();
 		ArrayList<String> contentIdList = new ArrayList<String>();
@@ -80,7 +80,7 @@ public class SaveDAO extends OracleDB {
 		
 		try {		
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, vid);
+		pstmt.setString(1, user);
 		rs = pstmt.executeQuery();
 		while (rs.next()) {
 			contentIdList.add(rs.getString("contentid"));
@@ -112,26 +112,23 @@ public class SaveDAO extends OracleDB {
 				myPickMap.put("addr1", rs.getString("addr1"));
 				myPickMap.put("firstimage", rs.getString("firstimage"));
 				myPickMap.put("category", rs.getString("category"));
-				}
+			}
 			
-			sql = "select round(avg(stars), 1) from star where contentid=?";
+			sql = "select round(avg(stars), 1) from landreview where contentid=?";
 			pstmt = conn.prepareStatement(sql);			
 			pstmt.setString(1, contentid);			
-			rs = pstmt.executeQuery();
-			
+			rs = pstmt.executeQuery();			
 			if(rs.next()) {
-				myPickMap.put("stars",rs.getString("stars"));						
+				myPickMap.put("stars", rs.getString("round(avg(stars),1)"));						
 			}
 			
 			
 			sql = "select * from landreadcount where contentid=?";
 			pstmt = conn.prepareStatement(sql);			
 			pstmt.setString(1, contentid);			
-			rs = pstmt.executeQuery();
-						
+			rs = pstmt.executeQuery();	
 			if (rs.next()) {
-			    int readcount = rs.getInt("readcount"); // int 형식으로 가져옴
-			    myPickMap.put("readcount", String.valueOf(readcount)); // 문자열로 변환하지 않고 그대로 저장
+				myPickMap.put("readcount", rs.getString("readcount"));
 			}
 			
 		} catch (Exception e) {
@@ -145,14 +142,14 @@ public class SaveDAO extends OracleDB {
 		
 	//찜목록 카운트 만들기
 	
-	public int getmypickpoint(String vid) throws Exception {
+	public int getmypickpoint(String user) throws Exception {
 	      int x= 0;
 	      
 	      try {
 	         conn = getConnection();
 	         String sql = "select count(*) from landsave WHERE id = ?";
 	         pstmt = conn.prepareStatement(sql);
-	         pstmt.setString(1, vid); 
+	         pstmt.setString(1, user); 
 	         rs = pstmt.executeQuery();
 	         if (rs.next()) {
 	            x = rs.getInt(1);
@@ -189,15 +186,16 @@ public class SaveDAO extends OracleDB {
 	
 		//리스트로된 컨텐트 아이디 만들어 리뷰 불러오기
 	
-	public HashMap<String, String> myReviewList(String reviewContentid){
+	public HashMap<String, String> myReviewList(String reviewContentid, String user){
 		HashMap<String, String> myReviewMap = new HashMap<String, String>();
 		conn = getConnection();
 		String sql = "";
 		
 		try {
-			sql = "select * from landreview where contentid = ?";
+			sql = "select * from landreview where contentid = ? and id=? ";
 			pstmt = conn.prepareStatement(sql);			
 			pstmt.setString(1, reviewContentid);			
+			pstmt.setString(2, user);			
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()){

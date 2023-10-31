@@ -6,17 +6,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
 <meta charset="UTF-8">
 <title>어디Go</title>
 </head>
 <body>
 	<jsp:include page="/views/main/nav.jsp" />
-	<br />
-	<div class="text-center">
-		<h1>어디 Go</h1>
-	</div>
-	<br />
-	<hr />
+	<jsp:include page="/views/main/title.jsp" />
 	
 	<br />
 	<h4 align="center">가고싶은<mark>지역</mark>을 골라보세요!</h4> <br />

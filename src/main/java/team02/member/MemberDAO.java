@@ -2,7 +2,10 @@ package team02.member;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 import team02.db.land.OracleDB;
 import team02.member.MemberDTO;
 
@@ -30,8 +33,20 @@ public class MemberDAO extends OracleDB {
             pstmt.setString(4, member.getNic());
             pstmt.setString(5, member.getBirth());
             pstmt.setString(6, member.getGender());
-            pstmt.setString(7, member.getAddress());
-            pstmt.setString(8, member.getEmail() + "@" + member.getEmailOption());
+
+            //주소와 상세주소가 모두 존재하는 경우 합쳐서 저장
+            if (member.getAddress() != null && member.getAddressDetail() != null) {
+                pstmt.setString(7, member.getAddress() + " " + member.getAddressDetail());
+            } else if (member.getAddress() != null) {
+                pstmt.setString(7, member.getAddress());
+            } else {
+                pstmt.setNull(7, Types.VARCHAR); // 주소가 없는 경우 DB에 null 저장
+            }
+            
+            // 이메일과 이메일 옵션을 합쳐서 저장
+            String fullEmail = member.getEmail() + "@" + member.getEmailOption();
+            pstmt.setString(8, fullEmail);
+
             pstmt.setString(9, member.getPhone());           
             pstmt.executeUpdate();    
     	}catch(Exception e) {      
@@ -224,6 +239,7 @@ public class MemberDAO extends OracleDB {
             }catch(Exception e) {
             e.printStackTrace();
 
+
          	}finally {
         	 close(rs, pstmt, conn);
          	}
@@ -245,4 +261,73 @@ public class MemberDAO extends OracleDB {
         	 close(rs, pstmt, conn);
         }
     }
+    
+    
+    
+    
+    
+    //////////////////////////////
+    
+    public int getmember2() throws Exception {
+		int x=0;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select count(*) from member");
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				x= rs.getInt(1); 
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return x; 
+	}
+    
+    public List getArticles(int start, int end) throws Exception {
+		
+		List articleList=null;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from member order by reg_date asc");
+					
+					pstmt.setInt(1, start); 
+					pstmt.setInt(2, end); 
+
+					rs = pstmt.executeQuery(); 
+					if (rs.next()) {
+						articleList = new ArrayList(end); 
+						do{ 
+							MemberDTO article= new MemberDTO();
+							
+							article.setId(rs.getString("id"));  
+							article.setPw(rs.getString("pw"));  
+							article.setName(rs.getString("name"));
+							article.setNic(rs.getString("nic"));
+							article.setBirth(rs.getString("birth"));
+							article.setGender(rs.getString("gender"));
+							article.setAddress(rs.getString("address"));
+							article.setEmail(rs.getString("email"));
+							article.setPhone(rs.getString("phone"));
+							article.setGrade(rs.getInt("grade"));
+							article.setTotal(rs.getInt("total"));
+							article.setProfile(rs.getString("profile"));
+							article.setReg_date(rs.getString("reg_date"));
+							articleList.add(article); 
+						}while(rs.next());
+					}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+
+		
+		return articleList;
+	}
+    
+    
+    
+       
  }   

@@ -17,36 +17,38 @@
 <%@page import = "java.util.HashMap" %>
 
 
+
 <% request.setCharacterEncoding("UTF-8");%>
 
-<%  int pageSize = 10;%>
+<%  int pageSize = 10;
+	String user = request.getParameter("id");
+%>
 <%
 	//찜목록 리스트화 시키기
-    String vid = (String)session.getAttribute("memId");
     SaveDAO pick = SaveDAO.getInstance();
-    ArrayList<String> p = pick.getMyPickContentIdList(vid);
+    ArrayList<String> p = pick.getMyPickContentIdList(user);
     String contentid ="";
     
     //찜목록 카운트
     int point = 0;     
     List getmypickpoint = null;     
     SaveDAO dbmypick = SaveDAO.getInstance();   
-    point = dbmypick.getmypickpoint(vid);  
+    point = dbmypick.getmypickpoint(user);  
 %>
 
 
 <%
 	//리뷰 리스트화 시키기
-	String rid = (String)session.getAttribute("memId");
 	SaveDAO review = SaveDAO.getInstance();
-	ArrayList<String> r = review.getMyreviewContentIdList(rid);
+	ArrayList<String> r = review.getMyreviewContentIdList(user);
 	String reviewContentid = "";
+
 	
 	//리뷰 갯수
 	int count = 0; 
 	List getReviewCount = null;
 	SaveDAO reviewC = SaveDAO.getInstance();
-	count = reviewC.getReviewCount(rid);
+	count = reviewC.getReviewCount(user);
 %>
 
   
@@ -65,22 +67,26 @@
    
 <%
    String id = (String) session.getAttribute("memId");
-      
+   
+   
    MemberDAO manager = MemberDAO.getInstance();
    MemberDTO c = manager.getMember(id);
+   MemberDTO userDtO = manager.getMember(user);
    
    try{
 %>
+
+<input type="button" value="magWriteForm" onclick="window.location='/wherego/views/mag/magWriteForm.jsp'">
  
  <!-- 여기는 프로필 --> 
 <center> 
 <%
-   if(id != null){
-     if(id.equals("admin") || id.equals(c.getId())){%>
-          
+	if(id.equals(user) || id.equals("admin")){%>
       <!-- 프로필 이미지 및 닉네임 표시 -->
        <img width="150" src="/wherego/image/<%= c.getProfile() %>"><br>         
-       <%= c.getNic() %> 마이페이지<p><br>
+       <%= c.getNic() %> 마이페이지<br>
+       
+       <%= c.getGrade() %>등급의 회원입니다.<br />  
        <button id="changeProfile" onclick="openProfileWindow()">프로필 이미지 변경</button>
 
         <!-- 프로필 변경 버튼 클릭 시 새 창 열기 -->
@@ -92,10 +98,11 @@
           <input type="button" value="수정하기" OnClick="window.location='updateForm.jsp'">
           <input type="button" value="삭제하기" OnClick="window.location='deleteForm.jsp'">                
      <%}else{%>  
-      <img width="150" src="/team02/views/mypage/DEFAULT/<%= c.getProfile() %>">
-      현재 <%= c.getNic() %> 회원 페이지를 구경하고 있습니다.<p><br>        
+      <img width="150" src="/team02/views/mypage/DEFAULT/<%= userDtO.getProfile() %>">
+      현재 <%= userDtO.getNic() %> 회원 페이지를 구경하고 있습니다.<br />        
+      <%= userDtO.getGrade() %>등급의 회원입니다.<br />        
      <%} %>    
-<%} %> 
+
 </center>
    
 <!--  위로는 프로필 -->
@@ -109,14 +116,13 @@
       <tr>
        <td>     
 	       <%
-	         if(id != null){
-		         if(id.equals("admin") ||id.equals(c.getId())){%>                                     
+	         if(id.equals(user) || id.equals("admin")){%>		                                            
 		         <input type="button" value="myreviews" onclick="myreviews_open()">
 		         <input type="button" value="mypick" onclick="mypick_open()">
 		       <%} else {%>          
 		         <input type="button" value="myreviews" onclick="myreviews_open()">
 		       <%} %>
-	       <%} %> 
+	       
        </td>     
       </tr>
      </table>   
@@ -129,11 +135,11 @@
 <!-- 아래는 리뷰리스트 -->
        
 	<div id="myreviews" style="width:100%;   display:none;">
-     <p><%=c.getNic()%>님이 작성한 리뷰 리스트 입니다.</p> 
+     <p><%=userDtO.getNic()%>님이 작성한 리뷰 리스트 입니다.</p> 
         <b>글목록(전체 글:<%=count%>)</b>
 
     <%
-     if (point == 0) {
+     if (count == 0) {
     %>
      <center>
       <table width="700" border="1" cellpadding="0" cellspacing="0">
@@ -163,7 +169,7 @@
 	 HashMap<String,String> myReviewMap = new HashMap<String,String>();
 	 for(int i = 0 ; i < r.size(); i++){
 		   reviewContentid = r.get(i);
-		   myReviewMap = review.myReviewList(reviewContentid);
+		   myReviewMap = review.myReviewList(reviewContentid, user);
  %>    
 	   <tr height="30" >   		    
 			<td><%=myReviewMap.get("title")%></td>
@@ -227,8 +233,8 @@
       <tr  height="30" > 
          <td align="center"  width="100"  >지역명</td>              
          <td align="center"  width="150"  >시/구/군</td> 
-         <td align="center"  width="200" >명소 이름</td> 
          <td align="center"  width="300"  >주소</td> 
+         <td align="center"  width="200" >명소 이름</td> 
          <td align="center"  width="150" >사진</td>             
          <td align="center"  width="200" >카테고리</td>                   
          <td align="center"  width="200" >평균별점</td>                   
@@ -245,8 +251,8 @@
 	 <tr  height="30" > 
 	   <td> <%=myPickMap.get("areacodename")%></td> 
 	   <td><%=myPickMap.get("sigungucodename")%></td>
-	   <td> <%=myPickMap.get("title")%></td>
 	   <td> <%=myPickMap.get("addr1")%></td>
+	   <td> <%=myPickMap.get("title")%></td>	   
 	   <td> <img width="150" height="150"  src="<%=myPickMap.get("firstimage")%>"></td>
 	   <td><%=myPickMap.get("category") %></td>
 	   <td><%=myPickMap.get("stars") %></td>

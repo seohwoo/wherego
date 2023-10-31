@@ -12,6 +12,8 @@ public class AdminMemberDTO {
 	private String phone;
 	private String profile;
 	private String reg_date;
+	private int grade;
+	private int total;
 
 	public String getId() {
 		return id;
@@ -99,6 +101,22 @@ public class AdminMemberDTO {
 
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
+	}
+
+	public int getGrade() {
+		return grade;
+	}
+
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
 	}
 
 }

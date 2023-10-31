@@ -60,7 +60,7 @@ public class AdminBanDAO extends OracleDB {
 				dto.setReg_date(rs.getString("reg_date"));
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setRef(rs.getInt("ref"));
-				dto.setRef(rs.getInt("boardnum"));
+				dto.setBoardnum(rs.getInt("boardnum"));
 				banList.add(dto);
 			}
 		} catch (Exception e) {
@@ -90,7 +90,7 @@ public class AdminBanDAO extends OracleDB {
 			close(rs, pstmt, conn);
 		}
 	}
-	
+
 	public String isBanId(String id) {
 		String banId = "";
 		conn = getConnection();
@@ -99,23 +99,23 @@ public class AdminBanDAO extends OracleDB {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				banId = rs.getString(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rs, pstmt, conn);
 		}
 		return banId;
 	}
-	
-	public AdminBanDTO findBanContent(int num){
-		String sql ="";
+
+	public AdminBanDTO findBanContent(int num) {
+		String sql = "";
 		AdminBanDTO dto = new AdminBanDTO();
 		try {
 			conn = getConnection();
-			sql =  "update banboard set readcount=readcount+1 where num = ?";
+			sql = "update banboard set readcount=readcount+1 where num = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
@@ -140,7 +140,7 @@ public class AdminBanDAO extends OracleDB {
 		}
 		return dto;
 	}
-	
+
 	public int isAdmin(String id) {
 		int grade = 0;
 		conn = getConnection();
@@ -149,19 +149,17 @@ public class AdminBanDAO extends OracleDB {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				grade = rs.getInt(1);
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} 
-		finally {
+		} finally {
 			close(rs, pstmt, conn);
 		}
 		return grade;
 	}
-	
-	
+
 	public int banReCnt(int boardnum) {
 		int reCnt = 0;
 		conn = getConnection();
@@ -170,19 +168,18 @@ public class AdminBanDAO extends OracleDB {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, boardnum);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				reCnt = rs.getInt(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rs, pstmt, conn);
 		}
-		
-		
+
 		return reCnt;
 	}
-	
+
 	public ArrayList<AdminBanDTO> findBanReList(int num) {
 		ArrayList<AdminBanDTO> banList = new ArrayList<AdminBanDTO>();
 
@@ -214,7 +211,7 @@ public class AdminBanDAO extends OracleDB {
 
 		return banList;
 	}
-	
+
 	public int getMyBanCount(String id) {
 		int cnt = 0;
 		conn = getConnection();
@@ -233,7 +230,7 @@ public class AdminBanDAO extends OracleDB {
 		}
 		return cnt;
 	}
-	
+
 	public ArrayList<AdminBanDTO> findMyBanList(String id, int Start, int end) {
 		ArrayList<AdminBanDTO> banList = new ArrayList<AdminBanDTO>();
 
@@ -267,7 +264,7 @@ public class AdminBanDAO extends OracleDB {
 
 		return banList;
 	}
-	
+
 	public AdminBanDTO findPostToNum(int num) {
 		AdminBanDTO dto = new AdminBanDTO();
 		conn = getConnection();
@@ -276,7 +273,7 @@ public class AdminBanDAO extends OracleDB {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				dto.setNum(rs.getInt("num"));
 				dto.setId(rs.getString("id"));
 				dto.setWriter(rs.getString("writer"));
@@ -294,7 +291,7 @@ public class AdminBanDAO extends OracleDB {
 		}
 		return dto;
 	}
-	
+
 	public void updateBanPost(AdminBanDTO dto) {
 		conn = getConnection();
 		try {
@@ -306,13 +303,13 @@ public class AdminBanDAO extends OracleDB {
 			pstmt.setInt(4, dto.getNum());
 			pstmt.executeUpdate();
 			rs = pstmt.executeQuery();
-		} catch(Exception ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
 			close(rs, pstmt, conn);
 		}
 	}
-	
+
 	public void deleteBanPost(int num) {
 		conn = getConnection();
 		String sql = "";
@@ -322,7 +319,7 @@ public class AdminBanDAO extends OracleDB {
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
 			sql = " delete from banboard where num = ? ";
-			while(rs.next()) {
+			while (rs.next()) {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, rs.getInt("num"));
 				pstmt.executeUpdate();
@@ -330,7 +327,7 @@ public class AdminBanDAO extends OracleDB {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
-		} catch(Exception ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
 			close(rs, pstmt, conn);

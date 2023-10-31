@@ -90,9 +90,8 @@ public class SearchDAO extends OracleDB {
 		return landList;
 	}
 
-	
-	public ArrayList<HashMap<String,String>> searchMap(String searchValue, String searchType) {
-		ArrayList<HashMap<String,String>> landList = new ArrayList<HashMap<String,String>>();
+	public ArrayList<HashMap<String, String>> searchMap(String searchValue, String searchType) {
+		ArrayList<HashMap<String, String>> landList = new ArrayList<HashMap<String, String>>();
 		String sql = "";
 		conn = getConnection();
 		try {
@@ -110,9 +109,9 @@ public class SearchDAO extends OracleDB {
 			pstmt.setString(1, value);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				HashMap<String,String> landMap = new HashMap<String, String>();
-				landMap.put("contentid",rs.getString("contentid"));
-				landMap.put("title",rs.getString("title"));
+				HashMap<String, String> landMap = new HashMap<String, String>();
+				landMap.put("contentid", rs.getString("contentid"));
+				landMap.put("title", rs.getString("title"));
 				landList.add(landMap);
 			}
 		} catch (Exception e) {
@@ -123,25 +122,23 @@ public class SearchDAO extends OracleDB {
 
 		return landList;
 	}
-	
-	public ArrayList<String> selectMapXY (String contentid) {
-		ArrayList<String> MapXYList = new ArrayList<String>();
+
+	public HashMap<String, String> selectMapXY(String contentid) {
+		HashMap<String, String> xyMap = new HashMap<String, String>();
 		conn = getConnection();
 		try {
 			pstmt = conn.prepareStatement("select * from landloc where contentid = ?");
 			pstmt.setString(1, contentid);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				MapXYList.add(rs.getString("mapx"));
-				MapXYList.add(rs.getString("mapy"));
-				
+				xyMap.put("mapx", rs.getString("mapx"));
+				xyMap.put("mapy", rs.getString("mapy"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return MapXYList;
+		return xyMap;
 	}
-	
-	
+
 }

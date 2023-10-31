@@ -176,7 +176,7 @@ public class LocationLandDAO extends OracleDB {
 	      return x;       
 	   }
 	   
-	         /* 찜목록 내용 가져오기  이거 필요 없는듯*/
+	         
 	   public List getmypick(int stRow, int edRow, String sid) {
 	      List mypicklist = new ArrayList();
 	      

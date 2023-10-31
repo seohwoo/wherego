@@ -3,6 +3,12 @@
 <%@ page import = "team02.mag.MagDTO" %>
 <%@ page import = "java.util.List" %>
 
+<!-- 찜하기 -->
+<%@ page import = "team02.user.save.SaveDAO"%> 
+<%@ page import = "team02.user.save.SaveDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import = "java.util.List" %>
+<%@page import = "java.util.HashMap" %>
 
 <title>관리자 메거진 리스트 보기</title>
 
@@ -12,6 +18,7 @@
 
 <%
    String id = (String) session.getAttribute("memId");
+  
     String pageNum = request.getParameter("pageNum");
     if (pageNum == null) {
         pageNum = "1";
@@ -25,12 +32,23 @@
 
     List MagList = null;
     MagDAO dbPro =  MagDAO.getInstance();
-    count = dbPro.getMagCount();   // 만들어야함  메거진 총 갯수
-    if (count > 0) {
-    	MagList = dbPro.getMagines(startRow, endRow, id);  // 메거진 시작과 끝
+    
+    if (count > 0) { 
+    	MagList = dbPro.getMagines(startRow, endRow);  // 메거진 시작과 끝
     } 
 
    number=count-(currentPage-1)*pageSize;
+   
+ //찜목록 리스트화 시키기
+   SaveDAO adminPick = SaveDAO.getInstance();
+   ArrayList<String> p = adminPick.getAdminContentIdList(id);
+   String contentid ="";
+   
+   
+ //찜목록 카운트        
+   List getmypickpoint = null;     
+   SaveDAO dbmypick = SaveDAO.getInstance();   
+   count = dbmypick.getAdminCount(); 
 %>
 
 
@@ -112,7 +130,4 @@
     }
 %>
 </center>
-
-
-
 

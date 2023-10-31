@@ -22,7 +22,7 @@
    MemberDTO c = manager.getMember(id); 
 %>    
     <form action="uploadProfile.jsp" method="post" enctype="multipart/form-data">
-		<label class="form-label" >프로필 이미지 선택:</label>
+		<label class="form-label" >프로필 이미지 선택</label>
 		<div class="input-group mb-3">
 			<input class="form-control" type="file" id="profile" name="profile">
 			<input type="submit" class="btn btn-outline-secondary" value="업로드" >

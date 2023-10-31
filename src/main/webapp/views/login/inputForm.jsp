@@ -23,7 +23,6 @@
 	<table>
 	
 	<tr>
-
 		<td>
 		<div class="input-group mb-3">
 		 <span class="input-group-text">이름</span>
@@ -79,18 +78,16 @@
 	
 	<tr>
 		<td>	
-			<div class="input-group mb-3">	
+			<div>	
 				<input class="form-check-input" type="radio"  name="gender" value="남자" required="required"> &nbsp;
 				<label class="form-check-label" > 남성</label> &nbsp;
 				<input class="form-check-input" type="radio" name="gender" value="여자" required="required"> &nbsp;
 				<label class="form-check-label" > 여성</label>
 			</div>
-
 		</td>
 	</tr>
 	
 	<tr>
-
 		<td>
 			<div class="input-group mb-3">	
 				<input type="text" class="form-control" id="sample5_address" name="address" required="required" > 

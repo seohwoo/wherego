@@ -4,113 +4,111 @@
 <%@ include file="/views/login/color.jsp"%>
 <% request.setCharacterEncoding("UTF-8");%>
 
-
-
-<title>어디 GO 회원정보 수정</title>
-
-
-
+<html>
+<head>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<title> 어디 Go 회원정보 수정</title>
+</head>
+<body>
+	<jsp:include page="/views/main/nav.jsp" />	
+	<jsp:include page="/views/main/title.jsp" />
+	
+	<br />
+	
 <%
 	String id = (String)session.getAttribute("memId");
 		
 	MemberDAO manager = MemberDAO.getInstance();
 	MemberDTO c = manager.getMember(id); 
-	try{
 %>
-<body >
-<form method="post" action="updatePro.jsp" name="userinput" onsubmit="return checkIt()">
+<h3 align="center">✔회원정보 수정✔</h3> <br />
 
-	<table width="600" border="1" cellspacing="0" cellpadding="3"  align="center">
-	
-    <tr > 
-      <td  colspan="2" height="39"  align="center">
-	     <font size="+1" ><b>어디 GO 회원 정보수정</b></font></td>
-    </tr>
+<form method="post" action="updatePro.jsp" name="userinput" onsubmit="return checkIt()" style="margin: auto; width: 400px;">
+
+	<table>
+	<tr>
+
+		<td>
+		<div class="input-group mb-3">
+		 <span class="input-group-text">이름</span>
+		<input type="text" class="form-control" name="name" value="<%=c.getName()%>">
+		</div>
+		</td>	
+	</tr>
     
     <tr>
-      <td colspan="2" class="normal" align="center">회원의 정보를 수정합니다.</td>
+    	<td> 
+    		<div class="input-group mb-3">
+			<span class="input-group-text">닉네임</span>
+        	<input type="text"  class="form-control" name="nic" value="<%=c.getNic()%>">
+        	</div>
+      </td>
     </tr>
     
      <tr> 
-      <td width="200" ><b>아이디 입력</b></td>
-      <td width="400" >&nbsp;</td>
-    <tr>  
-	
-	<tr> 
-      <td  width="200"> 사용자 ID</td>
-      <td  width="400"><%=c.getId()%></td>
-    </tr>
+     	<td>
+     		<div class="input-group mb-3">
+			<span class="input-group-text">아이디</span>
+			<input type="text" class="form-control" name="id" value="<%=c.getId()%>" readonly>
+    		</div>
+  		</td>
+	</tr>
     
-     <tr> 
-      <td width="200"> 비밀번호</td>
-      <td width="400"> 
-        <input type="password" name="pw" size="20" maxlength="12" value="<%=c.getPw()%>">
-      </td>
-    </tr>  
+    <tr> 
+     	<td>
+     		<div class="input-group mb-3">
+			<span class="input-group-text">비밀번호</span>
+			<input type="password" class="form-control" name="pw" required>
+    		</div>
+  		</td>
+	</tr>
 
-	 <tr> 
-      <td  width="200" ><b>개인정보 수정사항</b></td>
-      <td width="400" >&nbsp;</td>
-    </tr>  
-
-	 <tr> 
-      <td   width="200">사용자 이름</td>
-      <td  width="400"> 
-        <input type="text" name="name" size="20" maxlength="12" value="<%=c.getName()%>">
-      </td>
-    </tr>
+	<tr>
+		<td>
+			<div class="input-group mb-3">	
+				<input type="text" class="form-control" id="sample5_address" name="address"  > 
+				<input type="button" class="btn btn-outline-secondary" onclick="sample5_execDaumPostcode()" value="주소 검색" required><br>
+			</div>
+			<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
+			<div class="input-group mb-3">	
+			<input type="text" class="form-control"  name="addressDetail" placeholder="상세주소" required>
+			</div>
+		</td>
+	</tr>
     
-    <tr> 
-      <td   width="200">사용자 닉네임</td>
-      <td  width="400"> 
-        <input type="text" name="nic" size="20" maxlength="10" value="<%=c.getNic()%>">
-      </td>
-    </tr>
+    <tr>
+    	<td>
+   			<div class="input-group mb-3">
+			<span class="input-group-text">이메일</span>
+			<%if(c.getEmail()==null){%>
+		  	<input type="text" class="form-control" name="email" >
+			<%}else{%>
+			<input type="text" class="form-control" name="email" value="<%=c.getEmail()%>">
+			<%} %>
+    		</div>
+   		</td>
+	</tr>
     
-    <tr> 
-      <td   width="200">주 소</td>
-      <td  width="400"> 
-        <input type="text" name="address" size="30" maxlength="30" value="<%=c.getAddress()%>" >
-     
-      </td>
-    </tr>
-    
-    
-    
-    <tr> 
-      <td width="200">E-Mail</td>
-      <td width="400">
-	    <%if(c.getEmail()==null){%>
-		  <input type="text" name="email" size="40" maxlength="30" >
-		<%}else{%>
-          <input type="text" name="email" size="40" maxlength="30" value="<%=c.getEmail()%>">	
-		<%}%>
-      </td>
-    </tr>
-    
-    <tr> 
-      <td   width="200">전화번호</td>
-      <td  width="400"> 
-        <input type="text" name="phone" size="20" maxlength="12" value="<%=c.getPhone()%>">
-        
-        
-      </td>
-    </tr>
-    
-    
-   
-    
-	<tr> 
-      <td colspan="2" align="center"> 
-       <input type="submit" name="sujung" value="수   정" >
-       <input type="button" value="취  소" onclick="javascript:window.location='/wherego/views/mypage/myPage.jsp?id=<%=id%> '">      
-      </td>
-    </tr>
-
-	  </table>
+    <tr>
+		<td width="400">	
+		<span class="input-group-text">전화번호</span>
+		<input type="text"  class="form-control" name="phone" value="<%=c.getPhone()%>"> </td>
+	</tr> 
+ </table>
+ <br />
+	<div class="text-center">
+	 	<input class="btn btn-outline-success" type="submit" name="confirm" value="수   정" >
+	    <input class="btn btn-outline-warning" type="reset" name="reset" value="취  소" onclick="javascript:window.location='/wherego/views/mypage/myPage.jsp?id=<%=id%> '">
+	</div>
+ 
 </form>
+
+	<br/>
+	<hr />
+	<br/>
+		<jsp:include page="/views/main/footer.jsp" />
 </body>
-<%}catch(Exception e){}%>
 </html>
 
 

@@ -14,7 +14,8 @@
 <title>어디GO</title>
 </head>
 <body>
-	<jsp:include page="/views/main/nav.jsp" />	
+	<jsp:include page="/views/main/nav.jsp" />
+		
 	<%
 		String searchType  = request.getParameter("searchType");
 		String searchValue  = request.getParameter("searchValue");
@@ -44,7 +45,7 @@
 		for(LocationLandDTO dto : landList) {
 		      double avg = landO.avgStar(dto.getContentid());
 		      int readCount = landO.getReadCount(dto.getContentid());
-			  int totalSave = saveDao.getSaveCount(dto.getContentid());
+			  int totalSave = landO.getLandSaveCount(Integer.parseInt(dto.getContentid()));
 			  int totalReview = landO.getReviewCount(dto.getContentid());
 	%>
 	
@@ -71,7 +72,7 @@
 			        if(avg % 1 != 0){%>
 			        &#x2606;
 			        <%}%>(<%=avg %>)</small></p>
-			        <p align="left" class="card-text"><small >❤  (0)</small></p>
+			        <p align="left" class="card-text"><small >❤  (<%= totalSave%>)</small></p>
 			        <p align="left" class="card-text"><small >조회수 : <%=readCount %></small></p>
 			      </div>
 				</button>
@@ -80,7 +81,7 @@
 			</div> 
 			<%} %>
 			<br />
-			<div id="map" style="width:100%;height:600px;"></div>
+<div id="map" style="width:45%;height:600px;"></div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4a9d59c81d3321fd7e3b885e4c1f6fcc"></script>
 <script>
@@ -92,6 +93,10 @@ var x, y;
 <%	
 	for(LocationLandDTO dto : landList) {
 	HashMap<String, String> xyMap = dao.selectMapXY(dto.getContentid());
+	if(xyMap.get("mapx")==null || xyMap.get("mapy")==null) {
+		xyMap.put("mapx", "0");
+		xyMap.put("mapy", "0");
+	}
 	double x = Double.parseDouble(xyMap.get("mapx"));
 	double y = Double.parseDouble(xyMap.get("mapy"));
 	%>
@@ -152,6 +157,7 @@ for (var i = 0; i < positions.length; i ++) {
     });
 }
 </script>
+	
 	<br />
   		<nav aria-label="Page navigation example">
 	  <ul class="pagination justify-content-center">

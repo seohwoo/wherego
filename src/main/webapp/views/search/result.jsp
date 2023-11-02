@@ -87,27 +87,30 @@
 
  
 var positions = [];
-var x, y;
-
 <%	
+	double x=0.0, y=0.0, fistX=0.0, fistY=0.0;
+	int cnt=1;
 	for(LocationLandDTO dto : landList) {
-	HashMap<String, String> xyMap = dao.selectMapXY(dto.getContentid());
-	double x = Double.parseDouble(xyMap.get("mapx"));
-	double y = Double.parseDouble(xyMap.get("mapy"));
+		HashMap<String, String> xyMap = dao.selectMapXY(dto.getContentid());
+		y = Double.parseDouble(xyMap.get("mapx"));
+		x = Double.parseDouble(xyMap.get("mapy"));
+		if(cnt==1) {
+			fistX = x;
+			fistY = y;
+			cnt++;
+		}
 	%>
-	x = <%=y%>;
-	y = <%=x%>;
 	var newPosition = {
 		title: ' <%= dto.getTitle()%> ',
-		latlng: new kakao.maps.LatLng(x, y)
+		latlng: new kakao.maps.LatLng(<%=x%>, <%=y%>)
 	};
 	positions.push(newPosition);
 <%}%>
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 mapOption = { 
-    center: new kakao.maps.LatLng(x, y), // 지도의 중심좌표
-    level: 8 // 지도의 확대 레벨
+    center: new kakao.maps.LatLng(<%=fistX%>, <%=fistY%>+0.25), // 지도의 중심좌표
+    level: 9 // 지도의 확대 레벨
 };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다

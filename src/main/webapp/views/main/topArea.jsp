@@ -30,6 +30,7 @@
 			    double avg = landO.avgStar(favoriteLandMap.get("contentid"));
 			    int totalSave = saveDao.getSaveCount(favoriteLandMap.get("contentid"));
 			    int totalReview = landO.getReviewCount(favoriteLandMap.get("contentid"));
+			    int readCnt = landO.getReadCount(favoriteLandMap.get("contentid"));
 			    LocationLandDTO dto = dao.selectLandToCid(favoriteLandMap.get("contentid"));
 			    %>
 
@@ -48,7 +49,7 @@
 							    <% } else { %>
 							      <i class="far fa-star" style="color: #ffc83d;"></i>
 							    <% } 
-				        }%> <%=avg %> (<%=totalReview %>) &nbsp; ❤ (<%=landSaveCount %>) &nbsp; 🔎 (<%=readCount %>)</small></p>
+				        }%> <%=avg %> (<%=totalReview %>) &nbsp; ❤ (<%=totalSave %>) &nbsp; 🔎 (<%=readCnt %>)</small></p>
 
 				    		<a href="/wherego/views/contentLand/contentRand.jsp?areaCode=<%=dto.getAreacode() %>&sigunguCode=<%=dto.getSigunguCode() %>&contentid=<%=favoriteLandMap.get("contentid")%>&pageNum=1" class="btn btn-secondary"> 더보기</a>
 

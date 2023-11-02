@@ -144,9 +144,17 @@
 			         <td><%=myReviewTitleMap.get("title")%></td>
 			         <td><%=myReviewMap.get("review")%></td>
 			         <td>
-			         <% for(int stars = 1; stars <= Integer.parseInt(myReviewMap.get("stars")); stars++){%>
-			         &#11088;
-			         <%}%>
+			         <%
+						int fullStars = Integer.parseInt(myReviewMap.get("stars")); // 전체 별 개수
+						int emptyStars = 5 - fullStars; // 빈 별 개수
+						
+						for (int stars = 1; stars <= fullStars; stars++) { %>
+						    &#11088; <!-- 노란 별 -->
+						<% }
+						for (int stars = 1; stars <= emptyStars; stars++) { %>
+						    &#9734; <!-- 빈 별 -->
+						<% }
+						%>
 			         </td>
 			         <td><%=myReviewMap.get("reg_date")%></td>
 			      </tr>

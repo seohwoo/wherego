@@ -35,11 +35,15 @@
 			
 		reviewInfo = reviewList.get(i);
 		int reviewNumCount = 0;
-		reviewNumCount = landO.getReviewUpCount(Integer.parseInt(reviewInfo.get("reviewnum")));%>
+		reviewNumCount = landO.getReviewUpCount(Integer.parseInt(reviewInfo.get("reviewnum")));
+		String nic = landO.getReviewNic(reviewInfo.get("id"));
+		String grade = landO.getReviewGrade(reviewInfo.get("id"));
+		String gradeName = landO.getReviewGradeName(grade);
+		%>
 		<div class="d-grid gap-2 col-6 mx-auto">
 			<div class="card border-light mb-3" style="position: relative;">
 			<!-- id -->
-			<h5><%=reviewInfo.get("id")%></h5>
+			<h5>닉네임 : <%=nic%> <br />등급 : <%=gradeName %></h5>
 			 <div class="rating">
 			        <% int rating = Integer.parseInt(reviewInfo.get("stars"));
 			        for (int s = 1; s <= 5; s++) {

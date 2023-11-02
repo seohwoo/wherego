@@ -60,7 +60,7 @@
 	<div class="d-grid gap-2 col-6 mx-auto">	
 			<form action="/wherego/views/search/result.jsp" method="post">
 		<div class="input-group mb-3">
-			<select name="searchType">
+			<select class="btn btn-outline-secondary dropdown-toggle" name="searchType">
 				<option value="land">명소</option>
 				<option value="loc">지역</option>
 			</select>

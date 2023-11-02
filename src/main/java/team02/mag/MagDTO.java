@@ -3,12 +3,27 @@ package team02.mag;
 public class MagDTO {
 	private int num;
 	private String id;
-	private String nic;
 	private String subject;
+	private String contentid;
 	private String content;
-	private String firstimage;	
+	private String firstimage;
 	private String reg_date;
 	
+	
+	
+	
+	public String getContentid() {
+		return contentid;
+	}
+	public void setContentid(String contentid) {
+		this.contentid = contentid;
+	}
+	public String getFirstimage() {
+		return firstimage;
+	}
+	public void setFirstimage(String firstimage) {
+		this.firstimage = firstimage;
+	}
 	public int getNum() {
 		return num;
 	}
@@ -20,20 +35,6 @@ public class MagDTO {
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getNic() {
-		return nic;
-	}
-	
-	
-	public String getFirstimage() {
-		return firstimage;
-	}
-	public void setFirstimage(String firstimage) {
-		this.firstimage = firstimage;
-	}
-	public void setNic(String nic) {
-		this.nic = nic;
 	}
 	public String getSubject() {
 		return subject;
@@ -53,4 +54,6 @@ public class MagDTO {
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
+	
+	
 }

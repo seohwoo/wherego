@@ -8,8 +8,11 @@
 </jsp:useBean>
  
 <%
-	MagDAO dbPro = MagDAO.getInstance();
-    dbPro.insertArticle(mag);
 
-    response.sendRedirect("magList.jsp");
+   String contentid = request.getParameter("contentid");
+	MagDAO dbPro = MagDAO.getInstance();
+    dbPro.insertMag(mag);
+
+ response.sendRedirect("/wherego/views/mag/magList.jsp");
 %>
+

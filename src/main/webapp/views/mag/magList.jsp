@@ -11,14 +11,13 @@
 <%@page import = "java.util.HashMap" %>
 
 <title>관리자 메거진 리스트 보기</title>
-
+<jsp:include page="/views/main/nav.jsp" />
 <%
     int pageSize = 10;  // 게시판 첫페이지에 보여줄 글 개수
 %>
 
 <%
    String id = (String) session.getAttribute("memId");
-  
     String pageNum = request.getParameter("pageNum");
     if (pageNum == null) {
         pageNum = "1";
@@ -32,23 +31,12 @@
 
     List MagList = null;
     MagDAO dbPro =  MagDAO.getInstance();
-    
-    if (count > 0) { 
+    count = dbPro.getMagCount();   //  메거진 글 갯수
+    if (count > 0) {
     	MagList = dbPro.getMagines(startRow, endRow);  // 메거진 시작과 끝
     } 
 
    number=count-(currentPage-1)*pageSize;
-   
- //찜목록 리스트화 시키기
-   SaveDAO adminPick = SaveDAO.getInstance();
-   ArrayList<String> p = adminPick.getAdminContentIdList(id);
-   String contentid ="";
-   
-   
- //찜목록 카운트        
-   List getmypickpoint = null;     
-   SaveDAO dbmypick = SaveDAO.getInstance();   
-   count = dbmypick.getAdminCount(); 
 %>
 
 
@@ -57,10 +45,9 @@
   <table width="700">
    <tr>
      <td align="right">
-      <%if(session.getAttribute("memId") == null){%>
-       <a href="/wherego/views/main/main.jsp">로그인</a>
-      <%}else{%>
-       <a href="magWriteForm.jsp">메거진 쓰기</a>
+      <%if(id.equals("admin")){%>
+       <a href="/wherego/views/mag/test.jsp">메거진 쓰기</a>
+      <%}else{%>      
        <a href="/wherego/views/main/main.jsp">메인페이지 이동</a>
       <%}%>
     </td>
@@ -84,23 +71,21 @@
 <%}else{%>
   <table border="1" width="700" cellpadding="0" cellspacing="0" align="center"> 
       <tr height="30" > 
-        <td align="center"  width="50"  >번 호</td> 
-        <td align="center"  width="150"  >사진 </td> 
-        <td align="center"  width="250" >제  목</td>       
-        <td align="center"  width="150" >작성일</td>        
+        <td align="center"  width="50"  >글번호</td> 
+        <td align="center"  width="150" >제목</td>                           
+        <td align="center"  width="150" >등록날짜</td>        
       </tr>
 <%  
    for (int i = 0 ; i < MagList.size() ; i++) {
       MagDTO mag = (MagDTO)MagList.get(i);
 %>
      <tr height="30">
-       <td align="center"  width="50" > <%=number++%></td>
-       <td> <img width="150" height="150"  src="<%=mag.getFirstimage()%>"></td>
+       <td align="center"  width="50" > <%=number--%></td>      
        <td align="center"  width="100">
        <a href="content.jsp?num=<%=mag.getNum()%>&pageNum=<%=currentPage%>">
-       <%=mag.getSubject() %></td>
+       <%=mag.getSubject() %></td>      
        <td align="center"  width="150"><%=mag.getReg_date() %></td>
-     </tr>
+     </tr> 
    <%}%>
  </table>
 <%}%>
@@ -130,4 +115,5 @@
     }
 %>
 </center>
+
 

@@ -99,7 +99,7 @@ public class MemberDAO extends OracleDB {
     }
 //    
     public MemberDTO getMember(String id) throws Exception {        
-        MemberDTO member=null;
+        MemberDTO member=null;     
         try {
           conn = getConnection();
           sql = "select * from member where id = ?";
@@ -122,7 +122,18 @@ public class MemberDAO extends OracleDB {
 	    	member.setTotal(rs.getInt("total"));
 	    	member.setProfile(rs.getString("profile"));             
 	    	member.setReg_date(rs.getString("reg_date"));  
-				 }
+		  }
+          
+          sql = "select g.gradename from membergrade g , member m where g.gradenum=m.grade and m.id=?";
+          pstmt = conn.prepareStatement(sql);
+          pstmt.setString(1, id);
+          rs = pstmt.executeQuery();
+          
+          if(rs.next()) {
+        	  member.setGradeName(rs.getString("gradename"));
+			}
+          
+          
         	}catch(Exception ex) {
         		ex.printStackTrace();
         	}close(rs, pstmt, conn);

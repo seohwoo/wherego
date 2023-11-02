@@ -60,7 +60,7 @@
 	<div class="d-grid gap-2 col-6 mx-auto">	
 			<form action="/wherego/views/search/result.jsp" method="post">
 		<div class="input-group mb-3">
-			<select name="searchType">
+			<select class="btn btn-outline-secondary dropdown-toggle" name="searchType">
 				<option value="land">명소</option>
 				<option value="loc">지역</option>
 			</select>
@@ -78,13 +78,14 @@
 	<h3 align= "center"> Top 8 여행지</h3>
 	<br/>
 		<jsp:include page="/views/main/topArea.jsp" />
-	<br/>
-	<hr/>
-	<br/>
-	<h3 align= "center"> 금주 여행 가이드</h3><br/>
-		<jsp:include page="/views/main/bestMag.jsp" />
-	<br/>
-	<hr />
+	<br/><br />
+	<div class="guide">
+	<br />
+		<h3 align= "center"> 금주 여행 가이드</h3><br/>
+			<jsp:include page="/views/main/bestMag.jsp" />
+		<br/>
+	</div>
+	<br /><br />
 	<h3 align= "center"> 주변둘러보기</h3><br/>
 		<div class="d-grid gap-2 col-6 mx-auto">
 			<form action="/wherego/views/map/searchMap.jsp" method="get">

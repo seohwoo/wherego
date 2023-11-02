@@ -13,7 +13,7 @@
 	<%
 		String id = (String) session.getAttribute("memId");
 	%>
-	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+	<nav class="navbar navbar-expand bg-body-tertiary">
 	  <div class="container-fluid">
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -24,7 +24,7 @@
 	          <a class="nav-link" href="/wherego/views/locationLand/locationHigh.jsp">Area</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="/wherego/views/magazine/listMagazine.jsp">Magazine</a>
+	          <a class="nav-link" href="/wherego/views/mag/magList.jsp">Magazine</a>
 	        </li>
 	        <li class="nav-item">
 	          <a class="nav-link" href="/wherego/views/board/inquire/inquireList.jsp">Q & A</a>
@@ -65,4 +65,5 @@
 	  </div>
 	</nav>
 </body>
+
 </html>

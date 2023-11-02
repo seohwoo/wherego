@@ -19,10 +19,14 @@
     <h1>프로필 이미지 변경</h1>
     
     <form action="uploadProfile.jsp" method="post" enctype="multipart/form-data">
-        <label for="profile">프로필 이미지 선택:</label>
-        <input type="file" id="profile" name="profile">
-        <input type="submit" value="업로드" >
-         <input type="button" value="닫기" onclick="closeWindow()">
+
+		<label class="form-label" >프로필 이미지 선택</label>
+		<div class="input-group mb-3">
+			<input class="form-control" type="file" id="profile" name="profile">
+			<input type="submit" class="btn btn-outline-secondary" value="업로드" >
+		</div>
+		<input type="button" class="btn btn-outline-danger" value="닫기" onclick="closeWindow()">
+
     </form>
     
     <script>

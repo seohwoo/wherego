@@ -1,4 +1,5 @@
 
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!-- 지환 마이페이지 -->
@@ -247,4 +248,5 @@ function mypick_open() {
 }
 
 </script>
+
 </html>

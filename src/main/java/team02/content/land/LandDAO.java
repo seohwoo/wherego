@@ -320,5 +320,70 @@ public class LandDAO extends OracleDB {
 			}
 		return count;
 	}
+	
+	public String getReviewNic(String id) {
+		String Nic = "";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select nic from member where id = ?");
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				Nic = rs.getString(1);
+			}
+		}
+			catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+			}
+			
+		
+		return Nic;
+	}
+	
+	public String getReviewGrade(String id) {
+		String Grade = "";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select grade from member where id = ?");
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				Grade = rs.getString(1);
+			}
+		}
+			catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+			}
+			
+		
+		return Grade;
+	}
+	
+	public String getReviewGradeName(String grade) {
+		String GradeName = "";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select gradename from membergrade where gradenum = ?");
+			pstmt.setString(1, grade);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				GradeName = rs.getString(1);
+			}
+		}
+			catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+			}
+			
+		
+		return GradeName;
+	}
+	
+	
 }
 

@@ -14,9 +14,11 @@
 <title>어디GO</title>
 </head>
 <body>
-	<jsp:include page="/views/main/nav.jsp" />	
+	<jsp:include page="/views/main/nav.jsp" />
+	<jsp:include page="/views/main/title.jsp" />	
 	<br />	
-	<div class="container">
+	<div style="width:80%; margin: auto;">
+	<div class="total-container" style="width:100%; height:800px;">
   		<div class="card-container">
 	<%
 		String searchType  = request.getParameter("searchType");
@@ -74,12 +76,12 @@
 			</div> 
 			<%} %>
 			</div>
-			
 
 			<br />
 			<div class="map-container">
 				<div id="map" style="width:100%; height:800px;"></div>
 			</div>
+		</div>
 	</div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4a9d59c81d3321fd7e3b885e4c1f6fcc"></script>
@@ -188,13 +190,27 @@ for (var i = 0; i < positions.length; i ++) {
 	  </ul>
 	</nav>
 	<%}else{%>
-		<table align="center">
-			<tr>
-				<td>문의 글이 없습니다.</td>
-			</tr>
-    	</table>
-		<button type="button" class="btn btn-light" OnClick="window.location='/wherego/views/main/main.jsp'">✏ 문의하기 ✏</button>
-			
+		<div class="text-align">
+			<h3>검색이 불가합니다.</h3>
+			<div id="countdown">5</div>
+		</div>
+    	 <script type="text/javascript">
+        var countdownElement = document.getElementById("countdown");
+        var countdownValue = 5; // 시작 카운트 값
+
+        function updateCountdown() {
+            countdownValue--;
+            countdownElement.innerText = countdownValue;
+
+            if (countdownValue <= 0) {
+                window.location.href = "/wherego/views/main/main.jsp"; // 메인 페이지의 URL로 변경하세요
+            } else {
+                setTimeout(updateCountdown, 1000); // 1초마다 업데이트
+            }
+        }
+
+        setTimeout(updateCountdown, 1000); // 초기화 및 시작
+    </script>
 	<%}%>
 	<br/>
 	<hr />
@@ -203,7 +219,7 @@ for (var i = 0; i < positions.length; i ++) {
 </body>
 
 <style>
-  .container {
+  .total-container {
     display: flex;
   }
   .card-container {

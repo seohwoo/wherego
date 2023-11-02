@@ -20,11 +20,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	 <jsp:include page="/views/main/nav.jsp" />	
-	 <jsp:include page="/views/main/title.jsp" /><br />	
+	
+	<br />
+	<div class="text-center">
+		<h1>어디 Go</h1>
+	</div>
+	<br />
+	<hr />
 	
 	<!-- 문의 글 -->
      <h2 align="center">📢 공지게시판 📢</h2>
@@ -63,7 +68,9 @@
 	    <button type="button" class="btn btn-light" onclick="window.location='noticeDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
 	</div>
 	
-	<br /><hr /><br />
+	<div class="fixed-bottom">
+	<hr />
 		<jsp:include page="/views/main/footer.jsp" />		
+	</div>
 </body>
 </html>

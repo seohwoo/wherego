@@ -79,7 +79,7 @@
 	</div>
 		<%if(grade == 99){%>
 		<div align="center">
-			<button type="button" class="btn btn-outline-info" onclick="openReplyWindow('<%=dto.getNum()%>', '<%=dto.getRef()%>')">답변달기</button>
+			<button type="button" class="btn btn-outline-info" OnClick="window.location='/wherego/views/admin/ban/banForm.jsp?boardnum=<%=dto.getNum()%>&ref=<%=dto.getRef()%>'">답변달기</button>
 		    <button type="button" class="btn btn-outline-danger" Onclick="window.location='banDeleteForm.jsp?num=<%=num%>'">삭제하기</button>
 		    <br />
 		</div>
@@ -142,12 +142,4 @@
 <%}
 }%>		
 </body>
-
-<script>
-function openReplyWindow(boardnum, ref) {
-	  var url = '/wherego/views/admin/ban/banForm.jsp?boardnum=' + boardnum + '&ref=' + ref;
-	  window.open(url, 'ReplyWindow', 'width=450, height=450, resizable=yes');
-	}
-</script>
-
 </html>

@@ -92,6 +92,29 @@ public class SaveDAO extends OracleDB {
 		}
 		return contentIdList;
 	}
+	
+	// 어드민이 선택한거 리스트화하기 (메거진)
+	public ArrayList<String> getAdminContentIdList(String id) {
+
+		conn = getConnection();
+		ArrayList<String> contentIdList = new ArrayList<String>();
+		String sql = "select contentid from landsave where id ='admin'";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				contentIdList.add(rs.getString("contentid"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return contentIdList;
+	}
+	
 
 	// 리스트된 컨텐트 아이디로 필요한 값들을 불러오는것
 	// stars, landinfo, totalstar table 3개에서 정보 받아와서 dto에 담아서 리턴
@@ -159,6 +182,30 @@ public class SaveDAO extends OracleDB {
 		}
 		return x;
 	}
+	
+	// 어드민으로 메거진 찜목록 카운트 만들기
+
+		public int getAdminCount() throws Exception {
+			int x = 0;
+
+			try {
+				conn = getConnection();
+				String sql = "select count(*) from landsave WHERE id = 'admin'";
+				pstmt = conn.prepareStatement(sql);
+			
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					x = rs.getInt(1);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+			}
+			return x;
+		}
+	
+	
 
 	// 리뷰쓴사람 컨텐츠아이디갑을 리스트화
 	public ArrayList<String> getMyreviewContentIdList(String rid) {

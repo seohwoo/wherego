@@ -246,4 +246,22 @@ public class LandInfoDAO extends OracleDB {
 		}
 	}
 
+	public ArrayList<String> selectNullXY() {
+		ArrayList<String> contentidList = new ArrayList<String>();
+		conn = getConnection();
+		try {
+			String sql = " select contentid from landloc where mapy is null ";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				contentidList.add(rs.getString("contentid"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return contentidList;
+	}
+
 }

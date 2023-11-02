@@ -24,7 +24,7 @@
 	          <a class="nav-link" href="/wherego/views/locationLand/locationHigh.jsp">Area</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="/wherego/views/magazine/listMagazine.jsp">Magazine</a>
+	          <a class="nav-link" href="/wherego/views/mag/magList.jsp">Magazine</a>
 	        </li>
 	        <li class="nav-item">
 	          <a class="nav-link" href="/wherego/views/board/inquire/inquireList.jsp">Q & A</a>

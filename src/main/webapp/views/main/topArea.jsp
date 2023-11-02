@@ -45,7 +45,7 @@
 				        if(avg % 1 != 0){%>
 				        &#x2606;
 	
-				        <%}%>(<%=avg %>) &nbsp; ❤ : <%=landSaveCount %> (0) &nbsp; 🔎 : <%=readCount %></small></p>
+				        <%}%>(<%=avg %>) &nbsp; ❤ : <%=totalSave %> (0) &nbsp; 🔎 : <%=totalReview %></small></p>
 				    		<a href="/wherego/views/contentLand/contentRand.jsp?areaCode=<%=dto.getAreacode() %>&sigunguCode=<%=dto.getSigunguCode() %>&contentid=<%=favoriteLandMap.get("contentid")%>&pageNum=1" class="btn btn-secondary"> 더보기</a>
 
 			  		</div>

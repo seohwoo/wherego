@@ -92,7 +92,7 @@ public class MagDAO extends OracleDB {
 	      }
 	  }
    
-   
+    
    //메거진 컨텐트  내용보기
    
    public MagDTO getmag(int num)throws Exception {

@@ -8,7 +8,7 @@ public class MagDTO {
 	private String content;
 	private String firstimage;
 	private String reg_date;
-	
+	 
 	
 	
 	

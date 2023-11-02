@@ -31,17 +31,23 @@
 			    int totalReview = landO.getReviewCount(favoriteLandMap.get("contentid"));
 			    LocationLandDTO dto = dao.selectLandToCid(favoriteLandMap.get("contentid"));
 			    %>
-			    <div class="card" style="width: 20rem;">
-			  		<img src="<%=dto.getFirstimage() %>" class="card-img-top" />
-			  		<div class="card-body">
-			    		<h5 class="card-title"><%=dto.getTitle() %></h5>
-			    		<p class="card-text"><%=dto.getAreacodename() %> > <%=dto.getSigungucodename() %></p>
-			    		<p class="card-text"><%=dto.getCategory() %></p>
-			    		<p class="card-text">별점 : <%=avg %></p>
-			    		<p class="card-text">별점개수 : <%=totalReview %></p>
-			    		<p class="card-text">저장수 : <%=totalSave %></p>
-			    		<p class="card-text">조회수 : <%=favoriteLandMap.get("readcount") %></p>
-			    		<a href="/wherego/views/contentLand/contentRand.jsp?areaCode=<%=dto.getAreacode() %>&sigunguCode=<%=dto.getSigunguCode() %>&contentid=<%=favoriteLandMap.get("contentid")%>&pageNum=1" class="btn btn-secondary">Go <%=dto.getTitle() %></a>
+
+			    <div class="card" style="margin: 0px; padding: 0px;">
+			  		<img src="<%=dto.getFirstimage() %>" class="card-img-top" width="200" height="200"/>
+			  			<div class="card-body">
+				    		<h5 class="card-title"><%=dto.getTitle() %></h5>
+				    		<p class="card-text"><%=dto.getAreacodename() %> &#10144; <%=dto.getSigungucodename() %> &#12304;<%=dto.getCategory() %>&#12305;</p>
+				    		<small>
+				    		<%
+				        for(int i = 1; i <= (int)avg; i++){%>
+				        	&#11088;
+				        <% }
+				        if(avg % 1 != 0){%>
+				        &#x2606;
+	
+				        <%}%>(<%=avg %>) &nbsp; ❤ : <%=landSaveCount %> (0) &nbsp; 🔎 : <%=readCount %></small></p>
+				    		<a href="/wherego/views/contentLand/contentRand.jsp?areaCode=<%=dto.getAreacode() %>&sigunguCode=<%=dto.getSigunguCode() %>&contentid=<%=favoriteLandMap.get("contentid")%>&pageNum=1" class="btn btn-secondary"> 더보기</a>
+
 			  		</div>
 			</div>
 			    

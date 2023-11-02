@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!-- 지환 마이페이지 -->
@@ -25,7 +26,7 @@
 </head>
 <body>
 <jsp:include page="/views/main/nav.jsp" />
-<jsp:include page="/views/main/title.jsp" />
+<jsp:include page="/views/main/title.jsp" /> <br />
 
 <% request.setCharacterEncoding("UTF-8");%>
 
@@ -82,17 +83,10 @@
       <!-- 프로필 이미지 및 닉네임 표시 -->
        <img width="150" src="/wherego/image/<%= c.getProfile() %>">         
        <h5 class="text"><%= c.getNic() %> 마이페이지</h5>
-       <h5 class="text"><%= c.getGradeName() %>등급의 회원입니다.</h5> 
-       <button id="changeProfile" class = "button" onclick="openProfileWindow()">프로필 이미지 변경</button>
-
-        <!-- 프로필 변경 버튼 클릭 시 새 창 열기 -->
-         <script>
-            function openProfileWindow() {
-             var profileWindow = window.open("profileChange.jsp", "프로필 변경", "width=400,height=300");                    
-             }
-         </script>            
+       <h5 class="text"><%= c.getGrade() %>등급의 회원입니다.</h5> 
+       <button id="changeProfile" class = "button" onclick="openProfileWindow()">프로필 이미지 변경</button>           
           <input type="button" class = "button"  value="수정하기" OnClick="window.location='updateForm.jsp'">
-          <input type="button" class = "button"  value="탈퇴하기" OnClick="window.location='deleteForm.jsp'">                
+          <input type="button" class = "button"  value="탈퇴하기" Onclick="openDeleteWindow()">                
      <%}else{%>  
       <img width="150" src="/team02/views/mypage/DEFAULT/<%= userDtO.getProfile() %>">
       현재 <%= userDtO.getNic() %> 회원 페이지입니다.<br />        
@@ -120,7 +114,7 @@
 		<div class="d-grid gap-2 col-6 mx-auto">
 			<br />
 			<h5 class="text">[<%=userDtO.getNic()%>님이 작성한 리뷰 리스트 입니다]</h5>
-			<b>글목록(전체 글:<%=count%>)</b>
+			<b style="color: black;">글목록(전체 글:<%=count%>)</b>
     <% if (count == 0) { %>
 		     <table class="table table-hover">
 		        <tr>
@@ -171,7 +165,7 @@
    <div class="d-grid gap-2 col-6 mx-auto">
 	   <br />
 	   <h5 class="text">[<%=c.getNic()%>님의 찜한 여행지 리스트입니다]</h5>
-	   <b>내가 찜한목록(전체 글:<%=point%>)</b>
+	   <b style="color: black;">내가 찜한목록(전체 글:<%=point%>)</b>
    <% if (point == 0 ) {  %>
       <table class="table table-hover">
          <tr>
@@ -219,6 +213,13 @@
 }%>
 </body>
 <script>
+function openProfileWindow() {
+    var profileWindow = window.open("profileChange.jsp", "프로필 변경", "width=400,height=300");                    
+    }
+function openDeleteWindow() {
+    var profileWindow = window.open("deleteForm.jsp", "회원탈퇴", "width=400,height=300");                    
+    }
+    
 function myreviews_open() {
     let myreviews = document.getElementById('myreviews');
     let mypick = document.getElementById('mypick');

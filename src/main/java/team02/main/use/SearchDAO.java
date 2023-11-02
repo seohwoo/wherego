@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import team02.db.land.OracleDB;
 import team02.location.land.LocationLandDTO;
@@ -87,6 +88,57 @@ public class SearchDAO extends OracleDB {
 		}
 
 		return landList;
+	}
+
+	public ArrayList<HashMap<String, String>> searchMap(String searchValue, String searchType) {
+		ArrayList<HashMap<String, String>> landList = new ArrayList<HashMap<String, String>>();
+		String sql = "";
+		conn = getConnection();
+		try {
+			String value = "%" + searchValue + "%";
+			if (searchType.equals("land")) {
+				sql = " SELECT * FROM (SELECT li.*, COALESCE(lr.READCOUNT, 0) as READCOUNT FROM landinfo "
+						+ " li LEFT JOIN landreadcount lr ON li.CONTENTID = lr.CONTENTID "
+						+ " WHERE li.TITLE LIKE ? AND li.FIRSTIMAGE IS NOT NULL ORDER BY READCOUNT DESC) ";
+			} else {
+				sql = " SELECT * FROM (SELECT li.*, COALESCE(lr.READCOUNT, 0) as READCOUNT FROM landinfo "
+						+ " li LEFT JOIN landreadcount lr ON li.CONTENTID = lr.CONTENTID "
+						+ " WHERE li.addr1 LIKE ? AND li.FIRSTIMAGE IS NOT NULL ORDER BY READCOUNT DESC)";
+			}
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, value);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				HashMap<String, String> landMap = new HashMap<String, String>();
+				landMap.put("contentid", rs.getString("contentid"));
+				landMap.put("title", rs.getString("title"));
+				landList.add(landMap);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+
+		return landList;
+	}
+
+	public HashMap<String, String> selectMapXY(String contentid) {
+		HashMap<String, String> xyMap = new HashMap<String, String>();
+		conn = getConnection();
+		try {
+			pstmt = conn.prepareStatement("select * from landloc where contentid = ?");
+			pstmt.setString(1, contentid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				xyMap.put("mapx", rs.getString("mapx"));
+				xyMap.put("mapy", rs.getString("mapy"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return xyMap;
 	}
 
 }

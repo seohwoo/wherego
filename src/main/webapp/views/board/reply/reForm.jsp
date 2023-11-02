@@ -27,8 +27,16 @@
         ref = Integer.parseInt(request.getParameter("ref"));
     }
 %>
-    <!-- 문의 리스트 -->
+    <jsp:include page="/views/main/nav.jsp" />
+    
     <br />
+    <div class="text-center">
+        <h1>어디 Go</h1>
+    </div>
+    <br />
+    <hr />
+    
+    <!-- 문의 리스트 -->
     <h2 align="center">💭 답변 💭</h2>
     <br />
     <div class="d-grid gap-2 col-6 mx-auto">
@@ -49,6 +57,10 @@
 	            <button type="submit" class="btn btn-secondary">등록</button>
 	        </div>
 	    </form>
+    </div>
+    <div class "fixed-bottom">
+        <hr />
+        <jsp:include page="/views/main/footer.jsp" />
     </div>
 <% }%>
 </body>

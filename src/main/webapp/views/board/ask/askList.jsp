@@ -31,11 +31,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
    <jsp:include page="/views/main/nav.jsp" />
-   <jsp:include page="/views/main/title.jsp" /><br />
+	
+	<br />
+	<div class="text-center">
+		<h1>어디 Go</h1>
+	</div>
+	<br />
+	<hr />
+	
 	 <!-- 문의 리스트 -->
     <h2 align="center">❓ 문의게시판 ❓</h2>
     <br />
@@ -53,7 +59,7 @@
     </table>
     <% } else { %>
     <table width="700" cellpadding="0" cellspacing="0" align="center">
-        <thead>
+        <thread>
             <tr>
                 <td align="center" width="50"><b>#</b></td>
                 <td align="center" width="250"><b>작성자</b></td>
@@ -61,7 +67,7 @@
                 <td align="center" width="200"><b>날짜</b></td>
                 <td align="center" width="150"><b>조회수</b></td>
             </tr>
-        </thead>
+        </thread>
         <% for (int i = 0; i < askList.size(); i++) {
             AskboardDTO dto = askList.get(i); %>
         <tbody>

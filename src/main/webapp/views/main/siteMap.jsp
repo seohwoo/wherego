@@ -42,24 +42,26 @@
 	    </thead>
 	    <tbody>
 	      <tr>
-	       <td onClick="location.href='/wherego/views/main/listRand.jsp'" style="cursor: pointer;" >여행지 찾기</a></td>
-		   <td onClick="location.href='/wherego/views/board/notice/noticeList.jsp?pageNum=1'" style="cursor: pointer;">공지사항</td>
-		   <td onClick="location.href='#'" style="cursor: pointer;">내가 쓴 매거진</td>
+	       <td onClick="location.href='/wherego/views/main/listRand.jsp'" >여행지 찾기</a></td>
+		   <td onClick="location.href='/wherego/views/board/notice/noticeList.jsp?pageNum=1'">공지사항</td>
+		   <td onClick="location.href='#'">내가 쓴 매거진</td>
 	      </tr>
 	      <tr>
+
 
 		  	<td onClick="location.href='#'">Hit! 여행지</td>
 			<td onClick="location.href='/wherego/views/board/inquire/inquireList.jsp?pageNum=1'">문의 게시판</td>
 
+
 			<td onClick="location.href='#'">매거진 작성</td>
 		   </tr>
 		   <tr>
-		   	<td onClick="location.href='#'" style="cursor: pointer;"> Hit! 매거진</td>
-		   	<td onClick="location.href='/wherego/views/admin/ban/banList.jsp?pageNum=1'" style="cursor: pointer;" style="cursor: pointer;"> 정지 게시판</td>
-		   	<td onClick="location.href='#'" style="cursor: pointer;">나의 여행 계획</td>
+		   	<td onClick="location.href='#'"> Hit! 매거진</td>
+		   	<td onClick="location.href='/wherego/views/admin/ban/banList.jsp?pageNum=1'"> 정지 게시판</td>
+		   	<td onClick="location.href='#'">나의 여행 계획</td>
 		   </tr>
 		   <tr>
-		   	<td onClick="location.href='#'" style="cursor: pointer;"> 예약 사이트</td>
+		   	<td onClick="location.href='#'"> 예약 사이트</td>
 		   	<td> </td>
 		   	<td> </td>
 		   </tr>

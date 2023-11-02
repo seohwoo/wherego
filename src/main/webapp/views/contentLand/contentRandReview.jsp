@@ -45,8 +45,6 @@
 			        for (int s = 1; s <= 5; s++) {
 			               if (s <= rating) { %>
 			                   <span class="star">&#9733;</span> <!-- 채워진 별 -->
-			               <% } else if (s - 0.5 <= rating) { %>
-			                   <span class="half-star">&#9733;</span> <!-- 반쪽 채워진 별 -->
 			               <% } else { %>
 			                   <span class="star">&#9734;</span> <!-- 빈 별 -->
 			               <% }
@@ -81,10 +79,6 @@
 <style>
     .star {
         color:  #FFA500; 
-        font-size: 30px; 
-    }
-    .half-star {
-        color: #FFA500; 
         font-size: 30px; 
     }
     .likeButton {

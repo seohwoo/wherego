@@ -13,7 +13,7 @@
 	<%
 		String id = (String) session.getAttribute("memId");
 	%>
-	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+	<nav class="navbar navbar-expand bg-body-tertiary">
 	  <div class="container-fluid">
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -65,4 +65,5 @@
 	  </div>
 	</nav>
 </body>
+
 </html>

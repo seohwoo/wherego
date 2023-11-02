@@ -14,14 +14,16 @@
 <title>어디GO</title>
 </head>
 <body>
-	<jsp:include page="/views/main/nav.jsp" />
-		
+	<jsp:include page="/views/main/nav.jsp" />	
+	<br />	
+	<div class="container">
+  		<div class="card-container">
 	<%
 		String searchType  = request.getParameter("searchType");
 		String searchValue  = request.getParameter("searchValue");
 		
 		
-		int pageSize = 10;
+		int pageSize = 5;
 	    String pageNum = request.getParameter("pageNum");
 	    if (pageNum == null) {
 	        pageNum = "1";
@@ -45,43 +47,40 @@
 		for(LocationLandDTO dto : landList) {
 		      double avg = landO.avgStar(dto.getContentid());
 		      int readCount = landO.getReadCount(dto.getContentid());
-			  int totalSave = landO.getLandSaveCount(Integer.parseInt(dto.getContentid()));
+			  int totalSave = saveDao.getSaveCount(dto.getContentid());
 			  int totalReview = landO.getReviewCount(dto.getContentid());
 	%>
-	
 		<div class="card mb-3" style="max-width: 800px;">
 			  <div class="row g-0">
 			    <div class="col-md-4">
-					<img src="<%=dto.getFirstimage() %>" style="width: 270px; height: 222px;" class="img-fluid rounded-start">
+					<img src="<%=dto.getFirstimage() %>" style="width: 270px; height: 146px;" class="img-fluid rounded-start">
 			    </div>  
 				<button type="button" class="btn btn-outline-dark col-md-8"  onclick="window.location.href='/wherego/views/contentLand/contentRand.jsp?areaCode=<%=dto.getAreacode() %>&sigunguCode=<%=dto.getSigunguCode() %>&contentid=<%=dto.getContentid()%>&pageNum=<%=pageNum%>'" >
 			      <div class="card-body">
 			        <h5 align="left" class="card-title"><%=dto.getTitle() %></h5>
-			        <p align="left" class="card-text"><%=dto.getCategory() %></p>
-			        <p align="left" class="card-text"><%=dto.getAreacodename() %> > <%=dto.getSigungucodename() %></p>
-			        <% if(totalReview == 0){%>
-			        <p align="left" class="card-text">아직 등록된 리뷰가 없습니다.</p>
-			        <%}else{ %>
-			        <p align="left" class="card-text"><%=totalReview%>개의 리뷰가 있습니다.</p>
-			        <%}%>
-			        <p align="left" class="card-text"><small >
-			        <%
+			        <p align="left" class="card-text"><%=dto.getAreacodename() %> &#10144; <%=dto.getSigungucodename() %> &#12304;<%=dto.getCategory() %>&#12305;</p>
+			         <p align="left" class="card-text"><small >
+			         <%
 			        for(int i = 1; i <= (int)avg; i++){%>
 			        	&#11088;
 			        <% }
 			        if(avg % 1 != 0){%>
 			        &#x2606;
-			        <%}%>(<%=avg %>)</small></p>
-			        <p align="left" class="card-text"><small >❤  (<%= totalSave%>)</small></p>
-			        <p align="left" class="card-text"><small >조회수 : <%=readCount %></small></p>
+			        <%}%><%=avg %> (<%=totalReview %>) &nbsp; ❤ : <%=totalSave %> (0) &nbsp; 🔎 : <%=readCount %></small></p>
 			      </div>
 				</button>
 			   
 			  </div>
 			</div> 
 			<%} %>
+			</div>
+			
+
 			<br />
-<div id="map" style="width:45%;height:600px;"></div>
+			<div class="map-container">
+				<div id="map" style="width:100%; height:800px;"></div>
+			</div>
+	</div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4a9d59c81d3321fd7e3b885e4c1f6fcc"></script>
 <script>
@@ -93,10 +92,6 @@ var x, y;
 <%	
 	for(LocationLandDTO dto : landList) {
 	HashMap<String, String> xyMap = dao.selectMapXY(dto.getContentid());
-	if(xyMap.get("mapx")==null || xyMap.get("mapy")==null) {
-		xyMap.put("mapx", "0");
-		xyMap.put("mapy", "0");
-	}
 	double x = Double.parseDouble(xyMap.get("mapx"));
 	double y = Double.parseDouble(xyMap.get("mapy"));
 	%>
@@ -157,9 +152,8 @@ for (var i = 0; i < positions.length; i ++) {
     });
 }
 </script>
-	
 	<br />
-  		<nav aria-label="Page navigation example">
+  	<nav aria-label="Page navigation example">
 	  <ul class="pagination justify-content-center">
 	    <% if (count > 0) {
 	        int pageCount = count / pageSize + ((count % pageSize == 0) ? 0 : 1);
@@ -194,14 +188,32 @@ for (var i = 0; i < positions.length; i ++) {
 	  </ul>
 	</nav>
 	<%}else{%>
-			<table align="center">
-		        <tr>
-		            <td>문의 글이 없습니다.</td>
-		        </tr>
-    		</table>
-		    <button type="button" class="btn btn-light" OnClick="window.location='/wherego/views/main/main.jsp'">✏ 문의하기 ✏</button>
+		<table align="center">
+			<tr>
+				<td>문의 글이 없습니다.</td>
+			</tr>
+    	</table>
+		<button type="button" class="btn btn-light" OnClick="window.location='/wherego/views/main/main.jsp'">✏ 문의하기 ✏</button>
 			
-		<%}%>
+	<%}%>
+	<br/>
+	<hr />
+	<br/>
 	<jsp:include page="/views/main/footer.jsp" />	
 </body>
+
+<style>
+  .container {
+    display: flex;
+  }
+  .card-container {
+    width: 50%; /* Adjust the width as needed */
+    padding: 10px;
+  }
+  .map-container {
+    width: 50%; /* Adjust the width as needed */
+    height: 600px;
+    padding: 10px;
+  }
+</style>
 </html>

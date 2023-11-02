@@ -69,20 +69,14 @@
 						    </button>
 						</form>
 
-					    <img src="<%=dto.getFirstimage() %>" style="width: 270px; height: 270px;" class="img-fluid rounded-start">
+					    <img src="<%=dto.getFirstimage() %>" style="width: 270px; height: 150px;" class="img-fluid rounded-start">
 					</div>
 			    </div>  
 				<button type="button" class="btn btn-outline-dark col-md-8"  onclick="window.location.href='/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=dto.getContentid()%>&pageNum=<%=pageNum%>'" >
 			      <div class="card-body">
 			        <h5 align="left" class="card-title"><%=dto.getTitle() %> </h5>
-			        <p align="left" class="card-text"><%=dto.getCategory() %></p>
-			        <p align="left" class="card-text"><%=dto.getAreacodename() %> > <%=dto.getSigungucodename() %></p>
+			        <p align="left" class="card-text"><%=dto.getAreacodename() %> &#10144; <%=dto.getSigungucodename() %> &#12304;<%=dto.getCategory() %>&#12305;</p>
 			        <% int reviewCount = landO.getReviewCount(dto.getContentid());%>
-			        <% if(reviewCount == 0){%>
-			        <p align="left" class="card-text">아직 등록된 리뷰가 없습니다.</p>
-			        <%}else{ %>
-			        <p align="left" class="card-text"><%=reviewCount%>개의 리뷰가 있습니다.</p>
-			        <%}%>
 			        <p align="left" class="card-text"><small >
 			        <%
 			        for(int i = 1; i <= (int)avg; i++){%>
@@ -90,9 +84,7 @@
 			        <% }
 			        if(avg % 1 != 0){%>
 			        &#x2606;
-
-			        <%}%>(<%=avg %>) &nbsp; ❤ : <%=landSaveCount %> (0) &nbsp; 🔎 : <%=readCount %></small></p>
-			        
+			        <%}%><%=avg %> (<%=reviewCount %>) &nbsp; ❤ : <%=landSaveCount %> (0) &nbsp; 🔎 : <%=readCount %></small></p>
 			      </div>
 				</button>
 			   

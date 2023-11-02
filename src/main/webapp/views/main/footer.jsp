@@ -16,7 +16,7 @@
 					개인정보처리방침</a> &nbsp;
 				<a href="/wherego/views/main/siteMap.jsp" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
 					사이트맵</a> &nbsp;
-				<p align="right">&copy; 어디Go &nbsp;</p>
+				<p align="right" style="color: black;">&copy; 어디Go &nbsp;</p>
 		</div>
 		
 	</footer>

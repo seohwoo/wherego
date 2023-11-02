@@ -13,6 +13,7 @@ package team02.member;
 	   private String emailOption;
 	   private String phone;
 	   private int grade;
+	   private String gradeName;
 	   private int total;
 	   private String profile;
 	   private String reg_date;
@@ -59,7 +60,15 @@ package team02.member;
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	
 
+	public String getGradeName() {
+		return gradeName;
+	}
+	public void setGradeName(String gradeName) {
+		this.gradeName = gradeName;
+	}
 	public String getAddressDetail() {
 		return addressDetail;
 	}

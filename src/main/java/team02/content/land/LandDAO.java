@@ -83,6 +83,10 @@ public class LandDAO extends OracleDB {
 				contentRandInfoMap.put("parking", rs.getString("parking"));
 				contentRandInfoMap.put("chkbabycarriage", rs.getString("chkbabycarriage"));
 				contentRandInfoMap.put("chkpet", rs.getString("chkpet"));
+				contentRandInfoMap.put("areacode", rs.getString("areacode"));
+				contentRandInfoMap.put("areacodename", rs.getString("areacodename"));
+				contentRandInfoMap.put("sigungucode", rs.getString("sigungucode"));
+				contentRandInfoMap.put("sigungucodename", rs.getString("sigungucodename"));
 				
 			}
 		} catch (Exception e) {

@@ -17,7 +17,13 @@
 </head>
 <body>
 	<jsp:include page="/views/main/nav.jsp" />
-	<jsp:include page="/views/main/title.jsp" /><br />
+	
+	<br />
+	<div class="text-center">
+		<h1>어디 Go</h1>
+	</div>
+	<br />
+	<hr />
 	
     <h3 align = "center">💭 답변 💭</h3>
     <br />

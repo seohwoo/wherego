@@ -44,7 +44,7 @@
 		boardnum=Integer.parseInt(request.getParameter("boardnum"));
 		ref=Integer.parseInt(request.getParameter("ref"))+1;
 	}
-		if(boardnum == 0){%>
+%>
      <jsp:include page="/views/main/nav.jsp" />
 	
 	<br />
@@ -53,50 +53,36 @@
 	</div>
 	<br />
 	<hr />
+	
 	 <!-- 문의 리스트 -->
     <h2 align="center">Q & A</h2>
-    <%} else{ %>
     <br />
-    <h3 align="center">💭 답변 💭</h3>
-    <%} %>
-    <br />
-	<div class="d-grid gap-2 col-6 mx-auto">
+	
     <form action="banPro.jsp" method="post" onsubmit="return writeSave()">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">작성자</label>
-            <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= dtoM.getNic()  %>"  readonly>
+            <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= dtoM.getNic()  %>">
             <input type="hidden" name = id class="form-control" value="<%=id %>" >
             <input type="hidden" name = ref class="form-control" value="<%=ref %>" >
             <input type="hidden" name = boardnum class="form-control" value="<%=boardnum %>" >
         </div>
-        <%if(boardnum ==0){ %>
         <div class="mb-3">
             <label for="exampleFormControlInput2" class="form-label">제목</label>
             <input type="text" name="title" class="form-control" id="exampleFormControlInput2">
         </div>
-        <%} %>
-        <%if(boardnum ==0){ %>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">내용</label>
             <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
-        <%}else{ %>
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-            <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3">[답변]</textarea>
-        </div>
-        <%} %>
         <div class="d-grid gap-2 col-6 mx-auto">
             <button type="submit" class="btn btn-secondary">등록</button>
         </div>
     </form>
+    <div class="fixed-bottom">
+        <hr />
+        <jsp:include page="/views/main/footer.jsp" />
     </div>
-	    <%if(boardnum == 0){ %>
-	    <div class="fixed-bottom">
-	        <hr />
-	        <jsp:include page="/views/main/footer.jsp" />
-	    </div>
-<% 		}			
+<% 			
 	} 
 }%>
 </body>

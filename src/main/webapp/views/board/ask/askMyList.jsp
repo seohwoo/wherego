@@ -33,7 +33,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
 </head>
 <%
     if (memId == null) {
@@ -47,8 +46,14 @@
 <% } else { %>
 <body>
    <jsp:include page="/views/main/nav.jsp" />
-   <jsp:include page="/views/main/title.jsp" /><br />
-   
+	
+	<br />
+	<div class="text-center">
+		<h1>어디 Go</h1>
+	</div>
+	<br />
+	<hr />
+	
 	 <!-- 문의 리스트 -->
     <h2 align="center">나의 전체 문의글</h2>
     <br />

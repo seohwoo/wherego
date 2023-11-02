@@ -19,6 +19,7 @@
    String enc = "UTF-8";
    DefaultFileRenamePolicy dp = new DefaultFileRenamePolicy();
    MultipartRequest mr = new MultipartRequest(request,path,max,enc,dp);
+   
    Enumeration enu = mr.getFileNames(); 
 %>
 

@@ -31,22 +31,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
    <jsp:include page="/views/main/nav.jsp" />
-   <jsp:include page="/views/main/title.jsp" /><br />
+	
+	<br />
+	<div class="text-center">
+		<h1>어디 Go</h1>
+	</div>
+	<br />
+	<hr />
+	
 	 <!-- 공지게시판 / noticeList -->
     <h2 align="center">📢 공지사항 📢</h2>
     <br />
-	     <% 
-		    String memId = (String) session.getAttribute("memId");
-		    int grade = dao.getGradeById(memId);
-	    	if (grade==99) { %>
-	    <div align="center">
-	    	<button type="button" class="btn btn-light" OnClick="window.location='noticeForm.jsp'">✏ 공지작성 ✏</button>
-	    </div>
-    <%}else{ }%>
+    <div align="center">
+    	<button type="button" class="btn btn-light" OnClick="window.location='noticeForm.jsp'">✏ 공지작성 ✏</button>
+    </div>
     <br />
 
     <% if (count == 0) { %>
@@ -116,7 +117,7 @@
 	          </a>
 	        </li>
 	        <% } 
-	    }%>
+	    } %>
 	  </ul>
 	</nav>	
 

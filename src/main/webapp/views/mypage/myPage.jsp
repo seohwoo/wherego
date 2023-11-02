@@ -79,18 +79,18 @@
  <!-- 여기는 프로필 --> 
 <div class="text-center">
 <%
-   if(id.equals(user) || id.equals("admin")){%>
+   if((userDtO.getGradeName()).equals("일반") || (userDtO.getGradeName()).equals("관리자") || (userDtO.getGradeName()).equals("우수") ){%>
       <!-- 프로필 이미지 및 닉네임 표시 -->
        <img width="150" src="/wherego/image/<%= c.getProfile() %>">         
-       <h5 class="text"><%= c.getNic() %> 마이페이지</h5>
-       <h5 class="text"><%= c.getGrade() %>등급의 회원입니다.</h5> 
+       <h5 class="text"><%= userDtO.getNic() %> 마이페이지</h5>
+       <h5 class="text"><%= userDtO.getGradeName()%>등급의 회원입니다.</h5> 
        <button id="changeProfile" class = "button" onclick="openProfileWindow()">프로필 이미지 변경</button>           
           <input type="button" class = "button"  value="수정하기" OnClick="window.location='updateForm.jsp'">
           <input type="button" class = "button"  value="탈퇴하기" Onclick="openDeleteWindow()">                
      <%}else{%>  
       <img width="150" src="/team02/views/mypage/DEFAULT/<%= userDtO.getProfile() %>">
       현재 <%= userDtO.getNic() %> 회원 페이지입니다.<br />        
-      <%= userDtO.getGrade() %>등급의 회원입니다.<br />        
+      <%= userDtO.getGradeName() %>등급의 회원입니다.<br />         
      <%} %>    
 </div>
 <div class="d-grid gap-2 col-6 mx-auto">
@@ -100,11 +100,11 @@
  
    <div class="text-center">
       <%
-        if(id.equals(user) || id.equals("admin")){%>  
+        if(id.equals(user) ){%>  
         	<button class="button" style="width: 400px;" id="myreviews-button" onclick="myreviews_open()">MyReview</button>
 			<button class="button" style="width: 400px;" id="mypick-button" onclick="mypick_open()">MyPick</button> 
          <%} else {%>          
-           <button class="button" style="width: 400px;" onclick="mypick_open()">MyPick</button> 
+           <button class="button" style="width: 400px;" id="myreviews-button" onclick="myreviews_open()">MyReview</button>
          <%} %> 
    </div>
        
@@ -164,7 +164,7 @@
 <div id="mypick" class="text-center" style="display:none;">
    <div class="d-grid gap-2 col-6 mx-auto">
 	   <br />
-	   <h5 class="text">[<%=c.getNic()%>님의 찜한 여행지 리스트입니다]</h5>
+	   <h5 class="text">[<%=userDtO.getNic()%>님의 찜한 여행지 리스트입니다]</h5>
 	   <b style="color: black;">내가 찜한목록(전체 글:<%=point%>)</b>
    <% if (point == 0 ) {  %>
       <table class="table table-hover">

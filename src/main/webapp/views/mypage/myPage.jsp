@@ -253,6 +253,7 @@
 function openProfileWindow() {
     var profileWindow = window.open("profileChange.jsp", "프로필 변경", "width=400,height=300");                    
     }
+    
 function openDeleteWindow() {
     var profileWindow = window.open("deleteForm.jsp", "회원탈퇴", "width=400,height=300");                    
     }

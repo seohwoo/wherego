@@ -22,6 +22,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 	<link href="/wherego/views/mypage/mypage.css" rel="stylesheet" type="text/css" />
 	<title>어디Go 마이페이지</title>
 </head>
@@ -79,58 +80,35 @@
  
  <!-- 여기는 프로필 --> 
 <div class="text-center">
-<% if(session.getAttribute("memId") != null) {
-    // 로그인한 경우
-    if(session.getAttribute("memId").equals(user)) { // 본인의 페이지인 경우
-%>
-        <!-- 프로필 이미지 및 닉네임 표시 -->
-        <img width="150" src="/wherego/image/<%= c.getProfile() %>">
-        <h5 class="text" style="color: black;"><%= userDtO.getNic() %> 마이페이지</h5>
-        <h5 class="text" style="color: black;"><%= userDtO.getGradeName() %> 등급의 회원입니다.</h5>
-        <button id="changeProfile" class="button" onclick="openProfileWindow()">프로필 이미지 변경</button>
-        <input type="button" class="button" value="수정하기" OnClick="window.location='updateForm.jsp'">
-        <input type="button" class="button" value="탈퇴하기" Onclick="openDeleteWindow()">
 <%
-    } else {
-        // 본인의 페이지가 아닌 경우
-%>
-        <img width="150" src="/wherego/image/<%= c.getProfile() %>">
-        <h5 class="text" style="color: black;">현재 <%= userDtO.getNic() %> 회원 페이지입니다.</h5>
-        <span style="color: black;"><%= userDtO.getGradeName() %> 등급의 회원입니다.</span>
-<%
-    }
-}
-%>
+   if((userDtO.getGradeName()).equals("일반") || (userDtO.getGradeName()).equals("관리자") || (userDtO.getGradeName()).equals("우수") ){%>
+      <!-- 프로필 이미지 및 닉네임 표시 -->
+       <img width="150" src="/wherego/image/<%= c.getProfile() %>">         
+       <h5 class="text"><%= userDtO.getNic() %> 마이페이지</h5>
+       <h5 class="text"><%= userDtO.getGradeName()%>등급의 회원입니다.</h5> 
+       <button id="changeProfile" class = "button" onclick="openProfileWindow()">프로필 이미지 변경</button>           
+          <input type="button" class = "button"  value="수정하기" OnClick="window.location='updateForm.jsp'">
+          <input type="button" class = "button"  value="탈퇴하기" Onclick="openDeleteWindow()">                
+     <%}else{%>  
+      <img width="150" src="/team02/views/mypage/DEFAULT/<%= userDtO.getProfile() %>">
+      현재 <%= userDtO.getNic() %> 회원 페이지입니다.<br />        
+      <%= userDtO.getGradeName() %>등급의 회원입니다.<br />         
+     <%} %>    
 </div>
 <div class="d-grid gap-2 col-6 mx-auto">
 <hr class="hr-19" />
 </div>
-
-
-
 <!-- 글보기 -->
  
    <div class="text-center">
-    <%
-    if(id.equals(user)){%>
-        <button class="button" style="width: 400px;" id="myreviews-button" onclick="myreviews_open()">MyReview</button>
-        <button class="button" style="width: 400px;" id="mypick-button" onclick="mypick_open()">MyPick</button>
-    <%
-    } else {%>
-        <button class="button" style="width: 400px;" id="myreviews-button" onclick="myreviews_open()">MyReview</button>
-        <!-- mypick-button를 숨김 -->
-        <script>
-            document.getElementById("mypick-button").style.display = "none";
-        </script>
-    <%
-    }%>
-</div>
-
-
-
-
-
-
+      <%
+        if(id.equals(user) ){%>  
+        	<button class="button" style="width: 400px;" id="myreviews-button" onclick="myreviews_open()">MyReview</button>
+			<button class="button" style="width: 400px;" id="mypick-button" onclick="mypick_open()">MyPick</button> 
+         <%} else {%>          
+           <button class="button" style="width: 400px;" id="myreviews-button" onclick="myreviews_open()">MyReview</button>
+         <%} %> 
+   </div>
        
 <!-- 아래는 리뷰리스트 -->
        
@@ -150,14 +128,9 @@
 		     <thead>
 			      <tr>                      
 			         <td align="center"><b>여행지</b></td> 
-			         <td align="center"><b>리뷰내용</b></td> 
+			         <td align="center"><b>내용</b></td> 
 			         <td align="center"><b>별점</b></td>                                                                                
-			         <td align="center"><b>리뷰날짜</b></td> 
-			         <td align="center"><b>
-			          <%
-			          if (id.equals(user)) { // 본인의 리뷰인 경우에만 "삭제하기" 표시
-			          %>삭제하기
-			           <%}%></b></td>		                                              
+			         <td align="center"><b>작성일</b></td>                                        
 			      </tr>
 		      </thead>
  <%   
@@ -174,17 +147,17 @@
 			         <td><%=myReviewTitleMap.get("title")%></td>
 			         <td><%=myReviewMap.get("review")%></td>
 			         <td>
-			         <% for(int stars = 1; stars <= Integer.parseInt(myReviewMap.get("stars")); stars++){%>
-			         &#11088;
-			         <%}%>
+			         <% 
+					int rating = Integer.parseInt(myReviewMap.get("stars"));
+					for (int stars = 1; stars <= 5; stars++) {
+					    if (stars <= rating) { %>
+					        <i class="fas fa-star" style="color: #ffc83d;"></i>
+					    <% } else { %>
+					        <i class="far fa-star" style="color: #ffc83d;"></i>
+					    <% }
+					}%>
 			         </td>
 			         <td><%=myReviewMap.get("reg_date")%></td>
-			         <td>
-                     <%
-                       if (id.equals(user)) { // 본인의 리뷰인 경우에만 삭제 버튼 표시
-                     %>
-                       <button type="button" value="삭제하기" onclick="openDeletereviewWindow('<%= myReviewMap.get("contentid") %>')">삭제</button>
-                     <%}%> </td>
 			      </tr>
 		      </tbody>  
 		     <%}%>
@@ -214,12 +187,11 @@
 	      <thead>
 	      	<tr>
 	         <td align="center"><b>주소</b></td> 
-	         <td align="center" ><b>명소 명</b></td> 
+	         <td align="center" ><b>장소</b></td> 
 	         <td align="center"><b>사진</b></td>             
 	         <td align="center"><b>카테고리</b></td>                   
 	         <td align="center"><b>평균별점</b></td>                   
-	         <td align="center"><b>조회수</b></td> 
-	         <td align="center"><b>삭제하기</b></td>          
+	         <td align="center"><b>조회수</b></td>  
 	         </tr>                 
 	      </thead>
 	      
@@ -236,8 +208,7 @@
 			      <td> <img width="150" height="150"  src="<%=myPickMap.get("firstimage")%>"></td>
 			      <td><%=myPickMap.get("category") %></td>
 			      <td><%=myPickMap.get("stars") %></td>
-			      <td><%=myPickMap.get("readcount") %></td>      		       		      
-			      <td> <button type="button" value="찜하기삭제" onclick="openDeletemypickWindow('<%=contentid%>')">삭제</button>
+			      <td><%=myPickMap.get("readcount") %></td>      
 			    </tr> 
 		    </tbody>
 			<%}%>
@@ -253,18 +224,9 @@
 function openProfileWindow() {
     var profileWindow = window.open("profileChange.jsp", "프로필 변경", "width=400,height=300");                    
     }
-    
 function openDeleteWindow() {
     var profileWindow = window.open("deleteForm.jsp", "회원탈퇴", "width=400,height=300");                    
     }
-    
-function openDeletereviewWindow(contentid) {
-    var profileWindow = window.open("reviewdelete.jsp?contentid=" + contentid, "리뷰삭제", "width=400,height=300");
-}
-
-function openDeletemypickWindow(contentid) {
-    var profileWindow = window.open("mypickdelete.jsp?contentid=" + contentid, "찜하기삭제", "width=400,height=300");
-}
     
 function myreviews_open() {
     let myreviews = document.getElementById('myreviews');
@@ -291,9 +253,6 @@ function mypick_open() {
     myreviewsButton.style.backgroundColor = "#003366";
     mypickButton.style.backgroundColor = "gray";
 }
-
-
-
 
 </script>
 

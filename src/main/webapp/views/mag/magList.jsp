@@ -25,13 +25,8 @@
     int pageSize = 5;  // 게시판 첫페이지에 보여줄 글 개수
 %>
 
-
-
 <%
-	String id = "";
-	if(session.getAttribute("memId")!=null) {
-   		id = (String) session.getAttribute("memId");
-	}
+   String id = (String) session.getAttribute("memId");
     String pageNum = request.getParameter("pageNum");
     if (pageNum == null) {
         pageNum = "1";
@@ -61,7 +56,7 @@
      <td align="right">
       <%if(id.equals("admin")){%>
        <a href="/wherego/views/mag/test.jsp">메거진 쓰기</a>
-      <%}else {%>      
+      <%}else{%>      
        <a href="/wherego/views/main/main.jsp">메인페이지 이동</a>
       <%}%>
     </td>
@@ -85,9 +80,9 @@
 <%}else{%>
   <table border="1" width="700" cellpadding="0" cellspacing="0" align="center"> 
       <tr height="30" > 
-        <td align="center"  width="50"  >글번호</td> 
+        <td align="center"  width="50"  >#</td> 
         <td align="center"  width="150" >제목</td>                           
-        <td align="center"  width="150" >등록날짜</td>        
+        <td align="center"  width="150" >작성일</td>        
       </tr>
 <%  
    for (int i = 0 ; i < MagList.size() ; i++) {
@@ -124,19 +119,17 @@
 		        </li>
 		<%      }
 		        for (int i = startPage ; i <= endPage ; i++) {  %>
-		        <li class="page-item">
-		          <a class="page-link" href="magList.jsp?pageNum=<%= startPage - 10 %>" aria-label="Previous">
-		            <span aria-hidden="true">&laquo; 이전</span>
-		          </a>
+		        <li class="page-item <%= (i == currentPage) ? "active" : "" %>">
+		          <a class="page-link" href="magList.jsp?pageNum=<%= i %>"><%= i %></a>
 		        </li>
 		<%
 		        }
 		        if (endPage < pageCount) {  %>
-		         li class="page-item">
-		          <a class="page-link" href="magList.jsp?pageNum=<%= startPage - 10 %>" aria-label="Previous">
-		            <span aria-hidden="true">&laquo; 이전</span>
+				<li class="page-item">
+		          <a class="page-link" href="magList.jsp?pageNum=<%= startPage + 10 %>" aria-label="Next">
+		            <span aria-hidden="true">다음 &raquo;</span>
 		          </a>
-		        </li>
+		        </li>		         
 		<%
 		        }
 		    }

@@ -108,7 +108,8 @@ var positions = [];
 		contentid: '<%=dto.getContentid()%>',
 		areacode: '<%=dto.getAreacode()%>',
 		sigungucode: '<%=dto.getSigunguCode()%>',
-		pageNum: '<%=pageNum%>'
+		pageNum: '<%=pageNum%>',
+		firstimage: '<%=dto.getFirstimage()%>'
 	};
 	positions.push(newPosition);
 <%}%>
@@ -120,6 +121,9 @@ mapOption = {
 };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+
 
 // 마커를 표시할 위치와 title 객체 배열입니다 
 /* var positions = [
@@ -160,14 +164,20 @@ for (var i = 0; i < positions.length; i ++) {
         image : markerImage // 마커 이미지 
     });
     
-    var contentid = positions[i].contentid;
     
-    (function(marker, contentid, areacode, sigungucode, pageNum) {
+    
+    (function(marker, contentid, areacode, sigungucode, pageNum, title, firstimage) {
         kakao.maps.event.addListener(marker, 'click', function() {
             // 마커를 클릭했을 때 contentid를 사용하여 페이지 이동
             window.location.href = '/wherego/views/contentLand/contentRand.jsp?areaCode='+areacode+'&sigunguCode='+sigungucode+'&contentid='+contentid+'&pageNum='+pageNum; // 페이지 URL을 적절히 수정
         });
-    })(marker, positions[i].contentid, positions[i].areacode, positions[i].sigungucode, positions[i].pageNum);
+        
+        kakao.maps.event.addListener(marker, 'mouseover', function(){
+        	infowindow.setContent('제목: '+ title + '<br><img src="'+firstimage+'" width="150" height="150">');
+        	infowindow.open(map, marker);});
+        kakao.maps.event.addListener(marker, 'mouseout', function(){infowindow.close();});
+        
+    })(marker, positions[i].contentid, positions[i].areacode, positions[i].sigungucode, positions[i].pageNum, positions[i].title, positions[i].firstimage);
 }
 </script>
 	<br />

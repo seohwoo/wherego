@@ -34,13 +34,7 @@
 </head>
 <body>
    <jsp:include page="/views/main/nav.jsp" />
-	
-	<br />
-	<div class="text-center">
-		<h1>어디 Go</h1>
-	</div>
-	<br />
-	<hr />
+   <jsp:include page="/views/main/title.jsp" /><br />
 	
 	 <!-- 문의 리스트 -->
     <h2 align="center">❓ 문의게시판 ❓</h2>

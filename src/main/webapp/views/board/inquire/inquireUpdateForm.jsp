@@ -6,6 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>어디 Go 문의게시판(수정)</title>
+	<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </head>
@@ -30,26 +32,21 @@
 	<% } else { %>
 <body>
      <jsp:include page="/views/main/nav.jsp" />
-    
-    <br />
-    <div class="text-center">
-        <h1>어디 Go</h1>
-    </div>
-    <br />
-    <hr />
+     <jsp:include page="/views/main/title.jsp" /><br />
     
     <!-- 문의 리스트 (수정) -->
     <h2 align="center">문의 게시판 (수정)</h2>
     <br />
+    <div class="d-grid gap-2 col-6 mx-auto">
     <form action="inquireUpdatePro.jsp" method="post" onsubmit="return writeSave()">
         <input type="hidden" name="num" value="<%= dto.getNum() %>">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">작성자</label>
-            <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= dto.getWriter() %>">
+            <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= dto.getWriter() %>" readonly>
             <input type="hidden" name="id" class="form-control" value="<%= id %>">
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlInput2" class "form-label">제목</label>
+            <label for="exampleFormControlInput2" class="form-label">제목</label>
             <input type="text" name="title" class="form-control" id="exampleFormControlInput2" value="<%= dto.getTitle() %>">
         </div>
         <div class="mb-3">
@@ -60,11 +57,10 @@
             <button type="submit" class="btn btn-success">수정된 문의 등록</button>
         </div>
     </form>
-    
-    <div class="fixed-bottom">
-        <hr />
-        <jsp:include page="/views/main/footer.jsp" />
     </div>
+    
+      <br /> <hr /><br />
+        <jsp:include page="/views/main/footer.jsp" />
 <% }%>
 </body>
 <%}%>

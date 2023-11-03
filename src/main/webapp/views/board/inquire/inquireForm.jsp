@@ -39,22 +39,17 @@
 	}
 %>
      <jsp:include page="/views/main/nav.jsp" />
-	
-	<br />
-	<div class="text-center">
-		<h1>어디 Go</h1>
-	</div>
-	<br />
-	<hr />
+     <jsp:include page="/views/main/title.jsp" /><br />
 	
 	 <!-- 문의 리스트 -->
     <h2 align="center">Q & A</h2>
     <br />
 	
+	<div class="d-grid gap-2 col-6 mx-auto">
     <form action="inquirePro.jsp" method="post" onsubmit="return writeSave()">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">작성자</label>
-            <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= dtoM.getNic()  %>">
+            <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= dtoM.getNic()  %>" readonly>
             <input type="hidden" name = id class="form-control" value="<%=id %>" >
             <input type="hidden" name = ref class="form-control" value="<%=ref %>" >
             <input type="hidden" name = boardnum class="form-control" value="<%=boardnum %>" >
@@ -71,10 +66,10 @@
             <button type="submit" class="btn btn-secondary">등록</button>
         </div>
     </form>
-    <div class="fixed-bottom">
-        <hr />
-        <jsp:include page="/views/main/footer.jsp" />
     </div>
+    
+        <br /><hr /><br />
+        <jsp:include page="/views/main/footer.jsp" />
 <% 			
 	} 
 }%>

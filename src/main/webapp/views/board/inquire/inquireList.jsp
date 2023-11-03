@@ -38,13 +38,7 @@
 </head>
 <body>
    <jsp:include page="/views/main/nav.jsp" />
-	
-	<br />
-	<div class="text-center">
-		<h1>어디 Go</h1>
-	</div>
-	<br />
-	<hr />
+   <jsp:include page="/views/main/title.jsp" /><br />
 	
 	 <!-- 문의 리스트 -->
     <h2 align="center">❓ 문의게시판 ❓</h2>
@@ -54,7 +48,8 @@
     	<button type="button" class="btn btn-light" OnClick="window.location='inquireMyList.jsp?pageNum=1'">나의 문의글</button>
     </div>
     <br />
-
+	
+	<div class="d-grid gap-2 col-6 mx-auto">
     <% if (count == 0) { %>
     <table align="center">
         <tr>
@@ -92,6 +87,7 @@
         <% } %>
     </table>
     <% } %>
+    </div>
 
 	<br />
 	<nav aria-label="Page navigation example">

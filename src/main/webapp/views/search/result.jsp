@@ -68,7 +68,7 @@
 			        <% }
 			        if(avg % 1 != 0){%>
 			        &#x2606;
-			        <%}%><%=avg %> (<%=totalReview %>) &nbsp; ❤ : <%=totalSave %> (0) &nbsp; 🔎 : <%=readCount %></small></p>
+			        <%}%><%=avg %> (<%=totalReview %>) &nbsp; ❤ : <%=totalSave %> &nbsp; 🔎 : <%=readCount %></small></p>
 			      </div>
 				</button>
 			   
@@ -104,7 +104,12 @@ var positions = [];
 	%>
 	var newPosition = {
 		title: ' <%= dto.getTitle()%> ',
-		latlng: new kakao.maps.LatLng(<%=x%>, <%=y%>)
+		latlng: new kakao.maps.LatLng(<%=x%>, <%=y%>),
+		contentid: '<%=dto.getContentid()%>',
+		areacode: '<%=dto.getAreacode()%>',
+		sigungucode: '<%=dto.getSigunguCode()%>',
+		pageNum: '<%=pageNum%>',
+		firstimage: '<%=dto.getFirstimage()%>'
 	};
 	positions.push(newPosition);
 <%}%>
@@ -116,6 +121,9 @@ mapOption = {
 };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+
 
 // 마커를 표시할 위치와 title 객체 배열입니다 
 /* var positions = [
@@ -155,6 +163,21 @@ for (var i = 0; i < positions.length; i ++) {
         title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
         image : markerImage // 마커 이미지 
     });
+    
+    
+    
+    (function(marker, contentid, areacode, sigungucode, pageNum, title, firstimage) {
+        kakao.maps.event.addListener(marker, 'click', function() {
+            // 마커를 클릭했을 때 contentid를 사용하여 페이지 이동
+            window.location.href = '/wherego/views/contentLand/contentRand.jsp?areaCode='+areacode+'&sigunguCode='+sigungucode+'&contentid='+contentid+'&pageNum='+pageNum; // 페이지 URL을 적절히 수정
+        });
+        
+        kakao.maps.event.addListener(marker, 'mouseover', function(){
+        	infowindow.setContent('제목: '+ title + '<br><img src="'+firstimage+'" width="150" height="150">');
+        	infowindow.open(map, marker);});
+        kakao.maps.event.addListener(marker, 'mouseout', function(){infowindow.close();});
+        
+    })(marker, positions[i].contentid, positions[i].areacode, positions[i].sigungucode, positions[i].pageNum, positions[i].title, positions[i].firstimage);
 }
 </script>
 	<br />

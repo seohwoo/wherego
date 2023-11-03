@@ -18,7 +18,7 @@
 <body>
     <h1>프로필 이미지 변경</h1>
     
-    <form action="uploadProfile.jsp" method="post" enctype="multipart/form-data">
+    <form action="uploadProfile.jsp" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
 
 		<label class="form-label" >프로필 이미지 선택</label>
 		<div class="input-group mb-3">
@@ -33,6 +33,16 @@
         // 새 창을 닫는 함수
         function closeWindow() {       	
               window.close();         
+        }
+
+        // 폼 유효성 검사 함수
+        function validateForm() {
+            var fileInput = document.getElementById('profile');
+            if (fileInput.files.length === 0) {
+                alert('파일을 추가하세요.'); // 파일을 추가하지 않았을 때 알림 메시지 표시
+                return false; // 폼 제출을 중지
+            }
+            return true; // 파일이 첨부되었을 때 폼 제출 허용
         }
     </script>
     

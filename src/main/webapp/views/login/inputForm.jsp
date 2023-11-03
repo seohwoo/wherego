@@ -70,7 +70,7 @@ function checkButtonState() {
 <h3 align="center">✔회원가입✔</h3> <br />
 
 
-<form method="post" action="inputPro.jsp" name="userinput" onSubmit="return checkIt()" style="margin: auto; width: 400px;">
+<form method="post" action="inputPro.jsp" class="was-validated" name="userinput" onSubmit="return checkIt()" style="margin: auto; width: 400px;">
 	<table>
 	
 	<tr>
@@ -89,7 +89,7 @@ function checkButtonState() {
 				<input type="text"  class="form-control" name="nic" maxlength="15" required="required"> 
 				<input class="btn btn-outline-secondary" type="button" name="confirm_nic" value="닉네임 중복확인" 
 		        	OnClick="DuplicateNic(this.form)" required="required">
-		        	<small>닉네임은 15자 이하여야 합니다.</small>
+		        	<small><em>15자 이하로 입력하세요</em></small>
 	        </div>
          </td>
 	</tr>
@@ -100,7 +100,7 @@ function checkButtonState() {
         <span class="input-group-text">아이디</span>
         <input type="text" class="form-control" name="id" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$" oninput="checkIdValidity(this)">
         <input class="btn btn-outline-secondary" type="button" name="confirm_id" value="아이디 중복확인" onclick="DuplicateID(this.form)" disabled>
-       		 <small>아이디는 영어와 숫자를 포함하여 6자 이상 12자 이하여야 합니다.</small>
+       		 <small><em>영어, 숫자를 포함하여 6자 이상 12자 이하로 입력하세요</em></small>
     </div>
 </td>
 </tr>		
@@ -109,7 +109,7 @@ function checkButtonState() {
         <div class="input-group mb-3">
             <span class="input-group-text">비밀번호</span>
             <input type="password" class="form-control" name="pw" required pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@*_.\-])[A-Za-z\d!@*_.\-]{6,12}$">
-           		 <small>비밀번호는 영어 대문자, 소문자, 숫자, 특수문자(!@*_.-)를 각각 1자 이상 포함하여 6자 이상 12자 이하여야 합니다.</small>		
+           		 <small><em>영문 대소문자, 숫자, 특수문자(! @ * _ . -)를 <br />각각 1자 이상 포함하여 6자 이상 12자 이하로 입력하세요</em></small>		
         </div>
     </td>	
 </tr>

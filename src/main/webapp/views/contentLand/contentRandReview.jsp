@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
 <%
@@ -43,14 +44,14 @@
 		<div class="d-grid gap-2 col-6 mx-auto">
 			<div class="card border-light mb-3" style="position: relative;">
 			<!-- id -->
-			<h5>닉네임 : <%=nic%> <br />등급 : <%=gradeName %></h5>
+			<h5><%=nic%> «<small><%=gradeName %></small>»</h5>
 			 <div class="rating">
 			        <% int rating = Integer.parseInt(reviewInfo.get("stars"));
 			        for (int s = 1; s <= 5; s++) {
 			               if (s <= rating) { %>
-			                   <span class="star">&#9733;</span> <!-- 채워진 별 -->
+			                    <i class="fas fa-star" style="color: #ffc83d;"></i> <!-- 채워진 별 -->
 			               <% } else { %>
-			                   <span class="star">&#9734;</span> <!-- 빈 별 -->
+			                    <i class="far fa-star" style="color: #ffc83d;"></i>
 			               <% }
 			           }
 			        %>
@@ -96,6 +97,7 @@
     .likeButton:hover {
         border: 3px solid #FFA500;
     }
+    
   hr {
   margin: 12px 0;
   border: 0;
@@ -106,6 +108,9 @@
     font-size: 50px;
     color: #4F8BCA;
   }
+}
+small{
+	font-family: Pretendard-Regular', sans-serif;
 }
 
 </style>

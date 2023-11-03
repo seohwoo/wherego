@@ -112,7 +112,8 @@
 		    <li class="list-group-item">주차 : <%=DetailrandInfoMap.get("parking") %></li>
 		  </ul>
 	  	<div class="card-body">
-		<h5>평점 : <%=avg%>  <input class="btn btn-outline-secondary" type="button" value="평점주기" OnClick="insertStar(<%=contentid%>)"></h5>
+		<h5>리뷰: <%=avg%>/5 
+		<input class="btn btn-outline-secondary" type="button" value="작성" OnClick="insertStar(<%=contentid%>)"></h5>
 		<form action="putLandPro.jsp" method="post" onsubmit="return changeButtonColor()">
         	<input class="btn btn-outline-secondary" type="submit" value="담기" name="putLand" id="putLand">
    	 	</form>

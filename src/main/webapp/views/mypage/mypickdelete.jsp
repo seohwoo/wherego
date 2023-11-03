@@ -6,7 +6,7 @@
 <%@ page import="team02.user.save.SaveDAO" %>
 <%String contentid = request.getParameter("contentid");%>
 
-<%=contentid %>
+
 <title>찜하기 삭제</title>
 </head>
 

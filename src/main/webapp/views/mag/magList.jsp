@@ -25,8 +25,13 @@
     int pageSize = 5;  // 게시판 첫페이지에 보여줄 글 개수
 %>
 
+
+
 <%
-   String id = (String) session.getAttribute("memId");
+	String id = "";
+	if(session.getAttribute("memId")!=null) {
+   		id = (String) session.getAttribute("memId");
+	}
     String pageNum = request.getParameter("pageNum");
     if (pageNum == null) {
         pageNum = "1";
@@ -56,7 +61,7 @@
      <td align="right">
       <%if(id.equals("admin")){%>
        <a href="/wherego/views/mag/test.jsp">메거진 쓰기</a>
-      <%}else{%>      
+      <%}else {%>      
        <a href="/wherego/views/main/main.jsp">메인페이지 이동</a>
       <%}%>
     </td>

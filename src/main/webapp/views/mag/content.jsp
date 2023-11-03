@@ -14,7 +14,12 @@
 </head>
 
 <%
-	  String id = (String)session.getAttribute("memId");
+	 
+	  String id = "";
+	  if(session.getAttribute("memId")!=null) {
+     	id = (String) session.getAttribute("memId");  		
+	  }
+
       int num = Integer.parseInt(request.getParameter("num"));  
       String pageNum = request.getParameter("pageNum");
       

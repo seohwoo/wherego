@@ -39,8 +39,9 @@
 
        <p><em>다른 아이디를 선택하세요.</em></p>
        <div class="input-group mb-3">
-       <input class="form-control" type="text"  name="id" required="required"> 
+       <input class="form-control" type="text"  name="id" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$"> 
        <input class="btn btn-outline-dark" type="submit" value="중복확인" >
+       <small>아이디는 영어와 숫자를 포함하여 6자 이상 12자 이하여야 합니다.</small>
        </div>
 
     </td>

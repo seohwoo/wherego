@@ -2,6 +2,57 @@
 <%@ include file="/views/login/color.jsp"%>
 <% request.setCharacterEncoding("UTF-8");%>
 
+<script>
+
+
+
+function checkIdValidity(input) {
+    const idValue = input.value;
+    const idPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
+    const confirmButton = input.form.querySelector('input[name="confirm_id"]');
+    if (idPattern.test(idValue)) {
+        confirmButton.disabled = false; // Enable the button
+    } else {
+        confirmButton.disabled = true; // Disable the button
+    }
+}
+
+var isNicConfirmed = false; // 닉네임 중복확인 여부
+var isIdConfirmed = false; // 아이디 중복확인 여부
+
+function checkIt() {
+    if ((!isNicConfirmed && !isIdConfirmed) || (isNicConfirmed && !isIdConfirmed) || (!isNicConfirmed && isIdConfirmed)) {
+        alert("닉네임 또는 아이디 중복확인을 해주세요.");
+        return false;
+    }
+    return true;
+}
+
+// 닉네임 중복확인 상태 설정
+function setNicConfirmed(value) {
+    isNicConfirmed = value;
+    checkButtonState();
+}
+
+// 아이디 중복확인 상태 설정
+function setIdConfirmed(value) {
+    isIdConfirmed = value;
+    checkButtonState();
+}
+
+// 가입하기 버튼의 활성화/비활성화 상태 조절
+function checkButtonState() {
+    var confirmButton = document.querySelector('input[name="confirm"]');
+    if (isNicConfirmed || isIdConfirmed) {
+        confirmButton.disabled = false;
+    } else {
+        confirmButton.disabled = true;
+    }
+}
+
+
+</script>
+
 <html>
 <head>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -35,35 +86,33 @@
 		<td>	
 			<div class="input-group mb-3">
 			<span class="input-group-text">닉네임</span>
-				<input type="text"  class="form-control" name="nic"> 
+				<input type="text"  class="form-control" name="nic" maxlength="15" required="required"> 
 				<input class="btn btn-outline-secondary" type="button" name="confirm_nic" value="닉네임 중복확인" 
 		        	OnClick="DuplicateNic(this.form)" required="required">
+		        	<small>닉네임은 15자 이하여야 합니다.</small>
 	        </div>
          </td>
 	</tr>
 	
 	<tr>
-		<td> 
-			<div class="input-group mb-3">
-			<span class="input-group-text">아이디</span>
-				<input type="text" class="form-control" name="id" required="required">
-				<input class="btn btn-outline-secondary" type="button" name="confirm_id" value="아이디 중복확인" 
-		        	OnClick="DuplicateID(this.form)">
-        	</div>
-
-       	</td>
-	</tr>
-		
+	<td> 
+    <div class="input-group mb-3">
+        <span class="input-group-text">아이디</span>
+        <input type="text" class="form-control" name="id" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$" oninput="checkIdValidity(this)">
+        <input class="btn btn-outline-secondary" type="button" name="confirm_id" value="아이디 중복확인" onclick="DuplicateID(this.form)" disabled>
+       		 <small>아이디는 영어와 숫자를 포함하여 6자 이상 12자 이하여야 합니다.</small>
+    </div>
+</td>
+</tr>		
 	<tr>
-
-		<td >
-			<div class="input-group mb-3">
-				<span class="input-group-text">비밀번호</span>
-				<input type="password" class="form-control" name="pw" required="required">
-			</div>
-
-		</td>	
-	</tr>
+    <td>			
+        <div class="input-group mb-3">
+            <span class="input-group-text">비밀번호</span>
+            <input type="password" class="form-control" name="pw" required pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@*_.\-])[A-Za-z\d!@*_.\-]{6,12}$">
+           		 <small>비밀번호는 영어 대문자, 소문자, 숫자, 특수문자(!@*_.-)를 각각 1자 이상 포함하여 6자 이상 12자 이하여야 합니다.</small>		
+        </div>
+    </td>	
+</tr>
 
 	
 	<tr>
@@ -104,7 +153,7 @@
 	<td>
 		<span class="input-group-text">이메일</span>
 			<div class="input-group mb-3">
-			  <input type="text" class="form-control" name="email">
+			  <input type="text" class="form-control" name="email" required="required">
 			  <span>@</span>
 				  <select class="form-select form-select-sm" name = "emailOption">
 			        <option selected>이메일 입력</option>
@@ -145,24 +194,28 @@
 <script>
 
    
-   function DuplicateID(userinput){ // 아이디 중복체크
-	   if (userinput.id.value == "") {
-           alert("아이디를 입력하세요");
-           return;
-   }
-	   url = "confirmId.jsp?id="+userinput.id.value ;
-	   open(url, "confirm",  "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=300, height=200");
-   }
-   
-   
-	function DuplicateNic (userinput){ // 닉네임 중복체크
-		if (userinput.nic.value == "") {
-	           alert("닉네임을 입력하세요");
-	           return;
-   }
-		 url = "confirmNIC.jsp?nic="+userinput.nic.value ;
-		   open(url, "confirm",  "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=300, height=200");
-	   }
+//아이디 중복확인 버튼 클릭 시
+function DuplicateID(userinput) {
+    if (userinput.id.value === "") {
+        alert("아이디를 입력하세요");
+        return;
+    }
+    url = "confirmId.jsp?id=" + userinput.id.value;
+    open(url, "confirm", "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=300, height=200");
+    setIdConfirmed(true); // 아이디 중복확인 설정
+}
+
+// 닉네임 중복확인 버튼 클릭 시
+function DuplicateNic(userinput) {
+    if (userinput.nic.value === "") {
+        alert("닉네임을 입력하세요");
+        return;
+    }
+    url = "confirmNIC.jsp?nic=" + userinput.nic.value;
+    open(url, "confirm", "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=300, height=200");
+    setNicConfirmed(true); // 닉네임 중복확인 설정
+}
+
   
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

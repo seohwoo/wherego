@@ -74,9 +74,8 @@
 		<a href="/wherego/views/locationLand/locationHigh.jsp" class="btn btn-secondary">지역별 여행지 보기</a>
 	</div>
 
-	<br/><hr /><br/>
-	<h3 align= "center"> Top 8 여행지</h3>
-	<br/>
+<!-- top 8 여행지 -->
+	<br/><hr />
 		<jsp:include page="/views/main/topArea.jsp" />
 	<br/><br />
 	<div class="guide">

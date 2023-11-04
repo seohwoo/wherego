@@ -10,13 +10,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <meta charset="UTF-8">
 <title>어디GO</title>
 </head>
 <body>
-	<jsp:include page="/views/main/nav.jsp" />	
+	<jsp:include page="/views/main/nav.jsp" />
+	<jsp:include page="/views/main/title.jsp" />	
 	<br />	
-	<div class="container">
+	<div style="width:80%; margin: auto;">
+	<div class="total-container" style="width:100%; height:800px;">
   		<div class="card-container">
 	<%
 		String searchType  = request.getParameter("searchType");
@@ -60,13 +63,15 @@
 			        <h5 align="left" class="card-title"><%=dto.getTitle() %></h5>
 			        <p align="left" class="card-text"><%=dto.getAreacodename() %> &#10144; <%=dto.getSigungucodename() %> &#12304;<%=dto.getCategory() %>&#12305;</p>
 			         <p align="left" class="card-text"><small >
-			         <%
-			        for(int i = 1; i <= (int)avg; i++){%>
-			        	&#11088;
-			        <% }
-			        if(avg % 1 != 0){%>
-			        &#x2606;
-			        <%}%><%=avg %> (<%=totalReview %>) &nbsp; ❤ : <%=totalSave %> (0) &nbsp; 🔎 : <%=readCount %></small></p>
+			        <% for (int i = 1; i <= 5; i++) { %>
+					    <% if (i <= avg) { %>
+					      <i class="fas fa-star" style="color: #ffc83d;"></i>
+					    <% } else if (i - 0.5 <= avg) { %>
+					      <i class="fas fa-star-half-alt" style="color: #ffc83d;"></i>
+					    <% } else { %>
+					      <i class="far fa-star" style="color: #ffc83d;"></i>
+					    <% } %>
+			        <%}%><%=avg %> (<%=totalReview %>) &nbsp; ❤ (<%=totalSave %>) &nbsp; 🔎 (<%=readCount %>)</small></p>
 			      </div>
 				</button>
 			   
@@ -74,12 +79,12 @@
 			</div> 
 			<%} %>
 			</div>
-			
 
 			<br />
 			<div class="map-container">
 				<div id="map" style="width:100%; height:800px;"></div>
 			</div>
+		</div>
 	</div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4a9d59c81d3321fd7e3b885e4c1f6fcc"></script>
@@ -102,7 +107,12 @@ var positions = [];
 	%>
 	var newPosition = {
 		title: ' <%= dto.getTitle()%> ',
-		latlng: new kakao.maps.LatLng(<%=x%>, <%=y%>)
+		latlng: new kakao.maps.LatLng(<%=x%>, <%=y%>),
+		contentid: '<%=dto.getContentid()%>',
+		areacode: '<%=dto.getAreacode()%>',
+		sigungucode: '<%=dto.getSigunguCode()%>',
+		pageNum: '<%=pageNum%>',
+		firstimage: '<%=dto.getFirstimage()%>'
 	};
 	positions.push(newPosition);
 <%}%>
@@ -114,6 +124,9 @@ mapOption = {
 };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+
 
 // 마커를 표시할 위치와 title 객체 배열입니다 
 /* var positions = [
@@ -153,6 +166,21 @@ for (var i = 0; i < positions.length; i ++) {
         title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
         image : markerImage // 마커 이미지 
     });
+    
+    
+    
+    (function(marker, contentid, areacode, sigungucode, pageNum, title, firstimage) {
+        kakao.maps.event.addListener(marker, 'click', function() {
+            // 마커를 클릭했을 때 contentid를 사용하여 페이지 이동
+            window.location.href = '/wherego/views/contentLand/contentRand.jsp?areaCode='+areacode+'&sigunguCode='+sigungucode+'&contentid='+contentid+'&pageNum='+pageNum; // 페이지 URL을 적절히 수정
+        });
+        
+        kakao.maps.event.addListener(marker, 'mouseover', function(){
+        	infowindow.setContent('<div class="custom-infowindow">' + title + '<br><img src="'+firstimage+'" width="250" height="150">');
+        	infowindow.open(map, marker);});
+        kakao.maps.event.addListener(marker, 'mouseout', function(){infowindow.close();});
+        
+    })(marker, positions[i].contentid, positions[i].areacode, positions[i].sigungucode, positions[i].pageNum, positions[i].title, positions[i].firstimage);
 }
 </script>
 	<br />
@@ -191,13 +219,27 @@ for (var i = 0; i < positions.length; i ++) {
 	  </ul>
 	</nav>
 	<%}else{%>
-		<table align="center">
-			<tr>
-				<td>문의 글이 없습니다.</td>
-			</tr>
-    	</table>
-		<button type="button" class="btn btn-light" OnClick="window.location='/wherego/views/main/main.jsp'">✏ 문의하기 ✏</button>
-			
+		<div class="text-align">
+			<h3>검색이 불가합니다.</h3>
+			<div id="countdown">5</div>
+		</div>
+    	 <script type="text/javascript">
+        var countdownElement = document.getElementById("countdown");
+        var countdownValue = 5; // 시작 카운트 값
+
+        function updateCountdown() {
+            countdownValue--;
+            countdownElement.innerText = countdownValue;
+
+            if (countdownValue <= 0) {
+                window.location.href = "/wherego/views/main/main.jsp"; // 메인 페이지의 URL로 변경하세요
+            } else {
+                setTimeout(updateCountdown, 1000); // 1초마다 업데이트
+            }
+        }
+
+        setTimeout(updateCountdown, 1000); // 초기화 및 시작
+    </script>
 	<%}%>
 	<br/>
 	<hr />
@@ -206,7 +248,16 @@ for (var i = 0; i < positions.length; i ++) {
 </body>
 
 <style>
-  .container {
+.custom-infowindow {
+  max-width: 300px;
+  background: none;
+  border: 10px; /* 테두리를 완전히 제거합니다 */
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  /* 다른 스타일 속성 설정 */
+  }
+  .total-container {
     display: flex;
   }
   .card-container {

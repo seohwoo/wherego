@@ -60,7 +60,7 @@
 	<div class="d-grid gap-2 col-6 mx-auto">	
 			<form action="/wherego/views/search/result.jsp" method="post">
 		<div class="input-group mb-3">
-			<select name="searchType">
+			<select class="btn btn-outline-secondary dropdown-toggle" name="searchType">
 				<option value="land">명소</option>
 				<option value="loc">지역</option>
 			</select>
@@ -74,9 +74,8 @@
 		<a href="/wherego/views/locationLand/locationHigh.jsp" class="btn btn-secondary">지역별 여행지 보기</a>
 	</div>
 
-	<br/><hr /><br/>
-	<h3 align= "center"> Top 8 여행지</h3>
-	<br/>
+<!-- top 8 여행지 -->
+	<br/><hr />
 		<jsp:include page="/views/main/topArea.jsp" />
 	<br/><br />
 	<div class="guide">

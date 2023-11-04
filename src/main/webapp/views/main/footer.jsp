@@ -18,7 +18,6 @@
 					사이트맵</a> &nbsp;
 				<p align="right" style="color: black;">&copy; 어디Go &nbsp;</p>
 		</div>
-		
 	</footer>
 	
 </body>

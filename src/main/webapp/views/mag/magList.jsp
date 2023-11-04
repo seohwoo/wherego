@@ -9,20 +9,24 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import = "java.util.List" %>
 <%@page import = "java.util.HashMap" %>
-
-<title>관리자 메거진 리스트 보기</title>
+<html>
+<head>
+	<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<title>어디Go - Magazine</title>
+</head>
+<body>
 <jsp:include page="/views/main/nav.jsp" />
+<jsp:include page="/views/main/title.jsp" /><br />
+
 <%
-    int pageSize = 10;  // 게시판 첫페이지에 보여줄 글 개수
+    int pageSize = 5;  // 게시판 첫페이지에 보여줄 글 개수
 %>
 
-
-
 <%
-	String id = "";
-	if(session.getAttribute("memId")!=null) {
-   		id = (String) session.getAttribute("memId");
-	}
+   String id = (String) session.getAttribute("memId");
     String pageNum = request.getParameter("pageNum");
     if (pageNum == null) {
         pageNum = "1";
@@ -52,7 +56,7 @@
      <td align="right">
       <%if(id.equals("admin")){%>
        <a href="/wherego/views/mag/test.jsp">메거진 쓰기</a>
-      <%}else {%>      
+      <%}else{%>      
        <a href="/wherego/views/main/main.jsp">메인페이지 이동</a>
       <%}%>
     </td>
@@ -76,9 +80,9 @@
 <%}else{%>
   <table border="1" width="700" cellpadding="0" cellspacing="0" align="center"> 
       <tr height="30" > 
-        <td align="center"  width="50"  >글번호</td> 
+        <td align="center"  width="50"  >#</td> 
         <td align="center"  width="150" >제목</td>                           
-        <td align="center"  width="150" >등록날짜</td>        
+        <td align="center"  width="150" >작성일</td>        
       </tr>
 <%  
    for (int i = 0 ; i < MagList.size() ; i++) {
@@ -95,30 +99,43 @@
  </table>
 <%}%>
 
-
-<center>
-<%
-    if (count > 0) {
-        int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
-       
-        int startPage = (int)(currentPage/10)*10+1;
-      int pageBlock=10;
-        int endPage = startPage + pageBlock-1;
-        if (endPage > pageCount) endPage = pageCount;
-        
-        if (startPage > 10) {    %>
-        <a href="magList.jsp?pageNum=<%= startPage - 10 %>">[이전]</a>
-<%      }
-        for (int i = startPage ; i <= endPage ; i++) {  %>
-        <a href="magList.jsp?pageNum=<%= i %>">[<%= i %>]</a>
-<%
-        }
-        if (endPage < pageCount) {  %>
-        <a href="magList.jsp?pageNum=<%= startPage + 10 %>">[다음]</a>
-<%
-        }
-    }
-%>
-</center>
-
+<br />
+	<nav aria-label="Page navigation example">
+	  <ul class="pagination justify-content-center">
+		<%
+		    if (count > 0) {
+		        int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		       
+		        int startPage = (int)(currentPage/10)*10+1;
+		      	int pageBlock=10;
+		        int endPage = startPage + pageBlock-1;
+		        if (endPage > pageCount) endPage = pageCount;
+		        
+		        if (startPage > 10) {    %>
+		        <li class="page-item">
+		          <a class="page-link" href="magList.jsp?pageNum=<%= startPage - 10 %>" aria-label="Previous">
+		            <span aria-hidden="true">&laquo; 이전</span>
+		          </a>
+		        </li>
+		<%      }
+		        for (int i = startPage ; i <= endPage ; i++) {  %>
+		        <li class="page-item <%= (i == currentPage) ? "active" : "" %>">
+		          <a class="page-link" href="magList.jsp?pageNum=<%= i %>"><%= i %></a>
+		        </li>
+		<%
+		        }
+		        if (endPage < pageCount) {  %>
+				<li class="page-item">
+		          <a class="page-link" href="magList.jsp?pageNum=<%= startPage + 10 %>" aria-label="Next">
+		            <span aria-hidden="true">다음 &raquo;</span>
+		          </a>
+		        </li>		         
+		<%
+		        }
+		    }
+		%>
+		</ul>
+	</nav>
+</body>
+</html>
 

@@ -14,7 +14,7 @@
 	      <!-- 텍스트 추가 -->
 	      <div class="text-overlay">
 	        <div class="text-center">
-	          <h1>어디 Go</h1>
+	          <h1><a href="/wherego/views/main/main.jsp" class="title">어디 Go</a></h1>
 	        </div>
 	      </div>
 	    </div>
@@ -23,7 +23,7 @@
 	      <!-- 텍스트 추가 -->
 	      <div class="text-overlay">
 	        <div class="text-center">
-	          <h1>어디 Go</h1>
+	          <h1><a href="/wherego/views/main/main.jsp" class="title">어디 Go</a></h1>
 	        </div>
 	      </div>
 	    </div>
@@ -32,7 +32,7 @@
 	      <!-- 텍스트 추가 -->
 	      <div class="text-overlay">
 	        <div class="text-center">
-	          <h1>어디 Go</h1>
+	          <h1><a href="/wherego/views/main/main.jsp" class="title">어디 Go</a></h1>
 	        </div>
 	      </div>
 	    </div>
@@ -54,8 +54,10 @@
     font-weight: normal;
     font-style: normal;
 	}
-	h1 {
+.title {
     font-family: 'Giants-Inline', sans-serif;
+    text-decoration: none;
+    color:white;
 }
  .image-text {
     position: relative;

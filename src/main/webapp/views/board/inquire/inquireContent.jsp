@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
 	<title>어디 Go</title>
 </head>
 <body>
@@ -40,14 +41,7 @@
   	<%}else{
 	%>
 	 <jsp:include page="/views/main/nav.jsp" />
-	
-	<br />
-	<div class="text-center">
-		<h1>어디 Go</h1>
-	</div>
-	<br />
-	<hr />
-	
+	<jsp:include page="/views/main/title.jsp" /><br />
 	<!-- 문의 글 -->
      <h2 align="center">상세문의</h2>
     <br />
@@ -89,7 +83,7 @@
 		</div>
 		<%} %>
 		<br />    
-		    
+	<br />	    
 	<h3 align="center">💭 답변 💭</h3>
     <br />
 
@@ -128,14 +122,7 @@
 	    	</table>
     	</div>
     <% }%>
-    <br />
-    <div class = "fixed-bottom">
 	<br/><hr /><br/>
-	</div>
-		
-	<br />
-	<hr />
-	<br />
 	<jsp:include page="/views/main/footer.jsp" />
 <%}
 }%>		

@@ -2,57 +2,7 @@
 <%@ include file="/views/login/color.jsp"%>
 <% request.setCharacterEncoding("UTF-8");%>
 
-<script>
-
-
-
-function checkIdValidity(input) {
-    const idValue = input.value;
-    const idPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
-    const confirmButton = input.form.querySelector('input[name="confirm_id"]');
-    if (idPattern.test(idValue)) {
-        confirmButton.disabled = false; // Enable the button
-    } else {
-        confirmButton.disabled = true; // Disable the button
-    }
-}
-
-var isNicConfirmed = false; // 닉네임 중복확인 여부
-var isIdConfirmed = false; // 아이디 중복확인 여부
-
-function checkIt() {
-    if ((!isNicConfirmed && !isIdConfirmed) || (isNicConfirmed && !isIdConfirmed) || (!isNicConfirmed && isIdConfirmed)) {
-        alert("닉네임 또는 아이디 중복확인을 해주세요.");
-        return false;
-    }
-    return true;
-}
-
-// 닉네임 중복확인 상태 설정
-function setNicConfirmed(value) {
-    isNicConfirmed = value;
-    checkButtonState();
-}
-
-// 아이디 중복확인 상태 설정
-function setIdConfirmed(value) {
-    isIdConfirmed = value;
-    checkButtonState();
-}
-
-// 가입하기 버튼의 활성화/비활성화 상태 조절
-function checkButtonState() {
-    var confirmButton = document.querySelector('input[name="confirm"]');
-    if (isNicConfirmed || isIdConfirmed) {
-        confirmButton.disabled = false;
-    } else {
-        confirmButton.disabled = true;
-    }
-}
-
-
-</script>
-
+<!DOCTYPE html>
 <html>
 <head>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -70,7 +20,7 @@ function checkButtonState() {
 <h3 align="center">✔회원가입✔</h3> <br />
 
 
-<form method="post" action="inputPro.jsp" class="was-validated" name="userinput" onSubmit="return checkIt()" style="margin: auto; width: 400px;">
+<form method="post" action="inputPro.jsp"  name="userinput" onSubmit="return checkIt()" style="margin: auto; width: 400px;" class="was-validated">
 	<table>
 	
 	<tr>
@@ -86,7 +36,7 @@ function checkButtonState() {
 		<td>	
 			<div class="input-group mb-3">
 			<span class="input-group-text">닉네임</span>
-				<input type="text"  class="form-control" name="nic" maxlength="15" required="required"> 
+				<input type="text"  class="form-control" name="nic" maxlength="15" required="required" > 
 				<input class="btn btn-outline-secondary" type="button" name="confirm_nic" value="닉네임 중복확인" 
 		        	OnClick="DuplicateNic(this.form)" required="required">
 		        	<small><em>15자 이하로 입력하세요</em></small>
@@ -191,9 +141,51 @@ function checkButtonState() {
 	<br/>
 		<jsp:include page="/views/main/footer.jsp" />
 </body>
-<script>
 
-   
+<script>
+function checkIdValidity(input) {
+    const idValue = input.value;
+    const idPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
+    const confirmButton = input.form.querySelector('input[name="confirm_id"]');
+    if (idPattern.test(idValue)) {
+        confirmButton.disabled = false; // Enable the button
+    } else {
+        confirmButton.disabled = true; // Disable the button
+    }
+}
+
+var isNicConfirmed = false; // 닉네임 중복확인 여부
+var isIdConfirmed = false; // 아이디 중복확인 여부
+
+function checkIt() {
+    if ((!isNicConfirmed && !isIdConfirmed) || (isNicConfirmed && !isIdConfirmed) || (!isNicConfirmed && isIdConfirmed)) {
+        alert("닉네임 또는 아이디 중복확인을 해주세요.");
+        return false;
+    }
+    return true;
+}
+
+// 닉네임 중복확인 상태 설정
+function setNicConfirmed(value) {
+    isNicConfirmed = value;
+    checkButtonState();
+}
+
+// 아이디 중복확인 상태 설정
+function setIdConfirmed(value) {
+    isIdConfirmed = value;
+    checkButtonState();
+}
+
+// 가입하기 버튼의 활성화/비활성화 상태 조절
+function checkButtonState() {
+    var confirmButton = document.querySelector('input[name="confirm"]');
+    if (isNicConfirmed || isIdConfirmed) {
+        confirmButton.disabled = false;
+    } else {
+        confirmButton.disabled = true;
+    }
+}   
 //아이디 중복확인 버튼 클릭 시
 function DuplicateID(userinput) {
     if (userinput.id.value === "") {

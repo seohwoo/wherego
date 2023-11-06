@@ -52,7 +52,7 @@
 			    <div class="col-md-4">
 					<img src="<%=dto.getFirstimage() %>" style="width: 270px; height: 222px;" class="img-fluid rounded-start">
 			    </div>  
-				<button type="button" class="btn btn-outline-dark col-md-8"  onclick="window.location.href='/wherego/views/mag/magWriteForm.jsp?contentid=<%=dto.getContentid()%>&pageNum=<%=pageNum%>'" >
+				<button type="button" class="btn btn-outline-dark col-md-8"  onclick="window.location.href='/wherego/views/mag/magSearch.jsp?contentid=<%=dto.getContentid()%>&pageNum=<%=pageNum%>'" >
 			      <div class="card-body">
 			        <h5 align="left" class="card-title"><%=dto.getTitle() %></h5>
 			        <p align="left" class="card-text"><%=dto.getCategory() %></p>
@@ -90,7 +90,7 @@
 	        
 	        if (startPage > 10) { %>
 	        <li class="page-item">
-	          <a class="page-link" href="result.jsp?pageNum=<%= startPage - 10 %>&searchType=<%=searchType%>&searchValue=<%=searchValue%>" aria-label="Previous">
+	          <a class="page-link" href="adminResult.jsp?pageNum=<%= startPage - 10 %>&searchType=<%=searchType%>&searchValue=<%=searchValue%>" aria-label="Previous">
 	            <span aria-hidden="true">&laquo; 이전</span>
 	          </a>
 	        </li>
@@ -98,13 +98,13 @@
 	        
 	        for (int i = startPage; i <= endPage; i++) { %>
 	        <li class="page-item <%= (i == currentPage) ? "active" : "" %>">
-	          <a class="page-link" href="result.jsp?pageNum=<%= i %>&searchType=<%=searchType%>&searchValue=<%=searchValue%>"><%= i %></a>
+	          <a class="page-link" href="adminResult.jsp?pageNum=<%= i %>&searchType=<%=searchType%>&searchValue=<%=searchValue%>"><%= i %></a>
 	        </li>
 	        <% }
 	        
 	        if (endPage < pageCount) { %>
 	        <li class="page-item">
-	          <a class="page-link" href="result.jsp?pageNum=<%= startPage + 10 %>&searchType=<%=searchType%>&searchValue=<%=searchValue%>" aria-label="Next">
+	          <a class="page-link" href="adminResult.jsp?pageNum=<%= startPage + 10 %>&searchType=<%=searchType%>&searchValue=<%=searchValue%>" aria-label="Next">
 	            <span aria-hidden="true">다음 &raquo;</span>
 	          </a>
 	        </li>

@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <meta charset="UTF-8">
 <title>어디GO</title>
 </head>
@@ -62,13 +63,15 @@
 			        <h5 align="left" class="card-title"><%=dto.getTitle() %></h5>
 			        <p align="left" class="card-text"><%=dto.getAreacodename() %> &#10144; <%=dto.getSigungucodename() %> &#12304;<%=dto.getCategory() %>&#12305;</p>
 			         <p align="left" class="card-text"><small >
-			         <%
-			        for(int i = 1; i <= (int)avg; i++){%>
-			        	&#11088;
-			        <% }
-			        if(avg % 1 != 0){%>
-			        &#x2606;
-			        <%}%><%=avg %> (<%=totalReview %>) &nbsp; ❤ : <%=totalSave %> &nbsp; 🔎 : <%=readCount %></small></p>
+			        <% for (int i = 1; i <= 5; i++) { %>
+					    <% if (i <= avg) { %>
+					      <i class="fas fa-star" style="color: #ffc83d;"></i>
+					    <% } else if (i - 0.5 <= avg) { %>
+					      <i class="fas fa-star-half-alt" style="color: #ffc83d;"></i>
+					    <% } else { %>
+					      <i class="far fa-star" style="color: #ffc83d;"></i>
+					    <% } %>
+			        <%}%><%=avg %> (<%=totalReview %>) &nbsp; ❤ (<%=totalSave %>) &nbsp; 🔎 (<%=readCount %>)</small></p>
 			      </div>
 				</button>
 			   
@@ -173,7 +176,7 @@ for (var i = 0; i < positions.length; i ++) {
         });
         
         kakao.maps.event.addListener(marker, 'mouseover', function(){
-        	infowindow.setContent('제목: '+ title + '<br><img src="'+firstimage+'" width="150" height="150">');
+        	infowindow.setContent('<div class="custom-infowindow">' + title + '<br><img src="'+firstimage+'" width="250" height="150">');
         	infowindow.open(map, marker);});
         kakao.maps.event.addListener(marker, 'mouseout', function(){infowindow.close();});
         
@@ -245,6 +248,15 @@ for (var i = 0; i < positions.length; i ++) {
 </body>
 
 <style>
+.custom-infowindow {
+  max-width: 300px;
+  background: none;
+  border: 10px; /* 테두리를 완전히 제거합니다 */
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  /* 다른 스타일 속성 설정 */
+  }
   .total-container {
     display: flex;
   }

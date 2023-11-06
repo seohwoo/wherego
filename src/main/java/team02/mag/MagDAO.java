@@ -41,8 +41,8 @@ public class MagDAO extends OracleDB {
    }
    
  //메거진 내용 불러오는 메소드
-   public ArrayList getMagines(int start, int end) throws Exception {
-	   ArrayList MagList = null;
+   public ArrayList<MagDTO> getMagines(int start, int end) throws Exception {
+	   ArrayList<MagDTO> MagList = new ArrayList<MagDTO>();
 	   
 	   try {
 		   sql="select * from (select b.* , rownum r from  (select * from mag order by num desc) b)  where r >= ? and r <= ?";
@@ -52,19 +52,15 @@ public class MagDAO extends OracleDB {
 		   pstmt.setInt(2, end); 
 		   rs = pstmt.executeQuery();
 		   		   
-		   if(rs.next()) {
-			   MagList = new ArrayList();
-			   do {
-				   MagDTO mag = new MagDTO();
-				   mag.setNum(rs.getInt("num"));				   
-				   mag.setId(rs.getString("id"));		
-				   mag.setSubject(rs.getString("subject"));
-				   mag.setContent(rs.getString("content"));
-				   mag.setReg_date(rs.getString("reg_date"));
-				   MagList.add(mag);
-			   }while(rs.next());			   
+		   while(rs.next()) {
+				MagDTO mag = new MagDTO();
+				mag.setNum(rs.getInt("num"));				   
+				mag.setId(rs.getString("id"));		
+				mag.setSubject(rs.getString("subject"));
+				mag.setContent(rs.getString("content"));
+				mag.setReg_date(rs.getString("reg_date"));
+				MagList.add(mag);
 		   }  		  
-		   
 	} catch (Exception e) {
 		e.printStackTrace();
 	}finally {

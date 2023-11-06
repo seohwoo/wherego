@@ -22,6 +22,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 	<link href="/wherego/views/mypage/mypage.css" rel="stylesheet" type="text/css" />
 	<title>어디Go 마이페이지</title>
 </head>
@@ -127,9 +128,9 @@
 		     <thead>
 			      <tr>                      
 			         <td align="center"><b>여행지</b></td> 
-			         <td align="center"><b>리뷰내용</b></td> 
+			         <td align="center"><b>내용</b></td> 
 			         <td align="center"><b>별점</b></td>                                                                                
-			         <td align="center"><b>리뷰날짜</b></td>                                        
+			         <td align="center"><b>작성일</b></td>                                        
 			      </tr>
 		      </thead>
  <%   
@@ -146,9 +147,15 @@
 			         <td><%=myReviewTitleMap.get("title")%></td>
 			         <td><%=myReviewMap.get("review")%></td>
 			         <td>
-			         <% for(int stars = 1; stars <= Integer.parseInt(myReviewMap.get("stars")); stars++){%>
-			         &#11088;
-			         <%}%>
+			         <% 
+					int rating = Integer.parseInt(myReviewMap.get("stars"));
+					for (int stars = 1; stars <= 5; stars++) {
+					    if (stars <= rating) { %>
+					        <i class="fas fa-star" style="color: #ffc83d;"></i>
+					    <% } else { %>
+					        <i class="far fa-star" style="color: #ffc83d;"></i>
+					    <% }
+					}%>
 			         </td>
 			         <td><%=myReviewMap.get("reg_date")%></td>
 			      </tr>
@@ -180,7 +187,7 @@
 	      <thead>
 	      	<tr>
 	         <td align="center"><b>주소</b></td> 
-	         <td align="center" ><b>명소 명</b></td> 
+	         <td align="center" ><b>장소</b></td> 
 	         <td align="center"><b>사진</b></td>             
 	         <td align="center"><b>카테고리</b></td>                   
 	         <td align="center"><b>평균별점</b></td>                   

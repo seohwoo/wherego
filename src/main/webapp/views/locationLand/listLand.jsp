@@ -11,6 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 <title>어디Go</title>
 </head>
@@ -78,13 +79,15 @@
 			        <p align="left" class="card-text"><%=dto.getAreacodename() %> &#10144; <%=dto.getSigungucodename() %> &#12304;<%=dto.getCategory() %>&#12305;</p>
 			        <% int reviewCount = landO.getReviewCount(dto.getContentid());%>
 			        <p align="left" class="card-text"><small >
-			        <%
-			        for(int i = 1; i <= (int)avg; i++){%>
-			        	&#11088;
-			        <% }
-			        if(avg % 1 != 0){%>
-			        &#x2606;
-			        <%}%><%=avg %> (<%=reviewCount %>) &nbsp; ❤ : <%=landSaveCount %> (0) &nbsp; 🔎 : <%=readCount %></small></p>
+			        <% for (int i = 1; i <= 5; i++) { %>
+					    <% if (i <= avg) { %>
+					      <i class="fas fa-star" style="color: #ffc83d;"></i>
+					    <% } else if (i - 0.5 <= avg) { %>
+					      <i class="fas fa-star-half-alt" style="color: #ffc83d;"></i>
+					    <% } else { %>
+					      <i class="far fa-star" style="color: #ffc83d;"></i>
+					      <%} %>
+			        <%}%><%=avg %> (<%=reviewCount %>) &nbsp; ❤ (<%=landSaveCount %>) &nbsp; 🔎 (<%=readCount %>)</small></p>
 			      </div>
 				</button>
 			   
@@ -92,7 +95,9 @@
 			</div> 
 	<%} %>
 	
-	<br />
+<br />
+	<nav aria-label="Page navigation example">
+	  <ul class="pagination justify-content-center">
    <%
     if (pageNum > 0) {
         int pageCount = max ;
@@ -103,25 +108,31 @@
         if (endPage > pageCount) endPage = pageCount;
         
         if (startPage > 10) {    %>
-        <a class="btn btn-outline-primary" href="listLand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%= startPage - 1 %>">이전</a>
+        <li class="page-item">
+          <a class="page-link" href="listLand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%= startPage - 10 %>" aria-label="Previous">
+            <span aria-hidden="true">&laquo; 이전</span>
+          </a>
+        </li>
 <%      }
         
-        for (int i = startPage ; i <= endPage && i <= max; i++) {  %>
-        <%} 
         for(int i = startPage ; i <= endPage && i <= max; i++){
         %>
-        <a class="btn btn-outline-primary" href="listLand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%=i%>"><%=i%></a>
+        <li class="page-item <%= (i == currentPage) ? "active" : "" %>">
+          <a class="page-link" href="listLand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%=i%>"><%= i %></a>
+        </li>
         <%}
         if (endPage < pageCount) {  %>
-        <a class="btn btn-outline-primary" href="listLand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%= startPage + 10 %>">다음</a>
+        <li class="page-item">
+          <a class="page-link" href="listLand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%= startPage + 10 %>" aria-label="Next">
+            <span aria-hidden="true">&laquo; 다음</span>
+          </a>
+        </li>
 
        <% }
     }
 %>
 	</div>
-	<br/>
-	<hr />
-	<br/>
+	<br/><hr /><br/>
 	<jsp:include page="/views/main/footer.jsp" />
 </body>
 

@@ -63,7 +63,7 @@
 			for (int x = 1 ; x <= 5 ; x++){
 				String imgSrc = reviewInfo.get("img"+x);
 			if(imgSrc != null && !imgSrc.equals(imgName))  {%>
-				<img src="/wherego/image/<%=imgSrc%>">
+				<img src="/wherego/image/<%=imgSrc%>" style="width:300px; height: auto;">
 			<%}
 			}%>
 				<div class="card-body">

@@ -61,10 +61,10 @@
       	 <h5><strong><%=DetailrandInfoMap.get("addr1") %></strong></h5>
       	<br />
       		<div class="card-body">
-				<%=DetailrandInfoMap.get("homepage") %>	
+				🌐 <%=DetailrandInfoMap.get("homepage") %>	
 			</div><br />
 		<div class="card-body">
-		<h5>설명 : <%=DetailrandInfoMap.get("overview") %></h5> 
+		<h5>⚠ <%=DetailrandInfoMap.get("overview") %></h5> 
 		</div><br />
 		<%
 				if(DetailrandInfoMap.get("restdate") == null) {

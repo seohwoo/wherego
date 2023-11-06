@@ -200,7 +200,7 @@ public class MemberDAO extends OracleDB {
         if(rs.next()){
            dbpw= rs.getString("pw"); 
         if(dbpw.equals(pw)){
-      	  sql = "delete from member where id=?";
+      	  sql = "update member set grade=0 where id=?";
       	  pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, id);
             pstmt.executeUpdate();
@@ -233,10 +233,23 @@ public class MemberDAO extends OracleDB {
         	 close(rs, pstmt, conn);
         }
     }
-      
-   
- }   
-     
-  
-
-
+ 
+    public int getUserGrade(String id) {
+        int userGrade = -1;
+        try {
+            conn = getConnection();
+            sql = "SELECT grade FROM member WHERE id = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                userGrade = rs.getInt("grade");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(rs, pstmt, conn);
+        }
+        return userGrade;
+    }
+}   

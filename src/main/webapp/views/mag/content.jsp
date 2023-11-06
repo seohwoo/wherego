@@ -89,7 +89,7 @@
 			var newPosition = {
 					title: ' <%=DetailrandInfo.get("title")%> ',
 					latlng: new kakao.maps.LatLng(<%=x%>, <%=y%>),
-					contentid: 'contentid',
+					contentid: '<%=contentid%>',
 					areacode: '<%=DetailrandInfo.get("areacode")%>',
 					sigungucode: '<%=DetailrandInfo.get("sigungucode")%>',
 					pageNum: '<%=pageNum%>',

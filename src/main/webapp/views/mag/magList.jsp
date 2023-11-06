@@ -49,6 +49,7 @@
     } 
 
    number=count-(currentPage-1)*pageSize;
+   int grade = dbPro.isAdmin(id);
 %>
 
 
@@ -57,7 +58,7 @@
   <table width="700">
    <tr>
      <td align="right">
-      <%if(id.equals("admin")){%>
+      <%if(grade == 99){%>
        <a href="/wherego/views/mag/magSearch.jsp">메거진 쓰기</a>
       <%}%>      
     </td>

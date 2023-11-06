@@ -9,17 +9,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import = "java.util.List" %>
 <%@page import = "java.util.HashMap" %>
-<html>
-<head>
-	<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-<meta charset="UTF-8">
-<title>어디Go - Magazine</title>
-</head>
-<body>
-<jsp:include page="/views/main/nav.jsp" />
-<jsp:include page="/views/main/title.jsp" /><br />
 
 <%
     int pageSize = 10;  // 게시판 첫페이지에 보여줄 글 개수
@@ -52,54 +41,66 @@
    int grade = dbPro.isAdmin(id);
 %>
 
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<title>어디Go - Magazine</title>
+</head>
+<body>
+	<jsp:include page="/views/main/nav.jsp" />
+   <jsp:include page="/views/main/title.jsp" /><br />
 
 
-<center><b>글목록(전체 글:<%=count%>)</b>
-  <table width="700">
-   <tr>
-     <td align="right">
-      <%if(grade == 99){%>
-       <a href="/wherego/views/mag/magSearch.jsp">메거진 쓰기</a>
-      <%}%>      
-    </td>
-   </tr> 
-  </table>
-</center>
 
+<h2 align="center">🔖 Magazine🔖 </h2>
+    <br />
+     <%if(id.equals("admin")){%>
+    <div align="center">
+    	<button type="button" class="btn btn-light" OnClick="window.location = 'magSearch.jsp'">✏ 매거진 작성 ✏</button>
+    </div>
+    <%}%> 
+    <br />
+
+
+<div class="d-grid gap-2 col-6 mx-auto">
 <%
     if (count == 0) {
 %>
-   <center>
-   <table width="700" border="1" cellpadding="0" cellspacing="0">
+   <table class="table-primary" width="700" border="1" cellpadding="0" cellspacing="0">
      <tr> 
        <td align="center">
        현재 작성된 메거진 없습니다.
        </td>
       </tr>
    </table>
-   </center>
 
 <%}else{%>
-  <table border="1" width="700" cellpadding="0" cellspacing="0" align="center"> 
-      <tr height="30" > 
-        <td align="center"  width="50"  >#</td> 
-        <td align="center"  width="150" >제목</td>                           
-        <td align="center"  width="150" >작성일</td>        
+  <table class="table table-hover" width="700" cellpadding="0" cellspacing="0" align="center"> 
+  	<thead>
+      <tr> 
+        <td align="center" width="50" ><b>#</b></td> 
+        <td align="center" width = "200"><b>제목</b></td>                           
+        <td align="center" width ="100"><b>작성일</b></td>        
       </tr>
+     </thead>
 <%  
    for (int i = 0 ; i < MagList.size() ; i++) {
       MagDTO mag = MagList.get(i);
 %>
-     <tr height="30">
-       <td align="center"  width="50" > <%=number--%></td>      
-       <td align="center"  width="100">
-       <a href="content.jsp?num=<%=mag.getNum()%>&pageNum=<%=currentPage%>">
-       <%=mag.getSubject() %></td>      
-       <td align="center"  width="150"><%=mag.getReg_date() %></td>
-     </tr> 
+	<tbody>
+	     <tr height="30" OnClick="window.location='content.jsp?num=<%=mag.getNum()%>&pageNum=<%=currentPage%>'" style="cursor: pointer;">
+	       <td align="center"  width="50" > <%=number--%></td>      
+	       <td align="center"  width="100"> <em><%=mag.getSubject() %> </em></td>      
+	       <td align="center"  width="150"><%=mag.getReg_date() %></td>
+	     </tr> 
+    </tbody>
    <%}%>
  </table>
 <%}%>
+</div>
 
 <br />
 	<nav aria-label="Page navigation example">
@@ -138,6 +139,11 @@
 		%>
 		</ul>
 	</nav>
+	
+	   <div >
+	<br/><hr /><br/>
+		<jsp:include page="/views/main/footer.jsp" />	
+	</div>
 </body>
 </html>
 

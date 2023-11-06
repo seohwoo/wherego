@@ -52,7 +52,7 @@
 			    <div class="col-md-4">
 					<img src="<%=dto.getFirstimage() %>" style="width: 270px; height: 222px;" class="img-fluid rounded-start">
 			    </div>  
-				<button type="button" class="btn btn-outline-dark col-md-8"  onclick="window.location.href='/wherego/views/mag/test.jsp?contentid=<%=dto.getContentid()%>&pageNum=<%=pageNum%>'" >
+				<button type="button" class="btn btn-outline-dark col-md-8"  onclick="window.location.href='/wherego/views/mag/magSearch.jsp?contentid=<%=dto.getContentid()%>&pageNum=<%=pageNum%>'" >
 			      <div class="card-body">
 			        <h5 align="left" class="card-title"><%=dto.getTitle() %></h5>
 			        <p align="left" class="card-text"><%=dto.getCategory() %></p>

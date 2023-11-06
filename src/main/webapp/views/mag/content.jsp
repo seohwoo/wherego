@@ -69,7 +69,7 @@
        <td align="center" >글내용</td>       
        <td align="left"  >
        <div id="map" style="width:500px;height:400px;"></div>
-       	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b2ea861437e36479577f200cdf49db21"></script>
+       	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4a9d59c81d3321fd7e3b885e4c1f6fcc"></script>
 		<script>
 		var positions = [];
 		<%	

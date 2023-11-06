@@ -58,7 +58,7 @@
    <tr>
      <td align="right">
       <%if(id.equals("admin")){%>
-       <a href="/wherego/views/mag/test.jsp">메거진 쓰기</a>
+       <a href="/wherego/views/mag/magSearch.jsp">메거진 쓰기</a>
       <%}%>      
     </td>
    </tr> 

@@ -141,4 +141,23 @@ public class SearchDAO extends OracleDB {
 		return xyMap;
 	}
 
+	public int isAdmin(String id) {
+		int result = 0;
+		conn = getConnection();
+		try {
+			String sql = " select grade from member where id =? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return result;
+	}
+
 }

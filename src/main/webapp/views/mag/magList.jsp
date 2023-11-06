@@ -38,6 +38,7 @@
     } 
 
    number=count-(currentPage-1)*pageSize;
+   int grade = dbPro.isAdmin(id);
 %>
 
 <!DOCTYPE html>
@@ -53,6 +54,7 @@
    <jsp:include page="/views/main/title.jsp" /><br />
 
 
+
 <h2 align="center">🔖 Magazine🔖 </h2>
     <br />
      <%if(id.equals("admin")){%>
@@ -61,6 +63,7 @@
     </div>
     <%}%> 
     <br />
+
 
 <div class="d-grid gap-2 col-6 mx-auto">
 <%

@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import = "team02.mag.MagDAO" %>
 
@@ -9,10 +10,16 @@
  
 <%
 
-   String contentid = request.getParameter("contentid");
+	ArrayList<String> contentidList = (ArrayList<String>)session.getAttribute("contentidList");
+	String contentid = "";
+	for(String cid : contentidList) {
+		contentid += cid +",";
+	}
+	mag.setContentid(contentid);
 	MagDAO dbPro = MagDAO.getInstance();
     dbPro.insertMag(mag);
 
- response.sendRedirect("/wherego/views/mag/magList.jsp");
+	session.removeAttribute("contentidList");
+	response.sendRedirect("/wherego/views/mag/magList.jsp");
 %>
 

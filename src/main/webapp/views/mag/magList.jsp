@@ -22,11 +22,14 @@
 <jsp:include page="/views/main/title.jsp" /><br />
 
 <%
-    int pageSize = 5;  // 게시판 첫페이지에 보여줄 글 개수
+    int pageSize = 10;  // 게시판 첫페이지에 보여줄 글 개수
+    String id = "";
 %>
 
 <%
-   String id = (String) session.getAttribute("memId");
+	if(session.getAttribute("memId")!=null) {
+ 	  id = (String) session.getAttribute("memId");
+	}
     String pageNum = request.getParameter("pageNum");
     if (pageNum == null) {
         pageNum = "1";
@@ -38,7 +41,7 @@
     int count = 0;
     int number=0;
 
-    List MagList = null;
+    ArrayList<MagDTO> MagList = null;
     MagDAO dbPro =  MagDAO.getInstance();
     count = dbPro.getMagCount();   //  메거진 글 갯수
     if (count > 0) {
@@ -55,10 +58,8 @@
    <tr>
      <td align="right">
       <%if(id.equals("admin")){%>
-       <a href="/wherego/views/mag/test.jsp">메거진 쓰기</a>
-      <%}else{%>      
-       <a href="/wherego/views/main/main.jsp">메인페이지 이동</a>
-      <%}%>
+       <a href="/wherego/views/mag/magSearch.jsp">메거진 쓰기</a>
+      <%}%>      
     </td>
    </tr> 
   </table>
@@ -86,7 +87,7 @@
       </tr>
 <%  
    for (int i = 0 ; i < MagList.size() ; i++) {
-      MagDTO mag = (MagDTO)MagList.get(i);
+      MagDTO mag = MagList.get(i);
 %>
      <tr height="30">
        <td align="center"  width="50" > <%=number--%></td>      

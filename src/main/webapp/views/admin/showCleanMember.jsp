@@ -16,7 +16,8 @@
 	<%!
    		int pageSize = 10;
 		SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	
-		SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");	
+		SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+		AdminMemberDAO dao = AdminMemberDAO.getInstance();
 	%>								
 	<%
 		if(session.getAttribute("memId")==null) {%>
@@ -26,7 +27,8 @@
 	       </script>
 		<%}else {
 			String id = (String)session.getAttribute("memId");
-			if(!id.equals("admin")) {%>
+			int grade = dao.isAdmin(id);
+			if(grade != 99) {%>
 				<script>
 	              alert("관리자만 접속 가능!");
 	              window.location = "/wherego/views/main/main.jsp"; 
@@ -37,7 +39,7 @@
 			    int start = (currentPage - 1) * pageSize + 1;
 			    int end = currentPage * pageSize;
 			    int count = 0;
-				AdminMemberDAO dao = AdminMemberDAO.getInstance();
+				
 				ArrayList<AdminMemberDTO> memberList  = new ArrayList<AdminMemberDTO>();
 				count = dao.cleanMemberCnt();
 				if(count>0) {

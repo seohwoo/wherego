@@ -207,8 +207,16 @@
 			      <td> <%=myPickMap.get("title")%></td>      
 			      <td> <img width="150" height="150"  src="<%=myPickMap.get("firstimage")%>"></td>
 			      <td><%=myPickMap.get("category") %></td>
+			      <%if(myPickMap.get("stars") == null) {%>
+			      <td>0.0</td>
+			      <%}else{%>
 			      <td><%=myPickMap.get("stars") %></td>
-			      <td><%=myPickMap.get("readcount") %></td>      
+			      <%}
+			      if(myPickMap.get("readcount") == null){%>
+			      <td>0</td>
+			      <%}else{ %>
+			      <td><%=myPickMap.get("readcount") %></td> 
+			      <%}%>     
 			    </tr> 
 		    </tbody>
 			<%}%>

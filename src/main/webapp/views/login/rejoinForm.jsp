@@ -8,7 +8,7 @@
 <head>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-<title> 어디 Go 회원정보 수정</title>
+<title> 어디 Go 회원 재등록</title>
 </head>
 <body>
 	<jsp:include page="/views/main/nav.jsp" />	
@@ -22,9 +22,9 @@
 	MemberDAO manager = MemberDAO.getInstance();
 	MemberDTO c = manager.getMember(id); 
 %>
-<h3 align="center">✔회원정보 수정✔</h3> <br />
+<h3 align="center">✔회원정보 재등록✔</h3> <br />
 
-<form method="post" action="updatePro.jsp" name="userinput" onsubmit="return checkIt()" style="margin: auto; width: 400px;">
+<form method="post" action="rejoinPro.jsp" name="userinput" onsubmit="return checkIt()" style="margin: auto; width: 400px;">
 
 	<table>
 	<tr>
@@ -54,7 +54,7 @@
      		<div class="input-group mb-3">
 			<span class="input-group-text">비밀번호</span>
 			<input type="password" class="form-control" name="pw" required pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@*_.\-])[A-Za-z\d!@*_.\-]{6,12}$">
-    			<small>비밀번호는 영어 대문자, 소문자, 숫자, 특수문자(!@*_.-)를 각각 1자 이상 포함하여 6자 이상 12자 이하여야 합니다.</small>
+    		<small>비밀번호는 영어 대문자, 소문자, 숫자, 특수문자(!@*_.-)를 각각 1자 이상 포함하여 6자 이상 12자 이하여야 합니다.</small>
     		</div>
   		</td>
 	</tr>
@@ -67,7 +67,7 @@
 			</div>
 			<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
 			<div class="input-group mb-3">	
-			<input type="text" class="form-control"  name="addressDetail" value="<%=c.getAddress() %>" placeholder="상세주소" required >
+			<input type="text" class="form-control"  name="addressDetail" value="<%=c.getAddress() %>" placeholder="상세주소" required>
 			</div>
 		</td>
 	</tr>
@@ -77,7 +77,6 @@
    			<div class="input-group mb-3">
 			<span class="input-group-text">이메일</span>
 			<input type="text" class="form-control" name="email" value="<%=c.getEmail()%>">
-    		
     		</div>
    		</td>
 	</tr>
@@ -90,8 +89,8 @@
  </table>
  <br />
 	<div class="text-center">
-	 	<input class="btn btn-outline-success" type="submit" name="confirm" value="수   정" >
-	    <input class="btn btn-outline-warning" type="reset" name="reset" value="취  소" onclick="javascript:window.location='/wherego/views/mypage/myPage.jsp?id=<%=id%> '">
+	 	<input class="btn btn-outline-success" type="submit" name="confirm" value="재등록" >
+	    <input class="btn btn-outline-warning" type="reset" name="reset" value="취  소" onclick="javascript:window.location='/wherego/views/login/logout.jsp'">
 	</div>
  
 </form>
@@ -101,7 +100,6 @@
 	<br/>
 		<jsp:include page="/views/main/footer.jsp" />
 </body>
-
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4a9d59c81d3321fd7e3b885e4c1f6fcc&libraries=services"></script>
@@ -157,13 +155,16 @@ new daum.Postcode({
 </script>
 
 
+
+
 <script>
+//닉네임 중복확인 버튼 클릭 시
 function DuplicateNic(userinput) {
     if (userinput.nic.value === "") {
         alert("닉네임을 입력하세요");
         return;
     }
-    url = "/wherego/views/login/confirmNIC.jsp?nic=" + userinput.nic.value;
+    url = "confirmNIC.jsp?nic=" + userinput.nic.value;
     open(url, "confirm", "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=300, height=200");
     setNicConfirmed(true); // 닉네임 중복확인 설정
 }

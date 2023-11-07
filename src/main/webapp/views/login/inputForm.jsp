@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="/views/login/color.jsp"%>
+<%@ page import = "team02.member.MemberDAO" %>
 <% request.setCharacterEncoding("UTF-8");%>
 
 <script>
@@ -20,13 +21,28 @@ function checkIdValidity(input) {
 var isNicConfirmed = false; // 닉네임 중복확인 여부
 var isIdConfirmed = false; // 아이디 중복확인 여부
 
+
+
+
+ 
 function checkIt() {
+	var nk = document.userinput.nickCheck.value;
+	var ik = document.userinput.idCheck.value;
     if ((!isNicConfirmed && !isIdConfirmed) || (isNicConfirmed && !isIdConfirmed) || (!isNicConfirmed && isIdConfirmed)) {
         alert("닉네임 또는 아이디 중복확인을 해주세요.");
         return false;
     }
+    if(nk != 1){
+    	alert("닉네임 중복확인을 해주세요.");
+        return false;
+    }
+    if(ik != 1) {
+    	alert("아이디 중복확인을 해주세요.")
+    	return false;
+    }
     return true;
 }
+
 
 // 닉네임 중복확인 상태 설정
 function setNicConfirmed(value) {
@@ -86,7 +102,8 @@ function checkButtonState() {
 		<td>	
 			<div class="input-group mb-3">
 			<span class="input-group-text">닉네임</span>
-				<input type="text"  class="form-control" name="nic" maxlength="15" required="required"> 
+				<input type="text"  class="form-control" name="nic" maxlength="15" required="required">
+				<input type="hidden" name="nickCheck" value="0" />
 				<input class="btn btn-outline-secondary" type="button" name="confirm_nic" value="닉네임 중복확인" 
 		        	OnClick="DuplicateNic(this.form)" required="required">
 		        	<small>닉네임은 15자 이하여야 합니다.</small>
@@ -99,6 +116,7 @@ function checkButtonState() {
     <div class="input-group mb-3">
         <span class="input-group-text">아이디</span>
         <input type="text" class="form-control" name="id" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$" oninput="checkIdValidity(this)">
+        <input type="hidden" name="idCheck" value="0" />
         <input class="btn btn-outline-secondary" type="button" name="confirm_id" value="아이디 중복확인" onclick="DuplicateID(this.form)" disabled>
        		 <small>아이디는 영어와 숫자를 포함하여 6자 이상 12자 이하여야 합니다.</small>
     </div>
@@ -155,13 +173,14 @@ function checkButtonState() {
 			<div class="input-group mb-3">
 			  <input type="text" class="form-control" name="email" required="required">
 			  <span>@</span>
-				  <select class="form-select form-select-sm" name = "emailOption">
-			        <option selected>이메일 입력</option>
-			        <option  value="gmail.com">gmail.com</option>
-			        <option  value="naver.com">naver.com</option>
-			        <option value="nate.com">nate.com</option>
-			        <option value="daum.net">daum.net</option></td>
-		        </select>
+			  <input type="text" class="form-control" name="emailOption" placeholder="직접 입력">
+				  <select class="form-select form-select-sm" name="emailOption">
+				    <option disabled selected>이메일 선택</option>
+				    <option value="gmail.com">gmail.com</option>
+				    <option value="naver.com">naver.com</option>
+				    <option value="nate.com">nate.com</option>
+				    <option value="daum.net">daum.net</option>
+				</select>
 			</div>
 	</td>
 	</tr>
@@ -179,6 +198,8 @@ function checkButtonState() {
 	</table>
 	<br />
 	<div class="text-center">
+	 	
+ 	
 	 	<input class="btn btn-outline-success" type="submit" name="confirm" value="가입하기" >
 	    <input class="btn btn-outline-warning" type="reset" name="reset" value="다시입력">
 	    <input class="btn btn-outline-danger" type="button" value="가입안함" onclick="window.location.href='/wherego/views/main/main.jsp'">
@@ -218,6 +239,7 @@ function DuplicateNic(userinput) {
 
   
 </script>
+
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4a9d59c81d3321fd7e3b885e4c1f6fcc&libraries=services"></script>
 <script>

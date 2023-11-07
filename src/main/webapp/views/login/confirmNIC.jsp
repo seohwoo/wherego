@@ -68,6 +68,7 @@
   function setnic()
     {		
     	opener.document.userinput.nic.value="<%=nic%>";
+    	opener.document.userinput.nickCheck.value="1";
 		self.close();
 		}
 </script>

@@ -68,6 +68,7 @@
   function setid()
     {		
     	opener.document.userinput.id.value="<%=id%>";
+    	opener.document.userinput.idCheck.value="1";
 		self.close();
 		}
 </script>

@@ -67,6 +67,8 @@ public class AdminMemberDAO extends OracleDB {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 
 		return cnt;
@@ -116,6 +118,8 @@ public class AdminMemberDAO extends OracleDB {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 
 		return cnt;
@@ -134,6 +138,8 @@ public class AdminMemberDAO extends OracleDB {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 
 		return gradeName;
@@ -165,6 +171,8 @@ public class AdminMemberDAO extends OracleDB {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 
 		return dto;
@@ -216,6 +224,8 @@ public class AdminMemberDAO extends OracleDB {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 		return reviewList;
 	}
@@ -231,6 +241,8 @@ public class AdminMemberDAO extends OracleDB {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 	}
 
@@ -255,6 +267,8 @@ public class AdminMemberDAO extends OracleDB {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 		return userInfoMap;
 	}
@@ -270,6 +284,8 @@ public class AdminMemberDAO extends OracleDB {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 	}
 
@@ -282,7 +298,28 @@ public class AdminMemberDAO extends OracleDB {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
+	}
+
+	public int isAdmin(String id) {
+		int result = 0;
+		conn = getConnection();
+		try {
+			String sql = " select grade from member where id =? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return result;
 	}
 
 }

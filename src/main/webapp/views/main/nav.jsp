@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "team02.main.use.SearchDAO"%>
+<%@ page import="java.util.Stack" %>
+<%@ page import="java.util.EmptyStackException" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +14,12 @@
 
 <body>
 	<% request.setCharacterEncoding("UTF-8");%>
+	
 	<%
-		String id = (String) session.getAttribute("memId");
+		String id = "";
+		if(session.getAttribute("memId")!=null ) {
+			id = (String) session.getAttribute("memId");
+		}
 	%>
 	<nav class="navbar navbar-expand bg-body-tertiary">
 	  <div class="container-fluid">
@@ -29,9 +37,15 @@
 	        <li class="nav-item">
 	          <a class="nav-link" href="/wherego/views/board/inquire/inquireList.jsp">Q & A</a>
 	        </li>
+	        <%
+	        	SearchDAO dao = SearchDAO.getInstance();
+	        	int grade = dao.isAdmin(id);
+	        	if(grade==99) {
+	        %>
 	        <li class="nav-item">
 	          <a class="nav-link" href="/wherego/views/admin/showCleanMember.jsp?pageNum=1">admin</a>
 	        </li>
+	        <%} %>
 	      </ul>
 	    </div>
 	  </div>
@@ -62,8 +76,7 @@
 	          </ul> 
 	    </div>
 	    <%}%>
-	  </div>
+	  
 	</nav>
 </body>
-
 </html>

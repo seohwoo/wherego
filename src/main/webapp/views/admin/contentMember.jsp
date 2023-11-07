@@ -39,6 +39,8 @@
 		Date reg_dateD = inputFormat.parse(dto.getReg_date());
 		String reg_date = outputFormat.format(reg_dateD);
 		
+		int reviewCnt = dao.reviewCnt(dto.getId());
+		
 		if (adminInfo.getGrade() != 99) { %>
 	    <script>
 	        alert("관리자만 접속이 가능합니다🤬🤬🤬");
@@ -81,7 +83,7 @@
 	 	<input type="submit" name="submit" value="등급변경 >>>"/>
 	 </form>
 	 <hr />
-	 <h3>글수 : <%=dto.getTotal() %></h3>
+	 <h3>글수 : <%= reviewCnt%></h3>
 	 <%
 	 	ArrayList<AdminReviewDTO> reviewList = new ArrayList<AdminReviewDTO>();
 		reviewList = dao.findUserReviews(id);
@@ -120,10 +122,15 @@
 	 		<h5>내용 : <%=rDto.getReview() %></h5>
 	 		<h5>공감 : <%=rDto.getLikes() %></h5>
 	 		<h5><%=reg_date_R %></h5>
-	 		<button type="button" value="reviewDelete" onclick="openDeletemypickWindow('<%=rDto.getContentid()%>')" style="border: none; background-color: white;">❌</button>
-	 		
+	 		<button type="button" value="reviewDelete" onclick="openDeletereviewWindow('<%=rDto.getContentid()%>', '<%=dto.getId()%>')" style="border: none; background-color: white;">❌</button>
+	 		<br />
 	 	<%}
 	 	}%>
 	<jsp:include page="/views/main/footer.jsp" />
+	<script type="text/javascript">
+		function openDeletereviewWindow(contentid, id) {
+		    var profileWindow = window.open("adminReviewdelete.jsp?contentid=" + contentid + "&id=" + id, "reviewDelete", "width=400,height=300");
+		}
+	</script>
 </body>
 </html>

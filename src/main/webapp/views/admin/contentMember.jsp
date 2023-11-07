@@ -120,7 +120,7 @@
 	 		<h5>내용 : <%=rDto.getReview() %></h5>
 	 		<h5>공감 : <%=rDto.getLikes() %></h5>
 	 		<h5><%=reg_date_R %></h5>
-	 		
+	 		<button type="button" value="reviewDelete" onclick="openDeletemypickWindow('<%=rDto.getContentid()%>')" style="border: none; background-color: white;">❌</button>
 	 		
 	 	<%}
 	 	}%>

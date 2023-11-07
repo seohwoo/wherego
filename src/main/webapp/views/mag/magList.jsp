@@ -57,7 +57,9 @@
 
 <h2 align="center">🔖 Magazine🔖 </h2>
     <br />
-     <%if(id.equals("admin")){%>
+     <%
+     if(grade==99){
+     %>
     <div align="center">
     	<button type="button" class="btn btn-light" OnClick="window.location = 'magSearch.jsp'">✏ 매거진 작성 ✏</button>
     </div>

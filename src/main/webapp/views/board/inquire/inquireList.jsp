@@ -63,7 +63,7 @@
                 <td align="center" width="50"><b>#</b></td>
                 <td align="center" width="250"><b>작성자</b></td>
                 <td align="center" width="250"><b>제목</b></td>
-                <td align="center" width="200"><b>날짜</b></td>
+                <td align="center" width="200"><b>작성일</b></td>
                 <td align="center" width="150"><b>조회수</b></td>
             </tr>
         </thead>

@@ -22,13 +22,7 @@
     <body>
 <% } else { %>
     <jsp:include page="/views/main/nav.jsp" />
-	
-	<br />
-	<div class="text-center">
-		<h1>어디 Go</h1>
-	</div>
-	<br />
-	<hr />
+	<jsp:include page="/views/main/title.jsp" /><br />
 	
 	 <!-- 공지 게시판 -->
     <h2 align="center">📢 공지게시판 📢</h2>
@@ -52,10 +46,9 @@
             <button type="submit" class="btn btn-secondary">공지 등록</button>
         </div>
     </form>
-    <div class="fixed-bottom">
-        <hr />
+
+        <br /><hr /><br />
         <jsp:include page="/views/main/footer.jsp" />
-    </div>
         
 <% }%>
 </body>

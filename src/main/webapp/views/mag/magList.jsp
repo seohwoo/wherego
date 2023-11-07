@@ -69,7 +69,7 @@
 <%
     if (count == 0) {
 %>
-   <table class="table-primary" width="700" border="1" cellpadding="0" cellspacing="0">
+   <table class="table table-hover" width="700" border="1" cellpadding="0" cellspacing="0">
      <tr> 
        <td align="center">
        현재 작성된 메거진 없습니다.

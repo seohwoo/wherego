@@ -62,30 +62,32 @@
 </body>
 <script>
 const stars = document.querySelectorAll('.stars1 .star');
+const radioButtons = document.querySelectorAll('input[name="stars"]');
 
-stars.forEach((star) => {
-    star.addEventListener('mouseover', () => {
-        // 마우스를 올린 별 아이콘의 data-rating 값을 가져옵니다.
-        const rating = star.getAttribute('data-rating');
-        
-        // 모든 별 아이콘에 대해 반복하며 사용자의 마우스 위치에 따라 색상을 변경합니다.
-        stars.forEach((s) => {
-            const sRating = s.getAttribute('data-rating');
-            if (sRating <= rating) {
-                s.innerHTML = '<i class="fas fa-star" style="color: #ffc83d;"></i>';
+radioButtons.forEach((radio, index) => {
+    radio.addEventListener('change', () => {
+        const starsValue = radio.value;
+        for (let i = 0; i < stars.length; i++) {
+            const sRating = parseInt(stars[i].getAttribute("data-rating"));
+            if (sRating <= starsValue) {
+                stars[i].innerHTML = '<i class="fas fa-star" style="color: #ffc83d;"></i>';
             } else {
-                s.innerHTML = ' <i class="far fa-star" style="color: #ffc83d;"></i>';
+                stars[i].innerHTML = ' <i class="far fa-star" style="color: #ffc83d;"></i>';
             }
-        });
-    });
-    
-    star.addEventListener('mouseout', () => {
-        // 마우스를 별 아이콘에서 뗀 경우, 별 아이콘을 초기 상태로 되돌립니다.
-        stars.forEach((s) => {
-            s.innerHTML = ' <i class="far fa-star" style="color: #ffc83d;"></i>';
-        });
+        }
     });
 });
+
+function validateAndSubmit() {
+    const selectedStars = document.querySelector('input[name="stars"]:checked');
+    const reviewTextarea = document.querySelector('textarea[name="review"]');
+    if (!selectedStars || reviewTextarea.value.trim() === '') {
+        alert("평점과 리뷰를 모두 입력했는지 확인해주세요.");
+        return false;
+    } else {
+        return true;
+    }
+}
 </script>
 <style>
 .stars1 {
@@ -96,21 +98,6 @@ stars.forEach((star) => {
 .stars1 .star {
 	color: #FFA500;
     transition: color 0.3s;
-}
-@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-       .rate { display: inline-block;border: 0;margin-right: 15px;}
-.rate > input {display: none;}
-.rate > label {float: right;color: #ddd}
-.rate > label:before {display: inline-block;font-size: 1rem;padding: .3rem .2rem;margin: 0;cursor: pointer;font-family: FontAwesome;content: "\f005 ";}
-.rate .half:before {content: "\f089 "; position: absolute;padding-right: 0;}
-.rate input:checked ~ label, 
-.rate label:hover,.rate label:hover ~ label { color: #f73c32 !important;  } 
-.rate input:checked + .rate label:hover,
-.rate input input:checked ~ label:hover,
-.rate input:checked ~ .rate label:hover ~ label,  
-.rate label:hover ~ input:checked ~ label { color: #f73c32 !important;  } 
-textarea {
-    font-family: Pretendard-Regular;
 }
 </style>
 </html>

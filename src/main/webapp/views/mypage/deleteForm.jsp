@@ -37,8 +37,8 @@
 	</td>
   <tr height="30">
     <td colspan="2">
-      <input type=submit class="btn btn-outline-danger" value="회원탈퇴"> 
-      <input type="button" class="btn btn-outline-danger" value="취  소" onclick="javascript:window.location='/wherego/views/main/main.jsp'"></td></tr>
+      <input type=submit class="btn btn-outline-danger" value="회원탈퇴" style="float: right;"> 
+      <input type="button" class="btn btn-outline-danger" value="취  소" onclick="javascript:window.location='/wherego/views/main/main.jsp'" style="float: right;"></td></tr>
 </table>
 </form>
 </body>

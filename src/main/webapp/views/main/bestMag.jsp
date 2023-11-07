@@ -1,5 +1,10 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "team02.mag.MagDAO" %>
+<%@ page import = "team02.mag.MagDTO" %>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,14 +13,29 @@
 	<title>BestMagazine</title>
 </head>
 <body>
+
+<%
+	SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	
+	SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+	
+	MagDAO dao = MagDAO.getInstance();
+	MagDTO dto = dao.getRecentMag();
+	
+	Date reg_dateD = inputFormat.parse(dto.getReg_date());
+	String reg_date = outputFormat.format(reg_dateD);
+%>
+
+
+
+
 <!-- 틀만작성 , 수정예정 -->
 <div class="container text-center">
 	<div class="card mb-3">
 	  <img src="..." class="card-img-top" alt="...">
 	  <div class="card-body">
-	    <h5 class="card-title">매거진 명</h5>
-	    <p class="card-text">내용</p>
-	    <p class="card-text"><small class="text-body-secondary">게시일</small></p>
+	    <h5 class="card-title"><%=dto.getSubject() %></h5>
+	    <p class="card-text"><%=dto.getContent() %></p>
+	    <p class="card-text"><small class="text-body-secondary"><%=reg_date %></small></p>
 	  </div>
 	</div>
 </div>

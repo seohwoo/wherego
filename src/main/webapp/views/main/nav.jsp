@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "team02.main.use.SearchDAO"%>    
+<%@ page import = "team02.main.use.SearchDAO"%>
+<%@ page import="java.util.Stack" %>
+<%@ page import="java.util.EmptyStackException" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +14,7 @@
 
 <body>
 	<% request.setCharacterEncoding("UTF-8");%>
+	
 	<%
 		String id = "";
 		if(session.getAttribute("memId")!=null ) {
@@ -72,8 +76,7 @@
 	          </ul> 
 	    </div>
 	    <%}%>
-	  </div>
+	  
 	</nav>
 </body>
-
 </html>

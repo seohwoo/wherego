@@ -132,4 +132,28 @@ public class MagDAO extends OracleDB {
 		}
 		return result;
 	}
+
+	public MagDTO getRecentMag() {
+		MagDTO mag = new MagDTO();
+		conn = getConnection();
+		try {
+			sql = " select * from (select b.* , rownum r from  (select * from mag order by reg_date desc) b)  where r =1 ";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				mag.setNum(rs.getInt("num"));
+				mag.setId(rs.getString("id"));
+				mag.setContentid(rs.getString("contentid"));
+				mag.setSubject(rs.getString("subject"));
+				mag.setContent(rs.getString("content"));
+				mag.setReg_date(rs.getString("reg_date"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return mag;
+	}
+
 }

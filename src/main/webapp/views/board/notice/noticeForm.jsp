@@ -31,7 +31,7 @@
     <form action="noticePro.jsp" method="post" onsubmit="return writeSave()">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">작성자</label>
-            	<input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= nic  %>">
+            	<input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= nic  %>" readonly>
             	<input type="hidden" name = id class="form-control" value="<%=memId %>" >
         </div>
         <div class="mb-3">

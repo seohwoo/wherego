@@ -37,7 +37,7 @@
 <%
    //찜목록 리스트화 시키기
     SaveDAO pick = SaveDAO.getInstance();
-    ArrayList<String> p = pick.getMyPickContentIdList(user);
+    ArrayList<String> p = pick.getMyPickContentIdList(user); //찜목록 테이블에서 유저의 컨텐트아이디를 리스트화한것
     String contentid ="";
     
     //찜목록 카운트
@@ -51,7 +51,7 @@
 <%
    //리뷰 리스트화 시키기
    SaveDAO review = SaveDAO.getInstance();
-   ArrayList<String> r = review.getMyreviewContentIdList(user);
+   ArrayList<String> r = review.getMyreviewContentIdList(user); // 리뷰 테이블에서 유저가 쓴 글을 리스트로만듬
    String reviewContentid = "";
 
    
@@ -227,9 +227,9 @@
 	      
 	<%
 	   HashMap<String,String> myPickMap = new HashMap<String,String>();
-	   for(int i = 0 ; i < p.size(); i++){
-	      contentid = p.get(i);
-	      myPickMap = pick.myPick(contentid);      
+	   for(int i = 0 ; i < p.size(); i++){  //p에 저장된 리스트 갯수만큼 반복
+	      contentid = p.get(i); // 컨텐트 아이디도 반복
+	      myPickMap = pick.myPick(contentid);      //컨텐트 아이디에 알맞은 지역정보를  myPickMap에 담음
 	%>
 			<tbody>
 			    <tr> 

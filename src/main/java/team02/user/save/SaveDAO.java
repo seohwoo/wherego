@@ -71,7 +71,7 @@ public class SaveDAO extends OracleDB {
 		}
 	}
 
-	// 컨텐트아이디를 리스트화한것
+	// 찜목록 테이블에서 유저의 컨텐트아이디를 리스트화한것
 	public ArrayList<String> getMyPickContentIdList(String user) {
 
 		conn = getConnection();
@@ -98,8 +98,8 @@ public class SaveDAO extends OracleDB {
 
 	
 
-	// 리스트된 컨텐트 아이디로 필요한 값들을 불러오는것
-	// stars, landinfo, totalstar table 3개에서 정보 받아와서 dto에 담아서 리턴
+	
+	//컨텐트 아이디에 알맞은 지역정보를  myPickMap에 담음
 	public HashMap<String, String> myPick(String contentid) {
 		HashMap<String, String> myPickMap = new HashMap<String, String>();
 		conn = getConnection();
@@ -174,7 +174,7 @@ public class SaveDAO extends OracleDB {
 		
 	
 
-	// 리뷰쓴사람 컨텐츠아이디갑을 리스트화
+	// 리뷰 테이블에서 유저가 쓴 글을 리스트로만듬
 	public ArrayList<String> getMyreviewContentIdList(String rid) {
 		conn = getConnection();
 		ArrayList<String> RcontentIdList = new ArrayList<String>();

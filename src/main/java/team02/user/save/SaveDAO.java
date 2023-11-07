@@ -195,8 +195,7 @@ public class SaveDAO extends OracleDB {
 		return RcontentIdList;
 	}
 
-	// 리스트로된 컨텐트 아이디 만들어 리뷰 불러오기
-
+	// 유저가 속한 리뷰 테이블의 내용을 리스트로 만들어 myReviewList에 담기
 	public ArrayList<HashMap<String, String>> myReviewList(String user) {
 		ArrayList<HashMap<String, String>> myReviewList = new ArrayList<HashMap<String, String>>();
 
@@ -247,6 +246,8 @@ public class SaveDAO extends OracleDB {
 		return x;
 	}
 
+	
+	//contentid 통해서 대표이지미랑 타이틀 가져오기
 	public HashMap<String, String> selectReviewTitle(String contentid) {
 		HashMap<String, String> myReviewTitleMap = new HashMap<String, String>();
 		try {

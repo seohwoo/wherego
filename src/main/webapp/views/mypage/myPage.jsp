@@ -142,7 +142,7 @@
     <% if (count == 0) { %>
 		     <table class="table table-hover">
 		        <tr>
-		            <td>문의 글이 없습니다.</td>
+		            <td>리뷰 글이 없습니다.</td>
 		        </tr>
 		    </table>
 		    <%}else{%>
@@ -161,21 +161,23 @@
 			      </tr>
 		      </thead>
  <%   
-	ArrayList<HashMap<String, String>> myReviewList = new ArrayList<HashMap<String, String>>();
+	ArrayList<HashMap<String, String>> myReviewList = new ArrayList<HashMap<String, String>>(); 
 	HashMap<String,String> myReviewMap = new HashMap<String,String>();
 	HashMap<String,String> myReviewTitleMap = new HashMap<String,String>();
-	myReviewList = review.myReviewList(user);
-	for(int i = 0 ; i < myReviewList.size(); i++){
-	   myReviewMap = myReviewList.get(i);
-	   myReviewTitleMap = review.selectReviewTitle(myReviewMap.get("contentid"));
+	
+	myReviewList = review.myReviewList(user); // 유저가 속한 리뷰 테이블의 내용을 리스트로 만들어 myReviewList에 담기 (myReviewList정리)
+	
+	for(int i = 0 ; i < myReviewList.size(); i++){ // myReviewList정리된 리뷰갯수(사이즈)만큼 반복
+	   myReviewMap = myReviewList.get(i);  //(myReviewList정리 된걸 i번 만큼 반복) =>(myReviewMap 정리)
+	   myReviewTitleMap = review.selectReviewTitle(myReviewMap.get("contentid"));  //contentid에 알맞은 대표이지미랑 타이틀 가져오기+(myReviewMap 정리)
  %>   
 		 	<tbody>
 			      <tr>             
 			         <td><%=myReviewTitleMap.get("title")%></td>
 			         <td><%=myReviewMap.get("review")%></td>
 			         <td>
-			         <% for(int stars = 1; stars <= Integer.parseInt(myReviewMap.get("stars")); stars++){%>
-			         &#11088;
+			         <% for(int stars = 1; stars <= Integer.parseInt(myReviewMap.get("stars")); stars++){ //별점 갯수만큼 반복 // 아래는 별 유니코드%>
+			         &#11088; 
 			         <%}%>
 			         </td>
 			         <td><%=myReviewMap.get("reg_date")%></td>
@@ -266,7 +268,7 @@ function openDeletemypickWindow(contentid) {
     var profileWindow = window.open("mypickdelete.jsp?contentid=" + contentid, "찜하기삭제", "width=400,height=300");
 }
     
-function myreviews_open() {
+function myreviews_open() {  //마이리뷰 보기
     let myreviews = document.getElementById('myreviews');
     let mypick = document.getElementById('mypick');
     let myreviewsButton = document.getElementById('myreviews-button');
@@ -279,7 +281,7 @@ function myreviews_open() {
     mypickButton.style.backgroundColor = "#003366";
 }
 
-function mypick_open() {
+function mypick_open() {  //찜하기 보기
     let mypick = document.getElementById('mypick');
     let myreviews = document.getElementById('myreviews');
     let myreviewsButton = document.getElementById('myreviews-button');

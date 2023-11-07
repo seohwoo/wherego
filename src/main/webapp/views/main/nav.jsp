@@ -45,6 +45,9 @@
 	        <li class="nav-item">
 	          <a class="nav-link" href="/wherego/views/admin/showCleanMember.jsp?pageNum=1">admin</a>
 	        </li>
+	         <li class="nav-item">
+	          <a class="nav-link" href="/wherego/views/admin/ban/banList.jsp?pageNum=1">ban</a>
+	        </li>
 	        <%} %>
 	      </ul>
 	    </div>

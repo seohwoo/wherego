@@ -1,17 +1,12 @@
 
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<!-- 지환 마이페이지 -->
 <%@ page import="team02.member.MemberDAO" %>
 <%@ page import="team02.member.MemberDTO" %>
 <%@ page import = "com.oreilly.servlet.MultipartRequest" %>
 <%@ page import = "com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@page import = "java.util.Enumeration" %>
 
-<!-- 선민 리뷰 -->
-
-<!-- 형우 찜하기 -->
 <%@ page import = "team02.user.save.SaveDAO"%> 
 <%@ page import = "team02.user.save.SaveDTO"%>
 <%@page import="java.util.ArrayList"%>
@@ -76,39 +71,35 @@
    MemberDTO userDtO = manager.getMember(user);
    
    try{%>
- 
- <!-- 여기는 프로필 --> 
+
 <div class="text-center">
-<% if(session.getAttribute("memId") != null) {
+	<%if(session.getAttribute("memId") != null) {
     // 로그인한 경우
-    if(session.getAttribute("memId").equals(user)) { // 본인의 페이지인 경우
-%>
-        <!-- 프로필 이미지 및 닉네임 표시 -->
-        <img width="150" src="/wherego/image/<%= userDtO.getProfile() %>">
-        <h5 class="text" style="color: black;"><%= userDtO.getNic() %> 마이페이지</h5>
-        <h5 class="text" style="color: black;"><%= userDtO.getGradeName() %> 등급의 회원입니다.</h5>
-        <button id="changeProfile" class="button" onclick="openProfileWindow()">프로필 이미지 변경</button>
-        <input type="button" class="button" value="수정하기" OnClick="window.location='updateForm.jsp'">
-        <input type="button" class="button" value="탈퇴하기" Onclick="openDeleteWindow()">
-<%
-    } else {
-        // 본인의 페이지가 아닌 경우
-%>
-        <img width="150" src="/wherego/image/<%= c.getProfile() %>">
-        <h5 class="text" style="color: black;">현재 <%= userDtO.getNic() %> 회원 페이지입니다.</h5>
-        <span style="color: black;"><%= userDtO.getGradeName() %> 등급의 회원입니다.</span>
-<%
-    }
-}
-%>
+		if(session.getAttribute("memId").equals(user)) { // 본인의 페이지인 경우
+	   %>      
+	     <img width="150" src="/wherego/image/<%= userDtO.getProfile() %>">
+	     <h5 class="text" style="color: black;"><%= userDtO.getNic() %> 마이페이지</h5>
+	     <h5 class="text" style="color: black;"><%= userDtO.getGradeName() %> 등급의 회원입니다.</h5>
+	     <button id="changeProfile" class="button" onclick="openProfileWindow()">프로필 이미지 변경</button>
+	     <input type="button" class="button" value="수정하기" OnClick="window.location='updateForm.jsp'">
+	     <input type="button" class="button" value="탈퇴하기" Onclick="openDeleteWindow()">
+	  <%
+	    }else{
+	        // 본인의 페이지가 아닌 경우
+		%>
+	     <img width="150" src="/wherego/image/<%= c.getProfile() %>">
+	     <h5 class="text" style="color: black;">현재 <%= userDtO.getNic() %> 회원 페이지입니다.</h5>
+	     <span style="color: black;"><%= userDtO.getGradeName() %> 등급의 회원입니다.</span>
+		<%
+	    }
+	}
+	%>
 </div>
 <div class="d-grid gap-2 col-6 mx-auto">
 <hr class="hr-19" />
 </div>
 
 
-
-<!-- 글보기 -->
  
    <div class="text-center">
     <%
@@ -131,35 +122,35 @@
 
 
 
-       
-<!-- 아래는 리뷰리스트 -->
+
        
    <div id="myreviews" class="text-center" style="display:none;">
-		<div class="d-grid gap-2 col-6 mx-auto">
-			<br />
-			<h5 class="text">[<%=userDtO.getNic()%>님이 작성한 리뷰 리스트 입니다]</h5>
-			<b style="color: black;">글목록(전체 글:<%=count%>)</b>
-    <% if (count == 0) { %>
-		     <table class="table table-hover">
-		        <tr>
-		            <td>리뷰 글이 없습니다.</td>
-		        </tr>
-		    </table>
-		    <%}else{%>
-		     <table class="table table-hover">
-		     <thead>
-			      <tr>                      
-			         <td align="center"><b>여행지</b></td> 
-			         <td align="center"><b>리뷰내용</b></td> 
-			         <td align="center"><b>별점</b></td>                                                                                
-			         <td align="center"><b>리뷰날짜</b></td> 
-			         <td align="center"><b>
-			          <%
-			          if (id.equals(user)) { // 본인의 리뷰인 경우에만 "삭제하기" 표시
-			          %>삭제하기
-			           <%}%></b></td>		                                              
-			      </tr>
-		      </thead>
+    <div class="d-grid gap-2 col-6 mx-auto">
+	 <br />
+	  <h5 class="text">[<%=userDtO.getNic()%>님이 작성한 리뷰 리스트 입니다]</h5>
+	  <b style="color: black;">글목록(전체 글:<%=count%>)</b>
+    <%if (count == 0) { %>
+	  <table class="table table-hover">
+		 <tr>
+		   <td>리뷰 글이 없습니다.</td>
+		 </tr>
+	  </table>
+	<%}else{%>
+	   <table class="table table-hover">
+		<thead>
+		 <tr>                      
+		   <td align="center"><b>여행지</b></td> 
+		   <td align="center"><b>리뷰내용</b></td> 
+		   <td align="center"><b>별점</b></td>                                                                                
+		   <td align="center"><b>리뷰날짜</b></td> 
+	       <td align="center"><b>
+	<%
+	  if (id.equals(user)) { // 본인의 리뷰인 경우에만 "삭제하기" 표시
+	  %>삭제하기
+	<%}%></b></td>		                                              
+		</tr>
+	 </thead>
+ 
  <%   
 	ArrayList<HashMap<String, String>> myReviewList = new ArrayList<HashMap<String, String>>(); 
 	HashMap<String,String> myReviewMap = new HashMap<String,String>();

@@ -94,11 +94,6 @@ public class SaveDAO extends OracleDB {
 	}
 	
 	
-	
-
-	
-
-	
 	//컨텐트 아이디에 알맞은 지역정보를  myPickMap에 담음
 	public HashMap<String, String> myPick(String contentid) {
 		HashMap<String, String> myPickMap = new HashMap<String, String>();
@@ -136,9 +131,6 @@ public class SaveDAO extends OracleDB {
 			if (rs.next()) {
 				myPickMap.put("readcount", rs.getString("readcount"));
 			}
-			
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -148,7 +140,6 @@ public class SaveDAO extends OracleDB {
 	}
 
 	// 찜목록 카운트 만들기
-
 	public int getmypickpoint(String user) throws Exception {
 		int x = 0;
 
@@ -225,6 +216,7 @@ public class SaveDAO extends OracleDB {
 		return myReviewList;
 	}
 
+	
 	// 리뷰갯수
 	public int getReviewCount(String rid) throws Exception {
 		int x = 0;
@@ -258,9 +250,7 @@ public class SaveDAO extends OracleDB {
 			while (rs.next()) {
 				myReviewTitleMap.put("title", rs.getString("title"));
 				myReviewTitleMap.put("firstimage", rs.getString("firstimage"));
-
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -269,6 +259,7 @@ public class SaveDAO extends OracleDB {
 		return myReviewTitleMap;
 	}
 
+	
 	public int getSaveCount(String contentid) {
 		int x = 0;
 

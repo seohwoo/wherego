@@ -45,7 +45,7 @@ NoticeDTO dto = dao.getNoContent(num);
             <input type="hidden" name="id" class="form-control" value="<%= memId %>">
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlInput2" class "form-label">제목</label>
+            <label for="exampleFormControlInput2" class="form-label">제목</label>
             <input type="text" name="title" class="form-control" id="exampleFormControlInput2" value="<%= dto.getTitle() %>">
         </div>
         <div class="mb-3">

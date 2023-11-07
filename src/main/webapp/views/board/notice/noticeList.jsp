@@ -34,13 +34,8 @@
 </head>
 <body>
    <jsp:include page="/views/main/nav.jsp" />
-	
+	<jsp:include page="/views/main/title.jsp" />
 	<br />
-	<div class="text-center">
-		<h1>어디 Go</h1>
-	</div>
-	<br />
-	<hr />
 	
 	 <!-- 공지게시판 / noticeList -->
     <h2 align="center">📢 공지사항 📢</h2>
@@ -63,7 +58,7 @@
                 <td align="center" width="50"><b>#</b></td>
                 <td align="center" width="250"><b>작성자</b></td>
                 <td align="center" width="250"><b>제목</b></td>
-                <td align="center" width="200"><b>날짜</b></td>
+                <td align="center" width="200"><b>작성일</b></td>
                 <td align="center" width="150"><b>조회수</b></td>
             </tr>
         </thread>

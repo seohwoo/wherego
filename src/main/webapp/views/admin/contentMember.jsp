@@ -19,7 +19,8 @@
 	        window.location = "/wherego/views/main/main.jsp";
 	    </script>
 	<% } %>
-	<jsp:include page="/views/main/nav.jsp" />	
+	<jsp:include page="/views/main/nav.jsp" />
+	<jsp:include page="/views/main/title.jsp" /><br />
 	<%!
    		int pageSize = 10;
 		SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	
@@ -45,17 +46,36 @@
 	    </script>
 	<% }
 	%>
-	 <img width="150" src="/wherego/image/<%= dto.getProfile() %>"> <br> 
-	 <h3><%=dto.getId() %></h3>
-	 <h3><%=dto.getName() %></h3>
-	 <h3><%=dto.getNic() %></h3>
-	 <h3><%=birth %></h3>
-	 <h3><%=dto.getGender() %></h3>
-	 <h3><%=dto.getAddress() %></h3>
-	 <h3><%=dto.getEmail() %></h3>
-	 <h3><%=dto.getPhone() %></h3>
-	 <h3><%=reg_date %></h3>
-	 <h3><%=gradeName%></h3>
+	<div >
+		<table class="table">
+		<tr height="30"> 
+		  <td align="center" width="300">프로필</td>
+	       <td align="center"  width="300"  >id</td> 
+	       <td align="center"  width="300"  >이름</td>
+	       <td align="center"  width="400"  >닉네임</td>
+	       <td align="center"  width="300"  >생년월일</td>
+	       <td align="center"  width="200"  >성별</td>
+	       <td align="center"  width="500"  >주소</td>
+	       <td align="center"  width="100"  >이메일</td> 
+	       <td align="center"  width="100"  >휴대전화</td> 
+	       <td align="center"  width="100"  >가입일</td>
+	       <td align="center"  width="100"  >등급</td> 
+	    </tr>
+		<tr>
+		 <td align="center"><img width="150" src="/wherego/image/<%= dto.getProfile() %>"> </td>
+		 <td align="center"  width="300"><%=dto.getId() %></td>
+		 <td align="center"  width="300"><%=dto.getName() %></td>
+		 <td align="center"  width="400"><%=dto.getNic() %></td>
+		 <td align="center"  width="300"><%=birth %></td>
+		 <td align="center"  width="200"><%=dto.getGender() %></td>
+		 <td align="center"  width="500"><%=dto.getAddress() %></td>
+		 <td align="center"  width="100"><%=dto.getEmail() %></td>
+		 <td align="center"  width="100"><%=dto.getPhone() %></td>
+		 <td align="center"  width="100"><%=reg_date %></td>
+		 <td align="center"  width="100"><%=gradeName%></td>
+		 </tr>
+		 </table>
+	 </div>
 	 <form action="userGradeChangeForm.jsp" method="post">
 	 	<input type="hidden" name="id" value="<%=id%>"/>
 	 	<input type="submit" name="submit" value="등급변경 >>>"/>

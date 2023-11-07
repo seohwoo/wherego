@@ -12,7 +12,8 @@
 <title>어디GO</title>
 </head>
 <body>
-	<jsp:include page="/views/main/nav.jsp" />	
+	<jsp:include page="/views/main/nav.jsp" />
+	<jsp:include page="/views/main/title.jsp" /><br />
 	<%!
    		int pageSize = 10;
 		SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	
@@ -43,35 +44,43 @@
 				if(count>0) {
 					memberList = dao.selectCleanMember(start, end);
 				}%>
-				<button type="button" OnClick="window.location='showDirtyMember.jsp?pageNum=1'">탈퇴, 금지 유저 보기 >>></button>
+				<div class="text-center">
+					<button class="btn btn-primary" OnClick="window.location='showDirtyMember.jsp?pageNum=1'">탈퇴, 금지 유저 보기</button> <br/>
+				</div>
 				
-				<table border="1" width="700" align="center"> 
-			    <tr height="30"> 
-			       <td align="center"  width="50"  >id</td> 
-			       <td align="center"  width="50"  >닉네임</td> 
-			       <td align="center"  width="50"  >성별</td> 
-			       <td align="center"  width="50"  >이메일</td> 
-			       <td align="center"  width="50"  >휴대폰 번호</td> 
-			       <td align="center"  width="50"  >등급</td> 
-			       <td align="center"  width="50"  >가입일</td> 
-			    </tr>
-			    
-				<% for(AdminMemberDTO dto : memberList) {
-					Date reg_dateD = inputFormat.parse(dto.getReg_date());
-					String reg_date = outputFormat.format(reg_dateD);
-					String gradeName = dao.findGradeName(dto.getGrade());
-				%>
-					<tr>
-						<td align="center"  width="50"  ><a href="contentMember.jsp?id=<%=dto.getId() %>"><%=dto.getId() %></a></td>
-						<td align="center"  width="50"  ><%=dto.getNic() %></td>
-						<td align="center"  width="50"  ><%=dto.getGender() %></td>
-						<td align="center"  width="50"  ><%=dto.getEmail() %></td>
-						<td align="center"  width="50"  ><%=dto.getPhone() %></td>
-						<td align="center"  width="50"  ><%=gradeName%></td>
-						<td align="center"  width="50"  ><%=reg_date%></td>
-					</tr>
-				<%}%>
-				</table>
+				<div class="d-grid gap-2 col-6 mx-auto">	
+					<table class="table" width="700" align="center"> 
+				    <tr height="30"> 
+				       <td align="center"  width="100"  >id</td> 
+				       <td align="center"  width="50"  >닉네임</td> 
+				       <td align="center"  width="50"  >성별</td> 
+				       <td align="center"  width="50"  >이메일</td> 
+				       <td align="center"  width="50"  >휴대폰 번호</td> 
+				       <td align="center"  width="50"  >등급</td> 
+				       <td align="center"  width="100"  >가입일</td> 
+				    </tr>
+				    
+					<% for(AdminMemberDTO dto : memberList) {
+						Date reg_dateD = inputFormat.parse(dto.getReg_date());
+						String reg_date = outputFormat.format(reg_dateD);
+						String gradeName = dao.findGradeName(dto.getGrade());
+					%>
+						<tr>
+							<td align="center"  width="100"  ><a href="contentMember.jsp?id=<%=dto.getId() %>"><%=dto.getId() %></a></td>
+							<td align="center"  width="50"  ><%=dto.getNic() %></td>
+							<td align="center"  width="50"  ><%=dto.getGender() %></td>
+							<td align="center"  width="50"  ><%=dto.getEmail() %></td>
+							<td align="center"  width="50"  ><%=dto.getPhone() %></td>
+							<td align="center"  width="50"  ><%=gradeName%></td>
+							<td align="center"  width="100"  ><%=reg_date%></td>
+						</tr>
+					<%}%>
+					</table>
+				</div>
+				
+	<br />
+	<nav aria-label="Page navigation example">
+	  <ul class="pagination justify-content-center">
 				<%
 				    if (count > 0) {
 				        int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
@@ -82,14 +91,25 @@
 				        if (endPage > pageCount) endPage = pageCount;
 				        
 				        if (startPage > 10) {    %>
-				        <a href="showCleanMember.jsp?pageNum=<%= startPage - 10 %>">[이전]</a>
+				 <li class="page-item">
+		          <a class="page-link" href="showCleanMember.jsp?pageNum=<%= startPage - 10 %>" aria-label="Previous">
+		            <span aria-hidden="true">&laquo; 이전</span>
+		          </a>
+		        </li>
 				<%      }
 				        for (int i = startPage ; i <= endPage ; i++) {  %>
-				        <a href="showCleanMember.jsp?pageNum=<%= i %>">[<%= i %>]</a>
+				         <li class="page-item <%= (i == currentPage) ? "active" : "" %>">
+				          <a class="page-link" href="showCleanMember.jsp?pageNum=<%= i %>"><%= i %></a>
+				        </li>
 				<%
 				        }
 				        if (endPage < pageCount) {  %>
-				        <a href="showCleanMember.jsp?pageNum=<%= startPage + 10 %>">[다음]</a>
+				       li class="page-item">
+					       <li>
+					          <a class="page-link" href="showCleanMember.jsp?pageNum=<%= startPage + 10 %>" aria-label="Next">
+					            <span aria-hidden="true">다음 &raquo;</span>
+					          </a>
+					        </li>
 				<%
 				        }
 				    }
@@ -97,6 +117,9 @@
 			<%}
 			
 		}%>
-		<jsp:include page="/views/main/footer.jsp" />		
+		</ul>
+	</nav>
+<br /><hr /><br />
+<jsp:include page="/views/main/footer.jsp" />
 </body>	
 </html>

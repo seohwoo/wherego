@@ -71,7 +71,7 @@ public class SaveDAO extends OracleDB {
 		}
 	}
 
-	// 컨텐트아이디를 리스트화한것
+	// 찜목록 테이블에서 유저의 컨텐트아이디를 리스트화한것
 	public ArrayList<String> getMyPickContentIdList(String user) {
 
 		conn = getConnection();
@@ -94,12 +94,7 @@ public class SaveDAO extends OracleDB {
 	}
 	
 	
-	
-
-	
-
-	// 리스트된 컨텐트 아이디로 필요한 값들을 불러오는것
-	// stars, landinfo, totalstar table 3개에서 정보 받아와서 dto에 담아서 리턴
+	//컨텐트 아이디에 알맞은 지역정보를  myPickMap에 담음
 	public HashMap<String, String> myPick(String contentid) {
 		HashMap<String, String> myPickMap = new HashMap<String, String>();
 		conn = getConnection();
@@ -136,9 +131,6 @@ public class SaveDAO extends OracleDB {
 			if (rs.next()) {
 				myPickMap.put("readcount", rs.getString("readcount"));
 			}
-			
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -148,7 +140,6 @@ public class SaveDAO extends OracleDB {
 	}
 
 	// 찜목록 카운트 만들기
-
 	public int getmypickpoint(String user) throws Exception {
 		int x = 0;
 
@@ -174,7 +165,7 @@ public class SaveDAO extends OracleDB {
 		
 	
 
-	// 리뷰쓴사람 컨텐츠아이디갑을 리스트화
+	// 리뷰 테이블에서 유저가 쓴 글을 리스트로만듬
 	public ArrayList<String> getMyreviewContentIdList(String rid) {
 		conn = getConnection();
 		ArrayList<String> RcontentIdList = new ArrayList<String>();
@@ -195,8 +186,7 @@ public class SaveDAO extends OracleDB {
 		return RcontentIdList;
 	}
 
-	// 리스트로된 컨텐트 아이디 만들어 리뷰 불러오기
-
+	// 유저가 속한 리뷰 테이블의 내용을 리스트로 만들어 myReviewList에 담기
 	public ArrayList<HashMap<String, String>> myReviewList(String user) {
 		ArrayList<HashMap<String, String>> myReviewList = new ArrayList<HashMap<String, String>>();
 
@@ -226,6 +216,7 @@ public class SaveDAO extends OracleDB {
 		return myReviewList;
 	}
 
+	
 	// 리뷰갯수
 	public int getReviewCount(String rid) throws Exception {
 		int x = 0;
@@ -247,6 +238,8 @@ public class SaveDAO extends OracleDB {
 		return x;
 	}
 
+	
+	//contentid 통해서 대표이지미랑 타이틀 가져오기
 	public HashMap<String, String> selectReviewTitle(String contentid) {
 		HashMap<String, String> myReviewTitleMap = new HashMap<String, String>();
 		try {
@@ -257,9 +250,7 @@ public class SaveDAO extends OracleDB {
 			while (rs.next()) {
 				myReviewTitleMap.put("title", rs.getString("title"));
 				myReviewTitleMap.put("firstimage", rs.getString("firstimage"));
-
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -268,6 +259,7 @@ public class SaveDAO extends OracleDB {
 		return myReviewTitleMap;
 	}
 
+	
 	public int getSaveCount(String contentid) {
 		int x = 0;
 

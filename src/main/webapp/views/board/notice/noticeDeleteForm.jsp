@@ -41,16 +41,16 @@ NoticeDTO dto = dao.getNoContent(num);
         <input type="hidden" name="num" value="<%= num %>">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">작성자</label>
-            <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= nic %>">
+            <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= nic %>" readonly>
             <input type="hidden" name="id" class="form-control" value="<%= memId %>">
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput2" class="form-label">제목</label>
-            <input type="text" name="title" class="form-control" id="exampleFormControlInput2" value="<%= dto.getTitle() %>">
+            <input type="text" name="title" class="form-control" id="exampleFormControlInput2" value="<%= dto.getTitle() %>" readonly>
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">공지내용</label>
-            <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"><%= dto.getContent() %></textarea>
+            <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3" readonly><%= dto.getContent() %></textarea>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto">
             <button type="submit"  class="btn btn-danger">공지 삭제</button>

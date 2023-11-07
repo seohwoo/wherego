@@ -55,39 +55,11 @@
 		    </tbody>
 		  </table>
 		</div>
-	<div class="siteImg">
-		<img src="/wherego/image/wheregoS.png" alt="Airplane" id="movingAirplane" style="margin: 0px; padding: 0px;">
-	</div>
+	
 	<!-- footer -->
-	<br /><hr /><br />
-		<jsp:include page="/views/main/footer.jsp" />		
-
+	<div style="position: fixed; bottom: 0px; width: 100%;">
+		<br /><hr /><br />
+			<jsp:include page="/views/main/footer.jsp" />		
+	</div>
 </body>
-<style>
-    .siteImg {
-        position: relative;
-        width: 100%; /* 또는 원하는 가로 너비 */
-        height: 300px; /* 또는 원하는 세로 높이 */
-        overflow: hidden;
-    }
-
-    #movingAirplane {
-        position: absolute;
-        top: 0;
-        right: 0; /* 시작 위치를 오른쪽으로 설정 */
-        animation: moveAirplane 5s linear infinite;
-    }
-
-    @keyframes moveAirplane {
-        0% {
-            right: 0;
-        }
-        100% {
-            right: calc(100% - 50px); /* 왼쪽으로 이동하도록 수정, 애니메이션 속도를 조절하려면 값 조정 */
-        }
-    }
-</style>
-
-
-
 </html>

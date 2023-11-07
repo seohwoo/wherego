@@ -17,6 +17,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 	<link href="/wherego/views/mypage/mypage.css" rel="stylesheet" type="text/css" />
 	<title>어디Go 마이페이지</title>
 </head>
@@ -167,9 +168,15 @@
 			         <td><%=myReviewTitleMap.get("title")%></td>
 			         <td><%=myReviewMap.get("review")%></td>
 			         <td>
-			         <% for(int stars = 1; stars <= Integer.parseInt(myReviewMap.get("stars")); stars++){ //별점 갯수만큼 반복 // 아래는 별 유니코드%>
-			         &#11088; 
-			         <%}%>
+			         <% int rating = Integer.parseInt(myReviewMap.get("stars"));
+			        	for (int s = 1; s <= 5; s++) {
+			               if (s <= rating) { %>
+			                    <i class="fas fa-star" style="color: #ffc83d;"></i> <!-- 채워진 별 -->
+			               <% } else { %>
+			                    <i class="far fa-star" style="color: #ffc83d;"></i>
+			               <% }
+			           }
+			        %>
 			         </td>
 			         <td><%=myReviewMap.get("reg_date")%></td>
 			         <td>
@@ -195,7 +202,7 @@
 	   <h5 class="text">[<%=userDtO.getNic()%>님의 찜한 여행지 리스트입니다]</h5>
 	   <b style="color: black;">내가 찜한목록(전체 글:<%=point%>)</b>
    <% if (point == 0 ) {  %>
-      <table class="table table-hover">
+      <table class="table">
          <tr>
            <td>
              게시판에 저장된 글이 없습니다.
@@ -203,7 +210,7 @@
           </tr>
       </table>
    <%}else{%>  
-	    <table class="table table-hover"> 
+	    <table class="table"> 
 	      <thead>
 	      	<tr>
 	         <td align="center"><b>주소</b></td> 
@@ -241,6 +248,9 @@
 <%}catch (Exception e){
    e.printStackTrace();
 }%>
+
+<br/><hr /><br />
+<jsp:include page="/views/main/footer.jsp" />
 </body>
 <script>
 function openProfileWindow() {

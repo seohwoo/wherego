@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="/wherego/views/main/main.css" rel="stylesheet" type="text/css" />
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 	<title>BestMagazine</title>
@@ -32,8 +33,6 @@
 
 
 
-
-<!-- 틀만작성 , 수정예정 -->
 <div class="container text-center">
 	<div class="card mb-3">
 		<div style="display: flex; align-items: center;">
@@ -44,8 +43,8 @@
 		  <%} %>
 	  	</div>
 	  <div class="card-body">
-	    <h5 class="card-title"><%=dto.getSubject() %></h5>
-	    <p class="card-text"><%=dto.getContent() %></p>
+	    <h4 class="card-title"><%=dto.getSubject() %></h4>
+	    <pre class="card-text" style="font-family: 'Pretendard-Regular', sans-serif;"><%=dto.getContent() %></pre>
 	    <p class="card-text"><small class="text-body-secondary"><%=reg_date %></small></p>
 	  </div>
 	</div>

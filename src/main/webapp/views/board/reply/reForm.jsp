@@ -50,7 +50,7 @@
 	            <input type="hidden" name="ref" value="<%= ref %>">
 	        </div>
 	        <div class="mb-3">
-	            <label for "exampleFormControlTextarea1" class="form-label">내용</label>
+	            <label for="exampleFormControlTextarea1" class="form-label">내용</label>
 	            <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3">[답변]</textarea>
 	        </div>
 	        <div class="d-grid gap-2 col-6 mx-auto">
@@ -58,7 +58,7 @@
 	        </div>
 	    </form>
     </div>
-    <div class "fixed-bottom">
+    <div class="fixed-bottom">
         <hr />
         <jsp:include page="/views/main/footer.jsp" />
     </div>

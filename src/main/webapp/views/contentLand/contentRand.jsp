@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import = "team02.db.land.LastAPI_Used"%> 
 <%@ page import = "team02.content.land.LandDAO" %>
+<%@ page import = "team02.user.save.SaveDAO"%> 
 <%@ page import = "java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
@@ -46,9 +47,25 @@
 		
 		String src = "";
 	%>
+	<%
+	  	SaveDAO saveDao = SaveDAO.getInstance();
+		 int issave = saveDao.isSave(contentid, id);
+	%>
 	<div class="container text-center col-6 col-md-4">
 	<div class="card mb-3">
-
+		<div style="position: relative; display: inline-block;">
+			<form action="/wherego/views/contentLand/contentLandSavePro.jsp" method="post" style="position:absolute;">
+			    <input type="hidden" name="contentid" value="<%=contentid %>" />
+			    <input type="hidden" name="areaCode" value="<%=areaCode %>" />
+			    <input type="hidden" name="sigunguCode" value="<%=sigunguCode %>" />
+			    <input type="hidden" name="pageNum" value="<%=pageNum %>" />
+			    <button type="submit" style="border: none; background: none; cursor: pointer;">
+			        <% if(issave == 0){ %><i class="far fa-heart" style="color: #ff0000; font-size: 30px; margin: 10px;"></i>
+			        <%}else{%>
+			        	<i class="fas fa-heart" style="color: #ff0000; font-size: 30px; margin: 10px;"></i>
+			        <%} %>
+			    </button>
+			</form>
 		<% src = DetailrandInfoMap.get("firstimage");
           if(!src.equals("")){%>
           <img src="<%=DetailrandInfoMap.get("firstimage") %>" class="card-img-top" width="200" height="200"/>
@@ -56,6 +73,7 @@
        <%}else if(src.equals("")){%>
             <img src = "/wherego/image/image.jpg" class="card-img-top" width="200" height="200"/>        
       <% }%>
+      </div>
        <div class="card-body">
       	 <h2><%=DetailrandInfoMap.get("title")%></h2>
       	 <h5><strong><%=DetailrandInfoMap.get("addr1") %></strong></h5>
@@ -122,6 +140,7 @@
    	 	</div>
    	 	</div>
    	 	<jsp:include page="/views/contentLand/contentRandReview.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&contentid=<%=contentid%>&pageNum=<%=pageNum%>" />
+   	 	
 </body>
 <script>
 var buttonClicked = false; // 초기에 버튼이 클릭되지 않았음을 나타내는 변수

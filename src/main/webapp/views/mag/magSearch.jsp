@@ -53,7 +53,7 @@
 			String title = dao.getMagTitle(cid);
 			title = title + " ";
 			%>
-			<p style="font-family: 'Pretendard-Regular', sans-serif;"> <%=title %> </p>
+			<p style="font-family: 'Pretendard-Regular', sans-serif;">  <<%=title %>> </p>
 		<%} %>
 	</div>
 		<form action="magWriteForm.jsp" method="post">

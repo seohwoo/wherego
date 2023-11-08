@@ -53,7 +53,7 @@
 				<div class="d-grid gap-2 col-6 mx-auto">	
 					<table class="table" width="700" align="center"> 
 				    <tr height="30"> 
-				       <td align="center"  width="100"  >id</td> 
+				       <td align="center"  width="100" >아이디</td> 
 				       <td align="center"  width="50"  >닉네임</td> 
 				       <td align="center"  width="50"  >성별</td> 
 				       <td align="center"  width="50"  >이메일</td> 

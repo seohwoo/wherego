@@ -48,8 +48,8 @@
        <%
           if(id != null) {
             if(id.equals("admin")) {%>
-            <input type="button" class="btn btn-outline-dark" value="매거진 수정" 
-            onclick="document.location.href='magUpdateForm.jsp?num=<%=mag.getNum()%>&pageNum=<%=pageNum%>'" style="float: right;">
+            <input type="button" class="btn btn-outline-dark" value="매거진 삭제" 
+            onclick="document.location.href='magDeleteForm.jsp?num=<%=mag.getNum()%>&pageNum=<%=pageNum%>'" style="float: right;">
             &nbsp;&nbsp;&nbsp;&nbsp;       
          <%}%>
       

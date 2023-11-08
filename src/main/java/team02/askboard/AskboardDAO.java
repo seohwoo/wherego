@@ -99,7 +99,7 @@ public class AskboardDAO extends OracleDB {
 		try {
 			conn = getConnection();
 			sql = "select * from " + " (select b.* , rownum r from "
-					+ " (select * from askboard order by ref desc, re_step asc ) b) " + " where r >= ? and r <= ? ";
+					+ " (select * from askboard order by reg_date desc) b) " + " where r >= ? and r <= ? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
@@ -117,8 +117,6 @@ public class AskboardDAO extends OracleDB {
 					dto.setReg_date(rs.getTimestamp("reg_date"));
 					dto.setReadcount(rs.getInt("readcount"));
 					dto.setRef(rs.getInt("ref"));
-					dto.setRe_step(rs.getInt("re_step"));
-					dto.setRe_level(rs.getInt("re_level"));
 					askList.add(dto);
 				} while (rs.next());
 			}
@@ -157,7 +155,7 @@ public class AskboardDAO extends OracleDB {
 		try {
 			conn = getConnection();
 			sql = "select * from " + " (select b.* , rownum r from "
-					+ " (select * from askboard order by ref desc, re_step asc ) b) " + " where id = ? and r >= ? and r <= ?";
+					+ " (select * from askboard order by ref desc ) b) " + " where id = ? and r >= ? and r <= ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setInt(2, start);

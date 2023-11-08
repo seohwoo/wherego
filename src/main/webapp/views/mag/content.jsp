@@ -37,39 +37,78 @@
 
 
 <jsp:include page="/views/main/nav.jsp" />	
-
-<center>
-   <h3>메거진 내용 보기</h3>
+<jsp:include page="/views/main/title.jsp" /> <br />
    
    <%if(id != null) { %>
    <form>
-   <table border="1"  align="center">
-     
+   <h3 align="center"><%=mag.getSubject()%></h3> <br />
+   <table align="center">
+       <tr>      
+       <td> 
+       <%
+          if(id != null) {
+            if(id.equals("admin")) {%>
+            <input type="button" class="btn btn-outline-dark" value="매거진 수정" 
+            onclick="document.location.href='magUpdateForm.jsp?num=<%=mag.getNum()%>&pageNum=<%=pageNum%>'" style="float: right;">
+            &nbsp;&nbsp;&nbsp;&nbsp;       
+         <%}%>
+      
+        <input type="button" class="btn btn-outline-dark" value="매거진 목록" 
+        onclick="document.location.href='magList.jsp?pageNum=<%=pageNum%>'" style="float: right;">
+        &nbsp;&nbsp;&nbsp;&nbsp;
+     </td>      
+     <%}%>      
+    </tr>   
+   <%}%>  
      <tr>
-       <td align="center" ">글번호</td>
-       <td align="center"  align="center">
-           <%=mag.getNum()%></td>  
-           <td align="center" width="125" >작성일</td>
-       <td align="center"  align="center">
-           <%=mag.getReg_date() %></td>    
-     </tr>   
-     
-     
-     <tr height="30">
-       <td align="center"  >작성자</td>
-       <td align="center"  align="center" >
-           여기어때 </td>       
-     </tr>
-     <tr height="30">
-       <td align="center"  >글제목</td>
-       <td align="center"  align="center" >
-           <%=mag.getSubject()%></td>
-     </tr>
-     <tr>
-       <td align="center" >글내용</td>       
-       <td align="left"  >
-       <div id="map" style="width:500px;height:400px;"></div>
-       	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b2ea861437e36479577f200cdf49db21"></script>
+       <td>
+       <div class="text-center">
+      	 <pre style="font-family: 'Pretendard-Regular', sans-serif;"><%=mag.getContent()%></pre>
+       </div>
+       <br />
+       <p align="center" style="font-family: 'Pretendard-Regular', sans-serif;">⏬ 자세한 주소와 정보 ⏬ </p>
+       
+       <div class="container text-center">
+	    <div class="row"> <!-- 새로운 row를 시작 -->
+	        <%
+	            int cardCount = 0; // 현재 출력된 카드 수를 추적
+	            for(String contentid : arContetid) { 
+	                // 정보 불러오기
+	                HashMap<String, String> DetailrandInfoMap = landO.selectContentRandInfo(contentid);      
+	                String src = "";
+	        %>
+	        <div class="col-md-4"> <!-- 각 카드는 4개의 칼럼을 차지 (3개까지 출력) -->
+	            <ul class="list-group list-group-flush">
+	                <div class="card">
+	                    <img src="<%=DetailrandInfoMap.get("firstimage") %>" class="card-img-top" width="200" height="200"/>
+	                    <div class="card-body">
+	                        <li class="list-group-item">
+	                            <a href="/wherego/views/contentLand/contentRand.jsp?contentid=<%=contentid%>&pageNum=1">
+	                                <%=DetailrandInfoMap.get("title") %>
+	                            </a>
+	                        </li>
+	                        <li class="list-group-item"><%=DetailrandInfoMap.get("category") %></li>
+	                        <li class="list-group-item"><%=DetailrandInfoMap.get("areacodename") %> > <%=DetailrandInfoMap.get("sigungucodename") %></li>
+	                    </div>
+	                </div>
+	            </ul>
+	        </div>
+	        <%
+	            cardCount++;
+	            if (cardCount % 3 == 0) { // 3개 카드마다 새로운 row를 시작
+	        %>
+	    </div>
+	    <div class="row"> <!-- 새로운 row를 시작 -->
+	        <%
+	            }
+	        } // 반복문 종료
+	        %>
+	    </div>
+	</div>
+	<br />
+	<p align="center" style="font-family: 'Pretendard-Regular', sans-serif;">⏬ 지도에서 보기 ⏬ </p>
+ <div class="container text-center" id="map" style="width:980px; height:400px; border-radius: 15px;"></div>
+       	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4a9d59c81d3321fd7e3b885e4c1f6fcc"></script>
 		<script>
 		var positions = [];
 		<%	
@@ -89,7 +128,7 @@
 			var newPosition = {
 					title: ' <%=DetailrandInfo.get("title")%> ',
 					latlng: new kakao.maps.LatLng(<%=x%>, <%=y%>),
-					contentid: 'contentid',
+					contentid: '<%=contentid%>',
 					areacode: '<%=DetailrandInfo.get("areacode")%>',
 					sigungucode: '<%=DetailrandInfo.get("sigungucode")%>',
 					pageNum: '<%=pageNum%>',
@@ -164,49 +203,14 @@
 		    })(marker, positions[i].contentid, positions[i].areacode, positions[i].sigungucode, positions[i].pageNum, positions[i].title, positions[i].firstimage);
 		}
 		</script>
-		<br />
-       <pre><%=mag.getContent()%></pre>
-       <br />
-		<%
-			for(String contentid : arContetid) { 
-			// 정보 불러오기
-			
-		  	HashMap<String,String> DetailrandInfoMap = landO.selectContentRandInfo(contentid);      
-			String src = "";
-		%>
-		<ul class="list-group list-group-flush"> 
-			    <img src="<%=DetailrandInfoMap.get("firstimage") %>" class="card-img-top" width="200" height="200"/>
-			    <li class="list-group-item">
-			    	<a href="/wherego/views/contentLand/contentRand.jsp?contentid=<%=contentid%>&pageNum=1">
-			    		<%=DetailrandInfoMap.get("title") %>
-			    	</a>
-			    </li>
-			    <li class="list-group-item"><%=DetailrandInfoMap.get("category") %></li>
-			    <li class="list-group-item"><%=DetailrandInfoMap.get("areacodename") %> > <%=DetailrandInfoMap.get("sigungucodename") %></li>
-		</ul>
-		<%} %>
+       
 		</td>       
      </tr>   
      
-     <tr >      
-       <td align="right" > 
-       <%
-          if(id != null) {
-            if(id.equals("admin")) {%>
-            <input type="button" value="글수정" 
-            onclick="document.location.href='magUpdateForm.jsp?num=<%=mag.getNum()%>&pageNum=<%=pageNum%>'">
-            &nbsp;&nbsp;&nbsp;&nbsp;       
-         <%}%>
-      
-        <input type="button" value="글목록" 
-        onclick="document.location.href='magList.jsp?pageNum=<%=pageNum%>'">
-        &nbsp;&nbsp;&nbsp;&nbsp;
-     </td>      
-     <%}%>      
-    </tr>   
-   <%}%>      
-     
    </table>
    </form>
+   
+   <br/><hr /><br/>
+		<jsp:include page="/views/main/footer.jsp" />
    </body>
 </html>  

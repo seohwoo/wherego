@@ -60,7 +60,11 @@
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">내용</label>
+            <%if (boardnum == 0){ %>
             <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <%}else{ %>
+             <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3">[답변]</textarea>
+             <%} %>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto">
             <button type="submit" class="btn btn-secondary">등록</button>

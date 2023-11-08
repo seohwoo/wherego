@@ -9,17 +9,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <meta charset="UTF-8">
 <title>어디GO</title>
 </head>
 <body>
-	<jsp:include page="/views/main/nav.jsp" />	
+	<jsp:include page="/views/main/nav.jsp" />
+	<jsp:include page="/views/main/title.jsp" /><br />
 	<%
 		String searchType  = request.getParameter("searchType");
 		String searchValue  = request.getParameter("searchValue");
 		
 		
-		int pageSize = 10;
+		int pageSize = 20;
 	    String pageNum = request.getParameter("pageNum");
 	    if (pageNum == null) {
 	        pageNum = "1";
@@ -39,45 +41,40 @@
 		if(count>0) {
 			landList = dao.searchLand(searchValue, searchType, start, end);
 		
-		
-		for(LocationLandDTO dto : landList) {
+		%>
+	<div class="d-grid gap-2 col-6 mx-auto">
+		<%for(LocationLandDTO dto : landList) {
 		      double avg = landO.avgStar(dto.getContentid());
 		      int readCount = landO.getReadCount(dto.getContentid());
 			  int totalSave = saveDao.getSaveCount(dto.getContentid());
 			  int totalReview = landO.getReviewCount(dto.getContentid());
 	%>
-	
 		<div class="card mb-3" style="max-width: 800px;">
 			  <div class="row g-0">
 			    <div class="col-md-4">
-					<img src="<%=dto.getFirstimage() %>" style="width: 270px; height: 222px;" class="img-fluid rounded-start">
+					<img src="<%=dto.getFirstimage() %>" style="width: 270px; height: 146px;" class="img-fluid rounded-start">
 			    </div>  
-				<button type="button" class="btn btn-outline-dark col-md-8"  onclick="window.location.href='/wherego/views/mag/test.jsp?contentid=<%=dto.getContentid()%>&pageNum=<%=pageNum%>'" >
+				<button type="button" class="btn btn-outline-dark col-md-8"  onclick="window.location.href='/wherego/views/mag/magSearch.jsp?contentid=<%=dto.getContentid() %>&PageNum=<%=pageNum %>'" >
 			      <div class="card-body">
 			        <h5 align="left" class="card-title"><%=dto.getTitle() %></h5>
-			        <p align="left" class="card-text"><%=dto.getCategory() %></p>
-			        <p align="left" class="card-text"><%=dto.getAreacodename() %> > <%=dto.getSigungucodename() %></p>
-			        <% if(totalReview == 0){%>
-			        <p align="left" class="card-text">아직 등록된 리뷰가 없습니다.</p>
-			        <%}else{ %>
-			        <p align="left" class="card-text"><%=totalReview%>개의 리뷰가 있습니다.</p>
-			        <%}%>
-			        <p align="left" class="card-text"><small >
-			        <%
-			        for(int i = 1; i <= (int)avg; i++){%>
-			        	&#11088;
-			        <% }
-			        if(avg % 1 != 0){%>
-			        &#x2606;
-			        <%}%>(<%=avg %>)</small></p>
-			        <p align="left" class="card-text"><small >❤  (0)</small></p>
-			        <p align="left" class="card-text"><small >조회수 : <%=readCount %></small></p>
+			        <p align="left" class="card-text"><%=dto.getAreacodename() %> &#10144; <%=dto.getSigungucodename() %> &#12304;<%=dto.getCategory() %>&#12305;</p>
+			         <p align="left" class="card-text"><small >
+			        <% for (int i = 1; i <= 5; i++) { %>
+					    <% if (i <= avg) { %>
+					      <i class="fas fa-star" style="color: #ffc83d;"></i>
+					    <% } else if (i - 0.5 <= avg) { %>
+					      <i class="fas fa-star-half-alt" style="color: #ffc83d;"></i>
+					    <% } else { %>
+					      <i class="far fa-star" style="color: #ffc83d;"></i>
+					    <% } %>
+			        <%}%><%=avg %> (<%=totalReview %>) &nbsp; ❤ (<%=totalSave %>) &nbsp; 🔎 (<%=readCount %>)</small></p>
 			      </div>
 				</button>
 			   
 			  </div>
-			</div> 
+			</div>
 			<%} %>
+			</div>
 			<br />
   		<nav aria-label="Page navigation example">
 	  <ul class="pagination justify-content-center">
@@ -122,6 +119,7 @@
 		    <button type="button" class="btn btn-light" OnClick="window.location='/wherego/views/main/main.jsp'">✏ 문의하기 ✏</button>
 			
 		<%}%>
+		<br /><hr /><br />
 	<jsp:include page="/views/main/footer.jsp" />	
 </body>
 </html>

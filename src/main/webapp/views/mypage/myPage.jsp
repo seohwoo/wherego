@@ -1,17 +1,12 @@
 
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<!-- 지환 마이페이지 -->
 <%@ page import="team02.member.MemberDAO" %>
 <%@ page import="team02.member.MemberDTO" %>
 <%@ page import = "com.oreilly.servlet.MultipartRequest" %>
 <%@ page import = "com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@page import = "java.util.Enumeration" %>
 
-<!-- 선민 리뷰 -->
-
-<!-- 형우 찜하기 -->
 <%@ page import = "team02.user.save.SaveDAO"%> 
 <%@ page import = "team02.user.save.SaveDTO"%>
 <%@page import="java.util.ArrayList"%>
@@ -37,7 +32,7 @@
 <%
    //찜목록 리스트화 시키기
     SaveDAO pick = SaveDAO.getInstance();
-    ArrayList<String> p = pick.getMyPickContentIdList(user);
+    ArrayList<String> p = pick.getMyPickContentIdList(user); //찜목록 테이블에서 유저의 컨텐트아이디를 리스트화한것
     String contentid ="";
     
     //찜목록 카운트
@@ -51,7 +46,7 @@
 <%
    //리뷰 리스트화 시키기
    SaveDAO review = SaveDAO.getInstance();
-   ArrayList<String> r = review.getMyreviewContentIdList(user);
+   ArrayList<String> r = review.getMyreviewContentIdList(user); // 리뷰 테이블에서 유저가 쓴 글을 리스트로만듬
    String reviewContentid = "";
 
    
@@ -76,9 +71,9 @@
    MemberDTO userDtO = manager.getMember(user);
    
    try{%>
- 
- <!-- 여기는 프로필 --> 
+
 <div class="text-center">
+<<<<<<< HEAD
 <% if(session.getAttribute("memId") != null) {
     // 로그인한 경우
     if(session.getAttribute("memId").equals(user)) { // 본인의 페이지인 경우
@@ -101,14 +96,40 @@
     }
 }
 %>
+=======
+	<%if(session.getAttribute("memId") != null) {
+    // 로그인한 경우
+		if(session.getAttribute("memId").equals(user)) { // 본인의 페이지인 경우
+	   %>      
+	     <img width="150" src="/wherego/image/<%= userDtO.getProfile() %>">
+	     <h5 class="text" style="color: black;"><%= userDtO.getNic() %> 마이페이지</h5>
+	     <h5 class="text" style="color: black;"><%= userDtO.getGradeName() %> 등급의 회원입니다.</h5>
+	     <button id="changeProfile" class="button" onclick="openProfileWindow()">프로필 이미지 변경</button>
+	     <input type="button" class="button" value="수정하기" OnClick="window.location='updateForm.jsp'">
+	     <input type="button" class="button" value="탈퇴하기" Onclick="openDeleteWindow()">
+	  <%
+	    }else{
+	        // 본인의 페이지가 아닌 경우
+		%>
+	     <img width="150" src="/wherego/image/<%= c.getProfile() %>">
+	     <h5 class="text" style="color: black;">현재 <%= userDtO.getNic() %> 회원 페이지입니다.</h5>
+	     <span style="color: black;"><%= userDtO.getGradeName() %> 등급의 회원입니다.</span>
+		<%
+	    }
+	}
+	%>
+>>>>>>> branch 'feature/33' of https://github.com/seohwoo/wherego.git
 </div>
 <div class="d-grid gap-2 col-6 mx-auto">
 <hr class="hr-19" />
 </div>
 
 
+<<<<<<< HEAD
 
 <!-- 글보기 -->
+=======
+>>>>>>> branch 'feature/33' of https://github.com/seohwoo/wherego.git
  
    <div class="text-center">
     <%
@@ -131,10 +152,15 @@
 
 
 
+<<<<<<< HEAD
        
 <!-- 아래는 리뷰리스트 -->
+=======
+
+>>>>>>> branch 'feature/33' of https://github.com/seohwoo/wherego.git
        
    <div id="myreviews" class="text-center" style="display:none;">
+<<<<<<< HEAD
 		<div class="d-grid gap-2 col-6 mx-auto">
 			<br />
 			<h5 class="text">[<%=userDtO.getNic()%>님이 작성한 리뷰 리스트 입니다]</h5>
@@ -160,30 +186,76 @@
 			           <%}%></b></td>		                                              
 			      </tr>
 		      </thead>
+=======
+    <div class="d-grid gap-2 col-6 mx-auto">
+	 <br />
+	  <h5 class="text">[<%=userDtO.getNic()%>님이 작성한 리뷰 리스트 입니다]</h5>
+	  <b style="color: black;">글목록(전체 글:<%=count%>)</b>
+    <%if (count == 0) { %>
+	  <table class="table table-hover">
+		 <tr>
+		   <td>리뷰 글이 없습니다.</td>
+		 </tr>
+	  </table>
+	<%}else{%>
+	   <table class="table table-hover">
+		<thead>
+		 <tr>                      
+		   <td align="center"><b>여행지</b></td> 
+		   <td align="center"><b>리뷰내용</b></td> 
+		   <td align="center"><b>별점</b></td>                                                                                
+		   <td align="center"><b>리뷰날짜</b></td> 
+	       <td align="center"><b>
+	<%
+	  if (id.equals(user)) { // 본인의 리뷰인 경우에만 "삭제하기" 표시
+	  %>삭제하기
+	<%}%></b></td>		                                              
+		</tr>
+	 </thead>
+ 
+>>>>>>> branch 'feature/33' of https://github.com/seohwoo/wherego.git
  <%   
-	ArrayList<HashMap<String, String>> myReviewList = new ArrayList<HashMap<String, String>>();
+	ArrayList<HashMap<String, String>> myReviewList = new ArrayList<HashMap<String, String>>(); 
 	HashMap<String,String> myReviewMap = new HashMap<String,String>();
 	HashMap<String,String> myReviewTitleMap = new HashMap<String,String>();
-	myReviewList = review.myReviewList(user);
-	for(int i = 0 ; i < myReviewList.size(); i++){
-	   myReviewMap = myReviewList.get(i);
-	   myReviewTitleMap = review.selectReviewTitle(myReviewMap.get("contentid"));
+	
+	myReviewList = review.myReviewList(user); // 유저가 속한 리뷰 테이블의 내용을 리스트로 만들어 myReviewList에 담기 (myReviewList정리)
+	
+	for(int i = 0 ; i < myReviewList.size(); i++){ // myReviewList정리된 리뷰갯수(사이즈)만큼 반복
+	   myReviewMap = myReviewList.get(i);  //(myReviewList정리 된걸 i번 만큼 반복) =>(myReviewMap 정리)
+	   myReviewTitleMap = review.selectReviewTitle(myReviewMap.get("contentid"));  //contentid에 알맞은 대표이지미랑 타이틀 가져오기+(myReviewMap 정리)
  %>   
 		 	<tbody>
 			      <tr>             
 			         <td><%=myReviewTitleMap.get("title")%></td>
 			         <td><%=myReviewMap.get("review")%></td>
 			         <td>
+<<<<<<< HEAD
 			         <% for(int stars = 1; stars <= Integer.parseInt(myReviewMap.get("stars")); stars++){%>
 			         &#11088;
 			         <%}%>
+=======
+			         <% int rating = Integer.parseInt(myReviewMap.get("stars"));
+			        	for (int s = 1; s <= 5; s++) {
+			               if (s <= rating) { %>
+			                    <i class="fas fa-star" style="color: #ffc83d;"></i> <!-- 채워진 별 -->
+			               <% } else { %>
+			                    <i class="far fa-star" style="color: #ffc83d;"></i>
+			               <% }
+			           }
+			        %>
+>>>>>>> branch 'feature/33' of https://github.com/seohwoo/wherego.git
 			         </td>
 			         <td><%=myReviewMap.get("reg_date")%></td>
 			         <td>
                      <%
                        if (id.equals(user)) { // 본인의 리뷰인 경우에만 삭제 버튼 표시
                      %>
+<<<<<<< HEAD
                        <button type="button" value="삭제하기" onclick="openDeletereviewWindow('<%= myReviewMap.get("contentid") %>')">삭제</button>
+=======
+                       <button type="button" value="삭제하기" onclick="openDeletereviewWindow('<%= myReviewMap.get("contentid") %>')" style="border: none; background-color: white;">❌</button>
+>>>>>>> branch 'feature/33' of https://github.com/seohwoo/wherego.git
                      <%}%> </td>
 			      </tr>
 		      </tbody>  
@@ -202,7 +274,7 @@
 	   <h5 class="text">[<%=userDtO.getNic()%>님의 찜한 여행지 리스트입니다]</h5>
 	   <b style="color: black;">내가 찜한목록(전체 글:<%=point%>)</b>
    <% if (point == 0 ) {  %>
-      <table class="table table-hover">
+      <table class="table">
          <tr>
            <td>
              게시판에 저장된 글이 없습니다.
@@ -210,7 +282,7 @@
           </tr>
       </table>
    <%}else{%>  
-	    <table class="table table-hover"> 
+	    <table class="table"> 
 	      <thead>
 	      	<tr>
 	         <td align="center"><b>주소</b></td> 
@@ -225,9 +297,9 @@
 	      
 	<%
 	   HashMap<String,String> myPickMap = new HashMap<String,String>();
-	   for(int i = 0 ; i < p.size(); i++){
-	      contentid = p.get(i);
-	      myPickMap = pick.myPick(contentid);      
+	   for(int i = 0 ; i < p.size(); i++){  //p에 저장된 리스트 갯수만큼 반복
+	      contentid = p.get(i); // 컨텐트 아이디도 반복
+	      myPickMap = pick.myPick(contentid);      //컨텐트 아이디에 알맞은 지역정보를  myPickMap에 담음
 	%>
 			<tbody>
 			    <tr> 
@@ -237,10 +309,14 @@
 			      <td><%=myPickMap.get("category") %></td>
 			      <td><%=myPickMap.get("stars") %></td>
 			      <td><%=myPickMap.get("readcount") %></td>      		       		      
+<<<<<<< HEAD
 			      <td> <button type="button" value="찜하기삭제" onclick="openDeletemypickWindow('<%=contentid%>')">삭제</button>
+=======
+			      <td> <button type="button" value="찜하기삭제" onclick="openDeletemypickWindow('<%=contentid%>')" style="border: none; background-color: white;">❌</button>
+>>>>>>> branch 'feature/33' of https://github.com/seohwoo/wherego.git
 			    </tr> 
 		    </tbody>
-			<%}%>
+			<%}%>  
 	    </table> 
 	  <%}%>      
 		</div>
@@ -248,6 +324,9 @@
 <%}catch (Exception e){
    e.printStackTrace();
 }%>
+
+<br/><hr /><br />
+<jsp:include page="/views/main/footer.jsp" />
 </body>
 <script>
 function openProfileWindow() {
@@ -266,7 +345,11 @@ function openDeletemypickWindow(contentid) {
     var profileWindow = window.open("mypickdelete.jsp?contentid=" + contentid, "찜하기삭제", "width=400,height=300");
 }
     
+<<<<<<< HEAD
 function myreviews_open() {
+=======
+function myreviews_open() {  //마이리뷰 보기
+>>>>>>> branch 'feature/33' of https://github.com/seohwoo/wherego.git
     let myreviews = document.getElementById('myreviews');
     let mypick = document.getElementById('mypick');
     let myreviewsButton = document.getElementById('myreviews-button');
@@ -279,7 +362,7 @@ function myreviews_open() {
     mypickButton.style.backgroundColor = "#003366";
 }
 
-function mypick_open() {
+function mypick_open() {  //찜하기 보기
     let mypick = document.getElementById('mypick');
     let myreviews = document.getElementById('myreviews');
     let myreviewsButton = document.getElementById('myreviews-button');

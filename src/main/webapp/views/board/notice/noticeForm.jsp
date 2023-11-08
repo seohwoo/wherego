@@ -22,13 +22,7 @@
     <body>
 <% } else { %>
     <jsp:include page="/views/main/nav.jsp" />
-	
-	<br />
-	<div class="text-center">
-		<h1>어디 Go</h1>
-	</div>
-	<br />
-	<hr />
+	<jsp:include page="/views/main/title.jsp" /><br />
 	
 	 <!-- 공지 게시판 -->
     <h2 align="center">📢 공지게시판 📢</h2>
@@ -37,7 +31,7 @@
     <form action="noticePro.jsp" method="post" onsubmit="return writeSave()">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">작성자</label>
-            	<input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= nic  %>">
+            	<input type="text" name="writer" class="form-control" id="exampleFormControlInput1" value="<%= nic  %>" readonly>
             	<input type="hidden" name = id class="form-control" value="<%=memId %>" >
         </div>
         <div class="mb-3">
@@ -52,10 +46,9 @@
             <button type="submit" class="btn btn-secondary">공지 등록</button>
         </div>
     </form>
-    <div class="fixed-bottom">
-        <hr />
+
+        <br /><hr /><br />
         <jsp:include page="/views/main/footer.jsp" />
-    </div>
         
 <% }%>
 </body>

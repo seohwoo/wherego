@@ -14,6 +14,8 @@
 	<title>어디 Go</title>
 </head>
 <body>
+<jsp:include page="/views/main/nav.jsp" />
+<jsp:include page="/views/main/title.jsp" /><br />
 	<% if(session.getAttribute("memId") == null){%>
 		<script>
             alert("로그인하세요 🤬🤬🤬🤬");
@@ -41,15 +43,6 @@
         </script>
   	<%}else{
 	%>
-	 <jsp:include page="/views/main/nav.jsp" />
-	
-	<br />
-	<div class="text-center">
-		<h1>어디 Go</h1>
-	</div>
-	<br />
-	<hr />
-	
 	<!-- 문의 글 -->
      <h2 align="center">상세문의</h2>
     <br />
@@ -130,11 +123,6 @@
 	    	</table>
     	</div>
     <% }%>
-    <br />
-    <div class = "fixed-bottom">
-	<br/><hr /><br/>
-	</div>
-		
 	<br />
 	<hr />
 	<br />

@@ -13,22 +13,25 @@
 </head>
 <body>
 	<%
+		//landinfo안에 있는 모든 값에 위도, 경도 좌표를 넣어줌
 		API_used api = API_used.getInstance();
       	String[] realAreaCode = {"1", "2", "3", "4", "5", "6", "7", "8", "31","32","33","34","35","36","37","38","39"};
      	LandInfoDAO dao  = LandInfoDAO.getInstance();
    
-      
-      String areaCode = realAreaCode[6];
-      int realSigunguCode = Integer.parseInt(api.findSubLocation(areaCode));
-      ArrayList<String> ConentidList = new ArrayList<String>();
-      ConentidList = dao.selectContentid(areaCode);
-      
-      
-      for(String contentid : ConentidList) {
-      HashMap<String, String> xyMap = new HashMap<String, String>();
-      xyMap = api.findXY(contentid);
-         dao.insertXY(contentid, xyMap.get("mapx"), xyMap.get("mapy"), areaCode, xyMap.get("sigungucode"));
-      }
+	    //areacode를 하나씩 가져와서, 해당 areacode를 가진 모든 랜드마크를 꺼내옴
+	    String areaCode = realAreaCode[6];
+	    int realSigunguCode = Integer.parseInt(api.findSubLocation(areaCode));
+	    ArrayList<String> ConentidList = new ArrayList<String>();
+	    
+	    //landinfo의 primary key인 contentid 값을 모두 가져옴 
+	    ConentidList = dao.selectContentid(areaCode);
+	    
+	    //list에서 가져온 contentid를 api에 넣고, 해당 장소의 위도, 경도값을 받아 DB에 넣음 
+	    for(String contentid : ConentidList) {
+	    HashMap<String, String> xyMap = new HashMap<String, String>();
+	    xyMap = api.findXY(contentid);
+	       dao.insertXY(contentid, xyMap.get("mapx"), xyMap.get("mapy"), areaCode, xyMap.get("sigungucode"));
+	    }
       
       %>
 </body>

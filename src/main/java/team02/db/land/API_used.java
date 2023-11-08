@@ -255,6 +255,7 @@ public class API_used extends Using_API_KEY {
 		return category;
 	}// findCategory()
 
+	// 한국관광공사에서 위도, 경도를 가져오는 코드
 	public HashMap<String, String> findXY(String contentid) {
 		HashMap<String, String> xyMap = new HashMap<String, String>();
 		api_key = getEncoding_API_KEY();
@@ -263,8 +264,8 @@ public class API_used extends Using_API_KEY {
 			url = new URL(
 					"https://apis.data.go.kr/B551011/KorService1/detailCommon1?MobileOS=ETC&MobileApp=wherego&_type=json&contentId="
 							+ contentid
-							+ "&contentTypeId=12&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&numOfRows=10&pageNo=1&serviceKey="
-							+ api_key);
+							+ "&contentTypeId=12&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y"
+							+ "&overviewYN=Y&numOfRows=10&pageNo=1&serviceKey=" + api_key);
 
 			bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
 			result = bf.readLine();

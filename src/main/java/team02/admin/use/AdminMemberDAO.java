@@ -3,6 +3,7 @@ package team02.admin.use;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -67,6 +68,8 @@ public class AdminMemberDAO extends OracleDB {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 
 		return cnt;
@@ -116,6 +119,8 @@ public class AdminMemberDAO extends OracleDB {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 
 		return cnt;
@@ -134,6 +139,8 @@ public class AdminMemberDAO extends OracleDB {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 
 		return gradeName;
@@ -165,6 +172,8 @@ public class AdminMemberDAO extends OracleDB {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 
 		return dto;
@@ -172,10 +181,10 @@ public class AdminMemberDAO extends OracleDB {
 
 	public ArrayList<AdminReviewDTO> findUserReviews(String id) {
 		ArrayList<AdminReviewDTO> reviewList = new ArrayList<AdminReviewDTO>();
-		AdminReviewDTO dto = new AdminReviewDTO();
 		conn = getConnection();
 		String sql = "";
 		int cnt = 0;
+		ResultSet rsLandInfo = null;
 		try {
 			sql = " select count(*) from landreview where id=? ";
 			pstmt = conn.prepareStatement(sql);
@@ -190,6 +199,7 @@ public class AdminMemberDAO extends OracleDB {
 				pstmt.setString(1, id);
 				rs = pstmt.executeQuery();
 				while (rs.next()) {
+					AdminReviewDTO dto = new AdminReviewDTO();
 					dto.setContentid(rs.getString("contentid"));
 					dto.setStars(rs.getInt("stars"));
 					dto.setReview(rs.getString("review"));
@@ -200,22 +210,29 @@ public class AdminMemberDAO extends OracleDB {
 					dto.setImg5(rs.getString("img5"));
 					dto.setReg_date_R(rs.getString("reg_date"));
 					dto.setLikes(rs.getInt("likes"));
+					sql = " select firstimage, title, areacodename, sigungucodename,category from landinfo where contentid=? ";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, dto.getContentid());
+					rsLandInfo = pstmt.executeQuery();
+					if (rsLandInfo.next()) {
+						dto.setTitle(rsLandInfo.getString("title"));
+						dto.setFirstimage(rsLandInfo.getString("firstimage"));
+						dto.setAreacodename(rsLandInfo.getString("areacodename"));
+						dto.setSigungucodename(rsLandInfo.getString("sigungucodename"));
+						dto.setCategory(rsLandInfo.getString("category"));
+					}
+					reviewList.add(dto);
 				}
-				sql = " select firstimage, title, areacodename, sigungucodename,category from landinfo where contentid=? ";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, dto.getContentid());
-				rs = pstmt.executeQuery();
-				while (rs.next()) {
-					dto.setTitle(rs.getString("title"));
-					dto.setFirstimage(rs.getString("firstimage"));
-					dto.setAreacodename(rs.getString("areacodename"));
-					dto.setSigungucodename(rs.getString("sigungucodename"));
-					dto.setCategory(rs.getString("category"));
-				}
-				reviewList.add(dto);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if (rsLandInfo != null)
+				try {
+					rsLandInfo.close();
+				} catch (SQLException ex) {
+				}
+			close(rs, pstmt, conn);
 		}
 		return reviewList;
 	}
@@ -231,6 +248,8 @@ public class AdminMemberDAO extends OracleDB {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 	}
 
@@ -255,6 +274,8 @@ public class AdminMemberDAO extends OracleDB {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 		return userInfoMap;
 	}
@@ -270,6 +291,8 @@ public class AdminMemberDAO extends OracleDB {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
 	}
 
@@ -282,7 +305,47 @@ public class AdminMemberDAO extends OracleDB {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
 		}
+	}
+
+	public int isAdmin(String id) {
+		int result = 0;
+		conn = getConnection();
+		try {
+			String sql = " select grade from member where id =? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return result;
+	}
+
+	public int reviewCnt(String id) {
+		int result = 0;
+		conn = getConnection();
+		try {
+			String sql = " select count(*) from landreview where id =? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return result;
 	}
 
 }

@@ -49,7 +49,7 @@
 	     <tr>
 	      <td  align="center"  width="250" ><b>제목</b></td>
 	      <td align="center" width="250"><%=dto.getTitle() %></td>
-	      <td  align="center"  width="200" ><b>날짜</b></td>
+	      <td  align="center"  width="200" ><b>작성일</b></td>
 	      <td align="center" width="200"><%=sdf.format(dto.getReg_date()) %></td>
 	    </tr>
 	    <tr>

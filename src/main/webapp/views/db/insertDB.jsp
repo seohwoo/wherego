@@ -14,6 +14,7 @@
 <body>
 
 	<%
+		//areaCode 순서대로 DB에 넣기
 		API_used api = API_used.getInstance();
 		String[] beforeAreaCode = {"1", "2", "3", "4", "5", "6", "7", "8", "31", "32", "33", "34", "35", "36", "37", "38", "39"};
 		

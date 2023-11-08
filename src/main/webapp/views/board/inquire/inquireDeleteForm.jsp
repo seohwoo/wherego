@@ -52,11 +52,11 @@
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput2" class="form-label">제목</label>
-            <input type="text" name="title" class="form-control" id="exampleFormControlInput2" value="<%= dto.getTitle() %>">
+            <input type="text" name="title" class="form-control" id="exampleFormControlInput2" value="<%= dto.getTitle() %>" readonly>
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">문의내용</label>
-            <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"><%= dto.getContent() %></textarea>
+            <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3" readonly><%= dto.getContent() %></textarea>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto">
             <button type="submit" class="btn btn-danger">삭제</button>

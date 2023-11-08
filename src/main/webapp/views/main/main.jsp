@@ -80,7 +80,7 @@
 	<br/><br />
 	<div class="guide">
 	<br />
-		<h3 align= "center"> 금주 여행 가이드</h3><br/>
+		<h3 align= "center"> <a href="/wherego/views/mag/magList.jsp" class="title" style="color: black; text-decoration-line: none;">금주 여행 가이드</a></h3><br/>
 			<jsp:include page="/views/main/bestMag.jsp" />
 		<br/>
 	</div>

@@ -5,6 +5,14 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
+<!DOCTYPE html>
+<html>
+<head>
+	<title>어디 Go</title>
+</head>
+<body>
+   <jsp:include page="/views/main/nav.jsp" />
+	<jsp:include page="/views/main/title.jsp" /><br />
 <%
     int pageSize = 10;
 	SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	
@@ -30,20 +38,6 @@
     
     session.setAttribute("banListUrl", request.getRequestURL());
 %>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>어디 Go</title>
-</head>
-<body>
-   <jsp:include page="/views/main/nav.jsp" />
-	
-	<br />
-	<div class="text-center">
-		<h1>어디 Go</h1>
-	</div>
-	<br />
-	<hr />
 	
 	 <!-- 문의 리스트 -->
     <h2 align="center">🚫 정지게시판 🚫</h2>
@@ -93,6 +87,7 @@
     <% } %>
 
 	<br />
+	
 	<nav aria-label="Page navigation example">
 	  <ul class="pagination justify-content-center">
 	    <% if (count > 0) {
@@ -132,5 +127,7 @@
 	<br/><hr /><br/>
 		<jsp:include page="/views/main/footer.jsp" />	
 	</div>
+	
+	
 </body>
 </html>

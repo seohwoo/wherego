@@ -75,7 +75,8 @@ public class InquireDAO extends OracleDB {
 	public void insertInquireBoard(InquireDTO dto) {
 		conn = getConnection();
 		try {
-			String sql = "insert into askboard(num, id, writer, title, content, reg_date, ref, boardnum) values(askboard_seq.NEXTVAL, ?, ?, ?, ?, sysdate, ?, ?)";
+			String sql = "insert into askboard(num, id, writer, title, content, reg_date, ref, boardnum) "
+					+ "values(askboard_seq.NEXTVAL, ?, ?, ?, ?, sysdate, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getId());
 			pstmt.setString(2, dto.getWriter());

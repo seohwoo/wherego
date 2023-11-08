@@ -155,5 +155,24 @@ public class MagDAO extends OracleDB {
 		}
 		return mag;
 	}
+	
+	public String getMagTitle(String contentid) {
+		String result = "";
+		conn = getConnection();
+		try {
+			sql = "select title from landinfo where contentid = ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, contentid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		return result;
+	}
 
 }

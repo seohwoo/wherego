@@ -2,6 +2,8 @@
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "team02.mag.MagDAO" %>
+<%@ page import = "team02.mag.MagDTO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +23,7 @@
 	
 	    // 세션에 접근하고, 세션이 이미 존재하는지 확인
 	    ArrayList<String> contentidList = (ArrayList<String>) session.getAttribute("contentidList");
+	    MagDAO dao = MagDAO.getInstance();
 	
 	    if (contentidList == null) {
 	        // 세션이 존재하지 않을 경우, ArrayList를 생성하고 세션에 저장
@@ -42,9 +45,16 @@
 			<div class="col-auto">
 				<button class="btn btn-outline-secondary" type="submit" id="button-addon2">검색</button>
 			</div>
-			
 		</div>
 	</form>
+	</div>
+	<div class="input-group mb-3">
+		<%for(String cid: contentidList){
+			String title = dao.getMagTitle(cid);
+			title = title + " ";
+			%>
+			<p style="font-family: 'Pretendard-Regular', sans-serif;"> <%=title %> </p>
+		<%} %>
 	</div>
 		<form action="magWriteForm.jsp" method="post">
 			<div class="d-grid gap-2 col-6 mx-auto">

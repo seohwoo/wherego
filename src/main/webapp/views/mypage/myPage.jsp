@@ -183,7 +183,8 @@
                      <%
                        if (id.equals(user)) { // 본인의 리뷰인 경우에만 삭제 버튼 표시
                      %>
-                       <button type="button" value="삭제하기" onclick="openDeletereviewWindow('<%= myReviewMap.get("contentid") %>')" style="border: none; background-color: white;">❌</button>
+                       <button type="button" value="삭제하기" onclick="openDeletereviewWindow('<%= myReviewMap.get("contentid") %>')" 
+                       			style="border: none; background-color: white;">❌</button>
                      <%}%> </td>
 			      </tr>
 		      </tbody>  

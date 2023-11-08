@@ -174,5 +174,20 @@ public class MagDAO extends OracleDB {
 		}
 		return result;
 	}
+	
+	// 메거진 지우기
+		public void deleteMag(int num) {
+			conn = getConnection();
+			try {
+				sql = " delete from mag where num=? ";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+			}
+		}
 
 }

@@ -46,15 +46,16 @@
 			</div>
 			<div class="mb-3">
 			   <ul> 
-				<%for(String contentid : contentidList) {
+				<%for(int i=0; i<contentidList.size(); i++) {
 				 // 정보 불러오기
-				  HashMap<String,String> DetailrandInfoMap = landO.selectContentRandInfo(contentid);
-			%>
-					    <li>
-					    	<a href="/wherego/views/contentLand/contentRand.jsp?contentid=<%=contentid%>&pageNum=1">
-					    		<%=DetailrandInfoMap.get("title") %>
-					    	</a>
-					    </li>
+				  HashMap<String,String> DetailrandInfoMap = landO.selectContentRandInfo(contentidList.get(i));
+				  System.out.println(DetailrandInfoMap.get("title"));
+				%>	
+					<li>
+					    <a href="/wherego/views/contentLand/contentRand.jsp?contentid=<%=contentidList.get(i)%>&pageNum=1">
+					    	<%=DetailrandInfoMap.get("title") %>
+					    </a>
+					</li>    
 				</ul>
 			 <%}%>
 			</div>

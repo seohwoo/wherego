@@ -49,7 +49,7 @@
           if(id != null) {
             if(id.equals("admin")) {%>
             <input type="button" class="btn btn-outline-dark" value="매거진 삭제" 
-            onclick="document.location.href='magDeleteForm.jsp?num=<%=mag.getNum()%>&pageNum=<%=pageNum%>'" style="float: right;">
+            onclick="document.location.href='magDeleteForm.jsp?num=<%=num%>&pageNum=<%=pageNum%>'" style="float: right;">
             &nbsp;&nbsp;&nbsp;&nbsp;       
          <%}%>
       
@@ -108,7 +108,7 @@
 	<br />
 	<p align="center" style="font-family: 'Pretendard-Regular', sans-serif;">⏬ 지도에서 보기 ⏬ </p>
  <div class="container text-center" id="map" style="width:980px; height:400px; border-radius: 15px;"></div>
-       	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4a9d59c81d3321fd7e3b885e4c1f6fcc"></script>
+       	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b2ea861437e36479577f200cdf49db21"></script>
 		<script>
 		var positions = [];
 		<%	

@@ -17,8 +17,9 @@
 
 <%
 	if(session.getAttribute("memId")!=null) {
- 	  id = (String) session.getAttribute("memId");
+ 	  	id = (String) session.getAttribute("memId");
 	}
+
     String pageNum = request.getParameter("pageNum");
     if (pageNum == null) {
         pageNum = "1";

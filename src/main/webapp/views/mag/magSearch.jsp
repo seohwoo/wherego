@@ -22,14 +22,19 @@
 		String contentid  = request.getParameter("contentid");
 	
 	    // 세션에 접근하고, 세션이 이미 존재하는지 확인
-	    ArrayList<String> contentidList = (ArrayList<String>) session.getAttribute("contentidList");
+	    ArrayList<String> contentidList = null;
 	    MagDAO dao = MagDAO.getInstance();
 	
-	    if (contentidList == null) {
+	    if (session.getAttribute("contentidList") == null) {
 	        // 세션이 존재하지 않을 경우, ArrayList를 생성하고 세션에 저장
 	        contentidList = new ArrayList<String>();
 	        session.setAttribute("contentidList", contentidList);
+	    }else{
+	    	contentidList = (ArrayList<String>) session.getAttribute("contentidList");
 	    }
+	    
+	    
+	    
 	    if(contentid != null) {
 		    contentidList.add(contentid);
 	    }
@@ -49,11 +54,11 @@
 	</form>
 	</div>
 	<div class="input-group mb-3">
+		&nbsp;&nbsp;&nbsp;
 		<%for(String cid: contentidList){
 			String title = dao.getMagTitle(cid);
-			title = title + " ";
 			%>
-			<p style="font-family: 'Pretendard-Regular', sans-serif;">  <<%=title %>> </p>
+			<p style="font-family: 'Pretendard-Regular', sans-serif;"><%=title %>&nbsp;&nbsp;&nbsp;</p>
 		<%} %>
 	</div>
 		<form action="magWriteForm.jsp" method="post">

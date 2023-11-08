@@ -18,18 +18,20 @@
       String[] realAreaCode = {"1", "2", "3", "4", "5", "6", "7", "8", "31","32","33","34","35","36","37","38","39"};
       LandInfoDAO dao  = LandInfoDAO.getInstance();
    
-      
+      //api에 존재하는 모든 areaCode를 배열에 넣고 하나씩 DB에 넣음
       String areaCode = realAreaCode[14];
       int realSigunguCode = Integer.parseInt(api.findSubLocation(areaCode));
       for(int i=1; i<=realSigunguCode; i++) {
          String sigunguCode = String.valueOf(i);
          ArrayList<String> list = new ArrayList<String>();
+         //이미 들어간 landinfo DB에서 areaCode값이 같은 모든 contentid를 가져옴
          list = dao.selectContentId(areaCode, sigunguCode);
          
          HashMap<String, String> landInfoMap = new HashMap<String, String>();
          HashMap<String, String> landDetailMap = new HashMap<String, String>();
          HashMap<String, String> category = new HashMap<String, String>();
          
+         //contentid를 하나씩 가져와서 해당 contentid를 가진 지역에 정보를 추가함
          for(String contentid : list) {
             landInfoMap = api.findRandInfo(contentid);
             String[] arLandInfo = new String[1];

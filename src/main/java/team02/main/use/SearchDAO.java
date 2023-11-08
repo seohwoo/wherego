@@ -49,12 +49,15 @@ public class SearchDAO extends OracleDB {
 		return totalCnt;
 	}
 
+	// 사용자의 검색결과를 DB에서 가져오는 메서드
 	public ArrayList<LocationLandDTO> searchLand(String searchValue, String searchType, int start, int end) {
 		ArrayList<LocationLandDTO> landList = new ArrayList<LocationLandDTO>();
 		String sql = "";
 		conn = getConnection();
 		try {
 			String value = "%" + searchValue + "%";
+			// 검색 결과를 랜드마크, 주소로 선택하는지 구별한다.
+			// 검색 결과를 조회수가 높은 결과값을 상단에 보여주고, 다음은 사전순으로 보여준다.
 			if (searchType.equals("land")) {
 				sql = " SELECT * FROM (SELECT li.*, COALESCE(lr.READCOUNT, 0) as READCOUNT, ROWNUM as r FROM landinfo "
 						+ " li LEFT JOIN landreadcount lr ON li.CONTENTID = lr.CONTENTID "

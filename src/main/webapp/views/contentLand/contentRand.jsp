@@ -140,7 +140,6 @@
    	 	</div>
    	 	</div>
    	 	<jsp:include page="/views/contentLand/contentRandReview.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&contentid=<%=contentid%>&pageNum=<%=pageNum%>" />
-   	 	
 </body>
 <script>
 var buttonClicked = false; // 초기에 버튼이 클릭되지 않았음을 나타내는 변수

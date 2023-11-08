@@ -42,6 +42,8 @@
 		Date reg_dateD = inputFormat.parse(dto.getReg_date());
 		String reg_date = outputFormat.format(reg_dateD);
 		
+		int reviewCnt = dao.reviewCnt(dto.getId());
+		
 		if (adminInfo.getGrade() != 99) { %>
 	    <script>
 	        alert("관리자만 접속이 가능합니다🤬🤬🤬");
@@ -88,6 +90,7 @@
 		 </tr>
 		 </table>
 	 </div>
+
 	 <div class="text-center">
 		 <form action="userGradeChangeForm.jsp" method="post">
 		 	<input type="hidden" name="id" value="<%=id%>"/>
@@ -98,6 +101,7 @@
 	 
 	 <div class="text-center">
 	 <h3>글수 : <%=dto.getTotal() %></h3>
+
 	 <%
 	 	ArrayList<AdminReviewDTO> reviewList = new ArrayList<AdminReviewDTO>();
 		reviewList = dao.findUserReviews(id);
@@ -109,6 +113,7 @@
 			String reg_date_R = outputFormat.format(reg_date_RD);
 	 	
 	 	%>
+
 		 	<div class="row justify-content-center">
 			 	<div class="card" style="width: 18rem; justify-content: center;">
 			 	<%if(dto.getProfile() != null){ %>
@@ -148,10 +153,16 @@
 		 		</div>
 	 		</div>
 	 		
+
 	 	<%}
 	 	}%>
 	 	
 	 	<br /><hr /><br />
 	<jsp:include page="/views/main/footer.jsp" />
+	<script type="text/javascript">
+		function openDeletereviewWindow(contentid, id) {
+		    var profileWindow = window.open("adminReviewdelete.jsp?contentid=" + contentid + "&id=" + id, "reviewDelete", "width=400,height=300");
+		}
+	</script>
 </body>
 </html>

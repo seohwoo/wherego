@@ -44,7 +44,7 @@
 		<div class="d-grid gap-2 col-6 mx-auto">
 			<div class="card border-light mb-3" style="position: relative;">
 			<!-- id -->
-			<h5><%=nic%> «<small><%=gradeName %></small>»</h5>
+			<h5><a href="/wherego/views/mypage/myPage.jsp?id=<%=reviewInfo.get("id")%>"><%=nic%></a> «<small><%=gradeName %></small>»</h5>
 			 <div class="rating">
 			        <% int rating = Integer.parseInt(reviewInfo.get("stars"));
 			        for (int s = 1; s <= 5; s++) {

@@ -68,7 +68,7 @@
 			</form>
 		<% src = DetailrandInfoMap.get("firstimage");
           if(!src.equals("")){%>
-          <img src="<%=DetailrandInfoMap.get("firstimage") %>" class="card-img-top" width="200" height="200"/>
+          <a href = "<%=DetailrandInfoMap.get("firstimage")%>" onclick="window.open('<%=DetailrandInfoMap.get("firstimage")%> ', '_blank', 'width=500,height=500'); return false;"><img src="<%=DetailrandInfoMap.get("firstimage") %>" class="card-img-top" width="200" height="200"/> </a>
           
        <%}else if(src.equals("")){%>
             <img src = "/wherego/image/image.jpg" class="card-img-top" width="200" height="200"/>        

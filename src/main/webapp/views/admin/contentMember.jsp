@@ -92,15 +92,12 @@
 	 </div>
 
 	 <div class="text-center">
-		 <form action="userGradeChangeForm.jsp" method="post">
-		 	<input type="hidden" name="id" value="<%=id%>"/>
-		 	<input type="submit" class="btn btn-secondary" name="submit" value="등급변경 >>>"/>
-		 </form>
-	 </div>
+	    <button class="btn btn-secondary" onclick="openGradeChangeForm('<%= id %>')">등급변경 >>></button>
+	</div>
 	 <br />
 	 
 	 <div class="text-center">
-	 <h3>글수 : <%=dto.getTotal() %></h3>
+	 <h3>글수 : <%=reviewCnt %></h3>
 
 	 <%
 	 	ArrayList<AdminReviewDTO> reviewList = new ArrayList<AdminReviewDTO>();
@@ -163,6 +160,9 @@
 		function openDeletereviewWindow(contentid, id) {
 		    var profileWindow = window.open("adminReviewdelete.jsp?contentid=" + contentid + "&id=" + id, "reviewDelete", "width=400,height=300");
 		}
+		   function openGradeChangeForm(userId) {
+		        var popupWindow = window.open("userGradeChangeForm.jsp?id=" + userId, "GradeChangeForm", "width=450,height=500");
+		    }
 	</script>
 </body>
 </html>

@@ -4,14 +4,13 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <%@ page import="team02.user.save.SaveDAO" %>
-<%String contentid = request.getParameter("contentid");%>
-
 
 <title>찜하기 삭제</title>
 </head>
 
 
 <body >
+<%String contentid = request.getParameter("contentid");%>
 <form name="myform" action="mypickdeletePro.jsp" method="post">
  <input type="hidden" name="contentid" value="<%= contentid %>">
 <table >
@@ -22,9 +21,7 @@
 	</td>
 <tr height="30">
     <td colspan="2">
-    
-    
-      <input type=submit class="btn btn-outline-danger" value="삭제" >
+      <input type=submit class="btn btn-outline-danger" value="삭제" style="float: right;">
 </table>
 </form>
 </body>  

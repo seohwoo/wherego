@@ -12,6 +12,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import = "java.util.List" %>
 <%@page import = "java.util.HashMap" %>
+<%@ page import = "team02.content.land.LandDAO"%>
 
 
 <!DOCTYPE html>
@@ -32,6 +33,7 @@
 %>
 <%
    //찜목록 리스트화 시키기
+   LandDAO landO = LandDAO.getInstance();
     SaveDAO pick = SaveDAO.getInstance();
     ArrayList<String> p = pick.getMyPickContentIdList(user); //찜목록 테이블에서 유저의 컨텐트아이디를 리스트화한것
     String contentid ="";
@@ -118,24 +120,13 @@
     }%>
 </div>
 
-
-
-
-
-
-
-       
    <div id="myreviews" class="text-center" style="display:none;">
     <div class="d-grid gap-2 col-6 mx-auto">
 	 <br />
 	  <h5 class="text">[<%=userDtO.getNic()%>님이 작성한 리뷰 리스트 입니다]</h5>
 	  <b style="color: black;">글목록(전체 글:<%=count%>)</b>
     <%if (count == 0) { %>
-	  <table class="table">
-		 <tr>
-		   <td>리뷰 글이 없습니다.</td>
-		 </tr>
-	  </table>
+	  <h4 align="center">작성한 리뷰가 없습니다.</h4>
 	<%}else{%>
 	   <table class="table">
 		<thead>
@@ -204,46 +195,45 @@
 	   <h5 class="text">[<%=userDtO.getNic()%>님의 찜한 여행지 리스트입니다]</h5>
 	   <b style="color: black;">내가 찜한목록(전체 글:<%=point%>)</b>
    <% if (point == 0 ) {  %>
-      <table class="table">
-         <tr>
-           <td>
-             게시판에 저장된 글이 없습니다.
-            </td>
-          </tr>
-      </table>
-   <%}else{%>  
-	    <table class="table"> 
-	      <thead>
-	      	<tr>
-	         <td align="center"><b>주소</b></td> 
-	         <td align="center" ><b>명소 명</b></td> 
-	         <td align="center"><b>사진</b></td>             
-	         <td align="center"><b>카테고리</b></td>                   
-	         <td align="center"><b>평균별점</b></td>                   
-	         <td align="center"><b>조회수</b></td> 
-	         <td align="center"><b>삭제하기</b></td>          
-	         </tr>                 
-	      </thead>	      
-	<%
+      <h4 align="center">찜한 장소가 없습니다.</h4>
+   <%}else{  
 
 	   HashMap<String,String> myPickMap = new HashMap<String,String>();
 	   for(int i = 0 ; i < p.size(); i++){  //p에 저장된 리스트 갯수만큼 반복
 	      contentid = p.get(i); // 컨텐트 아이디도 반복
 	      myPickMap = pick.myPick(contentid);      //컨텐트 아이디에 알맞은 지역정보를  myPickMap에 담음
+	      int readCount = landO.getReadCount(contentid);
+	      double avg = landO.avgStar(contentid);
+	      int landSaveCount = landO.getLandSaveCount(Integer.parseInt(contentid));
+	      int reviewCount = landO.getReviewCount(contentid);
 	%>
-			<tbody>
-			    <tr> 
-			      <td> <%=myPickMap.get("addr1")%></td>
-			      <td> <%=myPickMap.get("title")%></td>      
-			      <td> <img width="150" height="150"  src="<%=myPickMap.get("firstimage")%>"></td>
-			      <td><%=myPickMap.get("category") %></td>
-			      <td><%=myPickMap.get("stars") %></td>
-			      <td><%=myPickMap.get("readcount") %></td>      		       		      
-			      <td> <button type="button" value="찜하기삭제" onclick="openDeletemypickWindow('<%=contentid%>')" style="border: none; background-color: white;">❌</button>
-			    </tr> 
-		    </tbody>
+	<div align="center">
+		<div class="card mb-3" style="height: 150px; position: relative; display: inline-block;">
+	       <div class="row g-0">
+			    <div class="col-md-4" style="left: 0;">
+			    	<img style="width: 150px; height: 150px; margin: 0px;"  src="<%=myPickMap.get("firstimage")%>" class="img-fluid rounded-start">
+			    </div>
+				     <div class="col-md-8">
+					     <div class="card-body">
+							<p><button type="button" value="찜하기삭제" onclick="openDeletemypickWindow('<%=contentid%>')" style="border: none; background-color: white; position: absolute; top: 0; right: 0;">❌</button></p>
+						      <p align="left" class="card-text"> <%=myPickMap.get("title")%></p> 
+						      <p align="left" class="card-text"> <%=myPickMap.get("areacodename")%> &#10144; <%=myPickMap.get("sigungucodename")%> &#12304;<%=myPickMap.get("category") %>&#12305;</p>
+						      <p align="left" class="card-text"><small >
+						        <% for (int sr = 1; sr <= 5; sr++) { %>
+								    <% if (sr <= avg) { %>
+								      <i class="fas fa-star" style="color: #ffc83d;"></i>
+								    <% } else if (sr - 0.5 <= avg) { %>
+								      <i class="fas fa-star-half-alt" style="color: #ffc83d;"></i>
+								    <% } else { %>
+								      <i class="far fa-star" style="color: #ffc83d;"></i>
+								      <%} %>
+						        <%}%><%=avg %> (<%=reviewCount %>) &nbsp; ❤ (<%=landSaveCount %>) &nbsp; 🔎 (<%=readCount %>)</small></p>
+				      </div>   	
+			      </div>    		      
+		    </div>
+	    </div>
+	  </div> 
 			<%}%>  
-	    </table> 
 	  <%}%>      
 		</div>
 	</div>       
@@ -251,9 +241,6 @@
    e.printStackTrace();
 }%>
 
-<br/><hr /><br />
-<jsp:include page="/views/main/footer.jsp" />
-</body>
 <script>
 function openProfileWindow() {
     var profileWindow = window.open("profileChange.jsp", "프로필 변경", "width=400,height=300");                    
@@ -268,7 +255,7 @@ function openDeletereviewWindow(contentid) {
 }
 
 function openDeletemypickWindow(contentid) {
-    var profileWindow = window.open("mypickdelete.jsp?contentid=" + contentid, "찜하기삭제", "width=400,height=300");
+    var profileWindow = window.open("mypickdelete.jsp?contentid=" + contentid, "찜하기삭제", "width=220,height=150");
 }
     
 function myreviews_open() {  //마이리뷰 보기

@@ -17,6 +17,7 @@ public class AdminReviewDTO {
 	private String category;
 	private String areacodename;
 	private String sigungucodename;
+	private int reviewnum;
 
 	public String getContentid() {
 		return contentid;
@@ -145,5 +146,15 @@ public class AdminReviewDTO {
 	public void setSigungucodename(String sigungucodename) {
 		this.sigungucodename = sigungucodename;
 	}
+
+	public int getReviewnum() {
+		return reviewnum;
+	}
+
+	public void setReviewnum(int reviewnum) {
+		this.reviewnum = reviewnum;
+	}
+	
+	
 
 }

@@ -206,6 +206,7 @@ public class SaveDAO extends OracleDB {
 				myReviewMap.put("img5", rs.getString("img5"));
 				myReviewMap.put("reg_date", rs.getString("reg_date"));
 				myReviewMap.put("contentid", rs.getString("contentid"));
+				myReviewMap.put("reviewnum", rs.getString("reviewnum"));
 				myReviewList.add(myReviewMap);
 			}
 		} catch (Exception e) {
@@ -284,13 +285,12 @@ public class SaveDAO extends OracleDB {
 	}
 	
 	// 마이페이지 리뷰 삭제
-	public void deleteReview(String id, String contentid) {
+	public void deleteReview(int num) {
 	    try {
 	        conn = getConnection();
-	        String sql = "DELETE FROM landreview WHERE id = ? AND contentid = ?";
+	        String sql = " DELETE FROM landreview WHERE reviewnum = ? ";
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, id);
-	        pstmt.setString(2, contentid);
+	        pstmt.setInt(1, num);
 	        pstmt.executeUpdate(); // executeUpdate로 업데이트만 수행
 	    } catch (Exception e) {
 	        e.printStackTrace();

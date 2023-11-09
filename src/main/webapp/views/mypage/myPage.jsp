@@ -174,7 +174,7 @@
                      <%
                        if (id.equals(user)) { // 본인의 리뷰인 경우에만 삭제 버튼 표시
                      %>
-                       <button type="button" value="삭제하기" onclick="openDeletereviewWindow('<%= myReviewMap.get("contentid") %>')" 
+                       <button type="button" value="삭제하기" onclick="openDeletereviewWindow('<%= myReviewMap.get("reviewnum") %>')" 
                        			style="border: none; background-color: white;">❌</button>
                      <%}%> </td>
                     
@@ -253,8 +253,8 @@ function openDeleteWindow() {
     var profileWindow = window.open("deleteForm.jsp", "회원탈퇴", "width=400,height=300");                    
     }
     
-function openDeletereviewWindow(contentid) {
-    var profileWindow = window.open("reviewdelete.jsp?contentid=" + contentid, "리뷰삭제", "width=400,height=300");
+function openDeletereviewWindow(reviewnum) {
+    var profileWindow = window.open("reviewdelete.jsp?num=" + reviewnum, "리뷰삭제", "width=400,height=300");
 }
 
 function openDeletemypickWindow(contentid) {

@@ -200,6 +200,7 @@ public class AdminMemberDAO extends OracleDB {
 				rs = pstmt.executeQuery();
 				while (rs.next()) {
 					AdminReviewDTO dto = new AdminReviewDTO();
+					dto.setReviewnum(rs.getInt("reviewnum"));
 					dto.setContentid(rs.getString("contentid"));
 					dto.setStars(rs.getInt("stars"));
 					dto.setReview(rs.getString("review"));

@@ -4,9 +4,9 @@
 
 <%
     String id = (String) session.getAttribute("memId");
-    String contentid = request.getParameter("contentid");
+    int num = Integer.parseInt(request.getParameter("num"));
     SaveDAO DR = SaveDAO.getInstance();
-    DR.deleteReview(id, contentid);
+    DR.deleteReview(num);
 
 %>
 <script>

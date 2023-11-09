@@ -53,7 +53,6 @@
 	  </button>
 	</div>
 	<br />
-	<jsp:include page="/views/board/notice/newNotice.jsp" />
 		  <!-- main 중반 -->
 	<br />
 	<div class="d-grid gap-2 col-6 mx-auto">	

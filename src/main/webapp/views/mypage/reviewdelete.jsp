@@ -5,14 +5,16 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <%@ page import="team02.user.save.SaveDAO" %>
 
-<%String contentid = request.getParameter("contentid");%>
+<%
+	String num = request.getParameter("num");
+%>
 <title>리뷰삭제</title>
 
 
 </head>
 <body >
 <form name="myform" action="reviewdeletePro.jsp" method="post">
- <input type="hidden" name="contentid" value="<%= contentid %>">
+ <input type="hidden" name="num" value="<%= num %>">
 <table >
 
  <tr height="30">

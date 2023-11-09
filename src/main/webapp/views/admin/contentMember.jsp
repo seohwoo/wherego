@@ -6,12 +6,13 @@
 <%@ page import = "team02.admin.use.AdminMemberDAO"%> 
 <%@ page import = "team02.admin.use.AdminMemberDTO"%> 
 <%@ page import = "team02.admin.use.AdminReviewDTO"%> 
+<%@ page import = "team02.content.land.LandDAO"%>
 <!DOCTYPE html>
 <html>
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <meta charset="UTF-8">
 <title>어디GO</title>
 </head>
@@ -98,10 +99,12 @@
 	 
 	 <div class="text-center">
 	 <h3>글수 : <%=reviewCnt %></h3>
-
+	</div>
 	 <%
 	 	ArrayList<AdminReviewDTO> reviewList = new ArrayList<AdminReviewDTO>();
 		reviewList = dao.findUserReviews(id);
+		LandDAO landO = LandDAO.getInstance();
+		
 	 	if(reviewList.size()==0) {%>
 	 		<h3>작성한 글이 없습니다...😪</h3>
 	 	<%}else{
@@ -112,18 +115,32 @@
 	 	%>
 
 		 	<div class="row justify-content-center">
-			 	<div class="card" style="width: 18rem; justify-content: center;">
-			 	<%if(dto.getProfile() != null){ %>
-			 		<img class ="card-img-top" width="150" src="/wherego/image/<%= dto.getProfile() %>">
-			 		<%} %>
+			 	<div class="card" style="width: 40rem;">
+			 		<% 
+			 		 	int reviewCount = landO.getReviewCount(rDto.getContentid());
+			 		 	int readCount = landO.getReadCount(rDto.getContentid());
+			 	      	double avg = landO.avgStar(rDto.getContentid());
+			 	      	int landSaveCount = landO.getLandSaveCount(Integer.parseInt(rDto.getContentid()));
+			 		 %>
 			 		<div class="card-body">
-			 		<h5>닉네임 : <%=dto.getNic() %></h5>
-			 		<hr />
-			 		<p> <%=rDto.getAreacodename() %> > <%=rDto.getSigungucodename() %></p>
-			 		<p><%=rDto.getCategory() %></p>
 			 		<img width="150" src="<%= rDto.getFirstimage() %>">
-			 		<p><%=rDto.getTitle() %></p>
-			 		</div>
+			        <h5 align="left" class="card-title"><%=rDto.getTitle()%> </h5>
+			        <p align="left" class="card-text"><%=rDto.getAreacodename() %> &#10144; <%=rDto.getSigungucodename() %> &#12304;<%=rDto.getCategory() %>&#12305;</p>
+			        <button type="button" value="삭제하기" onclick="openDeletereviewWindow('<%= rDto.getReviewnum()%>')" 
+                       			style="border: none; background-color: white;  position: absolute; top: 0; right: 0; margin-top: 30px;">❌</button>
+			        <p align="left" class="card-text"><small >
+			        <% for (int i = 1; i <= 5; i++) { %>
+					    <% if (i <= rDto.getStars()) { %>
+					      <i class="fas fa-star" style="color: #ffc83d;"></i>
+					    <% } else if (i - 0.5 <= rDto.getStars()) { %>
+					      <i class="fas fa-star-half-alt" style="color: #ffc83d;"></i>
+					    <% } else { %>
+					      <i class="far fa-star" style="color: #ffc83d;"></i>
+					      <%} %>
+			        <%}%><%=rDto.getStars() %> (<%=reviewCount %>) &nbsp; ❤ (<%=landSaveCount %>) &nbsp; 🔎 (<%=readCount %>)</small></p>
+			      </div>
+			 		
+			 		
 			 		<ul class="list-group list-group flush">
 					<%
 						if(!rDto.getImg1().equals("NoImage")) {%>
@@ -142,13 +159,12 @@
 							<img width="150" src="<%= rDto.getImg5() %>">
 						<%}%>	 		
 					<br />
-			 		<li class="list-group list-group-flush">별점 : <%=rDto.getStars() %> 공감 : <%=rDto.getLikes() %></li>
-			 		<li class="list-group list-group-flush">내용 : <%=rDto.getReview() %></li>
+			 		<li class="list-group list-group-flush"><%=rDto.getReview() %></li>
+			 		<br />
 			 		<li class="list-group list-group-flush"><small><%=reg_date_R %></small></li>
 			 		</ul>
 			 		</div>
 		 		</div>
-	 		</div>
 	 		
 
 	 	<%}
@@ -157,9 +173,9 @@
 	 	<br /><hr /><br />
 	<jsp:include page="/views/main/footer.jsp" />
 	<script type="text/javascript">
-		function openDeletereviewWindow(contentid, id) {
-		    var profileWindow = window.open("adminReviewdelete.jsp?contentid=" + contentid + "&id=" + id, "reviewDelete", "width=400,height=300");
-		}
+	function openDeletereviewWindow(num) {
+	    var profileWindow = window.open("/wherego/views/mypage/reviewdelete.jsp?num=" + num, "리뷰삭제", "width=400,height=300");
+	}
 		   function openGradeChangeForm(userId) {
 		        var popupWindow = window.open("userGradeChangeForm.jsp?id=" + userId, "GradeChangeForm", "width=450,height=500");
 		    }

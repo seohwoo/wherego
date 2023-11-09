@@ -1,3 +1,5 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8"%>
 <%@ page import = "team02.mag.MagDAO" %>
 <%@ page import = "team02.mag.MagDTO" %>
@@ -13,6 +15,8 @@
 <%
     int pageSize = 10;  // 게시판 첫페이지에 보여줄 글 개수
     String id = "";
+    SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	
+	SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
 %>
 
 <%
@@ -92,12 +96,14 @@
 <%  
    for (int i = 0 ; i < MagList.size() ; i++) {
       MagDTO mag = MagList.get(i);
+      Date reg_dateD = inputFormat.parse(mag.getReg_date());
+	  String reg_date = outputFormat.format(reg_dateD);
 %>
 	<tbody>
 	     <tr height="30" OnClick="window.location='content.jsp?num=<%=mag.getNum()%>&pageNum=<%=currentPage%>'" style="cursor: pointer;">
 	       <td align="center"  width="50" > <%=number--%></td>      
 	       <td align="center"  width="100"> <em><%=mag.getSubject() %> </em></td>      
-	       <td align="center"  width="150"><%=mag.getReg_date() %></td>
+	       <td align="center"  width="150"><%=reg_date %></td>
 	     </tr> 
     </tbody>
    <%}%>

@@ -130,7 +130,7 @@
 		    <li class="list-group-item">주차 : <%=DetailrandInfoMap.get("parking") %></li>
 		  </ul>
 	  	<div class="card-body">
-		<h5>리뷰: <%=avg%>/5 
+		<h5>리뷰: <%=avg%>/5.0 
 		<input class="btn btn-outline-secondary" type="button" value="작성" OnClick="insertStar(<%=contentid%>)"></h5>
    	 	</div>
    	 	</div>

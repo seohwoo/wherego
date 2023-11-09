@@ -1,6 +1,9 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "team02.content.land.LandDAO" %>
+<%@ page import = "team02.main.use.SearchDAO"%> 
 <%@ page import = "java.util.HashMap" %>
 <%@ page import = "java.util.ArrayList" %>
 <!DOCTYPE html>
@@ -12,6 +15,9 @@
 </head>
 <body>
 <%
+	SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	
+	SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+
 	String contentid = request.getParameter("contentid");
 	String areaCode = request.getParameter("areaCode");
 	String sigunguCode = request.getParameter("sigunguCode");
@@ -32,9 +38,9 @@
 	<%}
 	else{
 		for(int i = 0; i < reviewList.size(); i++){
-			
-			
 		reviewInfo = reviewList.get(i);
+		Date reg_dateD = inputFormat.parse(reviewInfo.get("reg_date"));
+		String reg_date = outputFormat.format(reg_dateD);
 		int reviewNumCount = 0;
 		reviewNumCount = landO.getReviewUpCount(Integer.parseInt(reviewInfo.get("reviewnum")));
 		String nic = landO.getReviewNic(reviewInfo.get("id"));
@@ -58,7 +64,19 @@
 			</div>
 			    
 			 <!-- 작성날짜 -->
-		    <p style="position: absolute; top: 0; right: 0;"><%=reviewInfo.get("reg_date")%></p>
+		    <p style="position: absolute; top: 10; right: 0;"><%=reg_date%></p>
+			 <%
+					String id = "";
+					if(session.getAttribute("memId") != null) {
+						id = (String) session.getAttribute("memId");
+					}
+					SearchDAO sdao = SearchDAO.getInstance();
+					int gradeInt = sdao.isAdmin(id);
+					if(id.equals(reviewInfo.get("id")) || gradeInt == 99){
+				%>
+					<button type="button" value="삭제하기" onclick="openDeletereviewWindow('<%= reviewInfo.get("reviewnum")%>')" 
+                       			style="border: none; background-color: white;  position: absolute; top: 0; right: 0; margin-top: 30px;">❌</button>
+			<%} %>
 			<br />
 			<div style="display: flex; align-items: center;">
 				<%String imgName = "NoImage";
@@ -84,6 +102,12 @@
 	%>
 	<br /><br />
 </body>
+<script type="text/javascript">
+function openDeletereviewWindow(num) {
+    var profileWindow = window.open("/wherego/views/mypage/reviewdelete.jsp?num=" + num, "리뷰삭제", "width=400,height=300");
+}
+</script>
+
 <style>
     .star {
         color:  #FFA500; 

@@ -131,13 +131,13 @@
 	  <h5 class="text">[<%=userDtO.getNic()%>님이 작성한 리뷰 리스트 입니다]</h5>
 	  <b style="color: black;">글목록(전체 글:<%=count%>)</b>
     <%if (count == 0) { %>
-	  <table class="table table-hover">
+	  <table class="table">
 		 <tr>
 		   <td>리뷰 글이 없습니다.</td>
 		 </tr>
 	  </table>
 	<%}else{%>
-	   <table class="table table-hover">
+	   <table class="table">
 		<thead>
 		 <tr>                      
 		   <td align="center"><b>여행지</b></td> 
@@ -164,8 +164,8 @@
 	   myReviewTitleMap = review.selectReviewTitle(myReviewMap.get("contentid"));  //contentid에 알맞은 대표이지미랑 타이틀 가져오기+(myReviewMap 정리)
  %>   
 		 	<tbody>
-			      <tr>             
-			         <td><%=myReviewTitleMap.get("title")%></td>
+			      <tr>
+			         <td><a href="/wherego/views/contentLand/contentRand.jsp?contentid=<%=myReviewMap.get("contentid") %>&pageNum=1" style="color: black; text-decoration-line:none; "><b><%=myReviewTitleMap.get("title")%></b></a></td>
 			         <td><%=myReviewMap.get("review")%></td>
 			         <td>
 			         <% int rating = Integer.parseInt(myReviewMap.get("stars"));
@@ -186,6 +186,7 @@
                        <button type="button" value="삭제하기" onclick="openDeletereviewWindow('<%= myReviewMap.get("contentid") %>')" 
                        			style="border: none; background-color: white;">❌</button>
                      <%}%> </td>
+                    
 			      </tr>
 		      </tbody>  
 		     <%}%>

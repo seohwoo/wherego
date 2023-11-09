@@ -244,12 +244,15 @@ public class SaveDAO extends OracleDB {
 		HashMap<String, String> myReviewTitleMap = new HashMap<String, String>();
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select title,firstimage from landinfo where contentid = ? ");
+			pstmt = conn.prepareStatement("select * from landinfo where contentid = ? ");
 			pstmt.setString(1, contentid);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				myReviewTitleMap.put("title", rs.getString("title"));
 				myReviewTitleMap.put("firstimage", rs.getString("firstimage"));
+				myReviewTitleMap.put("areacodename", rs.getString("areacodename"));
+				myReviewTitleMap.put("sigungucodename", rs.getString("sigungucodename"));
+				myReviewTitleMap.put("category", rs.getString("category"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

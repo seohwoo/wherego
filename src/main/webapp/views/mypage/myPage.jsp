@@ -213,7 +213,7 @@
 		<div class="card mb-3" style="height: 150px; position: relative; display: inline-block;">
 	       <div class="row g-0">
 			    <div class="col-md-4" style="left: 0;">
-			    	<img style="width: 150px; height: 150px; margin: 0px;"  src="<%=myPickMap.get("firstimage")%>" class="img-fluid rounded-start"
+			    	<img style="width: 150px; height: 150px; margin: 0px; cursor: pointer;"  src="<%=myPickMap.get("firstimage")%>" class="img-fluid rounded-start"
 			    		onclick="window.location.href='/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=contentid%>&pageNum=1'" >
 			    </div>
 				     <div class="col-md-8">

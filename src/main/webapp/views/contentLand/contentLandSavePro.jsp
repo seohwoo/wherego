@@ -37,7 +37,7 @@
 		%>
 			<script>
 		    alert("취소되었습니다");
-		    window.location = "/wherego/views/lcontentLand/contentRand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%=pageNum%>&contentid=<%=contentid%>";
+		    window.location = "/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode%>&sigunguCode=<%=sigunguCode%>&pageNum=<%=pageNum%>&contentid=<%=contentid%>";
 			</script>
 		<%	
 			}

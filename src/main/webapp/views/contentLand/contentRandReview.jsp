@@ -55,17 +55,20 @@
 			               <% }
 			           }
 			        %>
-			    </div>
+			</div>
 			    
 			 <!-- 작성날짜 -->
 		    <p style="position: absolute; top: 0; right: 0;"><%=reviewInfo.get("reg_date")%></p>
-			<%String imgName = "NoImage";
-			for (int x = 1 ; x <= 5 ; x++){
-				String imgSrc = reviewInfo.get("img"+x);
-			if(imgSrc != null && !imgSrc.equals(imgName))  {%>
-				<img src="/wherego/image/<%=imgSrc%>" style="width:300px; height: auto;">
-			<%}
-			}%>
+			<br />
+			<div style="display: flex; align-items: center;">
+				<%String imgName = "NoImage";
+				for (int x = 1 ; x <= 5 ; x++){
+					String imgSrc = reviewInfo.get("img"+x);
+				if(imgSrc != null && !imgSrc.equals(imgName))  {%>
+					<img src="/wherego/image/<%=imgSrc%>" style="width:190px; height: 190px;">
+				<%}
+				}%>
+			</div>
 				<div class="card-body">
 					<!-- 내용 -->
 					<h5><%=reviewInfo.get("review")%></h5>

@@ -65,7 +65,7 @@
 				for (int x = 1 ; x <= 5 ; x++){
 					String imgSrc = reviewInfo.get("img"+x);
 				if(imgSrc != null && !imgSrc.equals(imgName))  {%>
-					<img src="/wherego/image/<%=imgSrc%>" style="width:190px; height: 190px;">
+				<a href = "/wherego/image/<%=imgSrc%>" onclick="window.open('/wherego/image/<%=imgSrc%>', '_blank', 'width=500,height=500'); return false;">	<img src="/wherego/image/<%=imgSrc%>" style="width:190px; height: 190px;"></a>
 				<%}
 				}%>
 			</div>

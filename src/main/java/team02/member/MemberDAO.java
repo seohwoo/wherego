@@ -21,6 +21,7 @@ public class MemberDAO extends OracleDB {
     ResultSet rs = null;
     String sql = "";
     
+    // 회원가입정보 넣는 메서드
     public void insertMember(MemberDTO member) {
     	try {
     		conn = getConnection();
@@ -56,8 +57,8 @@ public class MemberDAO extends OracleDB {
     	}
     }
     
+    // 아이디 중복체크하는 메서드
     public int confirmId(String id) {  			  			
-    	String dbpasswd = "";
     	int x=-1;		
     	try {		
     		conn = getConnection();		
@@ -77,8 +78,8 @@ public class MemberDAO extends OracleDB {
     	return x;		
     }
     
-    public int confirmNIC(String nic) {
-    	String dbpasswd = "";		
+    // 닉네임 중복체크하는 메서드
+    public int confirmNIC(String nic) {		
     	int x = -1;		   
     	try {			
     		conn = getConnection();				
@@ -97,7 +98,8 @@ public class MemberDAO extends OracleDB {
     	}	
     	return x;	
     }
-//    
+    
+    // 정보 불러오는 메서드
     public MemberDTO getMember(String id) throws Exception {        
         MemberDTO member=null;     
         try {
@@ -140,6 +142,7 @@ public class MemberDAO extends OracleDB {
         	 return member;
            }
     
+    // 정보 수정하는 메서드
     public void updateMember(MemberDTO member) {
       	try {
       		conn = getConnection();
@@ -161,7 +164,7 @@ public class MemberDAO extends OracleDB {
 	         }
 	      }
     
-    
+    // 아이디, 비번 맞는지 체크하는 메서드
     public int userCheck(String id, String pw) {
         String dbpw="";
         int x=-1;
@@ -186,7 +189,7 @@ public class MemberDAO extends OracleDB {
               return x;
    		}
     
-    
+    // 회원탈퇴(등급바꾸는) 메서드
     public int deleteMember(String id, String pw) {           
         String dbpw="";
         int x=-1;
@@ -218,8 +221,8 @@ public class MemberDAO extends OracleDB {
         	return x;
       	}
    
-    
-    public void updateProfileImage(String id, String fileName) throws Exception { //사진업로드하는  dao     
+    // 사진 업로드하는 메서드
+    public void updateProfileImage(String id, String fileName) throws Exception {     
         try {
             conn = getConnection();
             sql = "UPDATE member SET profile = ? WHERE id = ? ";
@@ -234,6 +237,7 @@ public class MemberDAO extends OracleDB {
         }
     }
  
+    // 유저 등급찾는 메서드
     public int getUserGrade(String id) {
         int userGrade = -1;
         try {
@@ -251,5 +255,28 @@ public class MemberDAO extends OracleDB {
             close(rs, pstmt, conn);
         }
         return userGrade;
+    }
+    
+    // 회원 재등록하는 메서드
+    public void rejoinMember(MemberDTO member) {
+      	try {
+      		conn = getConnection();
+      		sql = "update member set grade=2, pw=?,name=?,nic=?,address=?,email=?,phone=?,profile=? where id=?";
+      		pstmt = conn.prepareStatement(sql);      
+	        pstmt.setString(1, member.getPw());
+	        pstmt.setString(2, member.getName());
+	        pstmt.setString(3, member.getNic());
+	        pstmt.setString(4, member.getAddress());
+	        pstmt.setString(5, member.getEmail());
+	        pstmt.setString(6, member.getPhone());
+	        pstmt.setString(7, member.getProfile());
+	        pstmt.setString(8, member.getId());
+	        pstmt.executeUpdate();
+	         
+      	}catch(Exception ex) {
+      		ex.printStackTrace();
+      	}finally {
+      		close(rs, pstmt, conn);
+      	}
     }
 }   

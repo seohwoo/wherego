@@ -14,10 +14,8 @@
 <%
 	String id = request.getParameter("id");
 	MemberDAO manager = MemberDAO.getInstance();
-	int check = manager.confirmId(id); 
-
+	int check = manager.confirmId(id);
 %>
-
 
 <body bgcolor="666699">
 <%
@@ -65,10 +63,10 @@
 </body>
 </html>
 <script language="javascript">
-  function setid()
-    {		
-    	opener.document.userinput.id.value="<%=id%>";
-    	opener.document.userinput.idCheck.value="1";
-		self.close();
-		}
+  
+  function setid() {		
+	  opener.document.userinput.id.value="<%=id%>";	
+	  opener.document.userinput.idCheck.value="1";
+	  self.close();	  
+  }
 </script>

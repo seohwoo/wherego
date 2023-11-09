@@ -55,7 +55,7 @@
   <tr bgcolor="CCCCFF"> 
     <td align="center"> 
       <p>입력하신 <%=nic%> (은)는 사용하실 수 있는 닉네임입니다. </p>
-      <input type="button" value="닫기" onclick="setnic()">
+      <input type="button" class="btn btn-outline-dark" value="닫기" onclick="setnic()">
     </td>
   </tr>
 </table>

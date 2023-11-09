@@ -25,7 +25,9 @@
 	%>
 	<script type="text/javascript">
     	alert("<%=userInfoMap.get("nic")%>님의 등급이 <%=userInfoMap.get("gradename")%>으로 변경되었습니다!");
-    	window.location = "/wherego/views/admin/showDirtyMember.jsp?pageNum=1 "; 
+    	window.close(); // 현재 창을 닫음
+        window.opener.location.reload(); // 원래 창을 새로고침
 	</script>
+	
 </body>
 </html>

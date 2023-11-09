@@ -99,14 +99,14 @@
 	 
 	 <div class="text-center">
 	 <h3>글수 : <%=reviewCnt %></h3>
-	</div>
+	</div> <br />
 	 <%
 	 	ArrayList<AdminReviewDTO> reviewList = new ArrayList<AdminReviewDTO>();
 		reviewList = dao.findUserReviews(id);
 		LandDAO landO = LandDAO.getInstance();
 		
 	 	if(reviewList.size()==0) {%>
-	 		<h3>작성한 글이 없습니다...😪</h3>
+	 		<h3 align="center">작성한 글이 없습니다...😪</h3>
 	 	<%}else{
 	 	for(AdminReviewDTO rDto : reviewList) {
 	 		Date reg_date_RD = inputFormat.parse(rDto.getReg_date_R());

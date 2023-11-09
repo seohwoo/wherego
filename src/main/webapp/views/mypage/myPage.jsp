@@ -101,7 +101,7 @@
 </div>
 
 
- 	<h1></h1>
+ 
    <div class="text-center">
     <%
     if(id.equals(user)){%>
@@ -131,13 +131,27 @@
 	  <h5 class="text">[<%=userDtO.getNic()%>님이 작성한 리뷰 리스트 입니다]</h5>
 	  <b style="color: black;">글목록(전체 글:<%=count%>)</b>
     <%if (count == 0) { %>
-    	<h4 align="center">리뷰 글이 없습니다.</h4>
+	  <table class="table table-hover">
+		 <tr>
+		   <td>리뷰 글이 없습니다.</td>
+		 </tr>
+	  </table>
 	<%}else{%>
-
+	   <table class="table table-hover">
+		<thead>
+		 <tr>                      
+		   <td align="center"><b>여행지</b></td> 
+		   <td align="center"><b>리뷰내용</b></td> 
+		   <td align="center"><b>별점</b></td>                                                                                
+		   <td align="center"><b>리뷰날짜</b></td> 
+	       <td align="center"><b>
 	<%
 	  if (id.equals(user)) { // 본인의 리뷰인 경우에만 "삭제하기" 표시
 	  %>삭제하기
-	<%}%>
+	<%}%></b></td>		                                              
+		</tr>
+	 </thead>
+ 
  <%   
 	ArrayList<HashMap<String, String>> myReviewList = new ArrayList<HashMap<String, String>>(); 
 	HashMap<String,String> myReviewMap = new HashMap<String,String>();
@@ -149,17 +163,11 @@
 	   myReviewMap = myReviewList.get(i);  //(myReviewList정리 된걸 i번 만큼 반복) =>(myReviewMap 정리)
 	   myReviewTitleMap = review.selectReviewTitle(myReviewMap.get("contentid"));  //contentid에 알맞은 대표이지미랑 타이틀 가져오기+(myReviewMap 정리)
  %>   
- 		<div class="card">
-			<div class="card-body">
-			<%
-                if (id.equals(user)) { // 본인의 리뷰인 경우에만 삭제 버튼 표시
-              %>
-                <button type="button" value="삭제하기" onclick="openDeletereviewWindow('<%= myReviewMap.get("contentid") %>')" 
-                			style="border: none; background-color: white; position: absolute; top: 0; right: 0;">❌</button>
-              <%}%> 
-		 	<p><b> <%=myReviewTitleMap.get("title")%></b></p>
-			<p><%=myReviewMap.get("review")%></p>
-			<p>
+		 	<tbody>
+			      <tr>             
+			         <td><%=myReviewTitleMap.get("title")%></td>
+			         <td><%=myReviewMap.get("review")%></td>
+			         <td>
 			         <% int rating = Integer.parseInt(myReviewMap.get("stars"));
 			        	for (int s = 1; s <= 5; s++) {
 			               if (s <= rating) { %>
@@ -169,13 +177,19 @@
 			               <% }
 			           }
 			        %>
-			         </p>
-			         <p><small><%=myReviewMap.get("reg_date")%></small></p>
-			         
-                     
+			         </td>
+			         <td><%=myReviewMap.get("reg_date")%></td>
+			         <td>
+                     <%
+                       if (id.equals(user)) { // 본인의 리뷰인 경우에만 삭제 버튼 표시
+                     %>
+                       <button type="button" value="삭제하기" onclick="openDeletereviewWindow('<%= myReviewMap.get("contentid") %>')" 
+                       			style="border: none; background-color: white;">❌</button>
+                     <%}%> </td>
+			      </tr>
+		      </tbody>  
 		     <%}%>
-		     </div>
-		     </div>
+		  </table>
 	    <%
 	    }%>
 		</div> 
@@ -189,38 +203,49 @@
 	   <h5 class="text">[<%=userDtO.getNic()%>님의 찜한 여행지 리스트입니다]</h5>
 	   <b style="color: black;">내가 찜한목록(전체 글:<%=point%>)</b>
    <% if (point == 0 ) {  %>
-      <h4 align="center">저장된 글이 없습니다.</h4>
-   <%}else{  
+      <table class="table">
+         <tr>
+           <td>
+             게시판에 저장된 글이 없습니다.
+            </td>
+          </tr>
+      </table>
+   <%}else{%>  
+	    <table class="table"> 
+	      <thead>
+	      	<tr>
+	         <td align="center"><b>주소</b></td> 
+	         <td align="center" ><b>명소 명</b></td> 
+	         <td align="center"><b>사진</b></td>             
+	         <td align="center"><b>카테고리</b></td>                   
+	         <td align="center"><b>평균별점</b></td>                   
+	         <td align="center"><b>조회수</b></td> 
+	         <td align="center"><b>삭제하기</b></td>          
+	         </tr>                 
+	      </thead>	      
+	<%
+
 	   HashMap<String,String> myPickMap = new HashMap<String,String>();
 	   for(int i = 0 ; i < p.size(); i++){  //p에 저장된 리스트 갯수만큼 반복
 	      contentid = p.get(i); // 컨텐트 아이디도 반복
 	      myPickMap = pick.myPick(contentid);      //컨텐트 아이디에 알맞은 지역정보를  myPickMap에 담음
 	%>
-			<div class="card" style="">
-			<div class="card-body">
-			<button type="button" value="찜하기삭제" onclick="openDeletemypickWindow('<%=contentid%>')" style="border: none; background-color: white; position: absolute; top: 0; right: 0;"">❌</button>
-			      <p> <b><%=myPickMap.get("title")%></b></p>  
-			      <p> <%=myPickMap.get("addr1")%></p>
-			      <p> <img width="150" height="150"  src="<%=myPickMap.get("firstimage")%>" class="card-img"></p>
-			      <p><%=myPickMap.get("category") %></p>
-			      <p>
-			      	 <% int ratingR = Integer.parseInt(myPickMap.get("stars"));
-			        	for (int s = 1; s <= 5; s++) {
-			               if (s <= ratingR) { %>
-			                    <i class="fas fa-star" style="color: #ffc83d;"></i> <!-- 채워진 별 -->
-			               <% } else { %>
-			                    <i class="far fa-star" style="color: #ffc83d;"></i>
-			               <% }
-			           }
-			        %>
-			      <p>🔎 (<%=myPickMap.get("readcount") %>)</p>      		       		      
-
+			<tbody>
+			    <tr> 
+			      <td> <%=myPickMap.get("addr1")%></td>
+			      <td> <%=myPickMap.get("title")%></td>      
+			      <td> <img width="150" height="150"  src="<%=myPickMap.get("firstimage")%>"></td>
+			      <td><%=myPickMap.get("category") %></td>
+			      <td><%=myPickMap.get("stars") %></td>
+			      <td><%=myPickMap.get("readcount") %></td>      		       		      
+			      <td> <button type="button" value="찜하기삭제" onclick="openDeletemypickWindow('<%=contentid%>')" style="border: none; background-color: white;">❌</button>
+			    </tr> 
+		    </tbody>
 			<%}%>  
-	    </div>
+	    </table> 
 	  <%}%>      
 		</div>
-	</div>
-</div>       
+	</div>       
 <%}catch (Exception e){
    e.printStackTrace();
 }%>

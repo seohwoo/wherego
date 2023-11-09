@@ -29,17 +29,13 @@
 	<% } else { %>
 <body>
      <jsp:include page="/views/main/nav.jsp" />
-    
-    <br />
-    <div class="text-center">
-        <h1>어디 Go</h1>
-    </div>
-    <br />
-    <hr />
-    
+     <jsp:include page="/views/main/title.jsp" /><br />
+     
     <!-- 문의 리스트 (수정) -->
     <h2 align="center">문의 게시판 (수정)</h2>
     <br />
+    
+    <div class="d-grid gap-2 col-6 mx-auto">
     <form action="banUpdatePro.jsp" method="post" onsubmit="return writeSave()">
         <input type="hidden" name="num" value="<%= dto.getNum() %>">
         <div class="mb-3">
@@ -59,11 +55,9 @@
             <button type="submit" class="btn btn-success">수정된 문의 등록</button>
         </div>
     </form>
-    
-    <div class="fixed-bottom">
-        <hr />
-        <jsp:include page="/views/main/footer.jsp" />
     </div>
+        <br /><hr /><br />
+        <jsp:include page="/views/main/footer.jsp" />
 <% }%>
 </body>
 <%}%>

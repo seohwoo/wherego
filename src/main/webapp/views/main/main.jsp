@@ -53,7 +53,7 @@
 	  </button>
 	</div>
 	<br />
-	<%--<jsp:include page="/views/board/notice/newNotice.jsp" /> --%>
+	<jsp:include page="/views/board/notice/newNotice.jsp" />
 		  <!-- main 중반 -->
 	<br />
 	<div class="d-grid gap-2 col-6 mx-auto">	
@@ -80,7 +80,7 @@
 	<div class="guide">
 	<br />
 		<h3 align= "center"> <a href="/wherego/views/mag/magList.jsp" class="title" style="color: black; text-decoration-line: none; font-family: 'UhBeeHyeki'">금주 여행 가이드</a></h3><br/>
-			<%--<jsp:include page="/views/main/bestMag.jsp" />  --%>
+			<jsp:include page="/views/main/bestMag.jsp" />
 		<br/>
 	</div>
 	<br /><br />

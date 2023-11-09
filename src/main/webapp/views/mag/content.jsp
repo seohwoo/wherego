@@ -7,7 +7,7 @@
 <%@ page import = "team02.main.use.SearchDAO"%>
 <%@ page import = "java.util.ArrayList" %>
 <%@page import="java.util.HashMap"%>
-
+<!DOCTYPE html>
 <html>
 <head>
 <title>이번주 추천 여행지 보기</title>

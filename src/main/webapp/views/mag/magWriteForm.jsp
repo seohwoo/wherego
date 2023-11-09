@@ -55,7 +55,7 @@
 					    <a href="/wherego/views/contentLand/contentRand.jsp?contentid=<%=contentidList.get(i)%>&pageNum=1">
 					    	<%=DetailrandInfoMap.get("title") %>
 					    </a>
-					</li>    
+					</li>  
 				</ul>
 			 <%}%>
 			</div>

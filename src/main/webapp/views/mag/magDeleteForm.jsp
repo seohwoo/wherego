@@ -23,8 +23,6 @@
 	</td>
 <tr height="30">
     <td colspan="2">
-    
-    
       <input type=submit class="btn btn-outline-danger" value="삭제" >
 </table>
 </form>

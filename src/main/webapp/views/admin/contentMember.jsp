@@ -92,7 +92,7 @@
 	 </div>
 
 	 <div class="text-center">
-	    <button class="btn btn-secondary" onclick="openGradeChangeForm('<%= id %>')">등급변경 >>></button>
+	    <button class="btn btn-secondary" onclick="openGradeChangeForm('<%= id %>')">등급변경</button>
 	</div>
 	 <br />
 	 

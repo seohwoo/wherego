@@ -51,8 +51,8 @@
 				</div>
 				
 				<div class="d-grid gap-2 col-6 mx-auto">	
-					<table class="table" width="700" align="center"> 
-				    <tr height="30"> 
+					<table class="table table-hover" width="700" align="center"> 
+				    <tr> 
 				       <td align="center"  width="100" >아이디</td> 
 				       <td align="center"  width="50"  >닉네임</td> 
 				       <td align="center"  width="50"  >성별</td> 
@@ -67,8 +67,8 @@
 						String reg_date = outputFormat.format(reg_dateD);
 						String gradeName = dao.findGradeName(dto.getGrade());
 					%>
-						<tr>
-							<td align="center"  width="100"  ><a href="contentMember.jsp?id=<%=dto.getId() %>"><%=dto.getId() %></a></td>
+						<tr onclick="window.location.href='contentMember.jsp?id=<%=dto.getId() %>';" style="cursor: pointer;">
+							<td align="center"  width="100" ><%=dto.getId() %></td>
 							<td align="center"  width="50"  ><%=dto.getNic() %></td>
 							<td align="center"  width="50"  ><%=dto.getGender() %></td>
 							<td align="center"  width="50"  ><%=dto.getEmail() %></td>

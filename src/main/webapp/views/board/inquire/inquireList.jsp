@@ -57,7 +57,7 @@
         </tr>
     </table>
     <% } else { %>
-    <table width="700" cellpadding="0" cellspacing="0" align="center">
+    <table class="table table-hover" width="700" cellpadding="0" cellspacing="0" align="center">
         <thead>
             <tr>
                 <td align="center" width="50"><b>#</b></td>
@@ -72,14 +72,10 @@
 			String reg_date = outputFormat.format(reg_dateD);
             %>
         <tbody>
-            <tr height="30">
+            <tr height="30" onclick="window.location='/wherego/views/board/inquire/inquireContent.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>'" style="cursor: pointer;">
                 <td align="center" width="50"><%= number-- %></td>
                 <td align="center" width="250"><%= dto.getWriter() %></td>
-                <td align="center" width="250">
-                    <a href="/wherego/views/board/inquire/inquireContent.jsp?num=<%= dto.getNum() %>&pageNum=<%= currentPage %>">
-                        <%= dto.getTitle() %>
-                    </a>
-                </td>
+                <td align="center" width="250"><%= dto.getTitle() %></td>
                 <td align="center" width="200"><%= reg_date %></td>
                 <td align="center" width="150"><%= dto.getReadcount() %></td>
             </tr>

@@ -80,7 +80,7 @@
     // 로그인한 경우
 		if(session.getAttribute("memId").equals(user)) { // 본인의 페이지인 경우
 	   %>      
-	     <img width="150" src="/wherego/image/<%= userDtO.getProfile() %>">
+	     <img width="150" src="/wherego/image/<%= userDtO.getProfile() %>"> <br /><br />
 	     <h5 class="text" style="color: black;"><%= userDtO.getNic() %> 마이페이지</h5>
 	     <h5 class="text" style="color: black;"><%= userDtO.getGradeName() %> 등급의 회원입니다.</h5>
 	     <button id="changeProfile" class="button" onclick="openProfileWindow()">프로필 이미지 변경</button>
@@ -90,7 +90,7 @@
 	    }else{
 	        // 본인의 페이지가 아닌 경우
 		%>
-	     <img width="150" src="/wherego/image/<%= c.getProfile() %>">
+	     <img width="150" src="/wherego/image/<%= userDtO.getProfile() %>"> <br /><br />
 	     <h5 class="text" style="color: black;">현재 <%= userDtO.getNic() %> 회원 페이지입니다.</h5>
 	     <span style="color: black;"><%= userDtO.getGradeName() %> 등급의 회원입니다.</span>
 		<%
@@ -111,7 +111,7 @@
         <button class="button" style="width: 400px;" id="mypick-button" onclick="mypick_open()">MyPick</button>
     <%
     } else {%>
-        <button class="button" style="width: 400px;" id="myreviews-button" onclick="myreviews_open()">MyReview</button>
+        <button class="button" style="width: 400px;" id="myreviews-button" onclick="myreviews_open()">Review</button>
         <!-- mypick-button를 숨김 -->
         <script>
             document.getElementById("mypick-button").style.display = "none";
@@ -158,7 +158,7 @@
 			      <tr>
 			         <td><a href="/wherego/views/contentLand/contentRand.jsp?contentid=<%=myReviewMap.get("contentid") %>&pageNum=1" style="color: black; text-decoration-line:none; "><b><%=myReviewTitleMap.get("title")%></b></a></td>
 			         <td><%=myReviewMap.get("review")%></td>
-			         <td>
+			         <td width="180px;">
 			         <% int rating = Integer.parseInt(myReviewMap.get("stars"));
 			        	for (int s = 1; s <= 5; s++) {
 			               if (s <= rating) { %>
@@ -206,12 +206,15 @@
 	      double avg = landO.avgStar(contentid);
 	      int landSaveCount = landO.getLandSaveCount(Integer.parseInt(contentid));
 	      int reviewCount = landO.getReviewCount(contentid);
+	      String areaCode = request.getParameter("areaCode");
+	      String sigunguCode = request.getParameter("sigunguCode");
 	%>
 	<div align="center">
 		<div class="card mb-3" style="height: 150px; position: relative; display: inline-block;">
 	       <div class="row g-0">
 			    <div class="col-md-4" style="left: 0;">
-			    	<img style="width: 150px; height: 150px; margin: 0px;"  src="<%=myPickMap.get("firstimage")%>" class="img-fluid rounded-start">
+			    	<img style="width: 150px; height: 150px; margin: 0px;"  src="<%=myPickMap.get("firstimage")%>" class="img-fluid rounded-start"
+			    		onclick="window.location.href='/wherego/views/contentLand/contentRand.jsp?areaCode=<%=areaCode %>&sigunguCode=<%=sigunguCode %>&contentid=<%=contentid%>&pageNum=1'" >
 			    </div>
 				     <div class="col-md-8">
 					     <div class="card-body">
@@ -255,7 +258,7 @@ function openDeletereviewWindow(contentid) {
 }
 
 function openDeletemypickWindow(contentid) {
-    var profileWindow = window.open("mypickdelete.jsp?contentid=" + contentid, "찜하기삭제", "width=220,height=150");
+    var profileWindow = window.open("mypickdelete.jsp?contentid=" + contentid, "찜하기삭제", "width=200,height=150");
 }
     
 function myreviews_open() {  //마이리뷰 보기

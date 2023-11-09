@@ -53,13 +53,13 @@
 		</div>
 	</form>
 	</div>
-	<div class="input-group mb-3">
-		&nbsp;&nbsp;&nbsp;
-		<%for(String cid: contentidList){
-			String title = dao.getMagTitle(cid);
-			%>
-			<p style="font-family: 'Pretendard-Regular', sans-serif;"><%=title %>&nbsp;&nbsp;&nbsp;</p>
-		<%} %>
+	<div class="input-group mb-3" style="justify-content: center;">
+			&nbsp;&nbsp;&nbsp;
+			<%for(String cid: contentidList){
+				String title = dao.getMagTitle(cid);
+				%>
+				<p style="font-family: 'Pretendard-Regular', sans-serif;"><%=title %>&nbsp;&nbsp;&nbsp;</p>
+			<%} %>
 	</div>
 		<form action="magWriteForm.jsp" method="post">
 			<div class="d-grid gap-2 col-6 mx-auto">

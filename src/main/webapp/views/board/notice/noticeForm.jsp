@@ -28,6 +28,7 @@
     <h2 align="center">📢 공지게시판 📢</h2>
     <br />
 	
+	<div class="d-grid gap-2 col-6 mx-auto">
     <form action="noticePro.jsp" method="post" onsubmit="return writeSave()">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">작성자</label>
@@ -46,7 +47,7 @@
             <button type="submit" class="btn btn-secondary">공지 등록</button>
         </div>
     </form>
-
+	</div>
         <br /><hr /><br />
         <jsp:include page="/views/main/footer.jsp" />
         

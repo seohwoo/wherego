@@ -46,6 +46,7 @@
 	    <h4 class="card-title"><%=dto.getSubject() %></h4>
 	    <pre class="card-text" style="font-family: 'Pretendard-Regular', sans-serif;"><%=dto.getContent() %></pre>
 	    <p class="card-text"><small class="text-body-secondary"><%=reg_date %></small></p>
+	    <a href="/wherego/views/mag/content.jsp?num=<%=dto.getNum() %>&pageNum=1" class="btn btn-secondary"> 매거진 더보기</a>
 	  </div>
 	</div>
 </div>

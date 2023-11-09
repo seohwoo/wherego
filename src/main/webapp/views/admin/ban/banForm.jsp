@@ -46,18 +46,12 @@
 	}
 %>
      <jsp:include page="/views/main/nav.jsp" />
-	
-	<br />
-	<div class="text-center">
-		<h1>어디 Go</h1>
-	</div>
-	<br />
-	<hr />
-	
+	<jsp:include page="/views/main/title.jsp" /><br />
 	 <!-- 문의 리스트 -->
     <h2 align="center">Q & A</h2>
     <br />
 	
+	<div class="d-grid gap-2 col-6 mx-auto">
     <form action="banPro.jsp" method="post" onsubmit="return writeSave()">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">작성자</label>
@@ -78,10 +72,9 @@
             <button type="submit" class="btn btn-secondary">등록</button>
         </div>
     </form>
-    <div class="fixed-bottom">
-        <hr />
-        <jsp:include page="/views/main/footer.jsp" />
     </div>
+        <br /><hr /><br />
+        <jsp:include page="/views/main/footer.jsp" />
 <% 			
 	} 
 }%>

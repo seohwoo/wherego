@@ -7,12 +7,8 @@
 </jsp:useBean>
 
  <% 
-   
-    
- 
- 
    MemberDAO manager = MemberDAO.getInstance();
    manager.insertMember(member);
-   response.sendRedirect("/team02/views/main/main.jsp");
+   response.sendRedirect("/wherego/views/main/main.jsp");
 %>  
 

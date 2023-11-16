@@ -12,7 +12,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-public class API_used extends Using_API_KEY {
+public class LastAPI_Used extends Using_API_KEY {
 	String api_key;
 	BufferedReader bf;
 	String result;
@@ -20,13 +20,13 @@ public class API_used extends Using_API_KEY {
 	int pageNum;
 	int numOfRows;
 
-	private API_used() {
+	private LastAPI_Used() {
 
 	}
 
-	private static API_used instance = new API_used();
+	private static LastAPI_Used instance = new LastAPI_Used();
 
-	public static API_used getInstance() {
+	public static LastAPI_Used getInstance() {
 		return instance;
 	}
 
@@ -40,29 +40,9 @@ public class API_used extends Using_API_KEY {
 		return currentTime;
 	}
 
-	public String findSubLocation(String areacode) {
-		ArrayList<HashMap<String, String>> location = new ArrayList<HashMap<String, String>>();
-		api_key = getEncoding_API_KEY();
-		String totalCount = "";
-		try {
-			url = new URL(
-					"https://apis.data.go.kr/B551011/KorService1/areaCode1?numOfRows=50&pageNo=1&MobileOS=ETC&MobileApp=team02&areaCode="
-							+ areacode + "&_type=json&serviceKey=" + api_key);
-
-			bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
-			result = bf.readLine();
-			JSONParser jsonParser = new JSONParser();
-			JSONObject jsonObject = (JSONObject) jsonParser.parse(result);
-			JSONObject response = (JSONObject) jsonObject.get("response");
-			JSONObject body = (JSONObject) response.get("body");
-			JSONObject items = (JSONObject) body.get("items");
-			totalCount = String.valueOf(body.get("totalCount"));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return totalCount;
-	}// findSubLocation()
+	public String findSubLocation(String area) {
+		return area;
+	}
 
 	public ArrayList<HashMap<String, String>> findLocation(String areaCode) {
 		ArrayList<HashMap<String, String>> location = new ArrayList<HashMap<String, String>>();
@@ -100,8 +80,8 @@ public class API_used extends Using_API_KEY {
 		return location;
 	}// findLocation()
 
-	public HashMap<String, String> findTotalCount_NumOfRows(String areaCode, String sigunguCode) {
-		HashMap<String, String> values = new HashMap<String, String>();
+	public HashMap<String, Integer> findTotalCount_NumOfRows(String areaCode, String sigunguCode) {
+		HashMap<String, Integer> values = new HashMap<String, Integer>();
 		api_key = getEncoding_API_KEY();
 
 		try {
@@ -115,8 +95,8 @@ public class API_used extends Using_API_KEY {
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(result);
 			JSONObject trueResponse = (JSONObject) jsonObject.get("response");
 			JSONObject body = (JSONObject) trueResponse.get("body");
-			values.put("totalCount", (body.get("totalCount").toString()));
-			values.put("numOfRows", (body.get("numOfRows").toString()));
+			values.put("totalCount", ((Long) body.get("totalCount")).intValue());
+			values.put("numOfRows", ((Long) body.get("numOfRows")).intValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -126,9 +106,9 @@ public class API_used extends Using_API_KEY {
 	public ArrayList<HashMap<String, String>> findFestival(String areaCode, String sigunguCode, int pageNum) {
 		ArrayList<HashMap<String, String>> festival = new ArrayList<HashMap<String, String>>();
 		api_key = getEncoding_API_KEY();
-		HashMap<String, String> values = new HashMap<String, String>();
+		HashMap<String, Integer> values = new HashMap<String, Integer>();
 		values = findTotalCount_NumOfRows(areaCode, sigunguCode);
-		numOfRows = Integer.parseInt(values.get("numOfRows"));
+		numOfRows = values.get("numOfRows");
 
 		try {
 			this.pageNum = pageNum;
@@ -144,19 +124,17 @@ public class API_used extends Using_API_KEY {
 			JSONObject body = (JSONObject) trueResponse.get("body");
 			JSONObject items = (JSONObject) body.get("items");
 			JSONArray item = (JSONArray) items.get("item");
-			numOfRows = Integer.parseInt(values.get("numOfRows"));
+			numOfRows = ((Long) body.get("numOfRows")).intValue();
 			for (int i = 0; i < numOfRows; i++) {
 				HashMap<String, String> fesMap = new HashMap<String, String>();
 				JSONObject Array_item = (JSONObject) item.get(i);
-				fesMap.put("contentid", String.valueOf(Array_item.get("contentid")));
-				fesMap.put("areacode", String.valueOf(Array_item.get("areacode")));
-				fesMap.put("sigungucode", String.valueOf(Array_item.get("sigungucode")));
-				fesMap.put("title", String.valueOf(Array_item.get("title")));
-				fesMap.put("addr1", String.valueOf(Array_item.get("addr1")));
-				fesMap.put("firstimage", String.valueOf(Array_item.get("firstimage")));
-				fesMap.put("cat1", String.valueOf(Array_item.get("cat1")));
-				fesMap.put("cat2", String.valueOf(Array_item.get("cat2")));
-				fesMap.put("cat3", String.valueOf(Array_item.get("cat3")));
+				fesMap.put("title", Array_item.get("title").toString());
+				fesMap.put("addr1", Array_item.get("addr1").toString());
+				fesMap.put("cat1", Array_item.get("cat1").toString());
+				fesMap.put("cat2", Array_item.get("cat2").toString());
+				fesMap.put("cat3", Array_item.get("cat3").toString());
+				fesMap.put("firstimage", Array_item.get("firstimage").toString());
+				fesMap.put("contentid", Array_item.get("contentid").toString());
 				festival.add(fesMap);
 			}
 
@@ -186,7 +164,14 @@ public class API_used extends Using_API_KEY {
 			JSONObject items = (JSONObject) body.get("items");
 			JSONArray item = (JSONArray) items.get("item");
 			JSONObject arrItem = (JSONObject) item.get(0);
+			randInfo.put("title", arrItem.get("title").toString());
 			randInfo.put("homepage", arrItem.get("homepage").toString());
+			randInfo.put("firstimage", arrItem.get("firstimage").toString());
+			randInfo.put("cat1", arrItem.get("cat1").toString());
+			randInfo.put("cat2", arrItem.get("cat2").toString());
+			randInfo.put("cat3", arrItem.get("cat3").toString());
+			randInfo.put("addr1", arrItem.get("addr1").toString());
+			randInfo.put("overview", arrItem.get("overview").toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -213,7 +198,6 @@ public class API_used extends Using_API_KEY {
 			JSONObject arrItem = (JSONObject) item.get(0);
 			DetailrandInfo.put("infocenter", arrItem.get("infocenter").toString());
 			DetailrandInfo.put("restdate", arrItem.get("restdate").toString());
-			DetailrandInfo.put("expguide", arrItem.get("expguide").toString());
 			DetailrandInfo.put("usetime", arrItem.get("usetime").toString());
 			DetailrandInfo.put("parking", arrItem.get("parking").toString());
 			DetailrandInfo.put("chkbabycarriage", arrItem.get("chkbabycarriage").toString());
@@ -225,8 +209,8 @@ public class API_used extends Using_API_KEY {
 		return DetailrandInfo;
 	}// findDetailRandInfo()
 
-	public HashMap<String, String> findCategory(String cat1, String cat2, String cat3) {
-		HashMap<String, String> category = new HashMap<String, String>();
+	public String findCategory(String cat1, String cat2, String cat3) {
+		String category = "";
 		api_key = getEncoding_API_KEY();
 
 		try {
@@ -243,47 +227,12 @@ public class API_used extends Using_API_KEY {
 			JSONObject items = (JSONObject) body.get("items");
 			JSONArray item = (JSONArray) items.get("item");
 			JSONObject arrItem = (JSONObject) item.get(0);
-			if (arrItem.get("name") == null) {
-				category.put("name", null);
-			} else {
-				category.put("name", String.valueOf(arrItem.get("name")));
-			}
+			category = arrItem.get("name").toString();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return category;
 	}// findCategory()
-
-	public HashMap<String, String> findXY(String contentid) {
-		HashMap<String, String> xyMap = new HashMap<String, String>();
-		api_key = getEncoding_API_KEY();
-
-		try {
-			url = new URL(
-					"https://apis.data.go.kr/B551011/KorService1/detailCommon1?MobileOS=ETC&MobileApp=wherego&_type=json&contentId="
-							+ contentid
-							+ "&contentTypeId=12&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&numOfRows=10&pageNo=1&serviceKey="
-							+ api_key);
-
-			bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
-			result = bf.readLine();
-			JSONParser jsonParser = new JSONParser();
-			JSONObject jsonObject = (JSONObject) jsonParser.parse(result);
-			JSONObject response = (JSONObject) jsonObject.get("response");
-			JSONObject body = (JSONObject) response.get("body");
-			JSONObject items = (JSONObject) body.get("items");
-			JSONArray item = (JSONArray) items.get("item");
-			JSONObject arrItem = (JSONObject) item.get(0);
-			xyMap.put("mapx", (arrItem.get("mapx").toString()));
-			xyMap.put("mapy", (arrItem.get("mapy").toString()));
-			xyMap.put("areacode", (arrItem.get("areacode").toString()));
-			xyMap.put("sigungucode", (arrItem.get("sigungucode").toString()));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return xyMap;
-	}// findXY()
 
 }
